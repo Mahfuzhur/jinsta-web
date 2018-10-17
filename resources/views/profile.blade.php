@@ -1,0 +1,1 @@
+{{$selfInfo->user->username}}

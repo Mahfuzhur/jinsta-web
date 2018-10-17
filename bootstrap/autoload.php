@@ -14,4 +14,10 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
+
 require __DIR__.'/../vendor/autoload.php';
+\InstagramAPI\Instagram::$allowDangerousWebUsageAtMyOwnRisk = true;
+//$GLOBALS['ig'] = new \InstagramAPI\Instagram();
+
+
+//\InstagramAPI\Instagram::$allowDangerousWebUsageAtMyOwnRisk = false;
