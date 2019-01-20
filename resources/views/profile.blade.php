@@ -1,4 +1,5 @@
 {{$selfInfo->user->username}}
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <button onclick="myFunction()">Click me</button>
 <p id="demo"></p>
@@ -32,3 +33,4 @@
 
     }
 </script>
+
