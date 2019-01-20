@@ -18,7 +18,8 @@ class LoginController extends Controller
     }
 
     public function userLogin(){
-        return view('user_login_form');
+        $content = view('login_registration.form.user_login_form');
+        return view('login_registration.master',compact('content'));
     }
 
     public function login(Request $request){

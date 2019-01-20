@@ -15,6 +15,16 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function userRegistration(){
+        $content = view('login_registration.form.user_registration_form');
+        return view('login_registration.master',compact('content'));
+    }
+
+    public function registrationSuccess(){
+        $content = view('login_registration.form.registration_success_form');
+        return view('login_registration.master',compact('content'));
+    }
+
     public function dashboard(){
         // $user_name = Session::get('current_user_name');
         // $user_profile_image = Session::get('current_user_image');
@@ -62,6 +72,21 @@ class UserController extends Controller
         $user_main_content = view('user.template');
         return view('master',compact('user_main_content'));
     }
+
+    public function analytics(){
+        $title = 'アナリティクス';
+        $analytics = 'active';
+        $user_main_content = view('user.analytics');
+        return view('master',compact('user_main_content','analytics','title'));
+    }
+
+    public function request(){
+        $title = 'ご請求';
+        $request = 'active';
+        $user_main_content = view('user.request');
+        return view('master',compact('user_main_content','request','title'));
+    }
+
 
     public function index()
     {

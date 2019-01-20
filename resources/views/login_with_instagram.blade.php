@@ -43,8 +43,8 @@
                 <a class="template" href="{{URL::to('manuscript-registration')}}">原稿登録</a>
                 <a class="Plan" href="{{URL::to('destination-registration')}}">宛先登録</a>
                 <a class="Schedule" href="{{URL::to('delivery-setting')}}">配信設定</a>
-                <a class="Progress" href="#">アナリティクス</a>
-                <a class="Summary" href="#">ご請求</a>
+                <a class="Progress" href="{{URL::to('analytics')}}">アナリティクス</a>
+                <a class="Summary" href="{{URL::to('request')}}">ご請求</a>
             </div>            
         </div>
         <!-- /#sidebar-wrapper -->
@@ -54,7 +54,10 @@
             <div class="container-fluid">
               <div class="row">
                   <div class="login-holder">
-                      <a href="{{URL::to('dashboard')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
+                      <a href="{{URL::to('user-login')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
+                      <a href="{{URL::to('user-registration')}}">
+                        <button class="btn btn-default btn-lg">Register</button>
+                      </a>
                       <p class="login_text">Instagram でログイン</p>
                   </div>
               </div>               
