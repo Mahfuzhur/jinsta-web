@@ -28,18 +28,20 @@ class LoginController extends Controller
 
     public function dm(){
         $counter = 1;
+        $message = $_GET['text'];
         try{
-            while (true){
+//            while (true){
                 $this->ig->login(session()->get('userName'),session()->get('password'));
                 $recipents = [
-                    'users' => ['8576755585']
+                    'users' => ['8574903852']
                 ];
 
                 $text = $counter;
-                $result = $this->ig->direct->sendText($recipents,$text);
+                $result = $this->ig->direct->sendText($recipents,$message);
                 $counter++;
-                sleep(rand(1,30));
-            }
+//                sleep(rand(1,30));
+//            }
+            return 2;
         }catch (EncryptException $ex){
 
             return $ex;
