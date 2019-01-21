@@ -34,6 +34,17 @@
           </div>
           <div class="header_right">
                <img class="user_img" src="{{asset('assets/img/user.png')}}">
+                                                                 
+                <a class="btn btn-primary btn-sm pull-right" style="margin: 6px;" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+                                                               
           </div>
         </div>
       </div>

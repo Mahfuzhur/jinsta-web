@@ -40,29 +40,7 @@
                 </div>
                 <form role="form" method="POST" action="{{ route('register') }}">
                   {{ csrf_field() }}
-                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                      <label for="email">Email address</label>
-                      <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com" value="{{ old('email') }}" required="">
-                      @if ($errors->has('email'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('email') }}</strong>
-                          </span>
-                      @endif
-                    </div>
-                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                      <label for="password">Enter Password</label>
-                      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
-                      @if ($errors->has('password'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
-                          </span>
-                      @endif
-                    </div>
-                    <div class="form-group">
-                      <label for="confirm_password">Confirm Password</label>
-                      <input type="password" class="form-control" name="password_confirmation" id="group" placeholder="Confirm Password" required="">
-                    </div>
-                    <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }}">
+                  <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }}">
                       <label for="companyname">Company Name</label>
                       <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Company Name" value="{{ old('company_name') }}" required="">
                       @if ($errors->has('company_name'))
@@ -89,14 +67,37 @@
                           </span>
                       @endif
                     </div>
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com" value="{{ old('email') }}" required="">
+                      @if ($errors->has('email'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('email') }}</strong>
+                          </span>
+                      @endif
+                    </div>
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                      <label for="password">Enter Password</label>
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
+                      @if ($errors->has('password'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('password') }}</strong>
+                          </span>
+                      @endif
+                    </div>
                     <div class="form-group">
+                      <label for="confirm_password">Confirm Password</label>
+                      <input type="password" class="form-control" name="password_confirmation" id="group" placeholder="Confirm Password" required="">
+                    </div>
+                    
+                    <!-- <div class="form-group">
                       <div>
                         <p><a href="#">Click here</a> if you have an introduction code</p>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1" required="">
                       <label class="form-check-label" for="exampleCheck1">I agrre to <a href="#">terms of service</a> and <a href="#">Privacy policy</a></label>
                     </div>
 
