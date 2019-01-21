@@ -11,6 +11,9 @@
 .m-t-25 {
     margin-top: 25px;
 }
+.m-t-30{
+ margin-top: 30px;   
+}
 .m-t-40{
   margin-top: 40px;
 }
@@ -133,6 +136,159 @@ a{
 }
 .sidebar a:hover, .sidebar a.active {
   background-color: #FF9B8E;
+}
+
+/*registration Page*/
+.wizard {
+    margin: 20px auto;
+    background: #fff;
+    width: 100%;
+}
+
+.wizard .nav-tabs {
+    position: absolute;
+    margin: 40px auto;
+    margin-bottom: 0;
+    border-bottom: none;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.wizard > div.wizard-inner {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 185px;
+}
+
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    display: inline-block;
+    border-radius: 100px;
+    background: #fff;
+    border: 2px solid #ff9b8e;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 25px;
+    color: #7f7f7f;
+}
+.wizard .nav-tabs > li a.active>span.round-tab {
+    background-color: #ff9b8e;
+    color: #ffffff;
+}
+
+.wizard .nav-tabs > li {
+    width: 25%;
+}
+
+.wizard .nav-tabs > li a {
+    width: 70px;
+    height: 70px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
+    display: block;
+    position: relative;
+}
+
+.wizard .nav-tabs > li a:hover {
+    background: transparent;
+}
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 50px;
+}
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+.sign_up_form .form_title, .sign_in_form .form_title{
+    text-align: center;
+}
+.sign_up_form .form_title>h3, .sign_in_form .form_title>h3 {
+    font-weight: normal;
+}
+.sign_up_form {
+    max-width: 926px;
+    margin: 0 auto;
+}
+.sign_up_form a {
+    color: #ff9b8e;
+}
+.button_holder {
+    text-align: center;
+    padding: 1em 0;
+}
+.button_holder>.registration_btn {
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.8em;
+    border-radius: 5px;
+    border: none;
+    padding: 0.4em 7em;
+    background-color: #ff9b8e;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+@media( max-width : 585px ) {
+
+    .wizard {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab {
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+    .wizard .nav-tabs{
+        margin:47px 0;
+    }
+
+    .wizard .nav-tabs > li a {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+
+    .wizard li.active:after {
+        content: " ";
+        position: absolute;
+        left: 35%;
+    }
+}
+/*sign_in page*/
+.sign_in_form {
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 /*login page*/
@@ -350,11 +506,11 @@ a{
 }
 
 .progress_color{
-  background-color: #337ab76b!important;
+  background-color: #337ab7!important;
 }
 
 .progress_color1{
-  background-color: #d9534f9e!important;
+  background-color: #d9534f!important;
 }
 
 .progress_color2{  
@@ -892,7 +1048,8 @@ button.ds_btn {
     }
 
 }
-@media screen and (max-width: 767px ) {    
+@media screen and (max-width: 767px ) {
+
     .logo_top {
         margin-left: 2em;
     }
@@ -913,6 +1070,10 @@ button.ds_btn {
         padding-left: 0em;
     }
 
+}
+/*ie specific styles*/
+select::-ms-expand {
+    display: none;
 }
 
 @media screen and (max-width: 1140px ) and ( min-width: 1024px) {

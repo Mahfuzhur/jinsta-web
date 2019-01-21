@@ -32,11 +32,11 @@
                 <li>
                     <a href="#1a" data-toggle="tab">日</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="#2a" data-toggle="tab">週</a>
                 </li>
-                <li class="active">
-                    <a href="#3a" data-toggle="tab">月</a>
+                <li>
+                    <a class="show active" href="#3a" data-toggle="tab">月</a>
                 </li>                    
             </ul>
             <div class="tab-content">                    

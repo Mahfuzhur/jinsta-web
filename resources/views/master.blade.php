@@ -62,9 +62,16 @@
               @else
               <a class="Schedule" href="{{URL::to('delivery-setting')}}">配信設定</a>
               @endif
-
-              <a class="Progress" href="#">アナリティクス</a>
-              <a class="Summary" href="#">ご請求</a>
+              @if(isset($analytics))
+              <a class="Progress active" href="{{URL::to('analytics')}}">アナリティクス</a>
+              @else
+              <a class="Progress" href="{{URL::to('analytics')}}">アナリティクス</a>
+              @endif
+              @if(isset($request))
+              <a class="Summary active" href="{{URL::to('request')}}">ご請求</a>
+              @else
+              <a class="Summary" href="{{URL::to('request')}}">ご請求</a>
+              @endif
             </div>            
         </div>
         <!-- /#sidebar-wrapper -->
