@@ -32,3 +32,6 @@ Route::get('/request','UserController@request');
 
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
