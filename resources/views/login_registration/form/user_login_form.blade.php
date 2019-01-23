@@ -37,14 +37,25 @@
                 <div class="form_title">
                   <h3>sign in</h3>
                 </div>
-                <form role="form">
-                    <div class="form-group">
+                <form role="form" method="POST" action="{{ route('login') }}">
+                  {{ csrf_field() }}
+                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                       <label for="email">Email address</label>
-                      <input type="email" class="form-control" id="email" placeholder="example@email.com">
+                      <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="example@email.com" required="">
+                      @if ($errors->has('email'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('email') }}</strong>
+                          </span>
+                      @endif
                     </div>
-                    <div class="form-group">
+                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                       <label for="password">Enter Password</label>
-                      <input type="password" class="form-control" id="password" placeholder="Password">
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
+                      @if ($errors->has('password'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('password') }}</strong>
+                          </span>
+                      @endif
                     </div>
 
                     <div class="button_holder">                      

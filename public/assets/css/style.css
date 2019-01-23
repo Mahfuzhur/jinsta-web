@@ -988,6 +988,10 @@ button.ds_btn {
     margin-top: 1.5em;
 }
 
+span.help-block, .has-error{
+    color: #a94442;
+}
+
 
 /*responsive css*/
 @media screen and (max-width: 1280px) {
