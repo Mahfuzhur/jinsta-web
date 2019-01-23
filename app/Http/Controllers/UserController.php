@@ -4,8 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
+use File;
+use Excel;
+use DB;
 use Session;
 use InstagramAPI;
+use App\Template;
+use App\Hashtag;
 
 class UserController extends Controller
 {
@@ -34,9 +41,10 @@ class UserController extends Controller
     }
 
     public function manuscriptRegistration(){
+        $all_template = Template::paginate(3);
         $title = '新規作成';
         $active_manuscript = 'active';
-        $user_main_content = view('user.manuscript_registration');
+        $user_main_content = view('user.manuscript_registration',compact('all_template'));
         return view('master',compact('user_main_content','active_manuscript','title'));
     }
 
@@ -45,6 +53,70 @@ class UserController extends Controller
         $active_manuscript = 'active';
         $user_main_content = view('user.create_manuscript');
         return view('master',compact('user_main_content','active_manuscript','title'));
+    }
+
+    public function saveMenuscriptInfo(Request $request){
+
+        $this->validate($request, [
+
+            'title' => 'required|max:500',
+            'description' => 'required',
+            'image' => 'required|image|mimes:jpg,jpeg,png,svg'
+        ]);
+
+        $file_path_name = "";
+        if (Input::hasFile('image')) {
+            $file = Input::file('image');
+            $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
+            $file->move('uploads/template/', $file_path_name);
+        }
+        // $info = Album::create($request->all());
+
+        $user_id = 1;
+
+        $current_time = Carbon::now()->addHour(6);
+        $update_time = Carbon::now()->addHour(6);
+
+        $data = array(
+            array('user_id' => $user_id, 'title' => $request->title, 'description' => $request->description, 'image' => $file_path_name, 'created_at' => $current_time, 'updated_at' => $update_time)
+        );
+
+        $flag = Template::insert($data);
+        return redirect('create-manuscript')->with('add_success','Template added successfully !');
+    }
+
+    public function editTemplate($id)
+    {
+        $single_template = Template::findOrfail($id);
+        $manage_template = view('user.edit_template',compact('single_template'));
+        return view('master',compact('manage_template'));
+    }
+
+    public function updateTemplate(Request $request, $id)
+    {
+        $this->validate($request, [
+
+            'title' => 'required|max:500',
+            'description' => 'required',
+            'image' => 'image|mimes:jpg,jpeg,png,svg'
+        ]);
+
+        $file_path_name = $request->exits_image;
+        if (Input::hasFile('image')) {
+            $file = Input::file('image');
+            $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
+            $file->move('uploads/template/', $file_path_name);
+        }
+
+        $flag = Template::findOrfail($id);
+        $flag->user_id = 1;
+        $flag->title = $request->title;
+        $flag->description = $request->description;
+        $flag->image = $file_path_name;
+        $flag->updated_at = Carbon::now()->addHour(6);
+
+        $flag->save();
+        return redirect('/manuscript-registration')->with('edit_success','Template updated successfully !');
     }
 
     public function destinationRegistration(){
@@ -59,6 +131,89 @@ class UserController extends Controller
         $active_destination = 'active';
         $user_main_content = view('user.create_destination');
         return view('master',compact('user_main_content','active_destination','title'));
+    }
+    public function saveHashtagInfo(Request $request){
+
+        $this->validate($request, [
+
+            'hashtag' => 'required|unique:hashtag|max:500',
+            'file' => 'required',
+            'id' => 'required'
+        ]);
+
+        $user_id = 1;
+        $current_time = Carbon::now()->addHour(6);
+        $update_time = Carbon::now()->addHour(6);
+
+        if($request->hasFile('file')){
+            $extension = File::extension($request->file->getClientOriginalName());
+            if ($extension == "csv") {
+
+                $hashtag_insert_id = Hashtag::create(['user_id'=>$user_id,'hashtag'=>$request->hashtag,'created_at' => $current_time, 'updated_at' => $update_time]);
+ 
+                $path = $request->file->getRealPath();
+                // if($extension == "csv"){
+                    // $data = Excel::load($path, function($reader) {
+                    // })->get();
+                    $data = array_map('str_getcsv', file($path));
+                   
+                // }else{
+                //     $data = Excel::load($path, function($reader) {
+                //     })->get()->first();
+                // }
+                
+                if(!empty($data)){
+
+                    $data_count = count($data);
+
+
+                    for ($i=0; $i < $data_count ; $i++) { 
+                        foreach ($data[$i] as $key => $value) {                              
+                                $insert[] = [
+                                'client_id' => $value,
+                                ];                            
+                        }
+                    }
+
+                    $row = count($insert);
+
+                    for ($i=0; $i < $row; $i++) { 
+                        if($insert[$i]['client_id'] != null && $insert[$i]['client_id'] != 'NULL'){
+                            $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $insert[$i]['client_id'],'created_at' => $current_time, 'updated_at' => $update_time];
+                        }
+                    }
+
+                    if(!empty($insert_data)){
+ 
+                        $insertData = DB::table('client')->insert($insert_data);
+
+                        $manual_id = $request->id;
+                        $data = explode(",", $manual_id);
+                        $manual_row = count($data);
+                        for ($i=0; $i < $manual_row; $i++) {                             
+                            $manual_data_id[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $data[$i],'created_at' => $current_time, 'updated_at' => $update_time];
+                            
+                        }
+
+                        $manualData = DB::table('client')->insert($manual_data_id);
+
+                        if ($insertData) {
+                            Session::flash('success', 'Your client id successfully added');
+                        }else {                        
+                            Session::flash('error', 'Error inserting the data..');
+                            return back();
+                        }
+                    }
+                }
+ 
+                return back();
+ 
+            }else {
+                Session::flash('error', 'File is a '.$extension.' file.!! Please upload a valid csv file..!!');
+                return back();
+            }
+        }
+        
     }
 
     public function deliverySetting(){

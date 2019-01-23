@@ -2,7 +2,7 @@
 @section('user_main_content')
 <div id="page-content-wrapper">
     <div class="container-fluid">
-      <form action="{{URL::to('/save-menuscript-info')}}" method="post" enctype="multipart/form-data">
+      <form action="{{URL::to('/update-template/'.$single_template->id)}}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
       <div class="row">
         <div class="col-md-8 col-sm-6 create_form_sec">
@@ -17,22 +17,22 @@
                     </ul>
                 </div>
               @endif
-              @if(session('add_success'))
+              <!-- @if(session('add_success'))
               <div class="alert alert-success">
                 {{ session('add_success') }}
               </div> 
-              @endif
+              @endif -->
               <label for="temp_regi">
                  テンプレート名
               </label>
-              <input type="text" class="form-control" id="text" name="title" maxlength="170" placeholder="テストテストテスト" rows="5" required=""></textarea>
+              <input type="text" class="form-control" id="text" name="title" value="{{$single_template->title}}" maxlength="170" placeholder="テストテストテスト" rows="5" required=""></textarea>
           </div>
             <div class="m-b-35"> 
                 <div class="input_box">
                     <label for="temp_regi">
                        テキスト登録
                     </label>
-                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="テストですよー" rows="5" required=""></textarea>
+                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="テストですよー" rows="5" required="">{{$single_template->description}}</textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>
@@ -46,8 +46,11 @@
                       </strong>
                       <span>ファイル名：テストテストテスト</span>                          
                   </label>
-                  <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" required="">
+                  <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="">
+                  <input type="hidden" name="exits_image" value="{{$single_template->image}}">
+                  <img src="{{asset('uploads/template/'.$single_template->image)}}" class="img-responsive" style="width: 100px;height: 50px;">
                 </div>
+
             </div>
             <div class="form_buttons">
                 <div class="btn_cancel p_btn">削除する</div>

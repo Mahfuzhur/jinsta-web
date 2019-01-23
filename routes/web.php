@@ -23,8 +23,15 @@ Route::post('login','LoginController@login');
 Route::get('/dashboard','UserController@dashboard');
 Route::get('/manuscript-registration','UserController@manuscriptRegistration');
 Route::get('/create-manuscript','UserController@createManuscript');
+Route::post('/save-menuscript-info', 'UserController@saveMenuscriptInfo');
+Route::get('/edit-template/{id}', 'UserController@editTemplate');
+Route::post('/update-template/{id}', 'UserController@updateTemplate');
 Route::get('/destination-registration','UserController@destinationRegistration');
 Route::get('/create-destination','UserController@createDestination');
+Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
+
+
+
 Route::get('/delivery-setting','UserController@deliverySetting');
 Route::get('/template','UserController@template');
 Route::get('/analytics','UserController@analytics');
