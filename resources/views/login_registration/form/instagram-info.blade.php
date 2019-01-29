@@ -35,13 +35,18 @@
 
               <div class="sign_in_form">
                 <div class="form_title">
-                  <h3>sign in</h3>
+                  <h3>Instagram Information</h3>
+                    @if(session('check'))
+                    <div class="alert alert-success">
+                        {{ session('check') }}
+                    </div>
+                    @endif
                 </div>
-                <form role="form" method="POST" action="{{ route('login') }}">
+                <form role="form" method="POST" action="{{ URL::to('instagram-registration') }}">
                   {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                      <label for="email">Email address</label>
-                      <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" placeholder="example@email.com" required="">
+                      <label for="email">Instagram User Name</label>
+                      <input type="name" class="form-control" name="email" id="email" value=""  required="">
                       @if ($errors->has('email'))
                           <span class="help-block">
                               <strong>{{ $errors->first('email') }}</strong>
@@ -59,7 +64,7 @@
                     </div>
 
                     <div class="button_holder">                      
-                      <button type="submit" class="btn registration_btn">Sign in</button>
+                      <button type="submit" class="btn registration_btn">Submit</button>
                       <div class="form-group">                      
                         <a href="#">Help for regitering #Likes is here</a>
                       </div>

