@@ -13,6 +13,7 @@ use Session;
 use InstagramAPI;
 use App\Template;
 use App\Hashtag;
+use App\Client;
 
 class UserController extends Controller
 {
@@ -240,6 +241,44 @@ class UserController extends Controller
         $request = 'active';
         $user_main_content = view('user.request');
         return view('master',compact('user_main_content','request','title'));
+    }
+
+    public function downloadCSV(){
+        $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=file.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+        );
+
+        $client_ids = Client::get()->all();
+
+        // echo "<pre>";
+        // print_r($reviews);
+        // exit();
+
+        // $manual_id = $request->id;
+        // $data = explode(",", $manual_id);
+        // $manual_row = count($data);
+        // for ($i=0; $i < $manual_row; $i++) {                             
+        //     $manual_data_id[] = ['client_id' => $data[$i]];
+            
+        // }
+
+        $columns = array('Client ID');
+
+        $callback = function() use ($client_ids, $columns)
+        {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($client_ids as $client_id) {
+                fputcsv($file, array($client_id->client_id));
+            }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
     }
 
 

@@ -9,6 +9,12 @@
                     <span class="new_template">宛先登録</span>
                   </div>
               </a>
+
+              <a href="{{URL::to('download-csv')}}">
+                  <div class="create_new_template" style="padding: 15px; margin-left: 10px;">
+                    <span class="new_template">Download CSV</span>
+                  </div>
+              </a>
           </div>
 
           <div class="tem_sec_holder">

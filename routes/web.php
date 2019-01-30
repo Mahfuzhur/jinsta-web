@@ -30,6 +30,8 @@ Route::get('/destination-registration','UserController@destinationRegistration')
 Route::get('/create-destination','UserController@createDestination');
 Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
 
+Route::get('/download-csv','UserController@downloadCSV');
+
 
 
 Route::get('/delivery-setting','UserController@deliverySetting');

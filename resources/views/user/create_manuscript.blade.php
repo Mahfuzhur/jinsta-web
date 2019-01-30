@@ -2,10 +2,11 @@
 @section('user_main_content')
 <div id="page-content-wrapper">
     <div class="container-fluid">
-      <form action="{{URL::to('/save-menuscript-info')}}" method="post" enctype="multipart/form-data">
-        {{ csrf_field() }}
+      
       <div class="row">
         <div class="col-md-8 col-sm-6 create_form_sec">
+          <form action="{{URL::to('/save-menuscript-info')}}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
           <div class="box_title">
               <!-- <h4>テンプレート名：テストテストテスト</h4> -->
               @if ($errors->any())
@@ -25,7 +26,7 @@
               <label for="temp_regi">
                  テンプレート名
               </label>
-              <input type="text" class="form-control" id="text" name="title" maxlength="170" placeholder="テストテストテスト" rows="5" required=""></textarea>
+              <input type="text" class="form-control title" id="text" name="title" maxlength="170" placeholder="テストテストテスト" rows="5" required="">
           </div>
             <div class="m-b-35"> 
                 <div class="input_box">
@@ -46,7 +47,7 @@
                       </strong>
                       <span>ファイル名：テストテストテスト</span>                          
                   </label>
-                  <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" required="">
+                  <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);" required="">
                 </div>
             </div>
             <div class="form_buttons">
@@ -55,11 +56,19 @@
                 <input type="submit" name="" class="btn_done p_btn" value="登録する">
             </div>
         </div>
+        </form>
         <div class="col-md-4 col-sm-6">
           <div class="temp_result">
             <div class="temp_text">
-              <p>画像</p>
+              <p id="title"></p>
+              <p id="description"></p>
+              <div class="image_show">
+                
+              </div>            
             </div>
+          </div>
+          <div>
+          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">Preview</a></button>
           </div>
         </div>
       </div>
@@ -69,7 +78,7 @@
               <i class="fa fa-envelope" aria-hidden="true"></i>
            </div>
         </div>
-      </form>
+      
     </div>
 </div>
 @endsection

@@ -10,6 +10,13 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <style>
+      article, aside, figure, footer, header, hgroup, 
+      menu, nav, section { display: block; }
+    </style>
 
     <title>
     @if(isset($title))
@@ -108,6 +115,35 @@
         $("#except_start").datepicker({ dateFormat: 'yy-mm-dd'    });
         $("#except_end").datepicker({ dateFormat: 'yy-mm-dd'    });
       });
+
+      function readURL(input) { 
+        $('.preview').show();
+          $('#blah').hide();
+          $('#title').hide();
+          $('#description').hide();
+          $('.image_show').after('<img id="blah" src="#" alt="your image" style="display:none;"/>');
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              $('#blah')
+              .attr('src', e.target.result)
+              .width(250)
+              .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        function getPreview(){
+          var title = $(".title").val();
+          var description = $("textarea").val();
+          document.getElementById("title").innerHTML = title;
+          document.getElementById("description").innerHTML = description;
+          $('.preview').hide();
+          $('#blah').show();
+          $('#title').show();
+          $('#description').show();
+        }
     </script>
 
    
