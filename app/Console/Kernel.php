@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\LogDemo::class,
     ];
 
     /**
@@ -24,11 +24,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+//        $schedule->call(function () {
+//            \Log::info('i was here');
+//        })->everyMinute();
+        //$schedule->command('log:demo')->everyMinute();
         $schedule->call(function () {
-            DB::table('recent_users')->delete();
-        })->daily();
+            \Log::info('i was here');
+       })->everyMinute();
     }
 
     /**
