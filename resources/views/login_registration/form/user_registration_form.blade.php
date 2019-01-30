@@ -17,7 +17,7 @@
                       </li>
 
                       <li role="presentation" class="disabled">
-                          <a href="{{URL::to('user-login')}}" title="Step 2">
+                          <a href="{{URL::to('instagram-info')}}" title="Step 2">
                               <span class="round-tab">
                                   <p>#2</p>
                               </span>
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="button_holder">                      
-                      <button type="submit" class="btn registration_btn">Submit</button>
+                      <button type="submit" class="btn registration_btn">Next</button>
                       <div class="form-group">                      
                         <a href="#">Help for regitering #Likes is here</a>
                       </div>

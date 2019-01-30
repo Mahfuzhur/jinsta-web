@@ -22,7 +22,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public $ig;
+    public function __construct()
+    {
+        $this->ig = new \InstagramAPI\Instagram();
+    }
     public function userRegistration(){
         $content = view('login_registration.form.user_registration_form');
         return view('login_registration.master',compact('content'));
@@ -243,6 +247,7 @@ class UserController extends Controller
         return view('master',compact('user_main_content','request','title'));
     }
 
+
     public function downloadCSV(){
         $headers = array(
         "Content-type" => "text/csv",
@@ -281,6 +286,91 @@ class UserController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
+
+
+    public function hashtagSelected($hashtagName){
+        $this->ig->login('webvision100','instagram123456');
+//             session()->put('userName','webvision100');
+//             session()->put('password','instagram123456');
+        //$hastag = $this->ig->hashtag->search('worldseriescricket');
+        $rank_token= \InstagramAPI\Signatures::generateUUID();
+        $result = $this->ig->hashtag->getFeed($hashtagName,$rank_token);
+        //$result = $this->ig->media->getComments('1965957446195605717_7312650484');
+        $obj = json_decode($result);
+        //$userid = array();
+        $counter = 0;
+//        foreach ($obj->items as $media){
+//
+//                //echo $counter;
+//                $userc = $this->ig->media->getComments($media->id);
+//                $comment = json_decode($userc);
+//                if ($comment->comments != null){
+//                    foreach ($comment->comments as $comment){
+//                        echo $comment->user_id;
+//                        echo "**";
+//                        // echo $counter;
+//                    }
+//                }
+//
+//
+//            if (floor(sizeof($obj->items)/2) <= $counter){
+//                break;
+//            }
+//
+//                $counter++;
+//        }
+        foreach ($obj->items as $media){
+
+          // print_r($obj->ranked_items[0]->user->pk) ;
+            echo $media->user->pk;
+           echo ",";
+
+        }
+        foreach ($obj->ranked_items as $media) {
+
+            echo $obj->ranked_items[0]->user->pk  ;
+            echo ",";
+            foreach ($media->preview_comments as $preview_comment){
+               echo $preview_comment->user_id;
+                echo ",";
+            }
+
+        }
+        //return $result;
+    }
+
+    public function hashtagSearch(Request $request){
+        $hashtag = $request->hashtag;
+        $this->ig->login('webvision100','instagram123456');
+//             session()->put('userName','webvision100');
+//             session()->put('password','instagram123456');
+        //$hastag = $this->ig->hashtag->search('worldseriescricket');
+        $rank_token= \InstagramAPI\Signatures::generateUUID();
+        $result = $this->ig->hashtag->search($hashtag);
+        //$hastag = $this->ig->media->getLikers('1962298581207415662_2677011');
+        $obj = json_decode($result);
+        $hashtagName = array();
+        $postCounter = array();
+
+//        for ($i=0; $i< sizeof($obj->results);$i++){
+//            array_push($hashtagName,$obj->results[$i]->name);
+//            array_push($postCounter,$obj->results[$i]->search_result_subtitle);
+//        }
+//        foreach ($obj->results as $result){
+//            print_r($result->id);
+//            echo '*';
+//            print_r($result->name);
+//            echo '*';
+//            print_r($result->search_result_subtitle);
+//            echo "\n";
+//        }
+        $results = $obj->results;
+//        array_push($hashtagName,$obj->results[0]->name);
+        $title = '宛先登録';
+        $active_destination = 'active';
+        $user_main_content = view('user.create_destination',compact('results'));
+        return view('master',compact('user_main_content','active_destination','title'));
+    }
 
     public function index()
     {

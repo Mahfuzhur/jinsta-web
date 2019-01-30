@@ -1,6 +1,6 @@
 @extend('master)
 @section('user_main_content')
-<div id="page-content-wrapper">
+<div id="page-content-wrapper" xmlns="http://www.w3.org/1999/html">
     <div class="container-fluid">
       <div class="row create_destination">  
       <form action="{{URL::to('save-hashtag-info')}}" method="post" enctype="multipart/form-data">
@@ -10,6 +10,7 @@
             <div class="box_title">
                 <h4>宛先リスト名：テストテストテスト</h4>
             </div>
+
             @if ($errors->any())
               <div class="alert alert-danger">
                   <ul>
@@ -44,8 +45,30 @@
                         #から作成
                     </label>
                     <input type="text" name="hashtag" id="hashtag" class="hashtag_input ">                   
+
+
+            <form method="post" action="{{URL::to('hashtag-search')}}">
+                {{ csrf_field() }}
+                <div class="hashtag_title left-border m-b-40">
+                    <h4>#から作成</h4>
+                    <div class="input_box">
+                        <label for="hastag">
+                            #から作成
+                        </label>
+                        <input type="text" name="hashtag" id="hashtag" class="hashtag_input ">
+                        <button type="submit">search</button>
+                    </div>
+
                 </div>
-            </div>
+            </form>
+            @if(isset($results))
+            @foreach($results as $result)
+            {{$result->name}}
+             **
+            {{$result->search_result_subtitle}} = <a href="hashtag-selected/{{$result->name}}">select</a>
+            <br>
+            @endforeach
+            @endif
             <div class="csv_upload left-border m-b-40">
                 <h4 class="">ファイルアップロード</h4>
                 <div class="input_box">
