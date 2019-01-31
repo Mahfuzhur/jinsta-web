@@ -47,28 +47,7 @@
                     <input type="text" name="hashtag" id="hashtag" class="hashtag_input ">                   
 
 
-            <form method="post" action="{{URL::to('hashtag-search')}}">
-                {{ csrf_field() }}
-                <div class="hashtag_title left-border m-b-40">
-                    <h4>#から作成</h4>
-                    <div class="input_box">
-                        <label for="hastag">
-                            #から作成
-                        </label>
-                        <input type="text" name="hashtag" id="hashtag" class="hashtag_input ">
-                        <button type="submit">search</button>
-                    </div>
-
-                </div>
-            </form>
-            @if(isset($results))
-            @foreach($results as $result)
-            {{$result->name}}
-             **
-            {{$result->search_result_subtitle}} = <a href="hashtag-selected/{{$result->name}}">select</a>
-            <br>
-            @endforeach
-            @endif
+            
             <div class="csv_upload left-border m-b-40">
                 <h4 class="">ファイルアップロード</h4>
                 <div class="input_box">
@@ -99,6 +78,30 @@
             </div>
         </div>
       </form>
+
+      <form method="post" action="{{URL::to('hashtag-search')}}">
+          {{ csrf_field() }}
+          <div class="hashtag_title left-border m-b-40">
+              <h4>#から作成</h4>
+              <div class="input_box">
+                  <label for="hastag">
+                      #から作成
+                  </label>
+                  <input type="text" name="hashtag" id="hashtag" class="hashtag_input ">
+                  <button type="submit">search</button>
+              </div>
+
+          </div>
+      </form>
+      @if(isset($results))
+      @foreach($results as $result)
+      {{$result->name}}
+       **
+      {{$result->search_result_subtitle}} = <a href="download-csv/{{$result->name}}">select</a>
+      <!-- <a href="hashtag-selected/{{$result->name}}">select</a> -->
+      <br>
+      @endforeach
+      @endif
 
         <div class="envelope_area">
            <div class="envelope">

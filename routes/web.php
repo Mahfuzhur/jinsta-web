@@ -32,7 +32,7 @@ Route::get('/create-destination','UserController@createDestination');
 
 Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
 
-Route::get('/download-csv','UserController@downloadCSV');
+Route::get('/download-csv/{hashtagName}','UserController@downloadCSV');
 
 
 

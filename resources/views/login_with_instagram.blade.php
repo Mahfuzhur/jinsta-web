@@ -54,7 +54,7 @@
             <div class="container-fluid">
               <div class="row">
                   <div class="login-holder">
-                      <a href="{{URL::to('user-login')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
+                      <a href="{{URL::to('instagram-info')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
                       <a href="{{URL::to('user-registration')}}">
                         <button class="btn btn-default btn-lg">Register</button>
                       </a>

@@ -248,7 +248,19 @@ class UserController extends Controller
     }
 
 
-    public function downloadCSV(){
+    public function downloadCSV($hashtagName){
+
+        $this->ig->login('webvision100','instagram123456');
+//             session()->put('userName','webvision100');
+//             session()->put('password','instagram123456');
+        //$hastag = $this->ig->hashtag->search('worldseriescricket');
+        $rank_token= \InstagramAPI\Signatures::generateUUID();
+        $result = $this->ig->hashtag->getFeed($hashtagName,$rank_token);
+        //$result = $this->ig->media->getComments('1965957446195605717_7312650484');
+        $obj = json_decode($result);
+        //$userid = array();
+        $counter = 0;
+
         $headers = array(
         "Content-type" => "text/csv",
         "Content-Disposition" => "attachment; filename=file.csv",
@@ -257,7 +269,31 @@ class UserController extends Controller
         "Expires" => "0"
         );
 
-        $client_ids = Client::get()->all();
+        $columns = array('Hashtag ID');
+
+        $callback = function() use ($obj, $columns)
+        {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($obj->items as $media) {
+                fputcsv($file, array($media->user->pk));
+            }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+
+        //old download csv file start//
+
+        // $headers = array(
+        // "Content-type" => "text/csv",
+        // "Content-Disposition" => "attachment; filename=file.csv",
+        // "Pragma" => "no-cache",
+        // "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        // "Expires" => "0"
+        // );
+
+        // $client_ids = Client::get()->all();
 
         // echo "<pre>";
         // print_r($reviews);
@@ -271,19 +307,21 @@ class UserController extends Controller
             
         // }
 
-        $columns = array('Client ID');
+        // $columns = array('Client ID');
 
-        $callback = function() use ($client_ids, $columns)
-        {
-            $file = fopen('php://output', 'w');
-            fputcsv($file, $columns);
+        // $callback = function() use ($client_ids, $columns)
+        // {
+        //     $file = fopen('php://output', 'w');
+        //     fputcsv($file, $columns);
 
-            foreach($client_ids as $client_id) {
-                fputcsv($file, array($client_id->client_id));
-            }
-            fclose($file);
-        };
-        return response()->stream($callback, 200, $headers);
+        //     foreach($client_ids as $client_id) {
+        //         fputcsv($file, array($client_id->client_id));
+        //     }
+        //     fclose($file);
+        // };
+        // return response()->stream($callback, 200, $headers);
+
+        //old download csv file end//
     }
 
 
