@@ -30,7 +30,7 @@
                 @foreach($all_template as $template)
                   <div class="single_template">
                       <div class="title">
-                          <h4>{{$i}}. {{$template->title}} </h4>
+                          <h4>{{$template->title}} </h4>
                       </div>
                       <div class="temp_desc">
                           <p>{{$template->description}}<!-- </br> 本日は良い天気ですね。 -->
