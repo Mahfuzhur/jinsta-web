@@ -29,6 +29,7 @@ Route::get('/edit-template/{id}', 'UserController@editTemplate');
 Route::post('/update-template/{id}', 'UserController@updateTemplate');
 Route::get('/destination-registration','UserController@destinationRegistration');
 Route::get('/create-destination','UserController@createDestination');
+Route::get('/user-login','UserController@userLogin');
 
 Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
 

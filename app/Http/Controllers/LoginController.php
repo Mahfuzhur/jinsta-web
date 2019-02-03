@@ -22,10 +22,15 @@ class LoginController extends Controller
     }
 
     public function userLogin(){
-        $user_id =Auth::user()->id;
-        session()->put('user_id',$user_id);
-        $content = view('login_registration.form.instagram-info',compact('user_id'));
-        return view('login_registration.master',compact('content'));
+        if(Auth::user()){
+            $user_id =Auth::user()->id;
+            session()->put('user_id',$user_id);
+            $content = view('login_registration.form.instagram-info',compact('user_id'));
+            return view('login_registration.master',compact('content'));
+        }else{
+            return redirect('/user-login');
+        }
+        
     }
 
     public function InstagramRegistration(Request $request){

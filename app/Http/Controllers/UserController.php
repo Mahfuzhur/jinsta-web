@@ -6,6 +6,7 @@ use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use Auth;
 use File;
 use Excel;
 use DB;
@@ -26,6 +27,16 @@ class UserController extends Controller
     public function __construct()
     {
         $this->ig = new \InstagramAPI\Instagram();
+    }
+
+    public function userLogin(){
+        if(Auth::user()){
+            return redirect ('dashboard');            
+        }else{
+            $content = view('login_registration.form.user_login_form');
+            return view('login_registration.master',compact('content'));
+        }
+        
     }
     public function userRegistration(){
         $content = view('login_registration.form.user_registration_form');
