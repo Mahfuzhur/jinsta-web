@@ -27,10 +27,10 @@ class Kernel extends ConsoleKernel
 //        $schedule->call(function () {
 //            \Log::info('i was here');
 //        })->everyMinute();
-        //$schedule->command('log:demo')->everyMinute();
-        $schedule->call(function () {
-            \Log::info('i was here');
-       })->everyMinute();
+        $schedule->command('log:demo')->everyMinute();
+//        $schedule->call(function () {
+//            \Log::info('i was here');
+//       })->everyMinute();
     }
 
     /**
