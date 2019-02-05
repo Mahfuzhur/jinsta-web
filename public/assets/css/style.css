@@ -754,9 +754,14 @@ a.page-link {
 }
 .temp_text {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.temp_text p#title{
+    font-size: 20px;
+    font-weight: bold;
 }
 .create_form_sec {
     border-right: 1px solid #7f7f7f;
@@ -991,7 +996,31 @@ button.ds_btn {
 span.help-block, .has-error{
     color: #a94442;
 }
+.pagination li>a,.pagination li>span{
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    /*color: #007bff;*/
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
 
+.pagination li.active>span{
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination li:first-child,.pagination li:last-child{
+   display: none;
+}
 
 /*responsive css*/
 @media screen and (max-width: 1280px) {

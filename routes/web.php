@@ -24,10 +24,23 @@ Route::post('/instagram-registration','LoginController@InstagramRegistration');
 Route::get('/dashboard','UserController@dashboard');
 Route::get('/manuscript-registration','UserController@manuscriptRegistration');
 Route::get('/create-manuscript','UserController@createManuscript');
+Route::post('/save-menuscript-info', 'UserController@saveMenuscriptInfo');
+Route::get('/edit-template/{id}', 'UserController@editTemplate');
+Route::post('/update-template/{id}', 'UserController@updateTemplate');
 Route::get('/destination-registration','UserController@destinationRegistration');
 Route::get('/create-destination','UserController@createDestination');
+Route::get('/user-login','UserController@userLogin');
+
+Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
+
+Route::get('/download-csv/{hashtagName}','UserController@downloadCSV');
+
+
+
+
 Route::post('/hashtag-search','UserController@hashtagSearch');
 Route::get('/hashtag-selected/{hashtagName}','UserController@hashtagSelected');
+
 Route::get('/delivery-setting','UserController@deliverySetting');
 Route::get('/template','UserController@template');
 Route::get('/analytics','UserController@analytics');

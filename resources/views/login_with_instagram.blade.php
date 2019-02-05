@@ -54,9 +54,12 @@
             <div class="container-fluid">
               <div class="row">
                   <div class="login-holder">
-                      <a href="{{URL::to('user-login')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
+                      <a href="{{URL::to('instagram-info')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
                       <a href="{{URL::to('user-registration')}}">
-                        <button class="btn btn-default btn-lg">Register</button>
+                        <button class="btn btn-secondary btn-lg">Register</button>
+                      </a>
+                      <a href="{{URL::to('user-login')}}">
+                        <button class="btn btn-info btn-lg">Login</button>
                       </a>
                       <p class="login_text">Instagram でログイン</p>
                   </div>

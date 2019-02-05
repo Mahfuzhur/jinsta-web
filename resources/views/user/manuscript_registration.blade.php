@@ -17,26 +17,37 @@
               </div>
           </div>
 
+          @if(session('edit_success'))
+          <div class="alert alert-success">
+            {{ session('edit_success') }}
+          </div> 
+          @endif
+
           <div class="row temp_holder">
             <div id="temp_carousel" class="col-md-12">                      
               <div class="row">
+                <?php $i = 1;?>
+                @foreach($all_template as $template)
                   <div class="single_template">
                       <div class="title">
-                          <h4>1. おはよう </h4>
+                          <h4>{{$template->title}} </h4>
                       </div>
                       <div class="temp_desc">
-                          <p>おはようございます。</br> 本日は良い天気ですね。</p>
+                          <p>{{$template->description}}<!-- </br> 本日は良い天気ですね。 -->
+                          </p>
                       </div>
                       <div class="img_holder">
-                          <img src="http://placehold.it/250x100" alt="Image" style="max-width:100%;">
+                          <img src="{{asset('uploads/template/'.$template->image)}}" alt="Image" style="width:250px;height: 150px;">
                       </div>
                       <div class="edit_icon">
-                          <a href="#">
+                          <a href="{{URL::to('edit-template/'.$template->id)}}">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                           </a>
                       </div>
                   </div>
-                  <div class="single_template">
+                <?php $i++;?>
+                @endforeach
+                  <!-- <div class="single_template">
                       <div class="title">
                           <h4>2. こんにちは</h4>
                       </div>
@@ -115,15 +126,16 @@
                               </a>
                           </div>
                       </div>
-                  </div>                                                           
+                  </div> -->                                                           
               </div>
               <!--.row-->
 
               <!-- pagination  -->
               <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">                         
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>                         
+                <ul class="pagination justify-content-center"> 
+                {{$all_template->links()}}                               
+                  <!-- <li class="page-item active"><a class="page-link" href="#">1</a></li>              
+                  <li class="page-item"><a class="page-link" href="#">2</a></li> -->                         
                 </ul>
               </nav>                   
         </div>               

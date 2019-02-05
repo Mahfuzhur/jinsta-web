@@ -2,11 +2,10 @@
 @section('user_main_content')
 <div id="page-content-wrapper">
     <div class="container-fluid">
-      
+      <form action="{{URL::to('/update-template/'.$single_template->id)}}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
       <div class="row">
         <div class="col-md-8 col-sm-6 create_form_sec">
-          <form action="{{URL::to('/save-menuscript-info')}}" method="post" enctype="multipart/form-data">
-        {{ csrf_field() }}
           <div class="box_title">
               <!-- <h4>テンプレート名：テストテストテスト</h4> -->
               @if ($errors->any())
@@ -18,22 +17,22 @@
                     </ul>
                 </div>
               @endif
-              @if(session('add_success'))
+              <!-- @if(session('add_success'))
               <div class="alert alert-success">
                 {{ session('add_success') }}
               </div> 
-              @endif
+              @endif -->
               <label for="temp_regi">
                  テンプレート名
               </label>
-              <input type="text" class="form-control title" id="text" name="title" maxlength="170" placeholder="テストテストテスト" rows="5" required="">
+              <input type="text" class="form-control" id="text" name="title" value="{{$single_template->title}}" maxlength="170" placeholder="テストテストテスト" rows="5" required=""></textarea>
           </div>
             <div class="m-b-35"> 
                 <div class="input_box">
                     <label for="temp_regi">
                        テキスト登録
                     </label>
-                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="テストですよー" rows="5" required=""></textarea>
+                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="テストですよー" rows="5" required="">{{$single_template->description}}</textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>
@@ -47,8 +46,11 @@
                       </strong>
                       <span>ファイル名：テストテストテスト</span>                          
                   </label>
-                  <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);" required="">
+                  <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="">
+                  <input type="hidden" name="exits_image" value="{{$single_template->image}}">
+                  <img src="{{asset('uploads/template/'.$single_template->image)}}" class="img-responsive" style="width: 100px;height: 50px;">
                 </div>
+
             </div>
             <div class="form_buttons">
                 <div class="btn_cancel p_btn">削除する</div>
@@ -56,19 +58,11 @@
                 <input type="submit" name="" class="btn_done p_btn" value="登録する">
             </div>
         </div>
-        </form>
         <div class="col-md-4 col-sm-6">
           <div class="temp_result">
             <div class="temp_text">
-              <p id="title"></p>
-              <p id="description"></p>
-              <div class="image_show">
-                
-              </div>            
+              <p>画像</p>
             </div>
-          </div>
-          <div>
-          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">Preview</a></button>
           </div>
         </div>
       </div>
@@ -78,7 +72,7 @@
               <i class="fa fa-envelope" aria-hidden="true"></i>
            </div>
         </div>
-      
+      </form>
     </div>
 </div>
 @endsection

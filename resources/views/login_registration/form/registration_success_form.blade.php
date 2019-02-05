@@ -17,7 +17,7 @@
                       </li>
 
                       <li role="presentation" class="disabled">
-                          <a class="" href="{{URL::to('user-login')}}" title="Step 2">
+                          <a class="" href="{{URL::to('instagram-info')}}" title="Step 2">
                               <span class="round-tab">
                                   <p>#2</p>
                               </span>
