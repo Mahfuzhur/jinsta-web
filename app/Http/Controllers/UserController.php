@@ -39,39 +39,60 @@ class UserController extends Controller
         
     }
     public function userRegistration(){
-        $content = view('login_registration.form.user_registration_form');
-        return view('login_registration.master',compact('content'));
+        if(Auth::user()){
+            return redirect ('dashboard');            
+        }else{
+            $content = view('login_registration.form.user_registration_form');
+            return view('login_registration.master',compact('content'));
+        }
     }
 
     public function registrationSuccess(){
+        if(Auth::user()){
         $content = view('login_registration.form.registration_success_form');
         return view('login_registration.master',compact('content'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function dashboard(){
         // $user_name = Session::get('current_user_name');
         // $user_profile_image = Session::get('current_user_image');
-        $title = 'Index page';
-        $user_main_content = view('user.dashboard');
-        return view('master',compact('user_main_content','title'));
+        if(Auth::user()){
+            $title = 'Index page';
+            $user_main_content = view('user.dashboard');
+            return view('master',compact('user_main_content','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function manuscriptRegistration(){
-        $all_template = Template::paginate(3);
-        $title = '新規作成';
-        $active_manuscript = 'active';
-        $user_main_content = view('user.manuscript_registration',compact('all_template'));
-        return view('master',compact('user_main_content','active_manuscript','title'));
+        if(Auth::user()){
+            $all_template = Template::paginate(3);
+            $title = '新規作成';
+            $active_manuscript = 'active';
+            $user_main_content = view('user.manuscript_registration',compact('all_template'));
+            return view('master',compact('user_main_content','active_manuscript','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function createManuscript(){
-        $title = 'テンプレート名：テストテストテスト';
-        $active_manuscript = 'active';
-        $user_main_content = view('user.create_manuscript');
-        return view('master',compact('user_main_content','active_manuscript','title'));
+        if(Auth::user()){
+            $title = 'テンプレート名：テストテストテスト';
+            $active_manuscript = 'active';
+            $user_main_content = view('user.create_manuscript');
+            return view('master',compact('user_main_content','active_manuscript','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function saveMenuscriptInfo(Request $request){
+        if(Auth::user()){
 
         $this->validate($request, [
 
@@ -99,17 +120,25 @@ class UserController extends Controller
 
         $flag = Template::insert($data);
         return redirect('create-manuscript')->with('add_success','Template added successfully !');
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function editTemplate($id)
     {
+        if(Auth::user()){
         $single_template = Template::findOrfail($id);
         $manage_template = view('user.edit_template',compact('single_template'));
         return view('master',compact('manage_template'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function updateTemplate(Request $request, $id)
     {
+        if(Auth::user()){
         $this->validate($request, [
 
             'title' => 'required|max:500',
@@ -133,22 +162,34 @@ class UserController extends Controller
 
         $flag->save();
         return redirect('/manuscript-registration')->with('edit_success','Template updated successfully !');
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function destinationRegistration(){
+        if(Auth::user()){
         $title = '宛先登録';
         $active_destination = 'active';
         $user_main_content = view('user.destination_registration');
         return view('master',compact('user_main_content','active_destination','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function createDestination(){
+        if(Auth::user()){
         $title = '宛先登録';
         $active_destination = 'active';
         $user_main_content = view('user.create_destination');
         return view('master',compact('user_main_content','active_destination','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
     public function saveHashtagInfo(Request $request){
+        if(Auth::user()){
 
         $this->validate($request, [
 
@@ -229,37 +270,57 @@ class UserController extends Controller
                 return back();
             }
         }
+        }else{
+            return redirect ('user-login');
+        }
         
     }
 
     public function deliverySetting(){
+        if(Auth::user()){
         $title = '配信設定';
         $delivery_setting = 'active';
         $user_main_content = view('user.delivery_setting');
         return view('master',compact('user_main_content','delivery_setting','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function template(){
+        if(Auth::user()){
         $user_main_content = view('user.template');
         return view('master',compact('user_main_content'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function analytics(){
+        if(Auth::user()){
         $title = 'アナリティクス';
         $analytics = 'active';
         $user_main_content = view('user.analytics');
         return view('master',compact('user_main_content','analytics','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function request(){
+        if(Auth::user()){
         $title = 'ご請求';
         $request = 'active';
         $user_main_content = view('user.request');
         return view('master',compact('user_main_content','request','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
 
     public function downloadCSV($hashtagName){
+        if(Auth::user()){
 
         $this->ig->login('webvision100','instagram123456');
 //             session()->put('userName','webvision100');
@@ -293,6 +354,9 @@ class UserController extends Controller
             fclose($file);
         };
         return response()->stream($callback, 200, $headers);
+        }else{
+            return redirect ('user-login');
+        }
 
         //old download csv file start//
 
@@ -338,6 +402,7 @@ class UserController extends Controller
 
 
     public function hashtagSelected($hashtagName){
+        if(Auth::user()){
         $this->ig->login('webvision100','instagram123456');
 //             session()->put('userName','webvision100');
 //             session()->put('password','instagram123456');
@@ -385,10 +450,14 @@ class UserController extends Controller
             }
 
         }
+        }else{
+            return redirect ('user-login');
+        }
         //return $result;
     }
 
     public function hashtagSearch(Request $request){
+        if(Auth::user()){
         $hashtag = $request->hashtag;
         $this->ig->login('webvision100','instagram123456');
 //             session()->put('userName','webvision100');
@@ -419,6 +488,9 @@ class UserController extends Controller
         $active_destination = 'active';
         $user_main_content = view('user.create_destination',compact('results'));
         return view('master',compact('user_main_content','active_destination','title'));
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function index()
