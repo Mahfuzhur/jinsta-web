@@ -67,7 +67,7 @@
               </div>            
             </div>
           </div>
-          <div>
+          <div class="preview_btn">
           <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">Preview</a></button>
           </div>
         </div>

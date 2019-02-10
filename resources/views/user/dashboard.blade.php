@@ -4,29 +4,34 @@
 
     <div class="container-fluid">
       <div class="row row-eq-height">
-        <div class="col-md-4 col-sm-12 p_r_0">
+        <div class="col-md-6 col-sm-12">
             <div class="test_section">
-               <div class="test"><center>@test test</center></div>
+               <div class="test"><center>@instragam_account</center></div>
                <center><img class="test_img" src="{{asset('assets/img/user.png')}}"></center>
 
                <div class="row inst_section">
                   <div class="inst_title first">
-                     <h4 class="instagram">Instagram</h4>
+                     <h4 class="instagram">Instagram</h4>                              
                   </div>
                   <div class="inst_title second">
-                     <h4><i class="fa fa-check-circle-o"></i> どうして </h4>
+                     <h4><i class="fa fa-check-circle-o"></i> どうして </h4>                            
+                  </div>
+                  <div class="inst_content">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt, eleifend nibh nec, suscipit arcu. Curabitur facilisis elit sed pellentesque volutpat. Suspendisse molestie, justo sit amet.</p>
                   </div>
                </div>
 
                <div class="jp_language">
                   <span>どうして</span>
                </div>
-               <div class="clasa">
-                  <span>Aプランの配信が終了しました。</span>
+                <div class="clasa">
+                    <div class="inst_content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt, eleifend nibh nec, suscipit arcu. Curabitur facilisis elit sed pellentesque volutpat. Suspendisse molestie, justo sit.</p>
+                    </div>
                 </div>                       
             </div>
         </div>
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-6 col-sm-12">
           <div id="exTab1" class="m-t-25">
             <ul class="nav nav-pills">
                 <li>
@@ -41,34 +46,183 @@
             </ul>
             <div class="tab-content">                    
               <div class="tab-pane" id="1a">
-                  <h3 class="pro_info">ダッシュボード</h3><br>                      
+                  <h3 class="pro_info">ダッシュボード</h3><br>
+                    <div class="row progress_vertical_holder">
+                      <div class="progress_vertical">                                
+                         <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
+                              <span class="sr-only">30% Complete</span>
+                            </div>
+                          </div>
+                          <p>Apr</p>
+                        </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+                              <span class="sr-only">60% Complete</span>
+                            </div>
+                          </div>
+                           <p>May</p>
+                        </div>
+                        <div class="progress_vertical"> 
+                            <div class="progress progress-bar-vertical">                                    
+                              <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 100%;">
+                                <span class="sr-only">60% Complete</span>                                      
+                              </div>                                    
+                            </div>
+                             <p>Jun</p>
+                        </div>
+                          <div class="progress_vertical">                                  
+                            <div class="progress progress-bar-vertical">
+                              <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 100%;">
+                                <span class="sr-only">60% Complete</span>
+                              </div>
+                            </div>
+                             <p>Jul</p>
+                          </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 70%;">
+                              <span class="sr-only">70% Complete</span>
+                            </div>
+                          </div>
+                           <p>Aug</p>                                 
+                        </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+                              <span class="sr-only">60% Complete</span>
+                            </div>
+                          </div>
+                           <p>Sep</p>                                 
+                      </div>
+                   </div> 
                    <div class="dash_footer">
-                      <span class="total"><b>送信数 : 100,000</b></span> <br>
-                      <span class="total"><b>既読数 : 1,000</b></span> <br> 
-                      <span class="total"><b>既読率 : 1% </b></span>
+                      <span class="total"><b>100,000 </br> 送信数</b></span> <br>
+                      <span class="total"><b>1,000 </br> 既読数 </b></span> <br> 
+                      <span class="total"><b> 1% </br> 既読率</b></span>
                   </div>                      
               </div>
               <div class="tab-pane" id="2a">
-                  <h3 class="pro_info">ダッシュボード</h3><br>                      
+                  <h3 class="pro_info">ダッシュボード</h3><br>
+                  <div class="row progress_vertical_holder">
+                      <div class="progress_vertical">                                
+                         <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
+                              <span class="sr-only">30% Complete</span>
+                            </div>
+                          </div>
+                          <p>Apr</p>
+                        </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+                              <span class="sr-only">60% Complete</span>
+                            </div>
+                          </div>
+                           <p>May</p>
+                        </div>
+                        <div class="progress_vertical"> 
+                            <div class="progress progress-bar-vertical">                                    
+                              <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 100%;">
+                                <span class="sr-only">60% Complete</span>                                      
+                              </div>                                    
+                            </div>
+                             <p>Jun</p>
+                        </div>
+                          <div class="progress_vertical">                                  
+                            <div class="progress progress-bar-vertical">
+                              <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 100%;">
+                                <span class="sr-only">60% Complete</span>
+                              </div>
+                            </div>
+                             <p>Jul</p>
+                          </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 70%;">
+                              <span class="sr-only">70% Complete</span>
+                            </div>
+                          </div>
+                           <p>Aug</p>                                 
+                        </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+                              <span class="sr-only">60% Complete</span>
+                            </div>
+                          </div>
+                           <p>Sep</p>                                 
+                      </div>
+                   </div>                   
                    <div class="dash_footer">
-                      <span class="total"><b>送信数 : 100,000</b></span> <br>
-                      <span class="total"><b>既読数 : 1,000</b></span> <br> 
-                      <span class="total"><b>既読率 : 1% </b></span>
+                      <span class="total"><b>100,000 </br> 送信数</b></span> <br>
+                      <span class="total"><b>1,000 </br> 既読数 </b></span> <br> 
+                      <span class="total"><b> 1% </br> 既読率 </b></span>
                   </div>                      
             </div>
             <div class="tab-pane active" id="3a">
-                  <h3 class="pro_info">ダッシュボード</h3><br>                      
+                  <h3 class="pro_info">ダッシュボード</h3><br>
+                  <div class="row progress_vertical_holder">
+                      <div class="progress_vertical">                                
+                         <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
+                              <span class="sr-only">30% Complete</span>
+                            </div>
+                          </div>
+                          <p>Apr</p>
+                        </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+                              <span class="sr-only">60% Complete</span>
+                            </div>
+                          </div>
+                           <p>May</p>
+                        </div>
+                        <div class="progress_vertical"> 
+                            <div class="progress progress-bar-vertical">                                    
+                              <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 100%;">
+                                <span class="sr-only">60% Complete</span>                                      
+                              </div>                                    
+                            </div>
+                             <p>Jun</p>
+                        </div>
+                          <div class="progress_vertical">                                  
+                            <div class="progress progress-bar-vertical">
+                              <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 100%;">
+                                <span class="sr-only">60% Complete</span>
+                              </div>
+                            </div>
+                             <p>Jul</p>
+                          </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 70%;">
+                              <span class="sr-only">70% Complete</span>
+                            </div>
+                          </div>
+                           <p>Aug</p>                                 
+                        </div>
+                        <div class="progress_vertical"> 
+                          <div class="progress progress-bar-vertical">
+                            <div class="progress-bar progress_color active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+                              <span class="sr-only">60% Complete</span>
+                            </div>
+                          </div>
+                           <p>Sep</p>                                 
+                      </div>
+                   </div>                     
                    <div class="dash_footer">
-                      <span class="total"><b>送信数：100,000</b></span> <br>
-                      <span class="total"><b>既読数 : 1,000</b></span> <br> 
-                      <span class="total"><b>既読率 : 1% </b></span>
+                      <span class="total"><b>100,000 <br> 送信数</b></span> <br>
+                      <span class="total"><b>1,000 <br> 既読数</b></span> <br> 
+                      <span class="total"><b>1% <br> 既読率</b></span>
                   </div>                      
               </div>
             </div>
           </div>
-          <div class="progress_view m-t-5">
-             <h4 class="progress_margin">進行ステータス</h4>
-             
+          <div class="progress_view m-t-30">
+             <h4 class="progress_margin">進行ステータス</h4>                     
                 <div class="row progressbar_holder">
                   <div class="progress_title">
                      <span class="hashtag">#□□</span>
@@ -90,7 +244,7 @@
 
                   <div class="progress_size">
                      <div class="progress">
-                        <div class="progress-bar progress_color1" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; min-width: 20px;">100%
+                        <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%; min-width: 20px;">100%
                         </div>
                      </div>
                   </div>  
@@ -103,7 +257,7 @@
 
                   <div class="progress_size">
                      <div class="progress">
-                        <div class="progress-bar progress_color2" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:0%; min-width: 20px;">0%
+                        <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:0%; min-width: 20px;">0%
                         </div>
                      </div>
                   </div>  

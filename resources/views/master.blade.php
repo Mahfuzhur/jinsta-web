@@ -21,14 +21,14 @@
       <div class="container-fluid">
         <div class="row top_fixed">
           <div class="header_left logo_top">
-              <a href="index.html" class="logo_holder">
+              <a href="{{URL::to('dashboard')}}" class="logo_holder">
                 <img src="{{asset('assets/img/logo.png')}}" alt="">
               </a>
           </div>
           <div class="header_right">
               <div class="user_area">
                 <a class="dropdown_menu" href="#" role="button" id="" >
-                  Taro Yamada
+                  {{Auth::user()->name}}
                   <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </a>
 
@@ -50,23 +50,23 @@
       <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <div class="sidebar">
-                <a class="template" href="menuscript-reg.html">
+                <a class="template" href="{{URL::to('manuscript-registration')}}">
                   <span class="sidebar_icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
                   原稿登録
                 </a>
-                <a class="Plan" href="destination_registration.html">
+                <a class="Plan" href="{{URL::to('destination-registration')}}">
                   <span class="sidebar_icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                   宛先登録
                 </a>
-                <a class="Schedule" href="delivery_setting.html">
+                <a class="Schedule" href="{{URL::to('delivery-setting')}}">
                   <span class="sidebar_icon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
                   配信設定
                 </a>
-                <a class="Progress" href="analytics.html">
+                <a class="Progress" href="{{URL::to('analytics')}}">
                   <span class="sidebar_icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
                   アナリティクス
                 </a>
-                <a class="Summary" href="request.html">
+                <a class="Summary" href="{{URL::to('request')}}">
                   <span class="sidebar_icon"><i class="fa fa-clone" aria-hidden="true"></i></span>
                   ご請求
                 </a>

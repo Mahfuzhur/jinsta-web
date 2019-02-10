@@ -1142,6 +1142,40 @@ button.ds_btn {
     margin-left: 3em;
 }
 
+.pagination li>a,.pagination li>span{
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    /*color: #007bff;*/
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.pagination li.active>span{
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.pagination li:first-child,.pagination li:last-child{
+   display: none;
+}
+.justify-content-center{
+   margin-left: 450px;;
+}
+
+.preview_btn{
+    margin-top: 50px;
+    margin-left: 115px;
+}
+
 /*responsive css*/
 @media screen and (max-width: 1280px) {
     .temp_result {
