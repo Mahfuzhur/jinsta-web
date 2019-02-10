@@ -105,8 +105,7 @@
                         設定する
                     </button>
                   </div>
-              </div>
-              
+              </div>             
           </div>
 
           <div class="envelope_area">
