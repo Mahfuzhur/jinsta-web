@@ -233,9 +233,15 @@ class UserController extends Controller
     }
 
     public function deliverySetting(){
+        $id = 1;
+        //Auth::user();
+        $templates = Template::select('title','id')->where([['user_id','=',$id]])->get();
+        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
+//        print_r($templates) ;
+//        exit();
         $title = '配信設定';
         $delivery_setting = 'active';
-        $user_main_content = view('user.delivery_setting');
+        $user_main_content = view('user.delivery_setting',compact('templates','hashtags'));
         return view('master',compact('user_main_content','delivery_setting','title'));
     }
 

@@ -45,6 +45,7 @@ Route::get('/delivery-setting','UserController@deliverySetting');
 Route::get('/template','UserController@template');
 Route::get('/analytics','UserController@analytics');
 Route::get('/request','UserController@request');
+Route::post('/set-schedule','UserController@request');
 
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
