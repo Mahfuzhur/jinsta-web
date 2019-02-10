@@ -3,7 +3,7 @@
 <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
-          <form action="#" method="post">
+          <form action="{{ route('set-schedule') }}" method="post">
               {{csrf_field()}}
               <div class="col-md-12 delivery_setting">
                   <div class="dm_setting left-border m-b-40">
@@ -13,7 +13,7 @@
                               宛先
                           </label>
                           <select class="dest_input" id="destination" name="destination">
-                              
+                              <option value=""></option>
                               @foreach($templates as $template)
                               <option value="{{$template->id}}">{{$template->title}}</option>
                               @endforeach
@@ -24,9 +24,9 @@
                               原稿
                           </label>
                           <select class="draft_input" id="draft" name="draft">
-                              
+                              <option value=""></option>
                               @foreach($hashtags as $hashtag)
-                              <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
+                              <option value="{{$hasttag->id}}">{{$hashtag->hashtag}}</option>
                               @endforeach
                           </select>
                       </div>
