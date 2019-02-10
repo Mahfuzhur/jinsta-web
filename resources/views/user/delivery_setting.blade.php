@@ -4,6 +4,7 @@
     <div class="container-fluid">
       <div class="row">
         <form action="{{URL::to('set-schedule')}}"  method="post">
+            {{csrf_field()}}
           <div class="col-md-12 delivery_setting">
               <h4>宛先 & 原稿設定</h4>
               <div class="dm_setting left-border m-b-40">                          
@@ -38,12 +39,12 @@
                       </label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="text" name="delivery_pr_start" id="delivery_pr_start" value="YYYY/MM/DD">
+                            <input type="text" name="delivery_period_start" id="delivery_pr_start" value="YYYY/MM/DD">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input id="delivery_pr_end" type="text" class="" name="delivery_pr_end" value="YYYY/MM/DD">
+                            <input id="delivery_pr_end" type="text" class="" name="delivery_period_end" value="YYYY/MM/DD">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
@@ -53,12 +54,12 @@
                       </label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="text" name="except_start" id="except_start" value="YYYY/MM/DD">
+                            <input type="text" name="date_exclusion_setting_start" id="except_start" value="YYYY/MM/DD">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input id="except_end" type="text" class="" name="except_end" value="YYYY/MM/DD">
+                            <input id="except_end" type="text" class="" name="date_exclusion_setting_end" value="YYYY/MM/DD">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
@@ -68,12 +69,12 @@
                       </label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="time" name="sp_time_start" id="sp_time_start" value="13:30">
+                            <input type="time" name="specify_time_start" id="sp_time_start" value="13:30">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input type="time" name="sp_time_end" id="sp_time_end" value="18:30">
+                            <input type="time" name="specify_time_end" id="sp_time_end" value="18:30">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
@@ -83,12 +84,12 @@
                       </label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="time" name="ex_time_start" id="ex_time_start" value="06:30">
+                            <input type="time" name="time_exclusion_setting_start" id="ex_time_start" value="06:30">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input type="time" name="ex_time_end" id="ex_time_end" value="10:30">
+                            <input type="time" name="time_exclusion_setting_end" id="ex_time_end" value="10:30">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
