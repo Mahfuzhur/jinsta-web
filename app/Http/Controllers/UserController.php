@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Schedule;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -276,11 +275,13 @@ class UserController extends Controller
         }
         
     }
+
     public function SetSchedule(Request $request){
 
         $result = Schedule::create($request->all());
         return redirect('delivery-setting');
     }
+
 
     public function deliverySetting(){
 

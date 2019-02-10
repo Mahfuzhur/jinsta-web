@@ -28,7 +28,7 @@
           <div class="header_right">
               <div class="user_area">
                 <a class="dropdown_menu" href="#" role="button" id="" >
-                  {{Auth::user()->name}}
+                  Taro Yamada
                   <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </a>
 
@@ -92,10 +92,10 @@
     <script>
       // custom date format
       $(function(){
-        $("#delivery_pr_start").datepicker({ dateFormat: 'yy-mm-  dd' });
-        $("#delivery_pr_end").datepicker({ dateFormat: 'yy-mm-dd' });
-        $("#except_start").datepicker({ dateFormat: 'yy-mm-dd'    });
-        $("#except_end").datepicker({ dateFormat: 'yy-mm-dd'    });
+        $("#delivery_pr_start").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#delivery_pr_end").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#except_start").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#except_end").datepicker({ dateFormat: 'dd-mm-yy'});
       });
 
       function readURL(input) { 

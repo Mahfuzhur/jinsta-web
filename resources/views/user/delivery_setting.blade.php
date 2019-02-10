@@ -30,6 +30,7 @@
                             @endforeach
                       </select>                    
                   </div>
+
               </div>
               <div class="sc_settings left-border m-b-40">
                   <h4>スケジュール設定</h4>
@@ -104,8 +105,7 @@
                         設定する
                     </button>
                   </div>
-              </div>
-              
+              </div>             
           </div>
 
           <div class="envelope_area">
