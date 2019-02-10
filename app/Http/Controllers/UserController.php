@@ -288,9 +288,10 @@ class UserController extends Controller
         $time_exclusion_setting_start = $request->ex_time_start;
         $time_exclusion_setting_end = $request->ex_time_end;
 
-        $result = Schedule::created($request->all());
+        $result = Schedule::create($request->all());
         
-        echo $result;
+        print_r($result);
+
 
     }
 
