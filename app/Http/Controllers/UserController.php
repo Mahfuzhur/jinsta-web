@@ -231,6 +231,18 @@ class UserController extends Controller
         }
         
     }
+    public function SetSchedule(Request $request){
+        $destination = $request->destination;
+        $draft = $request->draft;
+        $delivery_period_start = $request->delivery_period_start;
+        $delivery_period_end = $request->delivery_period_end;
+        $date_exclusion_setting_start = $request->date_exclusion_setting_start;
+        $date_exclusion_setting_end = $request->date_exclusion_setting_end;
+        $specify_time_start = $request->specify_time_start;
+        $specify_time_end = $request->specify_time_end;
+        $time_exclusion_setting_start = $request->time_exclusion_setting_start;
+        $time_exclusion_setting_end = $request->time_exclusion_setting_end;
+    }
 
     public function deliverySetting(){
         $id = 1;
