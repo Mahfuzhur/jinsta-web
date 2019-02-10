@@ -3,7 +3,7 @@
 <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
-          <form action="{{ route('set-schedule') }}" method="post">
+          <form  method="post">
               {{csrf_field()}}
               <div class="col-md-12 delivery_setting">
                   <div class="dm_setting left-border m-b-40">
@@ -36,32 +36,32 @@
                       <div class="input_box">
                           <label for="delivery_pr">配信期間
                           </label>
-                          <input type="text" name="delivery_pr_start" id="delivery_pr_start" value="YYYY/MM/DD">
+                          <input type="text" name="delivery_period_start" id="delivery_pr_start" value="YYYY/MM/DD">
                           <span class="in_divider">~</span>
-                          <input type="text" name="delivery_pr_end" id="delivery_pr_end" value="YYYY/MM/DD">
+                          <input type="text" name="delivery_period_end" id="delivery_pr_end" value="YYYY/MM/DD">
                       </div>
                       <div class="input_box">
                           <label for="except_stting">除外設定
                           </label>
-                          <input type="text" name="except_start" id="except_start" value="YYYY/MM/DD">
+                          <input type="text" name="date_exclusion_setting_start" id="except_start" value="YYYY/MM/DD">
                           <span class="in_divider">~</span>
-                          <input type="text" name="except_end" id="except_end" value="YYYY/MM/DD">
+                          <input type="text" name="date_exclusion_setting_end" id="except_end" value="YYYY/MM/DD">
                       </div>
                       <div class="input_box">
                           <label for="sp_time">
                               時間指定
                           </label>
-                          <input type="time" name="sp_time_start" id="sp_time_start" value="13:30">
+                          <input type="time" name="specify_time_start" id="sp_time_start" value="13:30">
                           <span class="in_divider">~</span>
-                          <input type="time" name="sp_time_end" id="sp_time_end" value="18:30">
+                          <input type="time" name="specify_time_end" id="sp_time_end" value="18:30">
                       </div>
                       <div class="input_box">
                           <label for="ex_time">
                               除外設定
                           </label>
-                          <input type="time" name="ex_time_start" id="ex_time_start" value="06:30">
+                          <input type="time" name="ex_time_start" id="time_exclusion_setting_start" value="06:30">
                           <span class="in_divider">~</span>
-                          <input type="time" name="ex_time_end" id="ex_time_end" value="10:30">
+                          <input type="time" name="ex_time_end" id="time_exclusion_setting_end" value="10:30">
                       </div>
                   </div>
                   <div class="left-border m-b-40">
