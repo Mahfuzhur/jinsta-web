@@ -3,36 +3,33 @@
 <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
+        <form action="{{URL::to('set-schedule')}}"  method="post">
+          <div class="col-md-12 delivery_setting">
+              <h4>宛先 & 原稿設定</h4>
+              <div class="dm_setting left-border m-b-40">                          
+                  <div class="input_box">
+                      <label for="destination">
+                          宛先
+                      </label>
+                      <select class="dest_input" id="destination" name="destination">
+                          <option value=""></option>
+                           @foreach($templates as $template)
+                            <option value="{{$template->id}}">{{$template->title}}</option>
+                            @endforeach
+                      </select>                   
+                  </div>
+                  <div class="input_box">
+                      <label for="draft">
+                          原稿
+                      </label>
+                      <select class="draft_input" id="draft" name="draft">
+                          <option value=""></option>
+                           @foreach($hashtags as $hashtag)
+                            <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
+                            @endforeach
+                      </select>                    
+                  </div>
 
-          <form action="{{ route('set-schedule') }}" method="post">
-              {{csrf_field()}}
-              <div class="col-md-12 delivery_setting">
-                  <div class="dm_setting left-border m-b-40">
-                      <h4>宛先｜原稿設定</h4>
-                      <div class="input_box">
-                          <label for="destination">
-                              宛先
-                          </label>
-                          <select class="dest_input" id="destination" name="destination">
-                              
-                              @foreach($templates as $template)
-                              <option value="{{$template->id}}">{{$template->title}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-                      <div class="input_box">
-                          <label for="draft">
-                              原稿
-                          </label>
-                          <select class="draft_input" id="draft" name="draft">
-                              
-                              @foreach($hashtags as $hashtag)
-                              <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-
-                  
               </div>
               <div class="sc_settings left-border m-b-40">
                   <h4>スケジュール設定</h4>
@@ -116,7 +113,8 @@
                 <i class="fa fa-envelope" aria-hidden="true"></i>
              </div>
           </div>
-      </div>               
+      </div>  
+      </form>             
     </div>
 </div>
 @endsection
