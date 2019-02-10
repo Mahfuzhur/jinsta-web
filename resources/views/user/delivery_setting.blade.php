@@ -3,7 +3,7 @@
 <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
-          <form action="#" method="post">
+          <form action="{{ route('set-schedule') }}" method="post">
               {{csrf_field()}}
               <div class="col-md-12 delivery_setting">
                   <div class="dm_setting left-border m-b-40">
