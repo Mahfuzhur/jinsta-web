@@ -110,7 +110,7 @@ class UserController extends Controller
         }
         // $info = Album::create($request->all());
 
-        $user_id = 1;
+        $user_id = Auth::user()->id;
 
         $current_time = Carbon::now()->addHour(6);
         $update_time = Carbon::now()->addHour(6);
@@ -155,7 +155,7 @@ class UserController extends Controller
         }
 
         $flag = Template::findOrfail($id);
-        $flag->user_id = 1;
+        $flag->user_id = Auth::user();
         $flag->title = $request->title;
         $flag->description = $request->description;
         $flag->image = $file_path_name;
@@ -199,7 +199,7 @@ class UserController extends Controller
             'id' => 'required'
         ]);
 
-        $user_id = 1;
+        $user_id = Auth::user()->id;
         $current_time = Carbon::now()->addHour(6);
         $update_time = Carbon::now()->addHour(6);
 
@@ -277,28 +277,14 @@ class UserController extends Controller
         
     }
     public function SetSchedule(Request $request){
-        $destination = $request->destination;
-        $draft = $request->draft;
-        $delivery_period_start = $request->delivery_pr_start;
-        $delivery_period_end = $request->delivery_pr_end;
-        $date_exclusion_setting_start = $request->except_start;
-        $date_exclusion_setting_end = $request->except_end;
-        $specify_time_start = $request->sp_time_start;
-        $specify_time_end = $request->sp_time_end;
-        $time_exclusion_setting_start = $request->ex_time_start;
-        $time_exclusion_setting_end = $request->ex_time_end;
 
         $result = Schedule::create($request->all());
-        
-        print_r($result);
-
-
+        return redirect('delivery-setting');
     }
 
     public function deliverySetting(){
 
-        $id = 1;
-        //Auth::user();
+        $id = Auth::user()->id;
         $templates = Template::select('title','id')->where([['user_id','=',$id]])->get();
         $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
 //        print_r($templates) ;
