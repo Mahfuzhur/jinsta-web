@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Schedule;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -276,24 +275,18 @@ class UserController extends Controller
         }
         
     }
-    public function SetSchedule(Request $request){
-        $destination = $request->destination;
-        $draft = $request->draft;
-        $delivery_period_start = $request->delivery_pr_start;
-        $delivery_period_end = $request->delivery_pr_end;
-        $date_exclusion_setting_start = $request->except_start;
-        $date_exclusion_setting_end = $request->except_end;
-        $specify_time_start = $request->sp_time_start;
-        $specify_time_end = $request->sp_time_end;
-        $time_exclusion_setting_start = $request->ex_time_start;
-        $time_exclusion_setting_end = $request->ex_time_end;
-
-        $result = Schedule::create($request->all());
-        
-        print_r($result);
-
-
-    }
+//    public function SetSchedule(Request $request){
+//        $destination = $request->destination;
+//        $draft = $request->draft;
+//        $delivery_period_start = $request->delivery_period_start;
+//        $delivery_period_end = $request->delivery_period_end;
+//        $date_exclusion_setting_start = $request->date_exclusion_setting_start;
+//        $date_exclusion_setting_end = $request->date_exclusion_setting_end;
+//        $specify_time_start = $request->specify_time_start;
+//        $specify_time_end = $request->specify_time_end;
+//        $time_exclusion_setting_start = $request->time_exclusion_setting_start;
+//        $time_exclusion_setting_end = $request->time_exclusion_setting_end;
+//    }
 
     public function deliverySetting(){
 

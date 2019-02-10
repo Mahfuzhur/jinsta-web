@@ -92,10 +92,10 @@
     <script>
       // custom date format
       $(function(){
-        $("#delivery_pr_start").datepicker({ dateFormat: 'yy-mm-  dd' });
-        $("#delivery_pr_end").datepicker({ dateFormat: 'yy-mm-dd' });
-        $("#except_start").datepicker({ dateFormat: 'yy-mm-dd'    });
-        $("#except_end").datepicker({ dateFormat: 'yy-mm-dd'    });
+        $("#delivery_pr_start").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#delivery_pr_end").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#except_start").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#except_end").datepicker({ dateFormat: 'dd-mm-yy'});
       });
 
       function readURL(input) { 
