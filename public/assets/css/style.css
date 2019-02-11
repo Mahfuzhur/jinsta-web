@@ -803,7 +803,7 @@ a.page-link {
     vertical-align: top;
     border: 1px solid darkgrey;
 }
-.create_destination .main_content input, .main_content .csv_upload label>span {
+.create_destination .main_content .hashtag_title input, .main_content .csv_upload label>span {
     width: 750px;
     border: none;
     background-color: #ffffff;
@@ -828,19 +828,103 @@ a.page-link {
     position: absolute;
     z-index: -1;
 }
-.create_destination .main_content input {
+.create_destination .main_content .hashtag_title input {
     height: 45px;
-   max-width: 350px;
+    max-width: 350px;
+    border-radius: 20%/0px 100px 100px 0px;
+    z-index: 9;
 }
 .create_destination .input_box span.input-group-text {
     background: white;
     border: none;
+    z-index: 1;
+    margin-left: -15px;
 }
 .hashtag_title span.input-group-text {
     background: #06af94 !important;
     color: #ffffff;
     padding: 0 2em;
     font-size: 1.2em;
+}
+
+.create_destination .radio_list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    max-width: 800px;
+    margin: 2em 0;
+}
+.single_radio input {
+    margin-bottom: 2em;
+    margin-right: 1em;
+}
+
+.checkcontainer {
+    display: block;
+    position: relative;
+    padding-left: 2em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    font-size: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 1em;
+}
+.checkcontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.radiobtn {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #06af94;
+    border-radius: 50%;
+}
+.checkcontainer .radiobtn:after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    margin: 0;;
+}
+.radiobtn:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.checkcontainer input:checked ~ .radiobtn:after {
+    display: block;
+}
+
+ .checkcontainer input[type="radio"]{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+ .radio-btn{
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+} 
+.create_destination .form_buttons .p_btn {
+    border-radius: 0;
+    line-height: 1.2em;
+    background-color: #06af94;
+    border-color: #06af94;
+    color: #fff;
 }
 
 .form_buttons {
@@ -875,7 +959,9 @@ a.page-link {
 
 .create_destination .form_buttons {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    max-width: 800px;
+    margin-top: 4em;
 }
 .envelope {
     position: absolute;
@@ -1206,7 +1292,7 @@ button.ds_btn {
     border: none;
     box-shadow: 1px 2px 10px #e2dede;
 }
-
+/*Kazol css start*/
 .pagination li>a,.pagination li>span{
     border-top-left-radius: 0.25rem;
     border-bottom-left-radius: .25rem;
@@ -1240,7 +1326,7 @@ button.ds_btn {
     margin-top: 50px;
     margin-left: 115px;
 }
-
+/*Kazol css end*/
 
 /*responsive css*/
 @media screen and (max-width: 1280px) {
@@ -1318,7 +1404,24 @@ button.ds_btn {
     .request #exTab1 .tab-content {
         padding-left: 0em;
     }
+    .hashtag_title span.input-group-text{
+        padding: 0 1em;
+    }
+    .create_destination .main_content .hashtag_title input{
+        width: 248px;
+    }
+    .create_destination .radio_list{
+        flex-direction: column;
+    }
+    .create_destination .form_buttons {
+        justify-content: flex-start;
+    }
 
+}
+@media screen and (max-width:375px ){
+    .create_destination .main_content .hashtag_title input {
+        width: 180px;
+    }
 }
 /*ie specific styles*/
 select::-ms-expand {

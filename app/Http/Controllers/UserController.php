@@ -92,6 +92,17 @@ class UserController extends Controller
         }
     }
 
+    public function hashtagList(){
+        if(Auth::user()){
+            $title = 'テンプレート名：テストテストテスト';
+            $active_manuscript = 'active';
+            $user_main_content = view('user.hashtag_list');
+            return view('master',compact('user_main_content','active_manuscript','title'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
     public function saveMenuscriptInfo(Request $request){
         if(Auth::user()){
 
@@ -183,7 +194,7 @@ class UserController extends Controller
         if(Auth::user()){
         $title = '宛先登録';
         $active_destination = 'active';
-        $user_main_content = view('user.test');
+        $user_main_content = view('user.create_destination');
         return view('master',compact('user_main_content','active_destination','title'));
         }else{
             return redirect ('user-login');
