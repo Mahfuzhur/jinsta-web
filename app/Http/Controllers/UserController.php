@@ -154,7 +154,7 @@ class UserController extends Controller
         }
 
         $flag = Template::findOrfail($id);
-        $flag->user_id = Auth::user();
+        $flag->user_id = Auth::user()->id;
         $flag->title = $request->title;
         $flag->description = $request->description;
         $flag->image = $file_path_name;
@@ -182,7 +182,7 @@ class UserController extends Controller
         if(Auth::user()){
         $title = '宛先登録';
         $active_destination = 'active';
-        $user_main_content = view('user.create_destination');
+        $user_main_content = view('user.test');
         return view('master',compact('user_main_content','active_destination','title'));
         }else{
             return redirect ('user-login');
@@ -284,14 +284,14 @@ class UserController extends Controller
 
 
     public function deliverySetting(){
-
+        if(Auth::user()){
         $id = Auth::user()->id;
         $templates = Template::select('title','id')->where([['user_id','=',$id]])->get();
         $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
 //        print_r($templates) ;
 //        exit();
 
-        if(Auth::user()){
+        
         $title = '配信設定';
         $delivery_setting = 'active';
         $user_main_content = view('user.delivery_setting',compact('templates','hashtags'));

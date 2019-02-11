@@ -12,7 +12,12 @@
     <!-- jQuery  ui -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
-    <title>配信設定</title>
+    <title>
+    @if(isset($title))
+    {{$title}}
+    @else
+    Jinsta
+    @endif</title>
   </head>
   <body class="delivery_setting_page">
     <!-- top header -->
@@ -31,7 +36,14 @@
                   {{Auth::user()->name}}
                   <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                 </a>
-
+                <a class="btn btn-info btn-sm" style="margin: 6px;" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
                 <div class="dropdown-item-holder">
                     <a class="dropdown-item" href="#">Login</a>
                     <a class="dropdown-item" href="#">Logout</a>                    
@@ -50,22 +62,50 @@
       <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <div class="sidebar">
+              @if(isset($active_manuscript))
+                <a class="template active" href="{{URL::to('manuscript-registration')}}">
+                  <span class="sidebar_icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+                  原稿登録
+                </a>
+              @else
                 <a class="template" href="{{URL::to('manuscript-registration')}}">
                   <span class="sidebar_icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
                   原稿登録
                 </a>
+              @endif
+              @if(isset($active_destination))
+                <a class="Plan active" href="{{URL::to('destination-registration')}}">
+                  <span class="sidebar_icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                  宛先登録
+                </a>
+              @else
                 <a class="Plan" href="{{URL::to('destination-registration')}}">
                   <span class="sidebar_icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                   宛先登録
                 </a>
-                <a class="Schedule" href="{{URL::to('delivery-setting')}}">
+              @endif
+              @if(isset($delivery_setting))
+                <a class="Schedule active" href="{{URL::to('delivery-setting')}}">
                   <span class="sidebar_icon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
                   配信設定
                 </a>
-                <a class="Progress" href="{{URL::to('analytics')}}">
+              @else
+              <a class="Schedule" href="{{URL::to('delivery-setting')}}">
+                  <span class="sidebar_icon"><i class="fa fa-calendar-check-o" aria-hidden="true"></i></span>
+                  配信設定
+                  </a>
+              @endif
+              @if(isset($analytics))
+                <a class="Progress active" href="{{URL::to('analytics')}}">
                   <span class="sidebar_icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
                   アナリティクス
                 </a>
+              @else
+              <a class="Progress" href="{{URL::to('analytics')}}">
+                  <span class="sidebar_icon"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
+                  アナリティクス
+                </a>
+              @endif
                 <a class="Summary" href="{{URL::to('request')}}">
                   <span class="sidebar_icon"><i class="fa fa-clone" aria-hidden="true"></i></span>
                   ご請求
