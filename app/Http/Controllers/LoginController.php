@@ -27,8 +27,9 @@ class LoginController extends Controller
 
             $user_id =Auth::user()->id;
             session()->put('user_id',$user_id);
+            $sign_in_page = 'sign_in_page';
             $content = view('login_registration.form.instagram-info',compact('user_id'));
-            return view('login_registration.master',compact('content'));
+            return view('login_registration.master',compact('content','sign_in_page'));
 
 
         }

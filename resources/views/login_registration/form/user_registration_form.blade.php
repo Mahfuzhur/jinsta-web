@@ -3,12 +3,14 @@
 
     <div class="container">
       <div class="row">
+        <div class="page_heading">
+          <h2 class="">3ステップでかんたん <br> サインイン </h2>
+        </div>
           <div class="wizard">
               <div class="wizard-inner">
-                  <div class="connecting-line"></div>
                   <ul class="nav nav-tabs" role="tablist">
 
-                      <li role="presentation">
+                      <li role="presentation" class="step_1">
                           <a class="active" href="{{URL::to('user-registration')}}" title="Step 1">
                               <span class="round-tab">
                                   <p>#1</p>
@@ -16,7 +18,7 @@
                           </a>
                       </li>
 
-                      <li role="presentation" class="disabled">
+                      <li role="presentation" class="disabled step_2">
                           <a href="{{URL::to('instagram-info')}}" title="Step 2">
                               <span class="round-tab">
                                   <p>#2</p>
@@ -24,7 +26,7 @@
                           </a>
                       </li>
 
-                      <li role="presentation" class="disabled">
+                      <li role="presentation" class="disabled step_3">
                           <a href="{{URL::to('registration-success')}}" title="Complete">
                               <span class="round-tab">
                                   <p>#3</p>

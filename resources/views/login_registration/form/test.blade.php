@@ -10,7 +10,7 @@
                   <ul class="nav nav-tabs" role="tablist">
 
                       <li role="presentation" class="step_1">
-                          <a class="" href="{{URL::to('user-registration')}}" title="Step 1">
+                          <a class="" href="registration.html" title="Step 1">
                               <span class="round-tab">
                                   <p>#1</p>
                               </span>
@@ -18,7 +18,7 @@
                       </li>
 
                       <li role="presentation" class="disabled step_2">
-                          <a class="" href="{{URL::to('instagram-info')}}" title="Step 2">
+                          <a class="" href="Sign_in.html" title="Step 2">
                               <span class="round-tab">
                                   <p>#2</p>
                               </span>
@@ -26,7 +26,7 @@
                       </li>
 
                       <li role="presentation" class="disabled step_3">
-                          <a class="active" href="{{URL::to('registration-success')}}" title="Complete">
+                          <a class="active" href="success.html" title="Complete">
                               <span class="round-tab">
                                   <p>#3</p>
                               </span>

@@ -1,21 +1,24 @@
 @extend('login_registration.master')
 @section('content')
-    <div class="container">
+<div class="container">
       <div class="row">
+          <div class="page_heading">
+              <h2 class="">3ステップでかんたん <br> サインイン </h2>
+          </div>
           <div class="wizard">
               <div class="wizard-inner">
-                  <div class="connecting-line"></div>
+                  <!-- <div class="connecting-line"></div> -->
                   <ul class="nav nav-tabs" role="tablist">
 
-                      <li role="presentation">
-                          <a class="" href="{{URL::to('user-registration')}}" title="Step 1">
+                      <li role="presentation" class="step_1">
+                          <a class="" href="{{URL::to('user-registration')}}"  title="Step 1">
                               <span class="round-tab">
                                   <p>#1</p>
                               </span>
                           </a>
                       </li>
 
-                      <li role="presentation" class="disabled">
+                      <li role="presentation" class="disabled step_2">
                           <a class="active" href="{{URL::to('user-login')}}" title="Step 2">
                               <span class="round-tab">
                                   <p>#2</p>
@@ -23,7 +26,7 @@
                           </a>
                       </li>
 
-                      <li role="presentation" class="disabled">
+                      <li role="presentation" class="disabled step_3">
                           <a href="{{URL::to('registration-success')}}" title="Complete">
                               <span class="round-tab">
                                   <p>#3</p>
@@ -35,8 +38,8 @@
 
               <div class="sign_in_form">
                 <div class="form_title">
-                  <h3>Instagram Information</h3>
-                    @if(session('check'))
+                  <h3>Instragam </h3>
+                  @if(session('check'))
                     <div class="alert alert-success">
                         {{ session('check') }}
                     </div>
@@ -46,7 +49,7 @@
                   {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                       <label for="email">Instagram User Name</label>
-                      <input type="name" class="form-control" name="email" id="email" value=""  required="">
+                      <input type="name" class="form-control" name="email" id="email" placeholder="Username" value=""  required="">
                       @if ($errors->has('email'))
                           <span class="help-block">
                               <strong>{{ $errors->first('email') }}</strong>

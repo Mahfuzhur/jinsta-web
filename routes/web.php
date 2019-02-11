@@ -18,7 +18,7 @@
 Route::get('/','LoginController@index');
 Route::get('/instagram-info','LoginController@userLogin');
 Route::get('/user-registration','UserController@userRegistration');
-Route::get('/registration-success','UserController@delivery-setting');
+Route::get('/registration-success','UserController@registrationSuccess');
 Route::post('login','LoginController@login');
 Route::post('/instagram-registration','LoginController@InstagramRegistration');
 Route::get('/dashboard','UserController@dashboard');

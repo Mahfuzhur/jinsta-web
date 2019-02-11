@@ -28,7 +28,6 @@
 }
 a{
   text-decoration: none !important;
-  display: block;
 }
 img{
     width: 100%;
@@ -47,14 +46,21 @@ body {
 }
 .header_left {
     background-color: #06af94;
-    padding: 1em 0;
+    padding: 4px 0;
 }
 /*.header_left, .header_right {
     flex: 1;
 }*/
+
 .header_right {
     text-align: right;
     margin: 0 1em;
+}
+.header_right ul.dropdown_menu li {
+    list-style: none;
+}
+.header_right ul.dropdown_menu li:hover .dropdown-item-holder, .dropdown-item-holder:hover{
+    display: block;
 }
 .dropdown-item-holder {
     position: absolute;
@@ -65,11 +71,11 @@ body {
 }
 
 .logo_sec{
-	padding: 5px;
+    padding: 5px;
     color: #fff;
-	padding-right: 20px;
-	padding-left: 10px;
-	border: 1px solid #fff;
+    padding-right: 20px;
+    padding-left: 10px;
+    border: 1px solid #fff;
 }
 
 a.logo_holder {
@@ -246,7 +252,21 @@ span.round-tab {
 }
 
 .wizard .nav-tabs > li {
-    width: 25%;
+    width: 33.33%;
+    position: relative;
+}
+.wizard .nav-tabs > li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    display: block;
+    position: absolute;
+    background: #d8d8d8;
+    left: 50%;
+    top: 50%;
+}
+.wizard .nav-tabs >li:last-child:after{
+    content: none;
 }
 
 .wizard .nav-tabs > li a {
@@ -279,7 +299,7 @@ span.round-tab {
     font-weight: normal;
 }
 .sign_up_form {
-    max-width: 926px;
+    max-width: 850px;
     margin: 0 auto;
 }
 .sign_up_form a {
@@ -300,6 +320,14 @@ span.round-tab {
     cursor: pointer;
     margin-bottom: 10px;
     box-shadow: 0px 1px 10px #00d362
+}
+
+.sign_in_page .wizard .nav-tabs > li.step_1:after, .sign_in_page .wizard .nav-tabs > li.step_1>a>.round-tab {
+    background-color: #00d362;
+}
+.success_page .wizard .nav-tabs > li.step_1:after, .success_page .wizard .nav-tabs > li.step_2:after,
+.success_page .wizard .nav-tabs > li.step_1>a>.round-tab, .success_page .wizard .nav-tabs > li.step_2>a>.round-tab  {
+    background-color: #00d362;
 }
 
 @media( max-width : 585px ) {
@@ -427,6 +455,10 @@ span.round-tab {
     font-size: 17px;
     font-family: sans-serif;
 }
+.pro_info>span>img, .progress_margin>span>img {
+    width: 35px;
+    margin-right: 0.5em;
+}
 
 .dash_footer>.total {
     border-right: 1px solid #7f7f7f;
@@ -541,8 +573,7 @@ span.round-tab {
 }
 
 .progress_margin {
-    margin-left: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 2em;
 }
 
 .letter {
@@ -747,7 +778,7 @@ a.page-link {
     z-index: -1;
     overflow: hidden;
 }*/
-.main_content h4, .delivery_setting h4 {
+.main_content h4, .delivery_setting h4, .request h4 {
     display: inline-block;
     z-index: 1;
     padding-right: 1em;
@@ -799,11 +830,17 @@ a.page-link {
 }
 .create_destination .main_content input {
     height: 45px;
-    width: 712px;
+   max-width: 350px;
 }
 .create_destination .input_box span.input-group-text {
     background: white;
     border: none;
+}
+.hashtag_title span.input-group-text {
+    background: #06af94 !important;
+    color: #ffffff;
+    padding: 0 2em;
+    font-size: 1.2em;
 }
 
 .form_buttons {
@@ -1108,10 +1145,13 @@ button.ds_btn {
     padding-top: 5em;
     padding-left: 3em;
 }
+.request {
+    padding-top: 5em;
+}
 .request .dash_footer {
     border: none;
     background-color: #ffffff !important;
-    margin-top: 8em;
+    margin-top: 3em;
     max-width: 800px;
     box-shadow: 1px 1px 12px #dcd9d9;
 }
@@ -1137,9 +1177,34 @@ button.ds_btn {
     width: 50px;
     margin-right: 1em;
 }
-.request .total>ul>li.last_request_list {
-    margin-top: 2em;
-    margin-left: 3em;
+.request .total .last_request_list {
+    text-align: right;
+    border-top: 1px solid #5a5a5a;
+    margin-top: 3em;
+    color: #5a5a5a;
+}
+.request_upload {
+    margin-top: 1em;
+    text-align: right;
+    max-width: 800px;
+    display: block;
+}
+.request_upload input#file {
+    display: none;
+}
+.request_upload .input_box label>span {
+    margin: 0;
+}
+.request_select .input_box {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+}
+.request_select select {
+    padding: 0.4em 1.5em;
+    margin-top: -0.3em;
+    border: none;
+    box-shadow: 1px 2px 10px #e2dede;
 }
 
 .pagination li>a,.pagination li>span{
@@ -1175,6 +1240,7 @@ button.ds_btn {
     margin-top: 50px;
     margin-left: 115px;
 }
+
 
 /*responsive css*/
 @media screen and (max-width: 1280px) {
@@ -1273,10 +1339,9 @@ select::-ms-expand {
 }
 @media screen and (min-width: 1140px) {
     #page-content-wrapper .container-fluid {
-        padding-left: 75px;
+        padding-left: 50px;
         padding-right: 25px;
-        padding-top: 50px;
-    }
+        padding-top: 25px    }
 }
 
 

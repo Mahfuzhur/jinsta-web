@@ -49,8 +49,9 @@ class UserController extends Controller
 
     public function registrationSuccess(){
         if(Auth::user()){
+        $success_page = 'success_page';
         $content = view('login_registration.form.registration_success_form');
-        return view('login_registration.master',compact('content'));
+        return view('login_registration.master',compact('content','success_page'));
         }else{
             return redirect ('user-login');
         }

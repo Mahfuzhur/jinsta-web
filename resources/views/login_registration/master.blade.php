@@ -12,29 +12,25 @@
 
     <title>宛先登録</title>
   </head>
-  <body>
+  <body class="auth_page @if(isset($sign_in_page)){{$sign_in_page}} @elseif(isset($success_page)) {{$success_page}}@endif" >
     <!-- top header -->
 
     <header>
       <div class="container-fluid">
         <div class="row top_fixed">
           <div class="header_left logo_top">
-            <h4>
-              <a href="{{URL::to('/')}}">
-                <span class="logo_sec">LOGO</span>
+              <a href="{{URL::to('/')}}" class="logo_holder">
+                <img src="{{asset('assets/img/logo.png')}}" alt="">
               </a>
-          </h4>
           </div>
           <div class="header_right">
-               <img class="user_img" src="{{asset('assets/img/user.png')}}">
+              
           </div>
         </div>
       </div>
     </header>
 
-    @yield('content')
-
-    
+   @yield('content')
 
     <!-- jquery core -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
