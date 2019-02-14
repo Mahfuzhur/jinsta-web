@@ -30,11 +30,11 @@
                 @foreach($all_template as $template)
                   <div class="single_template">
                       <div class="img_holder">
-                          <img src="{{asset('uploads/template/'.$template->image)}}" alt="Image" style="width:250px;height: 150px;">
+                          <img src="{{asset('uploads/'.$template->image)}}" alt="Image" style="width:250px;height: 150px;">
                       </div>
                       <div class="temp_content">
                           <div class="title">
-                              <h4>1.{{$template->title}}</h4>
+                              <h4>{{$template->title}}</h4>
                           </div>
                           <div class="temp_desc">
                               <p>{{$template->description}}
@@ -68,7 +68,9 @@
 </div>
 <div class="envelope_area">
    <div class="envelope">
-      <i class="fa fa-envelope" aria-hidden="true"></i>
+      <a href="#">
+        <img src="{{asset('assets/img/message64.png')}}" alt="">
+      </a>
    </div>
 </div>
 @endsection
