@@ -147,18 +147,30 @@ class LoginController extends Controller
 
 
     public function test(){
-               $this->ig->login('webvision100','instagram123456');
-//             session()->put('userName','webvision100');
-//             session()->put('password','instagram123456');
-             //$hastag = $this->ig->hashtag->search('worldseriescricket');
-               $rank_token= \InstagramAPI\Signatures::generateUUID();
-               //$hastag = $this->ig->hashtag->search('mahfuzh');
-               $hastag = $this->ig->hashtag->getFeed('dhakatradefair',$rank_token);
-               //$hastag = $this->ig->media->getInfo('1965957446195605717_7312650484');
-                //$hastag = $this->ig->people->getInfoById('10326646657');
+//               $this->ig->login('webvision100','instagram123456');
+////             session()->put('userName','webvision100');
+////             session()->put('password','instagram123456');
+//             //$hastag = $this->ig->hashtag->search('worldseriescricket');
+//               $rank_token= \InstagramAPI\Signatures::generateUUID();
+//               //$hastag = $this->ig->hashtag->search('mahfuzh');
+//               $hastag = $this->ig->hashtag->getFeed('dhakatradefair',$rank_token);
+//               //$hastag = $this->ig->media->getInfo('1965957446195605717_7312650484');
+//                //$hastag = $this->ig->people->getInfoById('10326646657');
+        $users = DB::table('users')
+            ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+            ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+            ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template', 'template.id', '=', 'template_schedule.template_id')
+            ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+            ->select('users.name','schedule.delivery_period_start', 'hashtag.hashtag','client.client_id')
+            ->where([['users.id', '=', '1']])
+            ->groupBy('hashtag.hashtag')
+            ->get();
 
 
-        return $hastag;
+        return $users;
     }
     public function InstagramRank(){
 
