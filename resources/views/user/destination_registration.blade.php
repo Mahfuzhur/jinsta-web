@@ -13,32 +13,52 @@
 
           <div class="tem_sec_holder">
               <div class="tem_sec">
-                   <h4 class="tem_text">登録済みリスト</h4>           
+                   <h4 class="tem_text">登録済みリスト</h4>  
+                   @if ( Session::has('success') )
+                      <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                          <span class="sr-only">Close</span>
+                      </button>
+                      <strong>{{ Session::get('success') }}</strong>
+                  </div>
+                  @endif         
               </div>
           </div>
 
          <div class="row dest_temp_holder">
+          @if(isset($all_hashtag))
+          @foreach($all_hashtag as $hashtag)
             <div class="col-sm-4">
             	 <div class="card processing">
                   <div class="card-body">
                     <div class="title-area">
-                        <h5 class="card-title">#Hastag_A</h5>
-                        <a class="edit_icon" href="#">
+                        <h5 class="card-title">{{$hashtag->hashtag}}</h5>
+                        <a class="edit_icon" href="{{URL::to('edit-destination-registration/'.$hashtag->id)}}">
                            <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>      
                     </div>
                     <div class="img_holder">
                         <img class="test_img" src="{{asset('assets/img/user.png')}}">
                     </div>
+                    <?php
+                      $user_id = Auth::user()->id;
+                      $client_id = DB::table('client')->select(DB::raw('count(*) as user_count'))->where('user_id',$user_id)->where('hashtag_id',$hashtag->id)->first();
+                      // echo "<pre>";
+                      // print_r($client_id);
+                      // exit();
+                    ?>
                     <div class="card-text">
-                      <h4>108,982</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt.</p>
+                      <h4>@if(isset($client_id)){{$client_id->user_count}}@endif</h4>
+                      <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt.</p> -->
                     </div>              
                     
                   </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            @endforeach
+            @endif
+            <!-- <div class="col-sm-4">
               	<div class="card processing">
   						  <div class="card-body">
   						    <div class="title-area">
@@ -77,12 +97,14 @@
                           
   						  </div>
   						</div>
-            </div>              
+            </div> -->              
     	</div>
 	</div>
 <div class="envelope_area">
    <div class="envelope">
-      <i class="fa fa-envelope" aria-hidden="true"></i>
+      <a href="#">
+        <img src="{{asset('assets/img/message64.png')}}" alt="">
+      </a>
    </div>
 </div>
   <!-- /#page-content-wrapper -->          

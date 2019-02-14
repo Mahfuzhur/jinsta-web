@@ -4,12 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Contracts\Encryption\EncryptException;
-use DB;
-use Session;
-use Auth;
-use Illuminate\Support\Facades\URL;
-use InstagramAPI;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -17,9 +12,8 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    public $user;
     protected $commands = [
-        //Commands\LogDemo::class,
+        Commands\LogDemo::class,
     ];
 
     /**
@@ -30,6 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
         $this->user = DB::table('users')
             ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
             ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
@@ -71,6 +66,7 @@ class Kernel extends ConsoleKernel
             ->unlessBetween($this->user->time_exclusion_setting_start,$this->user->time_exclusion_setting_end)
             ->everyMinute();
         //$schedule->command('log:demo')->everyMinute();
+
 //        $schedule->call(function () {
 //            \Log::info('i was here');
 //       })->everyMinute();

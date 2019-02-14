@@ -1,12 +1,9 @@
 <?php
 
 namespace App\Console\Commands;
-use Illuminate\Contracts\Encryption\EncryptException;
+
 use Illuminate\Console\Command;
-use DB;
-use Session;
-use Auth;
-use InstagramAPI;
+
 class LogDemo extends Command
 {
     /**
@@ -40,8 +37,6 @@ class LogDemo extends Command
      */
     public function handle()
     {
-
-
-
+        \Log::info('i was here');
     }
 }

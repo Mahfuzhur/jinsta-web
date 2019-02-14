@@ -65,9 +65,11 @@ body {
 .dropdown-item-holder {
     position: absolute;
     background-color: #ffffff;
+    /*background-color:#06af94;*/
     right: 0;
-    top: 40px;
+    top: 38px;
     display: none;
+    z-index: 1;
 }
 
 .logo_sec{
@@ -101,6 +103,9 @@ a#sidebar_toggle:focus {
     
 /*--sidebar navigation ------------
 ------------------------*/
+/*#wrapper{
+    position: relative;
+}*/
 #wrapper.toggled {
     padding-left: 180px;
     webkit-transition: all 0.5s ease;
@@ -139,20 +144,24 @@ a#sidebar_toggle:focus {
   display: block;
   margin-top: 2px;
   color: #83d7c9;
-  padding: 16px;
+  padding: 15px 10px;
   text-decoration: none!important;
+}
+
+span.sidebar_icon>img {
+    width: 25px;
 }
 
 #sidebar_toggle {
     position: absolute;
-    top: 10px;
-    left: 0;
+    top: -50px;
+    left: -7px;
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 #sidebar_toggle i {
-    font-size: 2em;
+    font-size: 1.8em;
     color: #ffffff;
 }
 #sidebar_toggle:active {
@@ -767,6 +776,40 @@ a.page-link {
 .left-border{
   position: relative;
 }
+.success_progress_holder.progress-container {
+    position: absolute;
+    background-color: #000000d1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    top: 59px;
+    z-index: 99;
+    display: none;.
+
+}
+.success_progress{
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
+    transform: translate(-50%, 50%);
+}
+
+.s_message {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    width: 70%;
+    max-width: 800px;
+    margin: 0 auto;
+    transform: translate(-50%, 50%);
+    color: white;
+    text-align: center;
+    font-size: 2em;
+}
+
 /*.left-border:before {
     content: '';
     height: 1px;
@@ -803,7 +846,7 @@ a.page-link {
     vertical-align: top;
     border: 1px solid darkgrey;
 }
-.create_destination .main_content input, .main_content .csv_upload label>span {
+.create_destination .main_content .hashtag_title input, .main_content .csv_upload label>span {
     width: 750px;
     border: none;
     background-color: #ffffff;
@@ -828,13 +871,17 @@ a.page-link {
     position: absolute;
     z-index: -1;
 }
-.create_destination .main_content input {
+.create_destination .main_content .hashtag_title input {
     height: 45px;
-   max-width: 350px;
+    max-width: 350px;
+    border-radius: 20%/0px 100px 100px 0px;
+    z-index: 9;
 }
 .create_destination .input_box span.input-group-text {
     background: white;
     border: none;
+    z-index: 1;
+    margin-left: -15px;
 }
 .hashtag_title span.input-group-text {
     background: #06af94 !important;
@@ -843,9 +890,90 @@ a.page-link {
     font-size: 1.2em;
 }
 
+.create_destination .radio_list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    max-width: 800px;
+    margin: 2em 0;
+}
+.single_radio input {
+    margin-bottom: 2em;
+    margin-right: 1em;
+}
+
+.checkcontainer {
+    display: block;
+    position: relative;
+    padding-left: 2em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    font-size: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin-left: 1em;
+}
+.checkcontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.radiobtn {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #06af94;
+    border-radius: 50%;
+}
+.checkcontainer .radiobtn:after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: white;
+    margin: 0;;
+}
+.radiobtn:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.checkcontainer input:checked ~ .radiobtn:after {
+    display: block;
+}
+
+ .checkcontainer input[type="radio"]{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+ .radio-btn{
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+} 
+.create_destination .form_buttons .p_btn {
+    border-radius: 0;
+    line-height: 1.2em;
+    background-color: #06af94;
+    border-color: #06af94;
+    color: #fff;
+}
+
 .form_buttons {
     display: flex;
     justify-content: flex-end;
+    flex-wrap: wrap;
 }
 .form_buttons .p_btn {
     margin-right: 1em;
@@ -875,7 +1003,9 @@ a.page-link {
 
 .create_destination .form_buttons {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    max-width: 800px;
+    margin-top: 4em;
 }
 .envelope {
     position: absolute;
@@ -1241,6 +1371,18 @@ button.ds_btn {
     margin-left: 115px;
 }
 
+.envelope_area .envelope {
+    bottom: -120px;
+}
+
+.dropdown-item:focus, .dropdown-item:hover{
+    background-color: #06af94 !important;    
+}
+
+.dropdown-item-holder{
+    background-color: #06af94;
+    border-radius: 4px !important;
+}
 
 /*responsive css*/
 @media screen and (max-width: 1280px) {
@@ -1253,7 +1395,7 @@ button.ds_btn {
         margin-left: 2px;
     }
     .form_buttons .p_btn, button.ds_btn {
-        padding: 0.4em 5em;
+        padding: 0.4em 2em;
     }
     .temp_result {
         min-height: 293px;
@@ -1273,15 +1415,7 @@ button.ds_btn {
   #exTab1, .test_section {
     margin-top: 15px;
   }
-  .box_holder .rect_box:after {
-        top: 101%;
-        left: 50%;
-        transform: translate(-50%, 0%);
-        border-bottom: none;
-        border-right: 45px solid transparent;
-        border-left-color: transparent;
-        border-top-color: #1717dc;
-    }
+  
     .tem_sec h4:after{
         width: 55%;
     }
@@ -1293,15 +1427,36 @@ button.ds_btn {
         margin-bottom: 1em;
     }
     .form_buttons .p_btn, button.ds_btn {
-        padding: 0.2em 3em;
+        padding: 0.2em 1em;
+        margin-right: 0;
+        margin-bottom: 1em;
     }
     .dest_temp_holder .card {
         margin: 0;
     }
-
+    .dm_setting, .sc_settings .input_group{
+        flex-wrap: wrap;
+    }
+    /*.box_holder .rect_box:after {
+        top: 101%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        border-bottom: none;
+        border-right: 45px solid transparent;
+        border-left-color: transparent;
+        border-top-color: #1717dc;
+    }*/
+    .box_holder .rect_box:after{
+        content:none;
+    }
 }
 @media screen and (max-width: 767px ) {
-
+    #wrapper{
+        position: relative;
+    }
+    #wrapper.toggled{
+        padding: 0;
+    }
     .progressbar_holder{
         flex-direction: column;
         text-align: start;
@@ -1318,7 +1473,70 @@ button.ds_btn {
     .request #exTab1 .tab-content {
         padding-left: 0em;
     }
+    .hashtag_title span.input-group-text{
+        padding: 0 1em;
+    }
+    .create_destination .main_content .hashtag_title input{
+        width: 248px;
+    }
+    .create_destination .radio_list{
+        flex-direction: column;
+    }
+    .create_destination .form_buttons {
+        justify-content: flex-start;
+    }
 
+}
+@media screen and (max-width:600px ){
+    .form_buttons .p_btn, button.ds_btn{
+        margin-right: 1em;
+    }
+}
+@media screen and (max-width:425px ){
+    .form_buttons .p_btn, button.ds_btn{
+        margin-right: 0;
+    }
+    .analytics .progress_view h4{
+        display: flex;
+        width: 100%;
+    }
+}
+@media screen and (max-width:375px ){
+    .create_destination .main_content .hashtag_title input {
+        width: 180px;
+    }
+
+    a.logo_holder {
+        width: 135px;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+        width: 135px;
+    }
+    /*#wrapper.toggled{
+        padding-left: 135px;
+    }*/
+    #sidebar-wrapper{
+        left: 135px;
+        margin-left:-135px;
+    }
+    .header_left {
+        padding: 11px 0;
+    }    
+    .sc_settings .input_box input{
+        width:280px;
+    }
+}
+@media screen and (max-width:320px ){
+    .sc_settings .input_box input {
+        width: 238px;
+    }
+    .delivery_setting select{
+        width: 270px;
+    }
+    .request .total>ul>li {
+        line-height: 1.2em;
+        margin-bottom: 1em;
+    }
 }
 /*ie specific styles*/
 select::-ms-expand {

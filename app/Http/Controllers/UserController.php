@@ -15,6 +15,10 @@ use InstagramAPI;
 use App\Template;
 use App\Hashtag;
 use App\Client;
+use App\Schedule;
+use App\HashtagSchedule;
+use App\TemplateSchedule;
+use App\UserSchedule;
 
 class UserController extends Controller
 {
@@ -93,6 +97,7 @@ class UserController extends Controller
     }
 
     public function saveMenuscriptInfo(Request $request){
+
         if(Auth::user()){
 
         $this->validate($request, [
@@ -106,7 +111,11 @@ class UserController extends Controller
         if (Input::hasFile('image')) {
             $file = Input::file('image');
             $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
-            $file->move('uploads/template/', $file_path_name);
+            $image = str_replace(' ', '+', $file_path_name);
+            $imageName = str_random(10).'.'.'png';
+            // return $imageName;
+            // exit();
+            $file->move('uploads/', $imageName);
         }
         // $info = Album::create($request->all());
 
@@ -116,7 +125,7 @@ class UserController extends Controller
         $update_time = Carbon::now()->addHour(6);
 
         $data = array(
-            array('user_id' => $user_id, 'title' => $request->title, 'description' => $request->description, 'image' => $file_path_name, 'created_at' => $current_time, 'updated_at' => $update_time)
+            array('user_id' => $user_id, 'title' => $request->title, 'description' => $request->description, 'image' => $imageName, 'created_at' => $current_time, 'updated_at' => $update_time)
         );
 
         $flag = Template::insert($data);
@@ -147,18 +156,20 @@ class UserController extends Controller
             'image' => 'image|mimes:jpg,jpeg,png,svg'
         ]);
 
-        $file_path_name = $request->exits_image;
+        $imageName = $request->exits_image;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
             $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
-            $file->move('uploads/template/', $file_path_name);
+            $image = str_replace(' ', '+', $file_path_name);
+            $imageName = str_random(10).'.'.'png';
+            $file->move('uploads/', $imageName);
         }
 
         $flag = Template::findOrfail($id);
         $flag->user_id = Auth::user()->id;
         $flag->title = $request->title;
         $flag->description = $request->description;
-        $flag->image = $file_path_name;
+        $flag->image = $imageName;
         $flag->updated_at = Carbon::now()->addHour(6);
 
         $flag->save();
@@ -170,10 +181,61 @@ class UserController extends Controller
 
     public function destinationRegistration(){
         if(Auth::user()){
+        $user_id = Auth::user()->id;
         $title = '宛先登録';
         $active_destination = 'active';
-        $user_main_content = view('user.destination_registration');
+        $all_hashtag = DB::table('hashtag')
+                // ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
+                // ->select('hashtag.hashtag as title','client.client_id as id')
+                ->get();
+
+        foreach($all_hashtag as $hashtag){
+            $client_id[] = DB::table('client')->select(DB::raw('count(*) as user_count'))->where('user_id',$user_id)->where('hashtag_id',$hashtag->id)->get();
+        }
+        // echo "<pre>";
+        // print_r($data);
+        // exit();
+        $user_main_content = view('user.destination_registration',compact('all_hashtag','client_id'));
         return view('master',compact('user_main_content','active_destination','title'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function editDestinationRegistration($id)
+    {
+        if(Auth::user()){
+        $single_hashtag = Hashtag::findOrfail($id);
+        $manage_hashtag = view('user.edit_destination_registartion',compact('single_hashtag'));
+        return view('master',compact('manage_hashtag'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function saveDestinationRegistration(request $request,$id)
+    {
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+            $manual_id = $request->id;
+            $data = explode(",", $manual_id);
+            $manual_row = count($data);
+            $current_time = Carbon::now()->addHour(6);
+            $update_time = Carbon::now()->addHour(6);
+            for ($i=0; $i < $manual_row; $i++) {
+                if($data[$i] != null ){                             
+                    $manual_data_id[] = ['user_id' => $user_id,'hashtag_id' => $id,'client_id' => $data[$i],'created_at' => $current_time, 'updated_at' => $update_time];
+                }
+                
+            }
+
+            // echo "<pre>";
+            // print_r($manual_data_id);
+            // exit();
+
+            $manualData = DB::table('client')->insert($manual_data_id);
+
+            return redirect('destination-registration')->with('success','ID added successfully');
         }else{
             return redirect ('user-login');
         }
@@ -183,7 +245,7 @@ class UserController extends Controller
         if(Auth::user()){
         $title = '宛先登録';
         $active_destination = 'active';
-        $user_main_content = view('user.test');
+        $user_main_content = view('user.create_destination');
         return view('master',compact('user_main_content','active_destination','title'));
         }else{
             return redirect ('user-login');
@@ -235,7 +297,7 @@ class UserController extends Controller
 
                     $row = count($insert);
 
-                    for ($i=0; $i < $row; $i++) { 
+                    for ($i=1; $i < $row; $i++) { 
                         if($insert[$i]['client_id'] != null && $insert[$i]['client_id'] != 'NULL'){
                             $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $insert[$i]['client_id'],'created_at' => $current_time, 'updated_at' => $update_time];
                         }
@@ -279,8 +341,25 @@ class UserController extends Controller
 
     public function SetSchedule(Request $request){
 
-        $result = Schedule::create($request->all());
-        return redirect('delivery-setting');
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+
+            $result = Schedule::create($request->all());
+            
+            $current_time = Carbon::now()->addHour(6);
+            $update_time = Carbon::now()->addHour(6);
+
+            $template_data = array(array('template_id' => $request->destination, 'schedule_id' => $result->id,'created_at' =>$current_time,'updated_at' => $update_time));
+            $template_schedule = TemplateSchedule::insert($template_data);
+
+            $hashtag_data = array(array('hashtag_id' => $request->draft, 'schedule_id' => $result->id,'created_at' =>$current_time,'updated_at' => $update_time));
+            $hashtag_schedule = HashtagSchedule::insert($hashtag_data);
+
+            $user_data = array(array('user_id' => $user_id, 'schedule_id' => $result->id,'created_at' =>$current_time,'updated_at' => $update_time));
+            $user_flag = UserSchedule::insert($user_data);
+
+            return redirect('delivery-setting')->with('schedule_success','Schedule set successfully');
+        }
     }
 
 
@@ -506,6 +585,87 @@ class UserController extends Controller
         }else{
             return redirect ('user-login');
         }
+    }
+
+    public function hashtagList(){
+        if(Auth::user()){
+        $title = '宛先登録';
+        $active_destination = 'active';
+        $user_main_content = view('user.hashtag_list');
+        return view('master',compact('user_main_content','active_destination','title'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function hashtagListSearch(Request $request){
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+            $hashtag = $request->hashtag;
+            $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
+            $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
+            $rank_token= \InstagramAPI\Signatures::generateUUID();
+            $result = $this->ig->hashtag->search($hashtag);
+          
+            $obj = json_decode($result);
+            $hashtagName = array();
+            $postCounter = array();
+
+            $results = $obj->results;
+
+            $title = '宛先登録';
+            $active_destination = 'active';
+            $user_main_content = view('user.hashtag_list',compact('results'));
+            return view('master',compact('user_main_content','active_destination','title'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function hashtagListSearchCSV(Request $request){
+        if(Auth::user()){
+        $user_id = Auth::user()->id;
+        $hashtagName = $request->hashtag_list;
+        $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
+        // echo "<pre>";
+        // print_r($user_info);
+        // exit();
+        $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
+//             session()->put('userName','webvision100');
+//             session()->put('password','instagram123456');
+        //$hastag = $this->ig->hashtag->search('worldseriescricket');
+        $rank_token= \InstagramAPI\Signatures::generateUUID();
+        $result = $this->ig->hashtag->getFeed($hashtagName,$rank_token);
+        //$result = $this->ig->media->getComments('1965957446195605717_7312650484');
+        $obj = json_decode($result);
+        //$userid = array();
+        $counter = 0;
+
+        $headers = array(
+        "Content-type" => "text/csv",
+        "Content-Disposition" => "attachment; filename=file.csv",
+        "Pragma" => "no-cache",
+        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        "Expires" => "0"
+        );
+
+        $columns = array('Hashtag ID');
+
+        $callback = function() use ($obj, $columns)
+        {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($obj->items as $media) {
+                fputcsv($file, array($media->user->pk));
+            }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+        }else{
+            return redirect ('user-login');
+        }
+        //return $result;
     }
 
     public function index()

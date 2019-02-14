@@ -44,7 +44,7 @@
                     </label>
                     <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);">
                     <input type="hidden" name="exits_image" value="{{$single_template->image}}">
-                  <img src="{{asset('uploads/template/'.$single_template->image)}}" class="img-responsive" style="width: 100px;height: 50px;">
+                  <img src="{{asset('uploads/'.$single_template->image)}}" class="img-responsive" style="width: 100px;height: 50px;">
                 </div>
                 <div class="form_buttons">
                     <input class="btn_cancel p_btn" type="submit" value="削除する">
