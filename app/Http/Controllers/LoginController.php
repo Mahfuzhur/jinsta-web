@@ -173,9 +173,9 @@ class LoginController extends Controller
             ->where([['client.dm_sent','!=','1']])
             ->groupBy('hashtag.hashtag')
             ->first();
+            $imagePath = 'uploads/'.$user->image;
 
-
-        return response()->json($user) ;
+        return response()->json($imagePath) ;
     }
     public function InstagramRank(){
 

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Encryption\EncryptException;
 use DB;
 use Session;
 use Auth;
+use Illuminate\Support\Facades\URL;
 use InstagramAPI;
 class Kernel extends ConsoleKernel
 {
@@ -51,9 +52,12 @@ class Kernel extends ConsoleKernel
                 $recipents = [
                     'users' => [$user->client_id]
                 ];
-                $this->ig->direct->sendText($recipents,$user->title);
-                //$this->ig->direct->sendPhoto($recipents,$user->image);
-                $this->ig->direct->sendText($recipents,$user->description);
+                $image = $user->image;
+                $imagePath = 'uploads/template/'.$image;
+                //$path = 'E:/wbits/jinsta-web/public/uploads/template'.$user->image;
+                //$this->ig->direct->sendText($recipents,$user->title);
+                $this->ig->direct->sendPhoto($recipents,$imagePath);
+                //$this->ig->direct->sendText($recipents,$user->description);
 
             }catch (\Exception $ex){
                 echo $ex;
