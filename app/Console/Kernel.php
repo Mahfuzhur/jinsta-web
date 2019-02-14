@@ -4,6 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Session;
+use Auth;
+use DB;
+use InstagramAPI;
+use GuzzleHttp\Exception\ServerException;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +18,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\LogDemo::class,
+        
     ];
 
     /**
