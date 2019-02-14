@@ -29,9 +29,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        try{
+
+        }catch(\Exception $ex){
+            echo $ex;
+        }
         $schedule->call(function () {
             try{
-                $this->ig = new \InstagramAPI\Instagram();
                 $user = DB::table('users')
                     ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
                     ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
@@ -48,21 +52,22 @@ class Kernel extends ConsoleKernel
                     ->where([['client.dm_sent','!=','1']])
                     ->groupBy('hashtag.hashtag')
                     ->first();
+                $this->ig = new \InstagramAPI\Instagram();
+
                 $result = $this->ig->login($user->instagram_username,$user->instagram_password);
                 $recipents = [
                     'users' => [$user->client_id]
                 ];
-                $image = $user->image;
-                $imagePath = 'uploads/template/'.$image;
-                //$path = 'E:/wbits/jinsta-web/public/uploads/template'.$user->image;
-                //$this->ig->direct->sendText($recipents,$user->title);
+
+                $imagePath = 'uploads/'.$user->image;
+                $this->ig->direct->sendText($recipents,$user->title);
                 $this->ig->direct->sendPhoto($recipents,$imagePath);
-                //$this->ig->direct->sendText($recipents,$user->description);
+                $this->ig->direct->sendText($recipents,$user->description);
 
             }catch (\Exception $ex){
                 echo $ex;
             }
-        })->everyMinute();
+        })->between($user->delivery_period_start,$user->delivery_period_end)->unlessBetween($user->date_exclusion_setting_start,$user->date_exclusion_setting_end);
         $schedule->command('log:demo')->everyMinute();
 //        $schedule->call(function () {
 //            \Log::info('i was here');

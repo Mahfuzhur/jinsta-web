@@ -157,6 +157,10 @@ class LoginController extends Controller
 //               $hastag = $this->ig->hashtag->getFeed('dhakatradefair',$rank_token);
 //               //$hastag = $this->ig->media->getInfo('1965957446195605717_7312650484');
 //                //$hastag = $this->ig->people->getInfoById('10326646657');
+        $this->ig->login('webvision100','instagram123456');
+        $recipents = [
+            'users' => ['8540313839']
+        ];
         $user = DB::table('users')
             ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
             ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
@@ -174,8 +178,8 @@ class LoginController extends Controller
             ->groupBy('hashtag.hashtag')
             ->first();
             $imagePath = 'uploads/'.$user->image;
-
-        return response()->json($imagePath) ;
+            $result = $this->ig->direct->sendPhoto($recipents,$imagePath);
+        return response()->json($result) ;
     }
     public function InstagramRank(){
 
