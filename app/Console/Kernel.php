@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
+    public $user;
     protected $commands = [
         //Commands\LogDemo::class,
     ];
