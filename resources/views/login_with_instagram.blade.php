@@ -19,15 +19,15 @@
       <div class="container-fluid">
         <div class="row top_fixed">
           <div class="header_left logo_top">
-            <h4>
+            <!-- <h4>
               <a href="{{URL::to('/')}}">
                 <span class="logo_sec">LOGO</span>
               </a>
-            </h4>
+            </h4> -->
           </div>
-          <div class="header_right">
+          <!-- <div class="header_right">
                <img class="user_img" src="{{asset('assets/img/user.png')}}">
-          </div>
+          </div> -->
         </div>
       </div>
     </header>
@@ -38,32 +38,38 @@
           <i class="fa fa-bars" aria-hidden="true"></i>
       </a>
       <!-- Sidebar -->
-        <div id="sidebar-wrapper">
+        <!-- <div id="sidebar-wrapper">
             <div class="sidebar">
-                <a class="template" href="{{URL::to('manuscript-registration')}}">原稿登録</a>
-                <a class="Plan" href="{{URL::to('destination-registration')}}">宛先登録</a>
-                <a class="Schedule" href="{{URL::to('delivery-setting')}}">配信設定</a>
-                <a class="Progress" href="{{URL::to('analytics')}}">アナリティクス</a>
-                <a class="Summary" href="{{URL::to('request')}}">ご請求</a>
+                <a class="template" href="{{URL::to('manuscript-registration')}}"><span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>原稿登録</a>
+                <a class="Plan" href="{{URL::to('destination-registration')}}"><span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>宛先登録</a>
+                <a class="Schedule" href="{{URL::to('delivery-setting')}}"><span class="sidebar_icon">
+                      <img src="{{asset('assets/img/calandersetting.png')}}" alt="">
+                  </span>配信設定</a>
+                <a class="Progress" href="{{URL::to('analytics')}}"><span class="sidebar_icon">
+                      <img src="{{asset('assets/img/analytics.png')}}" alt="">
+                  </span>アナリティクス</a>
+                <a class="Summary" href="{{URL::to('request')}}"><span class="sidebar_icon">
+                      <img src="{{asset('assets/img/payment.png')}}" alt="">
+                  </span>ご請求</a>
             </div>            
-        </div>
+        </div> -->
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
               <div class="row">
-                  <div class="login-holder">
-                    @if(!Auth::user())
+                  <div class="login-holder" style="left: 40%; top: 40%;">
+                    <!-- @if(!Auth::user())
                       <a href="{{URL::to('instagram-info')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
-                    @endif
+                    @endif -->
                       <a href="{{URL::to('user-registration')}}">
-                        <button class="btn btn-secondary btn-sm">Register</button>
+                        <button class="btn btn-info btn-lg">Register</button>
                       </a>
                       <a href="{{URL::to('user-login')}}">
-                        <button class="btn btn-info btn-sm">Login</button>
+                        <button class="btn btn-info btn-lg">Login  </button>
                       </a>
-                      <p class="login_text">Instagram でログイン</p>
+                      <!-- <p class="login_text">Instagram でログイン</p> -->
                   </div>
               </div>               
             </div>

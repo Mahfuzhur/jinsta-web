@@ -30,14 +30,20 @@ Route::post('/save-menuscript-info', 'UserController@saveMenuscriptInfo');
 Route::get('/edit-template/{id}', 'UserController@editTemplate');
 Route::post('/update-template/{id}', 'UserController@updateTemplate');
 Route::get('/destination-registration','UserController@destinationRegistration');
-Route::get('/create-destination','UserController@createDestination');
+Route::get('/edit-destination-registration/{id}','UserController@editDestinationRegistration');
+Route::post('/save-destination-registration/{id}','UserController@saveDestinationRegistration');
+
+Route::get('/create-destination','UserController@hashtagList');
+// Route::get('/create-destination','UserController@createDestination');
 Route::get('/user-login','UserController@userLogin');
 
 Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
 
 Route::get('/download-csv/{hashtagName}','UserController@downloadCSV');
 
-
+Route::get('/hashtag-list','UserController@hashtagList');
+Route::post('/hashtag-list-search','UserController@hashtagListSearch');
+Route::post('/hashtag-list-search-csv','UserController@hashtagListSearchCSV');
 
 
 Route::post('/hashtag-search','UserController@hashtagSearch');

@@ -7,13 +7,18 @@
             {{csrf_field()}}
           <div class="col-md-12 delivery_setting">
               <h4>宛先 & 原稿設定</h4>
+              @if(session('schedule_success'))
+              <div class="alert alert-success">
+                {{session('schedule_success')}}
+              </div>
+              @endif
               <div class="dm_setting left-border m-b-40">                          
                   <div class="input_box">
                       <label for="destination">
                           宛先
                       </label>
                       <select class="dest_input" id="destination" name="destination">
-                          <option value=""></option>
+                          <option value="">SelectTemplate</option>
                            @foreach($templates as $template)
                             <option value="{{$template->id}}">{{$template->title}}</option>
                             @endforeach
@@ -24,7 +29,7 @@
                           原稿
                       </label>
                       <select class="draft_input" id="draft" name="draft">
-                          <option value=""></option>
+                          <option value="">Select Hashtag</option>
                            @foreach($hashtags as $hashtag)
                             <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
                             @endforeach
@@ -110,7 +115,9 @@
 
           <div class="envelope_area">
              <div class="envelope">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <a href="#">
+                  <img src="{{asset('assets/img/message64.png')}}" alt="">
+                </a>
              </div>
           </div>
       </div>  

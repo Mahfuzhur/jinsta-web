@@ -70,7 +70,9 @@
 
         <div class="envelope_area">
            <div class="envelope">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <a href="#">
+                <img src="{{asset('assets/img/message64.png')}}" alt="">
+              </a>
            </div>
         </div>
     </div>
