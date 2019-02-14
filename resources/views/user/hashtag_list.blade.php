@@ -10,6 +10,17 @@
 	        <form action="{{URL::to('hashtag-list-search')}}" method="post">
 	        {{csrf_field()}}
 	        <div class="hashtag_title left-border m-b-40">
+	        	@if(session('errot_message'))
+	        	<div class="alert alert-danger">
+	        		{{session('errot_message')}}
+	        	</div>
+	        	@endif
+
+	        	@if(session('message'))
+	        	<div class="alert alert-success">
+	        		{{session('message')}}
+	        	</div>
+	        	@endif
 	            <h4>#から作成</h4>
 	            <div class="input_box">                    
 	                <div class="input-group">                            
@@ -121,5 +132,6 @@
 		</div>
 
 	</div>
+
 </div>
 @endsection

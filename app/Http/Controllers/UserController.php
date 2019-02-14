@@ -624,8 +624,15 @@ class UserController extends Controller
 
     public function hashtagListSearchCSV(Request $request){
         if(Auth::user()){
+
+        
+
         $user_id = Auth::user()->id;
         $hashtagName = $request->hashtag_list;
+        $exit_info = DB::table('hashtag')->where('hashtag',$hashtagName)->first();
+        if($exit_info){
+            return redirect('create-destination')->with('errot_message','Hashtag already exits');
+        }
         $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
         // echo "<pre>";
         // print_r($user_info);
@@ -641,27 +648,61 @@ class UserController extends Controller
         //$userid = array();
         $counter = 0;
 
-        $headers = array(
-        "Content-type" => "text/csv",
-        "Content-Disposition" => "attachment; filename=file.csv",
-        "Pragma" => "no-cache",
-        "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-        "Expires" => "0"
-        );
+        $row = count($obj->items);
+        $current_time = Carbon::now()->addHour(6);
+        $update_time = Carbon::now()->addHour(6);
+        $user = new Hashtag();
+        $user->user_id= $user_id;  
+        $user->hashtag= $hashtagName; 
+        $user->created_at= $current_time; 
+        $user->updated_at= $update_time; 
+        $user->save();
+        $lastInsertId = $user->id;
 
-        $columns = array('Hashtag ID');
+        // $flag = DB::table('hashtag')->insert($hashtag_data)->lastInsertId();
+        // echo "<pre>";
+        // print_r($lastInsertId);
+        // exit();
+        
+        foreach($obj->items as $media) {
+            $insert[] = $media->user->pk;
+        }
 
-        $callback = function() use ($obj, $columns)
-        {
-            $file = fopen('php://output', 'w');
-            fputcsv($file, $columns);
+        // echo "<pre>";
+        // print_r($insert);
+        // exit();
 
-            foreach($obj->items as $media) {
-                fputcsv($file, array($media->user->pk));
+        for ($i=1; $i < $row; $i++) { 
+            if($obj->items){
+                $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $insert[$i],'created_at' => $current_time, 'updated_at' => $update_time];
             }
-            fclose($file);
-        };
-        return response()->stream($callback, 200, $headers);
+        }
+
+        $flag = Client::insert($insert_data);
+
+        return redirect('create-destination')->with('message','Hastag and its ID added successfully');
+
+        // $headers = array(
+        // "Content-type" => "text/csv",
+        // "Content-Disposition" => "attachment; filename=file.csv",
+        // "Pragma" => "no-cache",
+        // "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+        // "Expires" => "0"
+        // );
+
+        // $columns = array('Hashtag ID');
+
+        // $callback = function() use ($obj, $columns)
+        // {
+        //     $file = fopen('php://output', 'w');
+        //     fputcsv($file, $columns);
+
+        //     foreach($obj->items as $media) {
+        //         fputcsv($file, array($media->user->pk));
+        //     }
+        //     fclose($file);
+        // };
+        // return response()->stream($callback, 200, $headers);
         }else{
             return redirect ('user-login');
         }
