@@ -151,14 +151,37 @@ class LoginController extends Controller
 //             session()->put('userName','webvision100');
 //             session()->put('password','instagram123456');
              //$hastag = $this->ig->hashtag->search('worldseriescricket');
-               $rank_token= \InstagramAPI\Signatures::generateUUID();
-               //$hastag = $this->ig->hashtag->search('mahfuzh');
-               $hastag = $this->ig->hashtag->getFeed('dhakatradefair',$rank_token);
+//               $rank_token= \InstagramAPI\Signatures::generateUUID();
+//               //$hastag = $this->ig->hashtag->search('mahfuzh');
+//               $hastag = $this->ig->hashtag->getFeed('dhakatradefair',$rank_token);
                //$hastag = $this->ig->media->getInfo('1965957446195605717_7312650484');
                 //$hastag = $this->ig->people->getInfoById('10326646657');
+//        $this->user = DB::table('users')
+//            ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+//            ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+//            ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+//            ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+//            ->join('template', 'template.id', '=', 'template_schedule.template_id')
+//            ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+//            ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+//            ->select('users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
+//                ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
+//                ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
+//                , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
+//                'client.hashtag_id','template.title','template.description','template.image')
+//            ->where([['client.dm_sent','!=','1']])
+//            ->groupBy('hashtag.hashtag')
+//            ->first();
+        $recipents = [
+            'users' => [$this->user->client_id]
+        ];
+
+        $imagePath = 'uploads/'.$this->user->image;
+        //$this->ig->direct->sendText($recipents,$this->user->title);
+        $this->ig->direct->sendPhoto($recipents,$imagePath);
 
 
-        return $hastag;
+        return response()->json($this->user);
     }
     public function InstagramRank(){
 
