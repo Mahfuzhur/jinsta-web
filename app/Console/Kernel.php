@@ -4,6 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Session;
+use Auth;
+use DB;
+use InstagramAPI;
+use GuzzleHttp\Exception\ServerException;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,7 +18,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\LogDemo::class,
+
     ];
 
     /**
@@ -54,8 +59,8 @@ class Kernel extends ConsoleKernel
 
                 $imagePath = 'uploads/'.$this->user->image;
                 $this->ig->direct->sendText($recipents,$this->user->title);
-//                $this->ig->direct->sendPhoto($recipents,$imagePath);
-//                $this->ig->direct->sendText($recipents,$this->user->description);
+                $this->ig->direct->sendPhoto($recipents,$imagePath);
+                $this->ig->direct->sendText($recipents,$this->user->description);
 
             }catch (\Exception $ex){
                 echo $ex;
