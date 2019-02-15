@@ -173,15 +173,17 @@ class LoginController extends Controller
 //            ->groupBy('hashtag.hashtag')
 //            ->first();
         $recipents = [
-            'users' => [$this->user->client_id]
+            'users' => ['8574903852']
         ];
 
-        $imagePath = 'uploads/'.$this->user->image;
+        $imagePath = 'uploads/'.'bylP39uuyy.png';
         //$this->ig->direct->sendText($recipents,$this->user->title);
+        echo $imagePath;
+        exit();
         $this->ig->direct->sendPhoto($recipents,$imagePath);
 
 
-        return response()->json($this->user);
+        return response()->json();
     }
     public function InstagramRank(){
 
