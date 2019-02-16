@@ -207,13 +207,13 @@ class UserController extends Controller
                 // ->select('hashtag.hashtag as title','client.client_id as id')
                 ->get();
 
-        foreach($all_hashtag as $hashtag){
-            $client_id[] = DB::table('client')->select(DB::raw('count(*) as user_count'))->where('user_id',$user_id)->where('hashtag_id',$hashtag->id)->get();
-        }
+        // foreach($all_hashtag as $hashtag){
+        //     $client_id[] = DB::table('client')->select(DB::raw('count(*) as user_count'))->where('user_id',$user_id)->where('hashtag_id',$hashtag->id)->get();
+        // }
         // echo "<pre>";
         // print_r($data);
         // exit();
-        $user_main_content = view('user.destination_registration',compact('all_hashtag','client_id'));
+        $user_main_content = view('user.destination_registration',compact('all_hashtag'));
         return view('master',compact('user_main_content','active_destination','title'));
         }else{
             return redirect ('user-login');
