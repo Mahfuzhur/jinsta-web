@@ -25,7 +25,7 @@
 	            <div class="input_box">                    
 	                <div class="input-group">                            
 	                    <input type="text" name="hashtag" id="hashtag" placeholder="#から作成" class="hashtag_input">
-	                    <div class="input-group-append">
+	                    <div class="input-group-append" style="margin-left: -10px;">
 	                    	<button type="submit" name="" class="btn btn-info" style="background: #06af94;">Search</button>
 	                      <!-- <span class="input-group-text" id="">Search</span> -->
 	                    </div>
@@ -44,7 +44,7 @@
 	                <div class="single_radio radio1">
                 	
   					@foreach($results as $result)
-	                  <label class="checkcontainer"> {{$result->name}}
+	                  <label class="checkcontainer"> {{$result->name}}-> {{$result->search_result_subtitle}}
 	                    <input type="radio" name="hashtag_list" value="{{$result->name}}"><br>
 	                    <span class="radiobtn"></span>
 	                  </label>

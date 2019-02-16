@@ -72,12 +72,12 @@
          
 
           <div class="form_buttons">
-              <button class="btn_cancel p_btn">削除する</button>
+              <!-- <button class="btn_cancel p_btn">削除する</button> -->
               <button type="submit" class="btn_done p_btn">登録する</button>
           </div>
       </div>
       </form>
-      <form method="post" action="{{URL::to('hashtag-search')}}">
+      <!-- <form method="post" action="{{URL::to('hashtag-search')}}">
           {{ csrf_field() }}
           <div class="hashtag_title left-border m-b-40">
               <h4>#から作成</h4>
@@ -95,11 +95,11 @@
       @foreach($results as $result)
       {{$result->name}}
        **
-      {{$result->search_result_subtitle}} = <a href="download-csv/{{$result->name}}">select</a>
+      {{$result->search_result_subtitle}} = <a href="download-csv/{{$result->name}}">select</a> -->
       <!-- <a href="hashtag-selected/{{$result->name}}">select</a> -->
-      <br>
-      @endforeach
-      @endif
+      <!-- <br> -->
+      <!-- @endforeach
+      @endif -->
       <div class="envelope_area">
          <div class="envelope">
             <a href="#">

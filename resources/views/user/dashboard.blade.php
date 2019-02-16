@@ -6,8 +6,8 @@
     <div class="row row-eq-height">
       <div class="col-md-6 col-sm-12">
           <div class="test_section">
-             <div class="test"><center>@instragam_account</center></div>
-             <center><img class="test_img" src="{{asset('assets/img/user.png')}}"></center>
+             <div class="test"><center>{{$json_selfinfo['user']['username']}}</center></div>
+             <center><img class="test_img" src="{{$json_selfinfo['user']['profile_pic_url']}}"></center>
 
              <div class="row inst_section">
                 <div class="inst_title first">

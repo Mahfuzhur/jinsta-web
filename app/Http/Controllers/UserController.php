@@ -65,8 +65,18 @@ class UserController extends Controller
         // $user_name = Session::get('current_user_name');
         // $user_profile_image = Session::get('current_user_image');
         if(Auth::user()){
+            $user_id = Auth::user()->id;
             $title = 'Index page';
-            $user_main_content = view('user.dashboard');
+            $user_info = DB::table('users')->where('id',$user_id)->first();
+            $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
+            $selfInfo = $this->ig->people->getSelfInfo();
+            $json_selfinfo = json_decode($selfInfo,true);
+
+        // echo "<pre>";
+        // print_r($json_selfinfo['user']['username']);
+        // exit();
+
+            $user_main_content = view('user.dashboard',compact('json_selfinfo'));
             return view('master',compact('user_main_content','title'));
         }else{
             return redirect ('user-login');
@@ -75,7 +85,8 @@ class UserController extends Controller
 
     public function manuscriptRegistration(){
         if(Auth::user()){
-            $all_template = Template::paginate(3);
+            $user_id = Auth::user()->id;
+            $all_template = Template::where('user_id',$user_id)->paginate(3);
             $title = '新規作成';
             $active_manuscript = 'active';
             $user_main_content = view('user.manuscript_registration',compact('all_template'));
@@ -184,7 +195,7 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $title = '宛先登録';
         $active_destination = 'active';
-        $all_hashtag = DB::table('hashtag')
+        $all_hashtag = DB::table('hashtag')->where('user_id',$user_id)
                 // ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
                 // ->select('hashtag.hashtag as title','client.client_id as id')
                 ->get();
@@ -257,19 +268,19 @@ class UserController extends Controller
         $this->validate($request, [
 
             'hashtag' => 'required|unique:hashtag|max:500',
-            'file' => 'required',
             'id' => 'required'
         ]);
 
         $user_id = Auth::user()->id;
         $current_time = Carbon::now()->addHour(6);
         $update_time = Carbon::now()->addHour(6);
+        $hashtag_insert_id = Hashtag::create(['user_id'=>$user_id,'hashtag'=>$request->hashtag,'created_at' => $current_time, 'updated_at' => $update_time]);
 
         if($request->hasFile('file')){
             $extension = File::extension($request->file->getClientOriginalName());
             if ($extension == "csv") {
 
-                $hashtag_insert_id = Hashtag::create(['user_id'=>$user_id,'hashtag'=>$request->hashtag,'created_at' => $current_time, 'updated_at' => $update_time]);
+                
  
                 $path = $request->file->getRealPath();
                 // if($extension == "csv"){
@@ -332,6 +343,23 @@ class UserController extends Controller
                 Session::flash('error', 'File is a '.$extension.' file.!! Please upload a valid csv file..!!');
                 return back();
             }
+        }else{
+            $manual_id = $request->id;
+            $data = explode(",", $manual_id);
+            $manual_row = count($data);
+            for ($i=0; $i < $manual_row; $i++) {                             
+                $manual_data_id[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $data[$i],'created_at' => $current_time, 'updated_at' => $update_time];
+                
+            }
+
+            $manualData = DB::table('client')->insert($manual_data_id);
+            if ($manualData) {
+                Session::flash('success', 'Your client id successfully added');
+            }else {                        
+                Session::flash('error', 'Error inserting the data..');
+                
+            }
+            return back();
         }
         }else{
             return redirect ('user-login');
