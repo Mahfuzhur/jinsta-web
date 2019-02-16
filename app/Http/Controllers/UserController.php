@@ -65,6 +65,7 @@ class UserController extends Controller
         // $user_name = Session::get('current_user_name');
         // $user_profile_image = Session::get('current_user_image');
         if(Auth::user()){
+
             $user_id = Auth::user()->id;
             $title = 'Index page';
             $user_info = DB::table('users')->where('id',$user_id)->first();
@@ -76,7 +77,13 @@ class UserController extends Controller
         // print_r($json_selfinfo['user']['username']);
         // exit();
 
-            $user_main_content = view('user.dashboard',compact('json_selfinfo'));
+            // $user_main_content = view('user.dashboard',compact('json_selfinfo'));
+
+            $numberOfLists = Schedule::count();
+            $numberSent = Client::where([['dm_sent', '=', '1']])->count();
+            $title = 'Index page';
+            $user_main_content = view('user.dashboard',compact('numberOfLists','numberSent','json_selfinfo'));
+
             return view('master',compact('user_main_content','title'));
         }else{
             return redirect ('user-login');
@@ -420,9 +427,11 @@ class UserController extends Controller
 
     public function analytics(){
         if(Auth::user()){
+            $numberOfLists = Schedule::count();
+            $numberSent = Client::where([['dm_sent', '=', '1']])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
-        $user_main_content = view('user.analytics');
+        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent'));
         return view('master',compact('user_main_content','analytics','title'));
         }else{
             return redirect ('user-login');

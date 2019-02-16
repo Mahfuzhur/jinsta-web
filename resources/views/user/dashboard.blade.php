@@ -99,9 +99,9 @@
                  </div> 
                  <div class="dash_footer">
                     <span class="total"><b>100,000 </br> 送信数</b></span> <br>
-                    <span class="total"><b>1,000 </br> 既読数 </b></span> <br> 
+                    <span class="total"><b>1,000 </br> 既読数 </b></span> <br>
                     <span class="total"><b> 1% </br> 既読率</b></span>
-                </div>                      
+                </div>
             </div>
             <div class="tab-pane" id="2a">
                 <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
@@ -157,7 +157,7 @@
                  </div>                   
                  <div class="dash_footer">
                     <span class="total"><b>100,000 </br> 送信数</b></span> <br>
-                    <span class="total"><b>1,000 </br> 既読数 </b></span> <br> 
+                    <span class="total"><b>1,000 </br> 既読数 </b></span> <br>
                     <span class="total"><b> 1% </br> 既読率 </b></span>
                 </div>                      
           </div>

@@ -125,10 +125,10 @@
         </div>
         <div class="row box_holder">
           <div class="rect_box">
-            <h4>リスト数</h4>
+            <h4>リスト数 <br> {{$numberOfLists}}</h4>
           </div>
           <div class="rect_box">
-            <h4>送信数</h4>
+            <h4>送信数 <br> {{$numberSent}}</h4>
           </div>
           <div class="rect_box">
             <h4>開封率</h4>
