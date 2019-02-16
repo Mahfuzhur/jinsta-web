@@ -10,14 +10,14 @@
                   </div>
               </a>
           </div>
-          <div class="create_btn_holder">
+          <!-- <div class="create_btn_holder">
               <a href="{{URL::to('hashtag-manually-add')}}">
                   <div class="create_new_template">                            
                     <span><i class="fa fa-plus" aria-hidden="true"></i></span>
                     <span class="new_template">Add Manually</span>
                   </div>
               </a>
-          </div>
+          </div> -->
 
           <div class="tem_sec_holder">
               <div class="tem_sec">

@@ -42,12 +42,15 @@
 	            </div>
 	            <div class="radio_list">
 	                <div class="single_radio radio1">
-                	
+                	<?php $i=0;?>
   					@foreach($results as $result)
+  					@if($i < 9)
 	                  <label class="checkcontainer"> {{$result->name}}-> {{$result->search_result_subtitle}}
 	                    <input type="radio" name="hashtag_list" value="{{$result->name}}"><br>
 	                    <span class="radiobtn"></span>
 	                  </label>
+	                @endif
+	                <?php $i++;?>
                     @endforeach
  				   
 	                  <!-- <label class="checkcontainer">
