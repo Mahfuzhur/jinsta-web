@@ -34,6 +34,7 @@ Route::get('/edit-destination-registration/{id}','UserController@editDestination
 Route::post('/save-destination-registration/{id}','UserController@saveDestinationRegistration');
 
 Route::get('/create-destination','UserController@hashtagList');
+Route::get('/hashtag-manually-add','UserController@createDestination');
 // Route::get('/create-destination','UserController@createDestination');
 Route::get('/user-login','UserController@userLogin');
 

@@ -19,6 +19,9 @@
       <div class="container-fluid">
         <div class="row top_fixed">
           <div class="header_left logo_top">
+            <a href="{{URL::to('/')}}" class="logo_holder">
+                <img src="{{URL::to('assets/img/logo.png')}}" alt="">
+              </a>
             <!-- <h4>
               <a href="{{URL::to('/')}}">
                 <span class="logo_sec">LOGO</span>
@@ -64,15 +67,23 @@
                       <a href="{{URL::to('instagram-info')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
                     @endif -->
                       <a href="{{URL::to('user-registration')}}">
-                        <button class="btn btn-info btn-lg">Register</button>
+                        <button class="btn btn-info btn-lg" style="background-color: #06af94">Register</button>
                       </a>
                       <a href="{{URL::to('user-login')}}">
-                        <button class="btn btn-info btn-lg">Login  </button>
+                        <button class="btn btn-info btn-lg" style="background-color: #06af94">&nbsp;&nbsp;Login&nbsp;&nbsp;</button>
                       </a>
                       <!-- <p class="login_text">Instagram でログイン</p> -->
                   </div>
+                  <div class="envelope_area">
+                   <div class="envelope">
+                      <a href="#">
+                        <img src="{{asset('assets/img/message64.png')}}" alt="">
+                      </a>
+                   </div>
+                </div>
               </div>               
             </div>
+
         </div>
           <!-- /#page-content-wrapper -->
       </div>
