@@ -49,14 +49,16 @@ class LoginController extends Controller
         session()->put('userName',$userName);
         session()->put('password',$password);
         try{
-            $this->ig->login($userName,$password);
+           $result1 = $this->ig->login($userName,$password);
+
              $result = DB::table('users')
                 ->where('id', $user_id)
                 ->update(['instagram_username' => $userName,'instagram_password' => $password]);
             return redirect('registration-success');
         }
         catch (\Exception $ex){
-            return redirect('instagram-info')->with('check','invalid username or password');
+            //return redirect('instagram-info')->with('check','invalid username or password');
+            return $ex;
         }
 
         //$selfInfo = $this->ig->people->getSelfInfo();

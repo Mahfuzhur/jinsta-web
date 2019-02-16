@@ -65,8 +65,10 @@ class UserController extends Controller
         // $user_name = Session::get('current_user_name');
         // $user_profile_image = Session::get('current_user_image');
         if(Auth::user()){
+            $numberOfLists = Schedule::count();
+            $numberSent = Client::where([['dm_sent', '=', '1']])->count();
             $title = 'Index page';
-            $user_main_content = view('user.dashboard');
+            $user_main_content = view('user.dashboard',compact('numberOfLists','numberSent'));
             return view('master',compact('user_main_content','title'));
         }else{
             return redirect ('user-login');
@@ -392,9 +394,11 @@ class UserController extends Controller
 
     public function analytics(){
         if(Auth::user()){
+            $numberOfLists = Schedule::count();
+            $numberSent = Client::where([['dm_sent', '=', '1']])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
-        $user_main_content = view('user.analytics');
+        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent'));
         return view('master',compact('user_main_content','analytics','title'));
         }else{
             return redirect ('user-login');

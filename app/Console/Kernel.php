@@ -33,6 +33,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         try{
+
             $this->user = DB::table('users')
                 ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
                 ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
@@ -53,34 +54,41 @@ class Kernel extends ConsoleKernel
             echo "something went wrong";
         }
 
-        $schedule->call(function () {
-            try{
+        if ($this->user != null){
+            $schedule->call(function () {
 
-                $this->ig = new \InstagramAPI\Instagram();
+                try{
 
-                $result = $this->ig->login($this->user->instagram_username,$this->user->instagram_password);
-                $recipents = [
-                    'users' => [$this->user->client_id]
-                ];
-                $imagePath = 'uploads/'.'bylP39uuyy.png';
-                $this->ig->direct->sendText($recipents,$this->user->title);
 
-                $this->ig->direct->sendPhoto($recipents,public_path('uploads/'.'bylP39uuyy.png'));
-                $this->ig->direct->sendText($recipents,$this->user->description);
+                    $this->ig = new \InstagramAPI\Instagram();
 
-            }catch (\Exception $ex){
-                echo "something went wrong";
-            }
-            finally{
-                $client = Client::find($this->user->id);
-                $client->dm_sent = 1;
-                $client->save();
-            }
-        })->between($this->user->delivery_period_start,$this->user->delivery_period_end)
-            ->unlessBetween($this->user->date_exclusion_setting_start,$this->user->date_exclusion_setting_end)
-            ->between($this->user->specify_time_start,$this->user->specify_time_end)
-            ->unlessBetween($this->user->time_exclusion_setting_start,$this->user->time_exclusion_setting_end)
-            ->everyMinute();
+                    $result = $this->ig->login($this->user->instagram_username,$this->user->instagram_password);
+                    $recipents = [
+                        'users' => [$this->user->client_id]
+                    ];
+                    $imagePath = 'uploads/'.'bylP39uuyy.png';
+                    $this->ig->direct->sendText($recipents,$this->user->title);
+
+                    $this->ig->direct->sendPhoto($recipents,public_path('uploads/'.'bylP39uuyy.png'));
+                    $this->ig->direct->sendText($recipents,$this->user->description);
+
+                }catch (\Exception $ex){
+                    echo "something went wrong";
+                }
+                finally{
+                    $client = Client::find($this->user->id);
+                    $client->dm_sent = 1;
+                    $client->save();
+                }
+            })->between($this->user->delivery_period_start,$this->user->delivery_period_end)
+                ->unlessBetween($this->user->date_exclusion_setting_start,$this->user->date_exclusion_setting_end)
+                ->between($this->user->specify_time_start,$this->user->specify_time_end)
+                ->unlessBetween($this->user->time_exclusion_setting_start,$this->user->time_exclusion_setting_end)
+                ->everyMinute();
+        }else{
+            \Log::info('i was here');
+        }
+
 
 //        $schedule->call(function () {
 //            \Log::info('i was here');
