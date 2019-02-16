@@ -100,7 +100,7 @@
 
                     <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="exampleCheck1" required="">
-                      <label class="form-check-label" for="exampleCheck1">ギフトコードをお持ちの方はこちら</label>
+                      <label class="form-check-label" for="exampleCheck1">&nbsp;&nbsp;私はプライバシーポリシーに同意します</label>
                       <!--<label class="form-check-label" for="exampleCheck1">I agrre to <a href="#">terms of service</a> and <a href="#">Privacy policy</a></label>-->
                     </div>
 
