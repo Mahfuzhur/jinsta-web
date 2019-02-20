@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="page_heading">
-          <h2 class="">3ステップでかんたんサインイン</h2>
+          <h2 class="">3STEPで簡単サインイン</h2>
         </div>
           <div class="wizard">
               <div class="wizard-inner">
@@ -44,7 +44,8 @@
                   {{ csrf_field() }}
                   <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }}">
                       <label for="companyname"> 企業名</label>
-                      <input type="text" class="form-control" name="company_name" id="company_name" placeholder="Company Name" value="{{ old('company_name') }}" required="">
+                      <input type="text" class="form-control" name="company_name" id="company_name" placeholder="株式会社NextStage" value="{{ old('company_name') }}" required="">
+
                       @if ($errors->has('company_name'))
                           <span class="help-block">
                               <strong>{{ $errors->first('company_name') }}</strong>
@@ -53,7 +54,7 @@
                     </div>
                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                       <label for="contactname">担当者名</label>
-                      <input type="text" class="form-control" name="name" id="name" placeholder="Contact Name" value="{{ old('name') }}" required="">
+                      <input type="text" class="form-control" name="name" id="name" placeholder="山田　太郎" value="{{ old('name') }}" required="">
                       @if ($errors->has('name'))
                           <span class="help-block">
                               <strong>{{ $errors->first('name') }}</strong>
@@ -62,7 +63,7 @@
                     </div>
                     <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                       <label for="mobile">電話番号</label>
-                      <input type="number" class="form-control" name="mobile" id="mobile" placeholder="Mobile No" value="{{ old('mobile') }}" required="">
+                      <input type="number" class="form-control" name="mobile" id="mobile" placeholder="0362738450(ハイフンなし" value="{{ old('mobile') }}" required="">
                       @if ($errors->has('mobile'))
                           <span class="help-block">
                               <strong>{{ $errors->first('mobile') }}</strong>
@@ -74,22 +75,22 @@
                       <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com" value="{{ old('email') }}" required="">
                       @if ($errors->has('email'))
                           <span class="help-block">
-                              <strong>{{ $errors->first('email') }}</strong>
+                              <strong>既に登録されたメールアドレスです。別のメールアドレスをご入力ください。</strong>
                           </span>
                       @endif
                     </div>
                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                       <label for="password">パスワード</label>
-                      <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
+                      <input type="password" class="form-control" name="password" id="password" placeholder="sample1234（6文字以上）" required="">
                       @if ($errors->has('password'))
                           <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
+                              <strong>パスワードは6文字以上で設定をお願いします。</strong>
                           </span>
                       @endif
                     </div>
                     <div class="form-group">
                       <label for="confirm_password">パスワード再入力</label>
-                      <input type="password" class="form-control" name="password_confirmation" id="group" placeholder="Confirm Password" required="">
+                      <input type="password" class="form-control" name="password_confirmation" id="group" placeholder="sample1234（6文字以上）" required="">
                     </div>
                     
                     <!-- <div class="form-group">
@@ -107,7 +108,7 @@
                     <div class="button_holder">                      
                       <button type="submit" class="btn registration_btn">Next</button>
                       <div class="form-group">                      
-                        <a href="#">Help for regitering #Likes is here</a>
+                        <a href="#">お問い合わせはコチラ</a>
                       </div>
                     </div>
                     

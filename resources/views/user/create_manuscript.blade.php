@@ -25,14 +25,14 @@
               <label for="temp_regi">
                  テンプレート名
               </label>
-              <input type="text" class="form-control title" id="text" name="title" maxlength="170" placeholder="テストテストテスト" rows="5" required="">
+              <input type="text" class="form-control title" id="text" name="title" maxlength="170" placeholder="原稿名を設定してください。" rows="5" required="">
           </div>
             <div class="m-b-35"> 
                 <div class="input_box">
                     <label for="temp_regi">
                        テキスト登録
                     </label>
-                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="テストですよー" rows="5" required=""></textarea>
+                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="配信原稿文を記入ください。" rows="5" required=""></textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>
@@ -45,8 +45,8 @@
                     <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);" required="">
                 </div>
                 <div class="form_buttons">
-                    <input class="btn_cancel p_btn" type="submit" value="削除する">
-                    <input class="btn_done p_btn" type="submit" value="登録する">
+                    <input class="btn-default" type="submit" value="削除する">
+                    <input class="btn-default" type="submit" value="登録する">
                 </div>
             </div>
             
@@ -63,7 +63,7 @@
             </div>
           </div>
           <div class="preview_btn">
-          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">Preview</a></button>
+          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">表示サンプルを確認</a></button>
           </div>
         </div>
       </div>
