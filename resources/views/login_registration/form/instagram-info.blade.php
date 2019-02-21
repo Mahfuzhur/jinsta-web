@@ -3,7 +3,7 @@
 <div class="container">
       <div class="row">
           <div class="page_heading">
-              <h2 class="">3ステップで簡単サインイン</h2>
+              <h2 class="">3STEPで簡単サインイン</h2>
           </div>
           <div class="wizard">
               <div class="wizard-inner">
@@ -61,15 +61,15 @@
                       <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
                       @if ($errors->has('password'))
                           <span class="help-block">
-                              <strong>{{ $errors->first('password') }}</strong>
+                              <strong>パスワードは6文字以上で設定をお願いします。</strong>
                           </span>
                       @endif
                     </div>
 
                     <div class="button_holder">                      
-                      <button type="submit" class="btn registration_btn">Submit</button>
+                      <button type="submit" class="btn registration_btn">Next</button>
                       <div class="form-group">                      
-                        <a href="#">Help for regitering #Likes is here</a>
+                        <a href="#">お問い合わせはコチラ</a>
                       </div>
                     </div>
                     

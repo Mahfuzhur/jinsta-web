@@ -134,7 +134,7 @@
             <h4>開封率</h4>
           </div>
           <div class="rect_box">
-            <h4>アクション回数</h4>
+            <h4>アクション回数 <br>{{$numberOfLists}}</h4>
           </div>
         </div>
         <div class="envelope_area">

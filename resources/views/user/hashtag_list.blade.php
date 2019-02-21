@@ -5,7 +5,7 @@
 	  <div class="row create_destination">            
 	    <div class="col-sm-12 main_content">
 	        <div class="box_title">
-	            <h4>宛先リスト名：テストテストテスト</h4>
+	            <h4>宛先名は削除でお願いします。</h4>
 	        </div>
 	        <form action="{{URL::to('hashtag-list-search')}}" method="post">
 	        {{csrf_field()}}
@@ -118,7 +118,7 @@
 	        
 	        <div class="form_buttons">
 	            <!-- <button class="btn_cancel p_btn">削除する</button> -->
-	            <button type="sybmit" class="btn_done p_btn">Create List</button>
+	            <button type="sybmit" class="btn_done p_btn">登録</button>
 	        </div>
 	        @endif
 
