@@ -32,7 +32,8 @@ Route::post('/update-template/{id}', 'UserController@updateTemplate');
 Route::get('/destination-registration','UserController@destinationRegistration');
 Route::get('/edit-destination-registration/{id}','UserController@editDestinationRegistration');
 Route::post('/save-destination-registration/{id}','UserController@saveDestinationRegistration');
-
+Route::get('/delete-destination-registration/{id}','UserController@deleteDestinationRegistration');
+Route::get('/delete-template/{id}', 'UserController@deleteTemplate');
 Route::get('/create-destination','UserController@hashtagList');
 Route::get('/hashtag-manually-add','UserController@createDestination');
 // Route::get('/create-destination','UserController@createDestination');

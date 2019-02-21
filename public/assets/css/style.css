@@ -698,9 +698,9 @@ span.round-tab {
     top: 60%;
     margin-left: 15px;
 }*/
-#temp_carousel>.row {
+/*#temp_carousel>.row {
     justify-content: space-around;
-}
+}*/
 
 #temp_carousel .carousel-indicators {
   left: 0;
@@ -730,6 +730,7 @@ span.round-tab {
 }
 #temp_carousel .single_template .title h4 {
     margin-bottom: 15px;
+    color: red;
 }
 #temp_carousel .carousel-item>.row {
     flex-wrap: nowrap;
@@ -739,7 +740,8 @@ span.round-tab {
 #temp_carousel .edit_icon {
     position: absolute;
     top: 5px;
-    right: 5px;
+    /*right: 5px;*/
+    right: 70px;
 }
 #temp_carousel .edit_icon a {
     color: #000000;

@@ -142,7 +142,7 @@
       function readURL(input) { 
         $('.preview').show();
           $('#blah').hide();
-          $('#title').hide();
+          // $('#title').hide();
           $('#description').hide();
           $('.image_show').after('<img id="blah" src="#" alt="your image" style="display:none;"/>');
           if (input.files && input.files[0]) {
@@ -160,13 +160,24 @@
         function getPreview(){
           var title = $(".title").val();
           var description = $("textarea").val();
-          document.getElementById("title").innerHTML = title;
+          // document.getElementById("title").innerHTML = title;
           document.getElementById("description").innerHTML = description;
           $('.preview').show();
           $('#blah').show();
-          $('#title').show();
+          // $('#title').show();
           $('#description').show();
         }
+
+            function confirm_click(){
+
+                var check = confirm('Are you sure to delete this?');
+                if(check){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        
     </script>
 
    

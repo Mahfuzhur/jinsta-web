@@ -222,21 +222,25 @@
           </div>
         </div>
         <div class="progress_view m-t-30">
-           <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""></span> 進行ステータス</h4>                     
+           <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""></span> 進行ステータス</h4>
+           @if(isset($data_info))
+           @foreach($data_info as $data )                     
               <div class="row progressbar_holder">
                 <div class="progress_title">
-                   <span class="hashtag">#□□</span>
-                   <span class="letter">B</span>
+                   <span class="hashtag">#{{$data->hashtag}}</span>
+                   <span class="letter">{{$data->title}}</span>
                 </div>                        
 
                 <div class="progress_size">
                    <div class="progress">
-                      <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:80%; min-width: 20px;">80%
+                      <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:80%; min-width: 20px;">{{$data->total_sent}}
                       </div>
                    </div>
                 </div>  
              </div>
-             <div class="row progressbar_holder">
+             @endforeach
+             @endif
+             <!-- <div class="row progressbar_holder">
                 <div class="progress_title">
                    <span class="hashtag">#〇〇</span>
                    <span class="letter">A</span>
@@ -261,7 +265,7 @@
                       </div>
                    </div>
                 </div>  
-             </div>
+             </div> -->
           </div>
         </div>
     </div>

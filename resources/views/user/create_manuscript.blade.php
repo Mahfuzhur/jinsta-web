@@ -32,7 +32,7 @@
                     <label for="temp_regi">
                        テキスト登録
                     </label>
-                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="テストですよー" rows="5" required=""></textarea>
+                    <textarea class="form-control" id="text1" name="description" maxlength="170" placeholder="テストですよー" rows="5" required=""></textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <div class="input_box">
                     <label for="file">                          
                         <span><i class="fa fa-download" aria-hidden="true"></i></span>
-                        <span>画像登録</span>                          
+                        <span style="font-size: 13px;">画像登録(推奨画像サイズ：横1200px×縦600px)</span>                          
                     </label>
                     <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);" required="">
                 </div>
@@ -55,8 +55,8 @@
         <div class="col-md-4 col-sm-6">
           <div class="temp_result">
             <div class="temp_text">
-              <p id="title"></p>
-              <p id="description"></p>
+              <!-- <p id="title"></p> -->
+              <pre id="description"></pre>
               <div class="image_show">
                 
               </div>            

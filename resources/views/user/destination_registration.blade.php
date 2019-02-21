@@ -21,7 +21,11 @@
 
           <div class="tem_sec_holder">
               <div class="tem_sec">
-                   <h4 class="tem_text">登録済みリスト</h4>  
+                  @if($all_hashtag != NULL)
+                   <h4 class="tem_text">登録済みリスト</h4>
+                   @else  
+                   <h4 class="tem_text">登録済ずの宛先リスト（#リスト）はありません。<br>新規作成をお願いします。</h4>
+                   @endif
                    @if ( Session::has('success') )
                       <div class="alert alert-success alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -30,7 +34,16 @@
                       </button>
                       <strong>{{ Session::get('success') }}</strong>
                   </div>
-                  @endif         
+                  @endif  
+                  @if ( Session::has('delete_success') )
+                      <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                          <span class="sr-only">Close</span>
+                      </button>
+                      <strong>{{ Session::get('delete_success') }}</strong>
+                  </div>
+                  @endif       
               </div>
           </div>
 
@@ -42,22 +55,22 @@
                   <div class="card-body">
                     <div class="title-area">
                         <h5 class="card-title">{{$hashtag->hashtag}}</h5>
-                        <a class="edit_icon" href="{{URL::to('edit-destination-registration/'.$hashtag->id)}}">
+                        <!-- <a class="edit_icon" href="{{URL::to('edit-destination-registration/'.$hashtag->id)}}">
                            <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>      
+                        </a> --> 
+                        <span onclick="return confirm_click();">
+                        <a class="edit_icon" href="{{URL::to('delete-destination-registration/'.$hashtag->id)}}">
+                           <i class="fa fa-remove" aria-hidden="true"></i>
+                        </a>   
+                        </span>  
                     </div>
                     <div class="img_holder">
                         <img class="test_img" src="{{asset('assets/img/user.png')}}">
                     </div>
-                    <?php
-                      $user_id = Auth::user()->id;
-                      $client_id = DB::table('client')->select(DB::raw('count(*) as user_count'))->where('user_id',$user_id)->where('hashtag_id',$hashtag->id)->first();
-                      // echo "<pre>";
-                      // print_r($client_id);
-                      // exit();
-                    ?>
+                    
                     <div class="card-text">
-                      <h4>@if(isset($client_id)){{$client_id->user_count}}@endif</h4>
+                      <p>送信対象者数</p>
+                      <h4>{{$hashtag->total_user}}人</h4>
                       <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt.</p> -->
                     </div>              
                     

@@ -3,12 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-// use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Template extends Model
 {
-    // use SoftDeletes;
+    use SoftDeletes;
     protected $table = 'template';
     protected $fillable = ['user_id','title', 'description','image'];
-//     protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
  }

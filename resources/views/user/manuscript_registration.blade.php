@@ -22,22 +22,32 @@
             {{ session('edit_success') }}
           </div> 
           @endif
+          @if ( Session::has('delete_success') )
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  <span class="sr-only">Close</span>
+              </button>
+              <strong>{{ Session::get('delete_success') }}</strong>
+          </div>
+          @endif
 
           <div class="row temp_holder">
             <div id="temp_carousel" class="col-md-12">                      
               <div class="row">
                 <?php $i = 1;?>
                 @foreach($all_template as $template)
+                <div class="col-sm-4">
                   <div class="single_template">
                       <div class="img_holder">
                           <img src="{{asset('uploads/'.$template->image)}}" alt="Image" style="width:250px;height: 150px;">
                       </div>
                       <div class="temp_content">
                           <div class="title">
-                              <h4>{{$template->title}}</h4>
+                              <h4>{{ str_limit($template->title, $limit = 10, $end = '...') }}</h4>
                           </div>
                           <div class="temp_desc">
-                              <p>{{$template->description}}
+                              <p>{{ str_limit($template->description, $limit = 30, $end = '...') }}
                               <!-- </br> 本日は良い天気ですね。 -->
                             </p>
                           </div>                              
@@ -45,9 +55,15 @@
                               <a href="{{URL::to('edit-template/'.$template->id)}}">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                               </a>
+                              <!-- <span onclick="return confirm_click();">
+                              <a href="{{URL::to('delete-template/'.$template->id)}}" class="confirmation">
+                                <i class="fa fa-remove" aria-hidden="true"></i>
+                              </a>
+                            </span> -->
                           </div>
                       </div>
                   </div>
+                </div>
                   <?php $i++;?>
                 @endforeach
                   </div>                                                         
