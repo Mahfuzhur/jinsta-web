@@ -125,27 +125,44 @@ a#sidebar_toggle:focus {
     padding-right: 25px;
 }
 #sidebar-wrapper {
-    z-index: 1000;
-    border-top: 1px solid #000000;
-    position: absolute;
-    left: 180px;
-    width: 0;
+    /*z-index: 1000;*/
+    /*border-top: 1px solid #000000;*/
+    /*position: absolute;*/
+    /*left: 180px;*/
+    /*width: 0;*/
+    /*height: 100%;*/
+    /*margin-left: -180px;*/
+    /*overflow-y: hidden;*/
+    /*background: #06af94;*/
+    /*-webkit-transition: all 0.5s ease;*/
+    /*-moz-transition: all 0.5s ease;*/
+    /*-o-transition: all 0.5s ease;*/
+    /*transition: all 0.5s ease;*/
+
     height: 100%;
-    margin-left: -180px;
-    overflow-y: hidden;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    /*top: 0;*/
+    left: 0;
     background: #06af94;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    overflow-x: hidden;
+    padding-top: 20px;
 }
 
 .sidebar a {
-  display: block;
-  margin-top: 2px;
-  color: #83d7c9;
-  padding: 15px 10px;
-  text-decoration: none!important;
+  /*display: block;*/
+  /*margin-top: 2px;*/
+  /*color: #83d7c9;*/
+  /*padding: 15px 10px;*/
+  /*text-decoration: none!important;*/
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #83d7c9;
+    display: block;
+    text-decoration: none!important;
+
 }
 
 span.sidebar_icon>img {
@@ -638,10 +655,13 @@ span.round-tab {
 
 
 .envelope_area{
- float: right;
- margin-top: 25px;
- margin-right: 1px!important;
- margin-bottom: 5px;
+ /*float: right;*/
+ /*margin-top: 25px;*/
+ /*margin-right: 1px!important;*/
+ /*margin-bottom: 5px;*/
+    position: fixed;
+    bottom: -4px;
+    right: 10px;
 }
 
 .envelope_size{
@@ -1019,9 +1039,11 @@ a.page-link {
     text-align: center;
 }
 .envelope {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+    /*position: absolute;*/
+    /*right: 10px;*/
+    /*bottom: 10px;*/
+    padding: 10px 20px;
+    border-radius: 4px;
 }
 .envelope i {
     color: #ff9b8e;
@@ -1594,3 +1616,4 @@ select::-ms-expand {
         display: none;
     }
 }
+
