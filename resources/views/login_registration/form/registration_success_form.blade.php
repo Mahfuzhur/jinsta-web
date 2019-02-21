@@ -3,7 +3,7 @@
 <div class="container">
       <div class="row">
           <div class="page_heading">
-              <h2 class="">3ステップでかんたん <br> サインイン </h2>
+              <h2 class="">3STEPで簡単サインイン</h2>
           </div>
           <div class="wizard">
               <div class="wizard-inner">
@@ -37,12 +37,17 @@
 
               <div class="sign_in_form">
                 <div class="form_title">
-                  <h3>Thank you for your Registration</h3>
-                  <p>lorem ipusm dolor shet emet ingio mean tele laumand</p>
+                  <h3>登録が完了しました！</h3>
+                  <!-- <p>完了まで数分程度かかることがあります。しばらくお待ちください。</p> -->
                 </div>
-                <div class="button_holder">                      
-                  <button type="submit" class="btn registration_btn">Submit</button>                  
-                </div>
+                <a href="{{URL::to('dashboard')}}">
+                  <div class="button_holder">                                     
+                    <button type="submit" class="btn registration_btn">今すぐ始める！</button>
+                      <div class="form-group">
+                          <a href="#">お問い合わせはコチラ</a>
+                      </div>
+                  </div>
+                </a>
                 
               </div>
           </div>

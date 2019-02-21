@@ -5,7 +5,7 @@
 	  <div class="row create_destination">            
 	    <div class="col-sm-12 main_content">
 	        <div class="box_title">
-	            <h4>宛先リスト名：テストテストテスト</h4>
+	            <h4>宛先名は削除でお願いします。</h4>
 	        </div>
 	        <form action="{{URL::to('hashtag-list-search')}}" method="post">
 	        {{csrf_field()}}
@@ -25,7 +25,7 @@
 	            <div class="input_box">                    
 	                <div class="input-group">                            
 	                    <input type="text" name="hashtag" id="hashtag" placeholder="#から作成" class="hashtag_input">
-	                    <div class="input-group-append">
+	                    <div class="input-group-append" style="margin-left: -10px;">
 	                    	<button type="submit" name="" class="btn btn-info" style="background: #06af94;">Search</button>
 	                      <!-- <span class="input-group-text" id="">Search</span> -->
 	                    </div>
@@ -42,12 +42,15 @@
 	            </div>
 	            <div class="radio_list">
 	                <div class="single_radio radio1">
-                	
+                	<?php $i=0;?>
   					@foreach($results as $result)
-	                  <label class="checkcontainer"> {{$result->name}}
+  					@if($i < 9)
+	                  <label class="checkcontainer"> {{$result->name}}-> {{$result->search_result_subtitle}}
 	                    <input type="radio" name="hashtag_list" value="{{$result->name}}"><br>
 	                    <span class="radiobtn"></span>
 	                  </label>
+	                @endif
+	                <?php $i++;?>
                     @endforeach
  				   
 	                  <!-- <label class="checkcontainer">
@@ -115,7 +118,7 @@
 	        
 	        <div class="form_buttons">
 	            <!-- <button class="btn_cancel p_btn">削除する</button> -->
-	            <button type="sybmit" class="btn_done p_btn">Create List</button>
+	            <button type="sybmit" class="btn_done p_btn">登録</button>
 	        </div>
 	        @endif
 

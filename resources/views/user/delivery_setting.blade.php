@@ -12,29 +12,30 @@
                 {{session('schedule_success')}}
               </div>
               @endif
-              <div class="dm_setting left-border m-b-40">                          
-                  <div class="input_box">
-                      <label for="destination">
-                          宛先
-                      </label>
-                      <select class="dest_input" id="destination" name="destination">
-                          <option value="">SelectTemplate</option>
-                           @foreach($templates as $template)
-                            <option value="{{$template->id}}">{{$template->title}}</option>
-                            @endforeach
-                      </select>                   
-                  </div>
+              <div class="dm_setting left-border m-b-40">
                   <div class="input_box">
                       <label for="draft">
                           原稿
                       </label>
                       <select class="draft_input" id="draft" name="draft">
-                          <option value="">Select Hashtag</option>
-                           @foreach($hashtags as $hashtag)
-                            <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
-                            @endforeach
-                      </select>                    
+                          <option value="">原稿選択</option>
+                          @foreach($hashtags as $hashtag)
+                          <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
+                          @endforeach
+                      </select>
                   </div>
+                  <div class="input_box">
+                      <label for="destination">
+                          宛先
+                      </label>
+                      <select class="dest_input" id="destination" name="destination">
+                          <option value="">宛先選択</option>
+                           @foreach($templates as $template)
+                            <option value="{{$template->id}}">{{$template->title}}</option>
+                            @endforeach
+                      </select>                   
+                  </div>
+
 
               </div>
               <div class="sc_settings left-border m-b-40">
@@ -55,8 +56,7 @@
                       </div>                                               
                   </div>
                   <div class="input_box">
-                      <label for="except_stting">配信期間
-                      </label>
+                      <label for="except_stting">除外期間</label>
                       <div class="input_group">
                           <div class="input-group">
                             <input type="text" name="date_exclusion_setting_start" id="except_start" value="YYYY/MM/DD">
@@ -85,8 +85,7 @@
                       </div>                                               
                   </div>
                   <div class="input_box">
-                      <label for="sp_time">除外設定
-                      </label>
+                      <label for="sp_time">除外時間</label>
                       <div class="input_group">
                           <div class="input-group">
                             <input type="time" name="time_exclusion_setting_start" id="ex_time_start" value="06:30">

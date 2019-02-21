@@ -67,7 +67,7 @@ body {
     background-color: #ffffff;
     /*background-color:#06af94;*/
     right: 0;
-    top: 38px;
+    top: 30px;
     display: none;
     z-index: 1;
 }
@@ -891,10 +891,15 @@ a.page-link {
 }
 
 .create_destination .radio_list {
-    display: flex;
+   /* display: flex;
     justify-content: space-around;
     flex-wrap: nowrap;
     max-width: 800px;
+    margin: 2em 0;*/
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
     margin: 2em 0;
 }
 .single_radio input {
@@ -913,7 +918,9 @@ a.page-link {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    margin-left: 1em;
+    margin-right: 1em;
+    float: left;
+    width: 30%;
 }
 .checkcontainer input {
     position: absolute;
@@ -1002,10 +1009,14 @@ a.page-link {
 }*/
 
 .create_destination .form_buttons {
-    display: flex;
+  /*  display: flex;
     justify-content: flex-end;
     max-width: 800px;
-    margin-top: 4em;
+    margin-top: 4em;*/
+    display: inline-block;
+    margin-top: 2rem;
+    width: 100%;
+    text-align: center;
 }
 .envelope {
     position: absolute;
@@ -1027,7 +1038,7 @@ a.page-link {
 }
 .temp_text {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -1382,6 +1393,12 @@ button.ds_btn {
 .dropdown-item-holder{
     background-color: #06af94;
     border-radius: 4px !important;
+}
+
+.form-check input[type=checkbox]{
+    width: 20px;
+    height: 20px;
+    margin-top: 0.2rem;
 }
 
 /*responsive css*/

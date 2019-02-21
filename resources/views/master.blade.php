@@ -162,7 +162,7 @@
           var description = $("textarea").val();
           document.getElementById("title").innerHTML = title;
           document.getElementById("description").innerHTML = description;
-          $('.preview').hide();
+          $('.preview').show();
           $('#blah').show();
           $('#title').show();
           $('#description').show();

@@ -6,29 +6,30 @@
     <div class="row row-eq-height">
       <div class="col-md-6 col-sm-12">
           <div class="test_section">
-             <div class="test"><center>@instragam_account</center></div>
-             <center><img class="test_img" src="{{asset('assets/img/user.png')}}"></center>
 
-             <div class="row inst_section">
-                <div class="inst_title first">
-                   <h4 class="instagram">Instagram</h4>                              
-                </div>
-                <div class="inst_title second">
-                   <h4><i class="fa fa-check-circle-o"></i> どうして </h4>                            
-                </div>
-                <div class="inst_content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt, eleifend nibh nec, suscipit arcu. Curabitur facilisis elit sed pellentesque volutpat. Suspendisse molestie, justo sit amet.</p>
-                </div>
-             </div>
+             <center><img class="test_img" src="{{$json_selfinfo['user']['profile_pic_url']}}"></center>
+              <div class="test"><center>{{$json_selfinfo['user']['username']}}</center></div>
 
-             <div class="jp_language">
-                <span>どうして</span>
-             </div>
-              <div class="clasa">
-                  <div class="inst_content">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt, eleifend nibh nec, suscipit arcu. Curabitur facilisis elit sed pellentesque volutpat. Suspendisse molestie, justo sit.</p>
-                  </div>
-              </div>                       
+<!--             <div class="row inst_section">-->
+<!--                <div class="inst_title first">-->
+<!--                   <h4 class="instagram">Instagram</h4>                              -->
+<!--                </div>-->
+<!--                <div class="inst_title second">-->
+<!--                   <h4><i class="fa fa-check-circle-o"></i> どうして </h4>                            -->
+<!--                </div>-->
+<!--                <div class="inst_content">-->
+<!--                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt, eleifend nibh nec, suscipit arcu. Curabitur facilisis elit sed pellentesque volutpat. Suspendisse molestie, justo sit amet.</p>-->
+<!--                </div>-->
+<!--             </div>-->
+<!---->
+<!--             <div class="jp_language">-->
+<!--                <span>どうして</span>-->
+<!--             </div>-->
+<!--              <div class="clasa">-->
+<!--                  <div class="inst_content">-->
+<!--                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt, eleifend nibh nec, suscipit arcu. Curabitur facilisis elit sed pellentesque volutpat. Suspendisse molestie, justo sit.</p>-->
+<!--                  </div>-->
+<!--              </div>                       -->
           </div>
       </div>
       <div class="col-md-6 col-sm-12">
@@ -46,7 +47,7 @@
           </ul>
           <div class="tab-content">                    
             <div class="tab-pane" id="1a">
-                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
+                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>フォントサイズ統一してください。</h3><br>
                   <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
@@ -214,15 +215,15 @@
                     </div>
                  </div>                     
                  <div class="dash_footer">
-                    <span class="total"><b>100,000 <br> 送信数</b></span> <br>
-                    <span class="total"><b>1,000 <br> 既読数</b></span> <br> 
-                    <span class="total"><b>1% <br> 既読率</b></span>
+                    <span class="total"><b>送信数 <br> 100,000</b></span> <br>
+                    <span class="total"><b>既読数 <br> 1,000</b></span> <br>
+                    <span class="total"><b>既読率 <br> 1%</b></span>
                 </div>                      
             </div>
           </div>
         </div>
         <div class="progress_view m-t-30">
-           <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""></span> 進行ステータス</h4>                     
+           <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""></span> フォントサイズ統一してください。</h4>
               <div class="row progressbar_holder">
                 <div class="progress_title">
                    <span class="hashtag">#□□</span>
