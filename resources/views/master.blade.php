@@ -23,8 +23,8 @@
     <!-- top header -->
 
     <header>
-      <div class="container-fluid">
-        <div class="row top_fixed">
+      <div class="container-fluid" style="position: fixed">
+        <div class="row top_fixed" >
           <div class="header_left logo_top">
               <a href="{{URL::to('dashboard')}}" class="logo_holder">
                 <img src="{{asset('assets/img/logo.png')}}" alt="">
@@ -33,7 +33,7 @@
           <div class="header_right">
               <div class="user_area">
                 <ul class="dropdown_menu">
-                  <li> {{Auth::user()->name}}
+                  <li > {{Auth::user()->name}}
                     <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                     <ul class="dropdown-item-holder">
                         <li>
@@ -55,13 +55,16 @@
       </div>
     </header>
 
-    <div id="wrapper" class="toggled">
+    <div id="wrapper" class="toggled" style="padding-top: 4%">
       <!-- toggle menu -->
+
       <a href="#menu-toggle" class="btn btn-secondary" id="sidebar_toggle">
           <i class="fa fa-bars" aria-hidden="true"></i>
       </a>
+
       <!-- Sidebar -->
         <div id="sidebar-wrapper">
+
             <div class="sidebar">
               @if(isset($active_manuscript))
                 <a class="template active" href="{{URL::to('manuscript-registration')}}">
@@ -111,7 +114,8 @@
                   <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
                   ご請求
                 </a>
-            </div>            
+            </div>
+
         </div>
         <!-- /#sidebar-wrapper -->
 
