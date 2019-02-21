@@ -11,6 +11,7 @@ use DB;
 use InstagramAPI;
 use GuzzleHttp\Exception\ServerException;
 use App\Client;
+use Log;
 
 
 class Kernel extends ConsoleKernel
@@ -66,11 +67,11 @@ class Kernel extends ConsoleKernel
                     $recipents = [
                         'users' => [$this->user->client_id]
                     ];
-                    $imagePath = 'uploads/'.'bylP39uuyy.png';
+                    $imagePath = 'uploads/'.$this->user->image;
                     $this->ig->direct->sendText($recipents,$this->user->title);
-
-                    $this->ig->direct->sendPhoto($recipents,public_path('uploads/'.'bylP39uuyy.png'));
                     $this->ig->direct->sendText($recipents,$this->user->description);
+                    $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+
 
                 }catch (\Exception $ex){
                     echo "something went wrong";
