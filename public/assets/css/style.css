@@ -126,7 +126,7 @@ a#sidebar_toggle:focus {
 }
 #sidebar-wrapper {
     /*z-index: 1000;*/
-    /*border-top: 1px solid #000000;*/
+    border-top: 1px solid #000000;
     /*position: absolute;*/
     /*left: 180px;*/
     /*width: 0;*/

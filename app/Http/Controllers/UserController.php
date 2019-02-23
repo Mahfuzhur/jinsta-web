@@ -80,13 +80,22 @@ class UserController extends Controller
         // ->join('template', 'template_schedule.template_id', '=', 'template.id')
         // ->select('hashtag.hashtag','client.hashtag_id','hashtag_schedule.schedule_id','template_schedule.template_id','template.title')->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->get();
 
-        $data_info = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
+        $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
                     FROM client client
                     JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
                     JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
                     JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
                     JOIN template template ON template_schedule.template_id = template.id
                     WHERE client.user_id = $user_id AND client.dm_sent = 1                     
+                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
+                    FROM client client
+                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+                    JOIN template template ON template_schedule.template_id = template.id
+                    WHERE client.user_id = $user_id                     
                     GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
 
         // echo "<pre>";
@@ -449,11 +458,31 @@ class UserController extends Controller
 
     public function analytics(){
         if(Auth::user()){
+            $user_id = Auth::user()->id;
             $numberOfLists = Schedule::count();
             $numberSent = Client::where([['dm_sent', '=', '1']])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
-        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent'));
+
+        $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
+                    FROM client client
+                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+                    JOIN template template ON template_schedule.template_id = template.id
+                    WHERE client.user_id = $user_id AND client.dm_sent = 1                     
+                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
+                    FROM client client
+                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+                    JOIN template template ON template_schedule.template_id = template.id
+                    WHERE client.user_id = $user_id                     
+                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info'));
         return view('master',compact('user_main_content','analytics','title'));
         }else{
             return redirect ('user-login');

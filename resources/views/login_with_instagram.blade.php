@@ -74,7 +74,7 @@
                         <button class="btn btn-info btn-lg" style="background-color: #06af94">新規登録</button>
                       </a>
                       <a href="{{URL::to('user-login')}}">
-                        <button class="btn btn-info btn-lg" style="background-color: #06af94">&nbsp;&nbsp;ログイン&nbsp;&nbsp;</button>
+                        <button class="btn btn-info btn-lg" style="background-color: #06af94">ログイン</button>
                       </a>
                       <!-- <p class="login_text">Instagram でログイン</p> -->
                   </div>
