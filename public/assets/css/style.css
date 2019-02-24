@@ -40,13 +40,17 @@ body {
 .top_fixed {
     background-color: #ffffff;
     display: flex;
-    height: 59px;
+    height: 68px;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
 }
 .header_left {
     background-color: #06af94;
     padding: 4px 0;
+    border-bottom: 1px solid black;
 }
 /*.header_left, .header_right {
     flex: 1;
@@ -83,7 +87,6 @@ body {
 a.logo_holder {
     width: 180px;
     display: block;
-    padding-left: 1.5em;
     background: #06af94;
 }
 
@@ -112,6 +115,7 @@ a#sidebar_toggle:focus {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    padding-top:59px;
 }
 #wrapper.toggled #sidebar-wrapper {
     width: 180px;
@@ -126,7 +130,6 @@ a#sidebar_toggle:focus {
 }
 #sidebar-wrapper {
     /*z-index: 1000;*/
-    border-top: 1px solid #000000;
     /*position: absolute;*/
     /*left: 180px;*/
     /*width: 0;*/

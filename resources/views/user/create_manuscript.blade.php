@@ -45,8 +45,8 @@
                     <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);" required="">
                 </div>
                 <div class="form_buttons">
-                    <input class="btn-default" type="submit" value="削除する">
-                    <input class="btn-default" type="submit" value="登録する">
+                    <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
+                    <input class="btn_done p_btn" type="submit" value="登録する">
                 </div>
             </div>
             

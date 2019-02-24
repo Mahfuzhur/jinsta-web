@@ -23,7 +23,7 @@
     <!-- top header -->
 
     <header>
-      <div class="container-fluid" style="position: fixed">
+      <div class="container-fluid">
         <div class="row top_fixed" >
           <div class="header_left logo_top">
               <a href="{{URL::to('dashboard')}}" class="logo_holder">
@@ -55,7 +55,7 @@
       </div>
     </header>
 
-    <div id="wrapper" class="toggled" style="padding-top: 4%">
+    <div id="wrapper" class="toggled">
       <!-- toggle menu -->
 
       <a href="#menu-toggle" class="btn btn-secondary" id="sidebar_toggle">

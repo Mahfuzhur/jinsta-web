@@ -47,7 +47,7 @@
                   <img src="{{asset('uploads/'.$single_template->image)}}" class="img-responsive" style="width: 100px;height: 50px;">
                 </div>
                 <div class="form_buttons">
-                    <input class="btn_cancel p_btn" type="submit" value="削除する">
+                    <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
                     <input class="btn_done p_btn" type="submit" value="登録する">
                 </div>
             </div>
@@ -65,7 +65,7 @@
             </div>
           </div>
           <div class="preview_btn">
-          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">Preview</a></button>
+          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">表示サンプルを確認</a></button>
           </div>
         </div>
       </div>

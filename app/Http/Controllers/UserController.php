@@ -73,30 +73,37 @@ class UserController extends Controller
             $selfInfo = $this->ig->people->getSelfInfo();
             $json_selfinfo = json_decode($selfInfo,true);
 
-            // $data = DB::table('client')
-        // ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
-        // ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
-        // ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
-        // ->join('template', 'template_schedule.template_id', '=', 'template.id')
-        // ->select('hashtag.hashtag','client.hashtag_id','hashtag_schedule.schedule_id','template_schedule.template_id','template.title')->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->get();
+            $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
 
-        $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
-                    FROM client client
-                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
-                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
-                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
-                    JOIN template template ON template_schedule.template_id = template.id
-                    WHERE client.user_id = $user_id AND client.dm_sent = 1                     
-                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+            $data_info['without_dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
 
-        $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
-                    FROM client client
-                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
-                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
-                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
-                    JOIN template template ON template_schedule.template_id = template.id
-                    WHERE client.user_id = $user_id                     
-                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+        // $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id AND client.dm_sent = 1                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        // $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
 
         // echo "<pre>";
         // print_r($json_selfinfo['user']['username']);
@@ -227,16 +234,17 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $title = '宛先登録';
         $active_destination = 'active';
-        // $all_hashtag = DB::table('hashtag')->where('user_id',$user_id)
-                 // ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
-                 // ->select('hashtag.hashtag as title','client.client_id as id')
-        //         ->get();
+       $all_hashtag = hashtag::selectRaw('hashtag.id,hashtag.hashtag, count(client.client_id) as total_user')
+                 ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
+                 ->where('hashtag.user_id',$user_id)
+                 ->groupBy('hashtag.id')
+                 ->get();
 
-        $all_hashtag = DB::select("SELECT a.id, a.hashtag, COUNT(c.client_id) AS total_user
-                    FROM hashtag a
-                    JOIN client c ON c.hashtag_id = a.id
-                    WHERE a.user_id = $user_id
-                    GROUP BY a.id");
+        // $all_hashtag = DB::select("SELECT a.id, a.hashtag, COUNT(c.client_id) AS total_user
+        //             FROM hashtag a
+        //             JOIN client c ON c.hashtag_id = a.id
+        //             WHERE a.user_id = $user_id
+        //             GROUP BY a.id");
 
         // foreach($all_hashtag as $hashtag){
         //     $client_id[] = DB::table('client')->select(DB::raw('count(*) as user_count'))->where('user_id',$user_id)->where('hashtag_id',$hashtag->id)->get();
@@ -464,23 +472,37 @@ class UserController extends Controller
         $title = 'アナリティクス';
         $analytics = 'active';
 
-        $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
-                    FROM client client
-                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
-                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
-                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
-                    JOIN template template ON template_schedule.template_id = template.id
-                    WHERE client.user_id = $user_id AND client.dm_sent = 1                     
-                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+        // $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id AND client.dm_sent = 1                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
 
-        $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
-                    FROM client client
-                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
-                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
-                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
-                    JOIN template template ON template_schedule.template_id = template.id
-                    WHERE client.user_id = $user_id                     
-                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+        // $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
+
+            $data_info['without_dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
 
         $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info'));
         return view('master',compact('user_main_content','analytics','title'));
@@ -815,8 +837,8 @@ class UserController extends Controller
     {
         if(Auth::user()){
             // Hashtag::destroy($id);
-            $flag = HashtagSchedule::where('hashtag_id',$id)->delete();
-            $flag = Client::where('hashtag_id',$id)->delete();        
+            // $flag = HashtagSchedule::where('hashtag_id',$id)->delete();
+            // $flag = Client::where('hashtag_id',$id)->delete();        
             $flag = Hashtag::destroy($id);
            
       //   DB::table('hashtag')
