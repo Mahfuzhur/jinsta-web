@@ -32,7 +32,7 @@
                     <label for="temp_regi">
                        テキスト登録
                     </label>
-                    <textarea class="form-control" id="text1" name="description" maxlength="170" placeholder="テストですよー" rows="5" required=""></textarea>
+                    <textarea class="form-control" id="text1" name="description" maxlength="170" placeholder="配信原稿文を記入ください。" rows="5" required=""></textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>

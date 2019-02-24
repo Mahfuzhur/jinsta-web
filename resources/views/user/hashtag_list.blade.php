@@ -4,11 +4,12 @@
 	<div class="container-fluid">
 	  <div class="row create_destination">            
 	    <div class="col-sm-12 main_content">
-	        <div class="box_title">
+	        <!-- <div class="box_title">
 	            <h4>宛先名は削除でお願いします。</h4>
-	        </div>
+	        </div> -->
 	        <form action="{{URL::to('hashtag-list-search')}}" method="post">
 	        {{csrf_field()}}
+	        <h4>#から作成</h4>
 	        <div class="hashtag_title left-border m-b-40">
 	        	@if(session('errot_message'))
 	        	<div class="alert alert-danger">
@@ -21,10 +22,25 @@
 	        		{{session('message')}}
 	        	</div>
 	        	@endif
-	            <h4>#から作成</h4>
+	        	@if ( Session::has('hashtag_found_msg') )
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>{{ Session::get('hashtag_found_msg') }}</strong>
+                    </div>
+                    @endif
+	            
 	            <div class="input_box">                    
-	                <div class="input-group">                            
-	                    <input type="text" name="hashtag" id="hashtag" placeholder="#から作成" class="hashtag_input">
+	                <div class="input-group"> 
+	                	@if(isset($hashtag))                           
+	                    <input type="text" name="hashtag" id="hashtag" value="{{$hashtag}}" class="hashtag_input">
+	                    @elseif(Session::get('hashtag_found_msg'))
+	                    <input type="text" name="hashtag" id="hashtag"  value="{{old('hashtag')}}" class="hashtag_input">
+	                    @else
+	                    <input type="text" name="hashtag" id="hashtag"  placeholder="#から作成" class="hashtag_input">
+	                    @endif
 	                    <div class="input-group-append" style="margin-left: -10px;">
 	                    	<button type="submit" name="" class="btn btn-info" style="background: #06af94;">Search</button>
 	                      <!-- <span class="input-group-text" id="">Search</span> -->
@@ -46,7 +62,7 @@
   					@foreach($results as $result)
   					@if($i < 9)
 	                  <label class="checkcontainer"> {{$result->name}}-> {{$result->search_result_subtitle}}
-	                    <input type="radio" name="hashtag_list" value="{{$result->name}}"><br>
+	                    <input type="radio" name="hashtag_list" value="{{$result->name}}" required=""><br>
 	                    <span class="radiobtn"></span>
 	                  </label>
 	                @endif

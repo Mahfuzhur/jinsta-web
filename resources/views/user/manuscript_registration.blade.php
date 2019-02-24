@@ -12,9 +12,15 @@
           </div>
 
           <div class="tem_sec_holder">
+            @if(count($all_template) > 0)
               <div class="tem_sec">
                    <h4 class="tem_text">登録済みテンプレート</h4>     
               </div>
+            @else
+            <div class="tem_sec">
+                   <h4 class="tem_text">登録済ずの原稿テンプレートはありません。<br>新規作成をお願いします。</h4>     
+              </div>
+              @endif
           </div>
 
           @if(session('edit_success'))

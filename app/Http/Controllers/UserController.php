@@ -513,9 +513,11 @@ class UserController extends Controller
 
     public function request(){
         if(Auth::user()){
+        $user_id = Auth::user()->id;
         $title = 'ご請求';
         $request = 'active';
-        $user_main_content = view('user.request');
+        $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+        $user_main_content = view('user.request',compact('numberSent'));
         return view('master',compact('user_main_content','request','title'));
         }else{
             return redirect ('user-login');
@@ -718,6 +720,9 @@ class UserController extends Controller
             $result = $this->ig->hashtag->search($hashtag);
           
             $obj = json_decode($result);
+            if($obj->results == null){
+                return redirect('create-destination')->with('hashtag_found_msg','ハッシュタグが見つかりません')->withInput();
+            }
             $hashtagName = array();
             $postCounter = array();
 
@@ -725,7 +730,7 @@ class UserController extends Controller
 
             $title = '宛先登録';
             $active_destination = 'active';
-            $user_main_content = view('user.hashtag_list',compact('results'));
+            $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
             return view('master',compact('user_main_content','active_destination','title'));
         }else{
             return redirect ('user-login');
