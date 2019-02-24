@@ -721,7 +721,7 @@ class UserController extends Controller
           
             $obj = json_decode($result);
             if($obj->results == null){
-                return redirect('create-destination')->with('hashtag_found_msg','ハッシュタグが見つかりません')->withInput();
+                return redirect('create-destination')->with('hashtag_found_msg','この＃キーワード検索でポストがありません。')->withInput();
             }
             $hashtagName = array();
             $postCounter = array();

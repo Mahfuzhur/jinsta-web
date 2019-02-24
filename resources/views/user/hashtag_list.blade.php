@@ -39,7 +39,7 @@
 	                    @elseif(Session::get('hashtag_found_msg'))
 	                    <input type="text" name="hashtag" id="hashtag"  value="{{old('hashtag')}}" class="hashtag_input">
 	                    @else
-	                    <input type="text" name="hashtag" id="hashtag"  placeholder="#から作成" class="hashtag_input">
+	                    <input type="text" name="hashtag" id="hashtag"  placeholder="#なしでキーワードだけ入力してください" class="hashtag_input">
 	                    @endif
 	                    <div class="input-group-append" style="margin-left: -10px;">
 	                    	<button type="submit" name="" class="btn btn-info" style="background: #06af94;">Search</button>

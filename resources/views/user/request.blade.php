@@ -71,7 +71,7 @@
                     <span class="total">
                         <ul>
                           <li><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""> </span>送信回数：{{$numberSent}}</li>
-                          <li><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""> </span> 送信単価：¥{{$numberSent*0.01}}</li>
+                          <li><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""> </span> 送信単価：¥{{$numberSent*0.1}}</li>
                         </ul>
                         <!--<div class="last_request_list">-->
                         <!--  <p>ご請求金額：¥---</p>-->
