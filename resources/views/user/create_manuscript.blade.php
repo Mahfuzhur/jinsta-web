@@ -52,7 +52,7 @@
             
         </div>
       </form>
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6 preview_img">
           <div class="temp_result">
             <div class="temp_text">
               <!-- <p id="title"></p> -->
