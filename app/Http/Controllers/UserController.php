@@ -66,7 +66,21 @@ class UserController extends Controller
         // $user_profile_image = Session::get('current_user_image');
         if(Auth::user()){
 
+
             $user_id = Auth::user()->id;
+//            $all_hashtags = DB::select("SELECT a.id, a.hashtag, COUNT(c.client_id) AS total_user
+//                    FROM hashtag a
+//                    JOIN client c ON c.hashtag_id = a.id
+//                    WHERE a.user_id = $user_id
+//                    GROUP BY a.id");
+            $month = \Carbon\Carbon::today()->subDays(30);
+            $week = \Carbon\Carbon::today()->subDays(7);
+            $day = \Carbon\Carbon::today()->subDays(1);
+
+            $last_month = Client::where([['updated_at', '>=', $month],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_week = Client::where([['updated_at', '>=', $week],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_day = Client::where([['updated_at', '>=', $day],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+
             $title = 'Index page';
             $user_info = DB::table('users')->where('id',$user_id)->first();
             $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
@@ -98,7 +112,7 @@ class UserController extends Controller
             $numberOfLists = Schedule::count();
             $numberSent = Client::where([['dm_sent', '=', '1']])->count();
             $title = 'Index page';
-            $user_main_content = view('user.dashboard',compact('numberOfLists','numberSent','json_selfinfo','data_info'));
+            $user_main_content = view('user.dashboard',compact('numberOfLists','numberSent','json_selfinfo','data_info','last_day','last_month','last_week'));
 
             return view('master',compact('user_main_content','title'));
         }else{

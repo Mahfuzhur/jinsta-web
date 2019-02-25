@@ -99,7 +99,7 @@
                     </div>
                  </div> 
                  <div class="dash_footer">
-                    <span class="total"><b>100,000 </br> 送信数</b></span> <br>
+                    <span class="total"><b>{{$last_day}} last day </br> 送信数</b></span> <br>
                     <span class="total"><b>1,000 </br> 既読数 </b></span> <br>
                     <span class="total"><b> 1% </br> 既読率</b></span>
                 </div>
@@ -157,7 +157,7 @@
                     </div>
                  </div>                   
                  <div class="dash_footer">
-                    <span class="total"><b>100,000 </br> 送信数</b></span> <br>
+                    <span class="total"><b>{{$last_week}} last week </br> 送信数</b></span> <br>
                     <span class="total"><b>1,000 </br> 既読数 </b></span> <br>
                     <span class="total"><b> 1% </br> 既読率 </b></span>
                 </div>                      
@@ -215,7 +215,7 @@
                     </div>
                  </div>                     
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 <br> 100,000</b></span> <br>
+                    <span class="total"><b>送信数 <br> {{$last_month}} last month</b></span> <br>
                     <span class="total"><b>既読数 <br> 1,000</b></span> <br>
                     <span class="total"><b>既読率 <br> 1%</b></span>
                 </div>                      
