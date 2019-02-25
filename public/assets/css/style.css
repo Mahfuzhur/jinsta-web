@@ -93,7 +93,9 @@ a.logo_holder {
 a#sidebar_toggle:focus {
     box-shadow: none;
 }
-
+.container.u_main_content {
+    padding-top: 68px;
+}
 
 
 /*.user_img{
@@ -115,7 +117,7 @@ a#sidebar_toggle:focus {
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    padding-top:59px;
+    padding-top:68px;
 }
 #wrapper.toggled #sidebar-wrapper {
     width: 180px;
@@ -159,9 +161,9 @@ a#sidebar_toggle:focus {
   /*color: #83d7c9;*/
   /*padding: 15px 10px;*/
   /*text-decoration: none!important;*/
-    padding: 6px 8px 6px 16px;
+    padding: 10px 5px 10px 16px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 22px;
     color: #83d7c9;
     display: block;
     text-decoration: none!important;
@@ -416,12 +418,13 @@ span.round-tab {
 .test_section {
     margin-top: 25px;
     height: calc(100% - 25px);
-    background-color: #ffffff; 
+    background-color: #ffffff;
+    padding-top: 3em;
 }
 
 .test {
     font-size: 28px;
-    padding: 2em 0;
+    padding: 1em 0;
 }
 
 .test_img{
@@ -481,7 +484,8 @@ span.round-tab {
 .pro_info{
     margin-left: 20px;
     padding-top: 20px;
-    font-size: 17px;
+    /*font-size: 17px;*/
+    font-size: 1.5rem;
     font-family: sans-serif;
 }
 .pro_info>span>img, .progress_margin>span>img {
@@ -746,6 +750,8 @@ span.round-tab {
     background-color: #fff;
     margin-left: 15px;
     margin-bottom: 1em;
+    width: 250px;
+    margin: 0 auto;
 }
 .temp_content {
     padding: 1em;
@@ -763,8 +769,7 @@ span.round-tab {
 #temp_carousel .edit_icon {
     position: absolute;
     top: 5px;
-    /*right: 5px;*/
-    right: 70px;
+    right: 5px;
 }
 #temp_carousel .edit_icon a {
     color: #000000;
