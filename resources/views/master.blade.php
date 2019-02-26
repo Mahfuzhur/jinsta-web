@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
     <!-- custom css -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     <!-- bootstrap css -->
@@ -137,44 +138,44 @@
 
     <script>
 
-      $(document).ready(function(){
+      // $(document).ready(function(){
  
-         $("#but_search").click(function(){
-          var search = $('#hashtag').val();
-          var token = $('meta[name="csrf-token"]').attr('content');
-          // console.log(token);
+      //    $("#but_search").click(function(){
+      //     var search = $('#hashtag').val();
+      //     var token = $('meta[name="csrf-token"]').attr('content');
+      //     // console.log(token);
 
-          jQuery.ajax({
-            type: "POST",
-            url: "{{URL::to('hashtag-list-search')}}",
-            data: {
-            "_method": 'POST',
-            "_token": token,
-            "search": search,
-            },
-           dataType: 'html',
+      //     jQuery.ajax({
+      //       type: "POST",
+      //       url: "{{URL::to('hashtag-list-search')}}",
+      //       data: {
+      //       "_method": 'POST',
+      //       "_token": token,
+      //       "search": search,
+      //       },
+      //      dataType: 'html',
            
-           beforeSend: function(){
-            // Show image container
-            $("#loader").show();
-           },
-           success: function(response){
-            if(response.success){
-              $('.hashtag_search_alert').html(result.success);
-            }else{
-              $('.response').empty();
-              $('.response').append(response);
-            }
+      //      beforeSend: function(){
+      //       // Show image container
+      //       $("#loader").show();
+      //      },
+      //      success: function(response){
+      //       if(response.success){
+      //         $('.hashtag_search_alert').html(result.success);
+      //       }else{
+      //         $('.response').empty();
+      //         $('.response').append(response);
+      //       }
             
-           },
-           complete:function(data){
-            // Hide image container
-            $("#loader").hide();
-           }
-          });
+      //      },
+      //      complete:function(data){
+      //       // Hide image container
+      //       $("#loader").hide();
+      //      }
+      //     });
          
-         });
-        });
+      //    });
+      //   });
       // custom date format
       $(function(){
         $("#delivery_pr_start").datepicker({ dateFormat: 'dd-mm-yy'});

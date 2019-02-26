@@ -7,6 +7,15 @@
             {{csrf_field()}}
           <div class="col-md-12 delivery_setting">
               <h4>宛先 & 原稿設定</h4>
+              @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+              @endif
               @if(session('schedule_success'))
               <div class="alert alert-success">
                 {{session('schedule_success')}}
@@ -17,7 +26,7 @@
                       <label for="draft">
                           宛先
                       </label>
-                      <select class="draft_input" id="draft" name="draft">
+                      <select class="draft_input" id="draft" name="draft" required="">
                           <option value="">原稿選択</option>
                           @foreach($hashtags as $hashtag)
                           <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
@@ -28,7 +37,7 @@
                       <label for="destination">
                           原稿
                       </label>
-                      <select class="dest_input" id="destination" name="destination">
+                      <select class="dest_input" id="destination" name="destination" required="">
                           <option value="">宛先選択</option>
                            @foreach($templates as $template)
                             <option value="{{$template->id}}">{{$template->title}}</option>
@@ -45,12 +54,12 @@
                       </label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="text" name="delivery_period_start" id="delivery_pr_start" value="YYYY/MM/DD" >
+                            <input type="text" name="delivery_period_start" id="delivery_pr_start" placeholder="日付フォーマットDD-MM-YY" value="" required="" onchange="my_function();">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input id="delivery_pr_end" type="text" class="" name="delivery_period_end" value="YYYY/MM/DD">
+                            <input id="delivery_pr_end" type="text" class="" name="delivery_period_end" value="" placeholder="日付フォーマットDD-MM-YY" required="" onchange="my_function();">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
@@ -59,12 +68,12 @@
                       <label for="except_stting">除外期間<span class="msg_font">(期間を選択してください。)</span></label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="text" name="date_exclusion_setting_start" id="except_start" value="YYYY/MM/DD">
+                            <input type="text" name="date_exclusion_setting_start" id="except_start" placeholder="日付フォーマットDD-MM-YY" value="" onchange="my_function();">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input id="except_end" type="text" class="" name="date_exclusion_setting_end" value="YYYY/MM/DD">
+                            <input id="except_end" type="text" class="" name="date_exclusion_setting_end" placeholder="日付フォーマットDD-MM-YY" value="" onchange="my_function();">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
@@ -74,12 +83,12 @@
                       </label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="time" name="specify_time_start" id="sp_time_start" value="">
+                            <input type="time" name="specify_time_start" id="sp_time_start" value="" onchange="my_function();" required="">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input type="time" name="specify_time_end" id="sp_time_end" value="" >
+                            <input type="time" name="specify_time_end" id="sp_time_end" value="" onchange="my_function();" required="">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
@@ -167,7 +176,13 @@
     
     var start_day = (process(delivery_pr_end) - process(delivery_pr_start))/(1000*60*60);
     var exclusion_day = (process(except_end) - process(except_start))/(1000*60*60);
-    var remain_hour = (start_day - exclusion_day)/24;
+    if(exclusion_day){
+      var remain_hour = (start_day - exclusion_day)/24;
+    }
+    else{
+      var remain_hour = start_day/24;
+    }
+    
 
     
 
@@ -182,11 +197,18 @@
     var ex_hours = difference1.hours() + ":" + difference1.minutes();
 
     var first_time = moment.duration(hours, "HH:mm");
-    var second_time = moment.duration(ex_hours, "HH:mm");
-    var final = first_time.subtract(second_time);
-    var final_ex_hours = final.hours() + ":" + final.minutes();
-
-    var final_minutes = final.minutes();
+    if(ex_hours){
+      var second_time = moment.duration(ex_hours, "HH:mm");
+      var final = first_time.subtract(second_time);
+      var final_ex_hours = final.hours() + ":" + final.minutes();
+      var final_minutes = final.minutes();
+    }
+    else{
+      var final_minutes = difference.minutes();
+      var final_ex_hours = hours;
+    }
+    
+    
     var final_hour = (((final.hours() * remain_hour)*60)+(final_minutes*remain_hour));
     var total_hour = Math.ceil(final_hour/3);
 
