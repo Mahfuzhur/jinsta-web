@@ -713,7 +713,8 @@ class UserController extends Controller
     public function hashtagListSearch(Request $request){
         if(Auth::user()){
             $user_id = Auth::user()->id;
-            $hashtag = $request->hashtag;
+            // $hashtag = $request->hashtag;
+            $hashtag = $request->search;
             $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
             $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
             $rank_token= \InstagramAPI\Signatures::generateUUID();
@@ -721,7 +722,8 @@ class UserController extends Controller
           
             $obj = json_decode($result);
             if($obj->results == null){
-                return redirect('create-destination')->with('hashtag_found_msg','この＃キーワード検索でポストがありません。')->withInput();
+                return response()->json(['success'=>'この＃キーワード検索でポストがありません。']);
+                
             }
             $hashtagName = array();
             $postCounter = array();
@@ -730,8 +732,9 @@ class UserController extends Controller
 
             $title = '宛先登録';
             $active_destination = 'active';
-            $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
-            return view('master',compact('user_main_content','active_destination','title'));
+            return view('user.ajax_search',compact('results','hashtag'));
+            // $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
+            // return view('master',compact('user_main_content','active_destination','title'));
         }else{
             return redirect ('user-login');
         }

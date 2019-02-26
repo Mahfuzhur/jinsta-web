@@ -15,7 +15,7 @@
               <div class="dm_setting left-border m-b-40">
                   <div class="input_box">
                       <label for="draft">
-                          原稿
+                          宛先
                       </label>
                       <select class="draft_input" id="draft" name="draft">
                           <option value="">原稿選択</option>
@@ -26,7 +26,7 @@
                   </div>
                   <div class="input_box">
                       <label for="destination">
-                          宛先
+                          原稿
                       </label>
                       <select class="dest_input" id="destination" name="destination">
                           <option value="">宛先選択</option>

@@ -1440,6 +1440,10 @@ button.ds_btn {
     font-weight: bold;
 }
 
+#loader>img {
+    height: 500px;
+}
+
 /*responsive css*/
 @media screen and (max-width: 1280px) {
     .temp_result {
