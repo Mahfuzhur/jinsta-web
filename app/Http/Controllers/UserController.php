@@ -500,22 +500,22 @@ class UserController extends Controller
             // echo $delivery_period_start.' '.$delivery_period_end;
             // exit();
 
-            if($delivery_period_start > $delivery_period_end){
-                return redirect('delivery-setting')->with('schedule_err_msg','End date should be greater than start date');
-            }
-            if($date_exclusion_setting_start != NULL || $date_exclusion_setting_end){
-                if($date_exclusion_setting_start > $date_exclusion_setting_end){
-                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
-                }
-            }
-            if($specify_time_start > $specify_time_end){
-                return redirect('delivery-setting')->with('schedule_err_msg','End time should be greater than start time');
-            }
-            if($time_exclusion_setting_start != NULL || $time_exclusion_setting_end){
-                if($time_exclusion_setting_start > $time_exclusion_setting_end){
-                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
-                }
-            }
+//            if($delivery_period_start > $delivery_period_end){
+//                return redirect('delivery-setting')->with('schedule_err_msg','End date should be greater than start date');
+//            }
+//            if($date_exclusion_setting_start != NULL || $date_exclusion_setting_end){
+//                if($date_exclusion_setting_start > $date_exclusion_setting_end){
+//                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
+//                }
+//            }
+//            if($specify_time_start > $specify_time_end){
+//                return redirect('delivery-setting')->with('schedule_err_msg','End time should be greater than start time');
+//            }
+//            if($time_exclusion_setting_start != NULL || $time_exclusion_setting_end){
+//                if($time_exclusion_setting_start > $time_exclusion_setting_end){
+//                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
+//                }
+//            }
 
             $user_id = Auth::user()->id;
 

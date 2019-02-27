@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
@@ -153,9 +154,10 @@ class LoginController extends Controller
 
 
     public function test(){
-               $this->ig->login('webvision100','instagram123456');
-
-       $result = $this->ig->direct->getThread('340282366841710300949128248620635291710');
+//               $this->ig->login('webvision100','instagram123456');
+//
+//       $result = $this->ig->direct->getThread('340282366841710300949128248620635291710');
+        $result= Carbon::now();
 
 
         return $result;
