@@ -21,29 +21,36 @@
                 {{session('schedule_success')}}
               </div>
               @endif
+              @if(session('schedule_err_msg'))
+              <div class="alert alert-danger">
+                {{session('schedule_err_msg')}}
+              </div>
+              @endif
               <div class="dm_setting left-border m-b-40">
-                  <div class="input_box">
-                      <label for="draft">
-                          宛先
-                      </label>
-                      <select class="draft_input" id="draft" name="draft" required="">
-                          <option value="">原稿選択</option>
-                          @foreach($hashtags as $hashtag)
-                          <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
-                          @endforeach
-                      </select>
-                  </div>
-                  <div class="input_box">
+
+                <div class="input_box">
                       <label for="destination">
                           原稿
                       </label>
                       <select class="dest_input" id="destination" name="destination" required="">
-                          <option value="">宛先選択</option>
+                          <option value="">ドラフト選択</option>
                            @foreach($templates as $template)
                             <option value="{{$template->id}}">{{$template->title}}</option>
                             @endforeach
                       </select>                   
                   </div>
+                  <div class="input_box">
+                      <label for="draft">
+                          宛先
+                      </label>
+                      <select class="draft_input" id="draft" name="draft" required="">
+                          <option value="">目的地の選択</option>
+                          @foreach($hashtags as $hashtag)
+                          <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
+                          @endforeach
+                      </select>
+                  </div>
+                  
 
 
               </div>

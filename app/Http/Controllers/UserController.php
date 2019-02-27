@@ -328,7 +328,7 @@ class UserController extends Controller
         $this->validate($request, [
 
             'hashtag' => 'required|unique:hashtag|max:500',
-            'id' => 'required'
+            
         ]);
 
         $user_id = Auth::user()->id;
@@ -336,7 +336,7 @@ class UserController extends Controller
         $update_time = Carbon::now()->addHour(6);
         $hashtag_insert_id = Hashtag::create(['user_id'=>$user_id,'hashtag'=>$request->hashtag,'created_at' => $current_time, 'updated_at' => $update_time]);
 
-        if($request->hasFile('file')){
+        if($request->hasFile('file') && $request->id != NULL){
             $extension = File::extension($request->file->getClientOriginalName());
             if ($extension == "csv") {
 
@@ -368,7 +368,7 @@ class UserController extends Controller
 
                     $row = count($insert);
 
-                    for ($i=1; $i < $row; $i++) { 
+                    for ($i=0; $i < $row; $i++) { 
                         if($insert[$i]['client_id'] != null && $insert[$i]['client_id'] != 'NULL'){
                             $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $insert[$i]['client_id'],'created_at' => $current_time, 'updated_at' => $update_time];
                         }
@@ -400,10 +400,52 @@ class UserController extends Controller
                 return back();
  
             }else {
-                Session::flash('error', 'File is a '.$extension.' file.!! Please upload a valid csv file..!!');
+                Session::flash('error', 'ファイルは '.$extension.' ファイル。！！有効なcsvファイルをアップロードしてください。');
                 return back();
             }
-        }else{
+        }elseif($request->hasFile('file') && $request->id == NULL){
+            $extension = File::extension($request->file->getClientOriginalName());
+            if ($extension == "csv") {
+                $path = $request->file->getRealPath();               
+                $data = array_map('str_getcsv', file($path));                              
+                if(!empty($data)){
+                    $data_count = count($data);
+                    for ($i=0; $i < $data_count ; $i++) { 
+                        foreach ($data[$i] as $key => $value) {                              
+                                $insert[] = [
+                                'client_id' => $value,
+                                ];                            
+                        }
+                    }
+                    $row = count($insert);
+                    for ($i=0; $i < $row; $i++) { 
+                        if($insert[$i]['client_id'] != null && $insert[$i]['client_id'] != 'NULL'){
+                            $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $insert[$i]['client_id'],'created_at' => $current_time, 'updated_at' => $update_time];
+                        }
+                    }
+
+                    // echo "<pre>";
+                    // print_r($row);
+                    // exit();
+
+                    if(!empty($insert_data)){
+                        $insertData = DB::table('client')->insert($insert_data);
+                        if ($insertData) {
+                            Session::flash('success', 'Your client id successfully added');
+                        }else {                        
+                            Session::flash('error', 'Error inserting the data..');
+                            return back();
+                        }
+                    }
+                }
+                return back();
+            }else {
+                Session::flash('error', 'ファイルは '.$extension.' ファイル。！！有効なcsvファイルをアップロードしてください。');
+                return back();
+            }
+        }
+
+        elseif($request->hasFile('file') == NULL && $request->id != NULL){
             $manual_id = $request->id;
             $data = explode(",", $manual_id);
             $manual_row = count($data);
@@ -420,7 +462,11 @@ class UserController extends Controller
                 
             }
             return back();
+        }else{
+            return redirect('hashtag-manually-add')->with('error_msg','あなたはcsvファイルか手動ユーザーIDを与えなければなりません');
         }
+
+
         }else{
             return redirect ('user-login');
         }
@@ -435,12 +481,42 @@ class UserController extends Controller
 
                 'draft' => 'required',
                 'destination' => 'required',
-                'delivery_period_start' => 'required|date_format:d-m-Y',
-                'delivery_period_end' => 'required|date_format:d-m-Y',
-                'date_exclusion_setting_start' => 'required|date_format:d-m-Y',
-                'date_exclusion_setting_end' => 'required|date_format:d-m-Y'
+                'delivery_period_start' => 'required',
+                'delivery_period_end' => 'required',
+                'specify_time_start' => 'required',
+                'specify_time_end' => 'required'
                 
             ]);
+
+            $delivery_period_start = $request->delivery_period_start;
+            $delivery_period_end = $request->delivery_period_end;
+            $date_exclusion_setting_start = $request->date_exclusion_setting_start;
+            $date_exclusion_setting_end = $request->date_exclusion_setting_end;
+            $specify_time_start = $request->specify_time_start;
+            $specify_time_end = $request->specify_time_end;
+            $time_exclusion_setting_start = $request->time_exclusion_setting_start;
+            $time_exclusion_setting_end = $request->time_exclusion_setting_end;
+
+            // echo $delivery_period_start.' '.$delivery_period_end;
+            // exit();
+
+            if($delivery_period_start > $delivery_period_end){
+                return redirect('delivery-setting')->with('schedule_err_msg','End date should be greater than start date');
+            }
+            if($date_exclusion_setting_start != NULL || $date_exclusion_setting_end){
+                if($date_exclusion_setting_start > $date_exclusion_setting_end){
+                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
+                }
+            }
+            if($specify_time_start > $specify_time_end){
+                return redirect('delivery-setting')->with('schedule_err_msg','End time should be greater than start time');
+            }
+            if($time_exclusion_setting_start != NULL || $time_exclusion_setting_end){
+                if($time_exclusion_setting_start > $time_exclusion_setting_end){
+                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
+                }
+            }
+
             $user_id = Auth::user()->id;
 
             $result = Schedule::create($request->all());

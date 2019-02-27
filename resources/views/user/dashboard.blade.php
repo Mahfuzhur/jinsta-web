@@ -47,8 +47,8 @@
           </ul>
           <div class="tab-content">                    
             <div class="tab-pane" id="1a">
-                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>フォントサイズ統一してください。</h3><br>
-                  <div class="row progress_vertical_holder">
+                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
+                  <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
                           <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
@@ -97,16 +97,16 @@
                         </div>
                          <p>Sep</p>                                 
                     </div>
-                 </div> 
+                 </div>  -->
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 </br> {{$last_day}} last day</b></span> <br>
-                    <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
-                    <span class="total"><b> 既読率 </br>1% </b></span>
+                    <span class="total"><b>送信数 : {{$last_day}}</b></span> <br>
+                    <!-- <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
+                    <span class="total"><b> 既読率 </br>1% </b></span> -->
                 </div>
             </div>
             <div class="tab-pane" id="2a">
                 <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
-                <div class="row progress_vertical_holder">
+                <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
                           <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
@@ -155,16 +155,16 @@
                         </div>
                          <p>Sep</p>                                 
                     </div>
-                 </div>                   
+                 </div>  -->                  
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 </br> {{$last_week}} last week</b></span> <br>
-                    <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
-                    <span class="total"><b> 既読率 </br> 1% </b></span>
+                    <span class="total"><b>送信数 : {{$last_week}}</b></span> <br>
+                    <!-- <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
+                    <span class="total"><b> 既読率 </br> 1% </b></span> -->
                 </div>                      
           </div>
           <div class="tab-pane active" id="3a">
                 <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
-                <div class="row progress_vertical_holder">
+                <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
                           <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
@@ -213,11 +213,11 @@
                         </div>
                          <p>Sep</p>                                 
                     </div>
-                 </div>                     
+                 </div> -->                     
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 <br> {{$last_month}} last month</b></span> <br>
-                    <span class="total"><b>既読数 <br> 1,000</b></span> <br>
-                    <span class="total"><b>既読率 <br> 1%</b></span>
+                    <span class="total"><b>送信数 : {{$last_month}}</b></span> <br>
+                    <!-- <span class="total"><b>既読数 <br> 1,000</b></span> <br>
+                    <span class="total"><b>既読率 <br> 1%</b></span> -->
                 </div>                      
             </div>
           </div>

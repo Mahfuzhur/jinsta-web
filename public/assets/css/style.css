@@ -492,21 +492,25 @@ span.round-tab {
 }
 
 .dash_footer>.total {
-    border-right: 1px solid #7f7f7f;
-    padding: 1.5em 1em;
+    /*border-right: 1px solid #7f7f7f;*/
+    /*padding: 1.5em 1em;*/
+    padding-left: 1.1em;
     flex: 1;
-    margin: 0;
+    /*margin: 0;*/
+    margin-bottom: 34px;
+    font-size: 24px;
 }
 .dash_footer>.total:last-child{
     border:none;
 }
 
 .dash_footer{
-    border: 1px solid #7f7f7f;
+    /*border: 1px solid #7f7f7f;*/
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    text-align: center;
+    /*text-align: center;*/
+    text-align: left;
 }
 
 
