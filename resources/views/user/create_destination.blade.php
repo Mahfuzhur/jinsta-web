@@ -59,7 +59,7 @@
 
                     </div>
                     <div class="hashtag_title left-border m-b-40">
-                        <h4 class="">ファイルアップロード</h4>
+                        <h4 class="">csvファイルのアップロード</h4>
                         <div class="input_box">
                             <div class="input-group">
                                 <div class="input-group-prepend">
