@@ -492,11 +492,13 @@ class UserController extends Controller
             $delivery_period_end = $request->delivery_period_end;
             $date_exclusion_setting_start = $request->date_exclusion_setting_start;
             $date_exclusion_setting_end = $request->date_exclusion_setting_end;
+
             $specify_time_start = $request->specify_time_start;
             $specify_time_end = $request->specify_time_end;
             $time_exclusion_setting_start = $request->time_exclusion_setting_start;
             $time_exclusion_setting_end = $request->time_exclusion_setting_end;
             
+
 
 
 
@@ -521,10 +523,28 @@ class UserController extends Controller
 
             $user_id = Auth::user()->id;
 
-            $result = Schedule::create($request->all());
+            // $result = Schedule::create($request->all());
             
             $current_time = Carbon::now()->addHour(6);
             $update_time = Carbon::now()->addHour(6);
+
+            $result = new Schedule();
+            $result->destination = $request->destination;
+            $result->draft = $request->draft;
+            $result->delivery_period_start = $delivery_period_start;
+            $result->delivery_period_end = $delivery_period_end;
+            $result->date_exclusion_setting_start = $date_exclusion_setting_start;
+            $result->date_exclusion_setting_end = $date_exclusion_setting_end;
+            $result->specify_time_start = $specify_time_start;
+            $result->specify_time_end = $specify_time_end;
+            $result->time_exclusion_setting_start = $time_exclusion_setting_start;
+            $result->time_exclusion_setting_end = $time_exclusion_setting_end;
+            $result->created_at = $current_time;
+            $result->updated_at = $update_time;
+            $result->save();
+
+            // $schedule_data = array(array('destination' => $request->destination, 'draft' => $request->draft,'delivery_period_start' => $delivery_period_start, 'delivery_period_end' => $delivery_period_end,'date_exclusion_setting_start' => $date_exclusion_setting_start, 'date_exclusion_setting_end' => $date_exclusion_setting_end,'specify_time_start' => $specify_time_start, 'specify_time_end' => $specify_time_end,'time_exclusion_setting_start' => $time_exclusion_setting_start, 'time_exclusion_setting_end' => $time_exclusion_setting_end,'created_at' =>$current_time,'updated_at' => $update_time));
+            // $schedule = Schedule::insert($schedule_data);
 
             $template_data = array(array('template_id' => $request->destination, 'schedule_id' => $result->id,'created_at' =>$current_time,'updated_at' => $update_time));
             $template_schedule = TemplateSchedule::insert($template_data);
@@ -537,6 +557,13 @@ class UserController extends Controller
 
             return redirect('delivery-setting')->with('schedule_success','Schedule set successfully');
         }
+    }
+
+    public function time_subtract($time){
+        $to = \Carbon\Carbon::createFromFormat('H:s', $time);
+        $from = \Carbon\Carbon::createFromFormat('H:s', '6:00');
+        $diffInSeconds = $to->diffInSeconds($from);
+        return gmdate('H:s', $diffInSeconds);
     }
 
 
@@ -570,8 +597,8 @@ class UserController extends Controller
     public function analytics(){
         if(Auth::user()){
             $user_id = Auth::user()->id;
-            $numberOfLists = Schedule::count();
-            $numberSent = Client::where([['dm_sent', '=', '1']])->count();
+            $numberOfLists = UserSchedule::where('user_id',$user_id)->count();
+            $numberSent = Client::where([['dm_sent', '=', '1'],['user_id','=',$user_id]])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
 
