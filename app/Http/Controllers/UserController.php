@@ -502,10 +502,10 @@ class UserController extends Controller
             $specify_time_end = Carbon::parse($specify_time_end);
             $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
             $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
-            $specify_time_start = $specify_time_start->addHour(6)->format('h:i');
-            $specify_time_end = $specify_time_end->addHour(6)->format('h:i');
-            $time_exclusion_setting_start = $time_exclusion_setting_start->addHour(6)->format('h:i');
-            $time_exclusion_setting_end = $time_exclusion_setting_end->addHour(6)->format('h:i');
+            $specify_time_start = $specify_time_start->subHour(6)->format('H:i');
+            $specify_time_end = $specify_time_end->subHour(6)->format('H:i');
+            $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(6)->format('H:i');
+            $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(6)->format('H:i');
 
 
 
@@ -633,14 +633,14 @@ class UserController extends Controller
             ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
             ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
-            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
+            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
 
             $data_info['without_dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row')
             ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
             ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
             ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
-            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
+            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
 
         $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info'));
         return view('master',compact('user_main_content','analytics','title'));
