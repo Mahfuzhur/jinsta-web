@@ -51,8 +51,11 @@ class Kernel extends ConsoleKernel
                 ->where([['client.dm_sent','!=','1']])
                 ->groupBy('hashtag.hashtag')
                 ->first();
+//                echo $this->user->delivery_period_start;
+//                exit();
+
         }catch (\Exception $ex){
-            echo "something went wrong";
+            echo $ex;
         }
 
         if ($this->user != null){
@@ -68,7 +71,6 @@ class Kernel extends ConsoleKernel
                         'users' => [$this->user->client_id]
                     ];
                     $imagePath = 'uploads/'.$this->user->image;
-                    $this->ig->direct->sendText($recipents,$this->user->title);
                     $this->ig->direct->sendText($recipents,$this->user->description);
                     $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
 

@@ -496,9 +496,11 @@ class UserController extends Controller
             $specify_time_end = $request->specify_time_end;
             $time_exclusion_setting_start = $request->time_exclusion_setting_start;
             $time_exclusion_setting_end = $request->time_exclusion_setting_end;
+            
 
-            // echo $delivery_period_start.' '.$delivery_period_end;
-            // exit();
+
+
+
 
 //            if($delivery_period_start > $delivery_period_end){
 //                return redirect('delivery-setting')->with('schedule_err_msg','End date should be greater than start date');
