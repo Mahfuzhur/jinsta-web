@@ -497,7 +497,15 @@ class UserController extends Controller
             $specify_time_end = $request->specify_time_end;
             $time_exclusion_setting_start = $request->time_exclusion_setting_start;
             $time_exclusion_setting_end = $request->time_exclusion_setting_end;
-            
+
+            $specify_time_start = Carbon::parse($specify_time_start);
+            $specify_time_end = Carbon::parse($specify_time_end);
+            $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
+            $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
+            $specify_time_start = $specify_time_start->addHour(6)->format('h:i');
+            $specify_time_end = $specify_time_end->addHour(6)->format('h:i');
+            $time_exclusion_setting_start = $time_exclusion_setting_start->addHour(6)->format('h:i');
+            $time_exclusion_setting_end = $time_exclusion_setting_end->addHour(6)->format('h:i');
 
 
 
