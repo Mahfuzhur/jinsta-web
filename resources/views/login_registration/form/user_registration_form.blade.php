@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                       <label for="mobile">電話番号</label>
-                      <input type="number" class="form-control" name="mobile" id="mobile" placeholder="0362738450(ハイフンなし" value="{{ old('mobile') }}" required="">
+                      <input type="number" class="form-control" name="mobile" id="mobile" placeholder="0362738450(ハイフンなし)" value="{{ old('mobile') }}" required="">
                       @if ($errors->has('mobile'))
                           <span class="help-block">
                               <strong>{{ $errors->first('mobile') }}</strong>

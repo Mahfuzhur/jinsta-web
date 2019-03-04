@@ -33,7 +33,7 @@
                           原稿
                       </label>
                       <select class="dest_input" id="destination" name="destination" required="">
-                          <option value="">ドラフト選択</option>
+                          <option value="">原稿を選択</option>
                            @foreach($templates as $template)
                             <option value="{{$template->id}}">{{$template->title}}</option>
                             @endforeach
@@ -44,7 +44,7 @@
                           宛先
                       </label>
                       <select class="draft_input" id="draft" name="draft" required="">
-                          <option value="">目的地の選択</option>
+                          <option value="">ハッシュタグリストを選択</option>
                           @foreach($hashtags as $hashtag)
                           <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
                           @endforeach
@@ -217,7 +217,7 @@
     
     
     var final_hour = (((final.hours() * remain_hour)*60)+(final_minutes*remain_hour));
-    var total_hour = Math.ceil(final_hour/3);
+    var total_hour = Math.ceil(final_hour/5);
 
     
     function process(date){
