@@ -21,18 +21,23 @@
                 {{ session('add_success') }}
               </div> 
               @endif
+              @if(session('empty_msg'))
+              <div class="alert alert-success">
+                {{ session('empty_msg') }}
+              </div> 
+              @endif
               <!-- <h4>テンプレート名：テストテストテスト</h4> -->
               <label for="temp_regi">
                  テンプレート名
               </label>
-              <input type="text" class="form-control title" id="text" name="title" maxlength="170" placeholder="原稿名を設定してください。" rows="5" required="">
+              <input type="text" class="form-control title" id="text" name="title" maxlength="170" placeholder="原稿名を設定してください。" rows="5">
           </div>
             <div class="m-b-35"> 
                 <div class="input_box">
                     <label for="temp_regi">
                        テキスト登録
                     </label>
-                    <textarea class="form-control" id="text1" name="description" maxlength="170" placeholder="配信原稿文を記入ください。" rows="5" required=""></textarea>
+                    <textarea class="form-control" id="text1" name="description" maxlength="170" placeholder="配信原稿文を記入ください。" rows="5"></textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>
@@ -42,7 +47,7 @@
                         <span><i class="fa fa-download" aria-hidden="true"></i></span>
                         <span style="font-size: 13px;">画像登録(推奨画像サイズ：横1200px×縦600px)</span>                          
                     </label>
-                    <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);" required="">
+                    <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);">
                 </div>
                 <div class="form_buttons">
                     <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
