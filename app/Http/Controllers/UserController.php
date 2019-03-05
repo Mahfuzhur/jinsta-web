@@ -327,7 +327,7 @@ class UserController extends Controller
 
         $this->validate($request, [
 
-            'hashtag' => 'required|unique:hashtag|max:500',
+            'hashtag' => 'required|max:500',
             
         ]);
 
@@ -886,10 +886,10 @@ class UserController extends Controller
 
         $user_id = Auth::user()->id;
         $hashtagName = $request->hashtag_list;
-        $exit_info = DB::table('hashtag')->where('hashtag',$hashtagName)->first();
-        if($exit_info){
-            return redirect('create-destination')->with('errot_message','Hashtag already exits');
-        }
+        // $exit_info = DB::table('hashtag')->where('hashtag',$hashtagName)->first();
+        // if($exit_info){
+        //     return redirect('create-destination')->with('errot_message','Hashtag already exits');
+        // }
         $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
         // echo "<pre>";
         // print_r($user_info);
@@ -925,16 +925,19 @@ class UserController extends Controller
             $insert[] = $media->user->pk;
         }
 
-        foreach ($obj->ranked_items as $media) {
+        if(isset($obj->ranked_items)){
 
-            // echo $obj->ranked_items[0]->user->pk  ;
-            // echo ",";
-            foreach ($media->preview_comments as $preview_comment){
-               // echo $preview_comment->user_id;
+            foreach ($obj->ranked_items as $media) {
+
+                // echo $obj->ranked_items[0]->user->pk  ;
                 // echo ",";
-                array_push($insert,$preview_comment->user_id);
-            }
+                foreach ($media->preview_comments as $preview_comment){
+                   // echo $preview_comment->user_id;
+                    // echo ",";
+                    array_push($insert,$preview_comment->user_id);
+                }
 
+            }
         }
 
         $row = count($insert);
