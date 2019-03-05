@@ -166,12 +166,14 @@ class UserController extends Controller
 
         $this->validate($request, [
 
-            'title' => 'required|max:500',
-            'description' => 'required',
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg'
+            'image' => 'image|mimes:jpg,jpeg,png,svg'
         ]);
 
-        $file_path_name = "";
+        if($request->title == NULL && $request->description == NULL && $request->image == NULL){
+            return redirect('create-manuscript')->with('empty_msg','少なくとも1つの欄に記入してください');
+        }
+
+        $imageName = NULL;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
             $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
@@ -215,12 +217,15 @@ class UserController extends Controller
         if(Auth::user()){
         $this->validate($request, [
 
-            'title' => 'required|max:500',
-            'description' => 'required',
             'image' => 'image|mimes:jpg,jpeg,png,svg'
         ]);
 
-        $imageName = $request->exits_image;
+        if($request->title == NULL && $request->description == NULL && $request->image == NULL){
+            return back()->with('empty_msg','少なくとも1つの欄に記入してください');
+        }
+
+        // $imageName = $request->exits_image;
+        $imageName = NULL;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
             $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
