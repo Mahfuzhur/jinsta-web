@@ -47,12 +47,13 @@
                         <span><i class="fa fa-download" aria-hidden="true"></i></span>
                         <span>画像登録</span>                          
                     </label>
-                    <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);">
+                    <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readimageURL(this);">
                     <input type="hidden" name="exits_image" value="{{$single_template->image}}">
                     
                   <!-- <img src="{{asset('uploads/'.$single_template->image)}}" class="img-responsive" style="width: 100px;height: 50px;"> -->
                   
-                  <img src="{{asset('assets/img/No_Image_Available.jpg')}}" alt="Image" style="width:100px;height: 50px;">
+                  <img src="{{asset('assets/img/No_Image_Available.jpg')}}" id="no_image_id" alt="Image" style="width:100px;height: 50px;">
+                  <!-- <span class="edit_image_show_small"></span> -->
                   
                 </div>
                 <div class="form_buttons">

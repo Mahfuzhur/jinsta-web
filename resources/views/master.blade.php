@@ -197,6 +197,27 @@
               .attr('src', e.target.result)
               .width(250)
               .height(200);
+              document.getElementById('image_show_small').src =  e.target.result;
+              document.getElementById('no_image_id').src =  e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        function readimageURL(input) { 
+        $('.preview').show();
+          $('#blah').hide();
+          // $('#title').hide();
+          $('#description').hide();
+          $('.image_show').after('<img id="blah" src="#" alt="your image" style="display:none;"/>');
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              $('#blah')
+              .attr('src', e.target.result)
+              .width(250)
+              .height(200);
+              document.getElementById('no_image_id').src =  e.target.result;
             };
             reader.readAsDataURL(input.files[0]);
           }
