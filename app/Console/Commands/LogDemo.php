@@ -36,21 +36,9 @@ class LogDemo extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle($data)
     {
-        $this->ig = new \InstagramAPI\Instagram();
-        try{
-            $this->ig->login('webvision100','instagram123456');
-            $recipents = [
-                'users' => ['8574903852']
-            ];
-
-            $imagePath = 'uploads/'.'bylP39uuyy.png';
-            //$this->ig->direct->sendText($recipents,$this->user->title);
-            $this->ig->direct->sendPhoto($recipents,$imagePath);
-        }catch(\Exception $ex){
-            echo $ex;
-        }
+        \Log::info('i was herecommand',$data->i);
 
     }
 }
