@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
     {
         try{
 
-            $this->user = DB::table('users')
+            $this->users = DB::table('users')
                 ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
                 ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
                 ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
@@ -58,7 +58,9 @@ class Kernel extends ConsoleKernel
             echo $ex;
         }
 
-        if ($this->user != null){
+        if ($this->users != null){
+
+            foreach($this->users as $this->user){
             $schedule->call(function () {
 
                 try{
@@ -88,6 +90,7 @@ class Kernel extends ConsoleKernel
                 ->between($this->user->specify_time_start,$this->user->specify_time_end)
                 ->unlessBetween($this->user->time_exclusion_setting_start,$this->user->time_exclusion_setting_end)
                 ->everyMinute();
+            }
         }else{
             \Log::info('i was here');
         }
