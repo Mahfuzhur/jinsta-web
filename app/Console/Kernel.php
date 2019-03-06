@@ -66,33 +66,33 @@ class Kernel extends ConsoleKernel
 
         if ($this->user != null){
 
-            for ($this->counter = 0; $this->counter < sizeof($this->user); $this->counter ++){
-                //echo $this->user[$this->counter]->id;
+            for ($this->counter = 0; $this->counter < sizeof($this->user) -1; $this->counter ++){
+
             $schedule->call(function () {
-                echo $this->user[$this->counter]->id;
-//                try{
-//
-//
-//                    $this->ig = new \InstagramAPI\Instagram();
-//                   // echo $this->counter++;
-//                    echo $this->user[$this->counter]->id;
-//                    $result = $this->ig->login($this->user->instagram_username,$this->user->instagram_password);
-//                    $recipents = [
-//                        'users' => [$this->user->client_id]
-//                    ];
-//                    $imagePath = 'uploads/'.$this->user->image;
-//                    $this->ig->direct->sendText($recipents,$this->user->description);
-//                    $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
-//
-//
-//                }catch (\Exception $ex){
-//                    echo $ex;
-//                }
-//                finally{
-//                    $client = Client::find($this->user->id);
-//                    $client->dm_sent = 1;
-//                    $client->save();
-//                }
+
+                try{
+
+
+                    $this->ig = new \InstagramAPI\Instagram();
+                    echo $this->counter++;
+                    echo $this->user[0][$this->counter]->id;
+                    $result = $this->ig->login($this->user->instagram_username,$this->user->instagram_password);
+                    $recipents = [
+                        'users' => [$this->user->client_id]
+                    ];
+                    $imagePath = 'uploads/'.$this->user->image;
+                    $this->ig->direct->sendText($recipents,$this->user->description);
+                    $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+
+
+                }catch (\Exception $ex){
+                    echo $ex;
+                }
+                finally{
+                    $client = Client::find($this->user->id);
+                    $client->dm_sent = 1;
+                    $client->save();
+                }
             })->between($this->user[$this->counter]->delivery_period_start,$this->user[$this->counter]->delivery_period_end)
                 ->unlessBetween($this->user[$this->counter]->date_exclusion_setting_start,$this->user[$this->counter]->date_exclusion_setting_end)
                 ->between($this->user[$this->counter]->specify_time_start,$this->user[$this->counter]->specify_time_end)
