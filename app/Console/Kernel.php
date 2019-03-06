@@ -35,6 +35,8 @@ class Kernel extends ConsoleKernel
     {
         try{
 
+            $current_date = date("d-m-Y");
+            $current_time = date("H:i");
             $this->users = DB::table('users')
                 ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
                 ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
@@ -48,9 +50,9 @@ class Kernel extends ConsoleKernel
                     ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
                     , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
                     'client.hashtag_id','client.id','template.title','template.description','template.image')
-                ->where([['client.dm_sent','!=','1']])
+                ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],['schedule.delivery_period_end','>=',$current_date],['schedule.delivery_period_start','<=',$current_date],['schedule.delivery_period_end','>=',$current_date],['schedule.specify_time_start','<=',$current_time],['schedule.specify_time_end','>=',$current_time]])
                 ->groupBy('hashtag.hashtag')
-                ->first();
+                ->get();
 //                echo $this->user->delivery_period_start;
 //                exit();
 
