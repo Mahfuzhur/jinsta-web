@@ -38,7 +38,7 @@ class Kernel extends ConsoleKernel
 
             $current_date = date("d-m-Y");
             $current_time = date("H:i");
-            $this->user = DB::table('users')
+            $this->users = DB::table('users')
                 ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
                 ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
                 ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
@@ -58,45 +58,46 @@ class Kernel extends ConsoleKernel
                 ->groupBy('hashtag.hashtag')
                 ->get();
 
-//            echo $this->users;
-//            exit();
+
         }catch (\Exception $ex){
             echo $ex;
         }
 
-        if ($this->user != null){
-
-            for ($this->counter = 0; $this->counter < sizeof($this->user) -1; $this->counter ++){
-
+        if ($this->users != null){
+            $this->counter = 0;
+            foreach($this->users as $this->user){
+               // echo '**' .$this->counter++. '*';
             $schedule->call(function () {
 
                 try{
 
 
                     $this->ig = new \InstagramAPI\Instagram();
-                    echo $this->counter++;
-                    echo $this->user[0][$this->counter]->id;
-                    $result = $this->ig->login($this->user->instagram_username,$this->user->instagram_password);
+                     echo $this->users[$this->counter]->client_id;
+
+                    $result = $this->ig->login($this->users[$this->counter]->instagram_username,$this->users[$this->counter]->instagram_password);
                     $recipents = [
-                        'users' => [$this->user->client_id]
+                        'users' => [$this->users[$this->counter]->client_id]
                     ];
-                    $imagePath = 'uploads/'.$this->user->image;
-                    $this->ig->direct->sendText($recipents,$this->user->description);
+
+                    $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                    $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
                     $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
 
 
                 }catch (\Exception $ex){
-                    echo $ex;
+                    echo "something went wrong";
                 }
                 finally{
-                    $client = Client::find($this->user->id);
+                    $client = Client::find($this->users[$this->counter]->id);
                     $client->dm_sent = 1;
                     $client->save();
                 }
-            })->between($this->user[$this->counter]->delivery_period_start,$this->user[$this->counter]->delivery_period_end)
-                ->unlessBetween($this->user[$this->counter]->date_exclusion_setting_start,$this->user[$this->counter]->date_exclusion_setting_end)
-                ->between($this->user[$this->counter]->specify_time_start,$this->user[$this->counter]->specify_time_end)
-                ->unlessBetween($this->user[$this->counter]->time_exclusion_setting_start,$this->user[$this->counter]->time_exclusion_setting_end)
+                $this->counter++;
+            })->between($this->user->delivery_period_start,$this->user->delivery_period_end)
+                ->unlessBetween($this->user->date_exclusion_setting_start,$this->user->date_exclusion_setting_end)
+                ->between($this->user->specify_time_start,$this->user->specify_time_end)
+                ->unlessBetween($this->user->time_exclusion_setting_start,$this->user->time_exclusion_setting_end)
                 ->everyMinute();
             }
         }else{
