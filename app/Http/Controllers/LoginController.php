@@ -157,10 +157,35 @@ class LoginController extends Controller
 //               $this->ig->login('webvision100','instagram123456');
 //
 //       $result = $this->ig->direct->getThread('340282366841710300949128248620635291710');
-        $result= Carbon::now();
+        $current_date = date("d-m-Y");
+        $current_time = date("H:i");
+        $this->users = DB::table('users')
+            ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+            ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+            ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template', 'template.id', '=', 'template_schedule.template_id')
+            ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+            ->select('users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
+                ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
+                ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
+                , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
+                'client.hashtag_id','client.id','template.title','template.description','template.image')
+            ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],
+                ['schedule.delivery_period_end','>=',$current_date],['schedule.delivery_period_start','<=',$current_date],
+                ['schedule.delivery_period_end','>=',$current_date],['schedule.specify_time_start','<=',$current_time],
+                ['schedule.specify_time_end','>=',$current_time]])
+            ->groupBy('hashtag.hashtag')
+            ->get();
+
+//        foreach($this->users as $this->user){
+//           echo $this->user->name;
+//
+//        }
 
 
-        return $result;
+        return $this->users;
     }
     public function InstagramRank(){
 

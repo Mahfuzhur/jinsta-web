@@ -33,6 +33,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
         try{
 
             $current_date = date("d-m-Y");
@@ -50,32 +51,37 @@ class Kernel extends ConsoleKernel
                     ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
                     , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
                     'client.hashtag_id','client.id','template.title','template.description','template.image')
-                ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],['schedule.delivery_period_end','>=',$current_date],['schedule.delivery_period_start','<=',$current_date],['schedule.delivery_period_end','>=',$current_date],['schedule.specify_time_start','<=',$current_time],['schedule.specify_time_end','>=',$current_time]])
+                ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],
+                    ['schedule.delivery_period_end','>=',$current_date],['schedule.delivery_period_start','<=',$current_date],
+                    ['schedule.delivery_period_end','>=',$current_date],['schedule.specify_time_start','<=',$current_time],
+                    ['schedule.specify_time_end','>=',$current_time]])
                 ->groupBy('hashtag.hashtag')
                 ->get();
-//                echo $this->user->delivery_period_start;
-//                exit();
+
 
         }catch (\Exception $ex){
             echo $ex;
         }
 
         if ($this->users != null){
-
+            $this->counter = 0;
             foreach($this->users as $this->user){
+               // echo '**' .$this->counter++. '*';
             $schedule->call(function () {
 
                 try{
 
 
                     $this->ig = new \InstagramAPI\Instagram();
+                     echo $this->users[$this->counter]->client_id;
 
-                    $result = $this->ig->login($this->user->instagram_username,$this->user->instagram_password);
+                    $result = $this->ig->login($this->users[$this->counter]->instagram_username,$this->users[$this->counter]->instagram_password);
                     $recipents = [
-                        'users' => [$this->user->client_id]
+                        'users' => [$this->users[$this->counter]->client_id]
                     ];
-                    $imagePath = 'uploads/'.$this->user->image;
-                    $this->ig->direct->sendText($recipents,$this->user->description);
+
+                    $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                    $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
                     $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
 
 
@@ -83,10 +89,11 @@ class Kernel extends ConsoleKernel
                     echo "something went wrong";
                 }
                 finally{
-                    $client = Client::find($this->user->id);
+                    $client = Client::find($this->users[$this->counter]->id);
                     $client->dm_sent = 1;
                     $client->save();
                 }
+                $this->counter++;
             })->between($this->user->delivery_period_start,$this->user->delivery_period_end)
                 ->unlessBetween($this->user->date_exclusion_setting_start,$this->user->date_exclusion_setting_end)
                 ->between($this->user->specify_time_start,$this->user->specify_time_end)
