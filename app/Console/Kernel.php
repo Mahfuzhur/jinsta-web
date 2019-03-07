@@ -12,6 +12,7 @@ use InstagramAPI;
 use GuzzleHttp\Exception\ServerException;
 use App\Client;
 use Log;
+use Carbon;
 
 
 class Kernel extends ConsoleKernel
@@ -52,9 +53,7 @@ class Kernel extends ConsoleKernel
                     , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
                     'client.hashtag_id','client.id','template.title','template.description','template.image')
                 ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],
-                    ['schedule.delivery_period_end','>=',$current_date],['schedule.delivery_period_start','<=',$current_date],
-                    ['schedule.delivery_period_end','>=',$current_date],['schedule.specify_time_start','<=',$current_time],
-                    ['schedule.specify_time_end','>=',$current_time]])
+                    ['schedule.delivery_period_end','>=',$current_date]])
                 ->groupBy('hashtag.hashtag')
                 ->get();
 
@@ -79,26 +78,35 @@ class Kernel extends ConsoleKernel
                     $recipents = [
                         'users' => [$this->users[$this->counter]->client_id]
                     ];
+                    $time_in_12_hour_format  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_start));
+                    $time_in_12_hour_format_ex_start  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_start));
+                    $time_in_12_hour_format_end  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_end));
+                    $time_in_12_hour_format_ex_end  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_end));
 
-                    $imagePath = 'uploads/'.$this->users[$this->counter]->image;
-                    $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
-                    $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+//
+                    if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end <= date('H:i') && $this->users[$this->counter]->time_exclusion_setting_start <= date('H:i') || $this->users[$this->counter]->time_exclusion_setting_end >= date('H:i')){
+                        $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                        $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
+                        $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+
+                    }
+
 
 
                 }catch (\Exception $ex){
                     echo "something went wrong";
                 }
                 finally{
-                    $client = Client::find($this->users[$this->counter]->id);
-                    $client->dm_sent = 1;
-                    $client->save();
+                    if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end <= date('H:i') && $this->users[$this->counter]->time_exclusion_setting_start <= date('H:i') || $this->users[$this->counter]->time_exclusion_setting_end >= date('H:i')){
+                        $client = Client::find($this->users[$this->counter]->id);
+                        $client->dm_sent = 1;
+                        $client->save();
+                    }
                 }
                 $this->counter++;
-            })->between($this->user->delivery_period_start,$this->user->delivery_period_end)
-                ->unlessBetween($this->user->date_exclusion_setting_start,$this->user->date_exclusion_setting_end)
-                ->between($this->user->specify_time_start,$this->user->specify_time_end)
-                ->unlessBetween($this->user->time_exclusion_setting_start,$this->user->time_exclusion_setting_end)
+            })
                 ->everyMinute();
+            echo $this->user->delivery_period_start;
             }
         }else{
             \Log::info('i was here');

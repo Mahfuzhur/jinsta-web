@@ -13,6 +13,7 @@ use App\Exceptions\Handler;
 use InstagramAPI\Instagram;
 class LoginController extends Controller
 {
+
     public $ig;
     public function __construct()
     {
@@ -26,6 +27,7 @@ class LoginController extends Controller
     }
 
     public function userLogin(){
+
 
         if(Auth::user()){
 
@@ -154,9 +156,9 @@ class LoginController extends Controller
 
 
     public function test(){
-//               $this->ig->login('webvision100','instagram123456');
-//
-//       $result = $this->ig->direct->getThread('340282366841710300949128248620635291710');
+
+
+
         $current_date = date("d-m-Y");
         $current_time = date("H:i");
         $this->users = DB::table('users')
@@ -173,19 +175,17 @@ class LoginController extends Controller
                 , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
                 'client.hashtag_id','client.id','template.title','template.description','template.image')
             ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],
-                ['schedule.delivery_period_end','>=',$current_date],['schedule.delivery_period_start','<=',$current_date],
-                ['schedule.delivery_period_end','>=',$current_date],['schedule.specify_time_start','<=',$current_time],
-                ['schedule.specify_time_end','>=',$current_time]])
+                ['schedule.delivery_period_end','>=',$current_date]])
             ->groupBy('hashtag.hashtag')
             ->get();
+
+
+       return $this->users;
 
 //        foreach($this->users as $this->user){
 //           echo $this->user->name;
 //
 //        }
-
-
-        return $this->users;
     }
     public function InstagramRank(){
 
