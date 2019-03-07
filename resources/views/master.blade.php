@@ -188,8 +188,11 @@
         $('.preview').show();
           $('#blah').hide();
           // $('#title').hide();
-          $('#description').hide();
-          $('.image_show').after('<img id="blah" src="#" alt="your image" style="display:none;"/>');
+          var description = $("textarea").val();
+          // document.getElementById("title").innerHTML = title;
+          document.getElementById("description").innerHTML = description;
+          $('#description').show();
+          $('.image_show').after('<img id="blah" src="#" alt="your image" />');
           if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -208,8 +211,11 @@
         $('.preview').show();
           $('#blah').hide();
           // $('#title').hide();
-          $('#description').hide();
-          $('.image_show').after('<img id="blah" src="#" alt="your image" style="display:none;"/>');
+          var description = $("textarea").val();
+          // document.getElementById("title").innerHTML = title;
+          document.getElementById("description").innerHTML = description;
+          $('#description').show();
+          $('.image_show').after('<img id="blah" src="#" alt="your image"/>');
           if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {

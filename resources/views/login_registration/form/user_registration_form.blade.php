@@ -84,7 +84,7 @@
                       <input type="password" class="form-control" name="password" id="password" placeholder="sample1234（6文字以上）" required="">
                       @if ($errors->has('password'))
                           <span class="help-block">
-                              <strong>パスワードは6文字以上で設定をお願いします。</strong>
+                              <strong>{{ $errors->first('password') }}</strong>
                           </span>
                       @endif
                     </div>
