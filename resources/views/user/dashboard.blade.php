@@ -6,10 +6,12 @@
     <div class="row row-eq-height">
       <div class="col-md-6 col-sm-12">
           <div class="test_section">
-
+            @if(!isset($json_selfinfo['message']))
              <center><img class="test_img" src="{{$json_selfinfo['user']['profile_pic_url']}}"></center>
               <div class="test"><center>{{$json_selfinfo['user']['username']}}</center></div>
-
+            @else
+            <div class="test"><center style="color: #c32727;font-size: 20px;text-align: justify !important; padding: 20px;">You have to provide instagram username and password. Also turn off 2 factor authentication and make your profile public. Otherwise your schedule sending message will not delivered. Update your instagram username here <a href="{{URL::to('update-instagram-info')}}">Update</a>.</center></div>
+            @endif
 <!--             <div class="row inst_section">-->
 <!--                <div class="inst_title first">-->
 <!--                   <h4 class="instagram">Instagram</h4>                              -->

@@ -83,9 +83,19 @@ class UserController extends Controller
 
             $title = 'Index page';
             $user_info = DB::table('users')->where('id',$user_id)->first();
-            $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
-            $selfInfo = $this->ig->people->getSelfInfo();
-            $json_selfinfo = json_decode($selfInfo,true);
+            try{
+                if($user_info->instagram_username != NULL && $user_info->instagram_password != NULL){
+                    $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
+                    $selfInfo = $this->ig->people->getSelfInfo();
+                    $json_selfinfo = json_decode($selfInfo,true);
+                }else{
+                        $json_selfinfo['message'] = '';
+                    }
+            }catch (\Exception $ex){
+                $json_selfinfo['message'] = '';
+                // return $ex;
+            }
+            
 
             $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
             ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
@@ -1016,6 +1026,38 @@ class UserController extends Controller
         }else{
             return redirect ('user-login');
         }
+    }
+
+    public function updateInstagramInfo(){
+        if(Auth::user()){
+            $title = 'instagram情報のアップデート';
+            $user_main_content = view('user.update_instagram_info');
+            return view('master',compact('user_main_content','title'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function checkUpdateInstagramInfo(Request $request){
+        $user_id =Auth::user()->id;
+        $userName = $request->email;
+        $password = $request->password;
+        try{
+           $result1 = $this->ig->login($userName,$password);
+
+             $result = DB::table('users')
+                ->where('id', $user_id)
+                ->update(['instagram_username' => $userName,'instagram_password' => $password]);
+            return redirect('update-instagram-info')->with('success_msg','Instagram information successfully updated');
+        }
+        catch (\Exception $ex){
+            return redirect('update-instagram-info')->with('check','invalid instagram username or password');
+            // return $ex;
+        }
+
+        //$selfInfo = $this->ig->people->getSelfInfo();
+
+
     }
 
     public function index()

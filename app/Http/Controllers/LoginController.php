@@ -63,8 +63,8 @@ class LoginController extends Controller
             return redirect('registration-success');
         }
         catch (\Exception $ex){
-            //return redirect('instagram-info')->with('check','invalid username or password');
-            return $ex;
+            return redirect('instagram-info')->with('check','invalid instagram username or password');
+            // return $ex;
         }
 
         //$selfInfo = $this->ig->people->getSelfInfo();

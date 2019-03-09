@@ -38,6 +38,8 @@ Route::get('/create-destination','UserController@hashtagList');
 Route::get('/hashtag-manually-add','UserController@createDestination');
 // Route::get('/create-destination','UserController@createDestination');
 Route::get('/user-login','UserController@userLogin');
+Route::get('/update-instagram-info','UserController@updateInstagramInfo');
+Route::post('/check-update-instagram-info','UserController@checkUpdateInstagramInfo');
 
 Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
 
