@@ -503,10 +503,21 @@ class UserController extends Controller
                 
             ]);
 
+            $user_id = Auth::user()->id;
+            $user_info = DB::table('users')->where('id',$user_id)->first();
+            if($user_info->instagram_username == NULL || $user_info->instagram_username == NULL){
+                return redirect('dashboard');
+            }
+
             $delivery_period_start = $request->delivery_period_start;
             $delivery_period_end = $request->delivery_period_end;
             $date_exclusion_setting_start = $request->date_exclusion_setting_start;
             $date_exclusion_setting_end = $request->date_exclusion_setting_end;
+
+            if(strtotime($delivery_period_end) < strtotime($delivery_period_start)){
+                return back()->with('date_erroe_msg','End date must be greater than start date');
+            }
+
 
             $specify_time_start = $request->specify_time_start;
             $specify_time_end = $request->specify_time_end;
@@ -515,14 +526,22 @@ class UserController extends Controller
 
             $specify_time_start = Carbon::parse($specify_time_start);
             $specify_time_end = Carbon::parse($specify_time_end);
-            $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
-            $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
             $specify_time_start = $specify_time_start->subHour(6)->format('H:i');
             $specify_time_end = $specify_time_end->subHour(6)->format('H:i');
-            $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(6)->format('H:i');
-            $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(6)->format('H:i');
 
+            if($specify_time_start == $specify_time_end){
+                return back()->with('time_erroe_msg','Start and End time can not be same');
+            }
 
+            if($time_exclusion_setting_start != NULL && $time_exclusion_setting_end != NULL){
+                $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
+                $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
+                
+                $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(6)->format('H:i');
+                $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(6)->format('H:i');
+            }
+
+            
 
 
 
@@ -620,7 +639,8 @@ class UserController extends Controller
     public function analytics(){
         if(Auth::user()){
             $user_id = Auth::user()->id;
-            $numberOfLists = UserSchedule::where('user_id',$user_id)->count();
+            $numberOfLists = Hashtag::where('user_id',$user_id)->count();
+            $numberOfSchedule = UserSchedule::where('user_id',$user_id)->count();
             $numberSent = Client::where([['dm_sent', '=', '1'],['user_id','=',$user_id]])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
@@ -657,7 +677,7 @@ class UserController extends Controller
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
             ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
 
-        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info'));
+        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info','numberOfSchedule'));
         return view('master',compact('user_main_content','analytics','title'));
         }else{
             return redirect ('user-login');
@@ -869,6 +889,9 @@ class UserController extends Controller
             $hashtag = $request->hashtag;
             // $hashtag = $request->search;
             $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
+            if($user_info->instagram_username == NULL || $user_info->instagram_password == NULL){
+                return back()->with('instagram_error_msg',"You must provide instagram username and password from dashboard");
+            }
             $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
             $rank_token= \InstagramAPI\Signatures::generateUUID();
             $result = $this->ig->hashtag->search($hashtag);
@@ -1051,7 +1074,7 @@ class UserController extends Controller
             return redirect('update-instagram-info')->with('success_msg','Instagram information successfully updated');
         }
         catch (\Exception $ex){
-            return redirect('update-instagram-info')->with('check','invalid instagram username or password');
+            return redirect('update-instagram-info')->with('check','invalid instagram username or password or security check');
             // return $ex;
         }
 

@@ -26,6 +26,16 @@
                 {{session('schedule_err_msg')}}
               </div>
               @endif
+              @if(session('date_erroe_msg'))
+              <div class="alert alert-danger">
+                {{session('date_erroe_msg')}}
+              </div>
+              @endif
+              @if(session('time_erroe_msg'))
+              <div class="alert alert-danger">
+                {{session('time_erroe_msg')}}
+              </div>
+              @endif
               <div class="dm_setting left-border m-b-40">
 
                 <div class="input_box">
@@ -71,7 +81,7 @@
                           </div>
                       </div>                                               
                   </div>
-                  <div class="input_box">
+                  <!-- <div class="input_box">
                       <label for="except_stting">除外期間<span class="msg_font">(期間を選択してください。)</span></label>
                       <div class="input_group">
                           <div class="input-group">
@@ -84,7 +94,7 @@
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
-                  </div>
+                  </div> -->
                   <div class="input_box">
                       <label for="sp_time">時間指定<span class="msg_font">(時刻を選択してください。)</span>
                       </label>
@@ -100,7 +110,7 @@
                           </div>
                       </div>                                               
                   </div>
-                  <div class="input_box">
+                  <!-- <div class="input_box">
                       <label for="sp_time">除外時間<span class="msg_font">(時刻を選択してください。)</span></label>
                       <div class="input_group">
                           <div class="input-group">
@@ -113,12 +123,13 @@
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
-                  </div>
+                  </div> -->
               </div>
               <div class="left-border m-b-40">
                   <h4>1日当たりの想定送信回数 </h4>                          
                   <div class="input_box sent_count">
-                      <h5 class="sent_times" id="sent_times">0通</h5>                                                 
+                      <!-- <h5 class="sent_times" id="sent_times">0通</h5> -->
+                      <h5 class="sent_times">288通</h5>                                                 
                   </div>
                   <div class="ds_btn_holder">
                     <button class="ds_btn">

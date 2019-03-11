@@ -84,12 +84,25 @@ class Kernel extends ConsoleKernel
                     $time_in_12_hour_format_ex_end  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_end));
 
 //
-                    if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end <= date('H:i') && $this->users[$this->counter]->time_exclusion_setting_start <= date('H:i') || $this->users[$this->counter]->time_exclusion_setting_end >= date('H:i')){
-                        $imagePath = 'uploads/'.$this->users[$this->counter]->image;
-                        $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
-                        $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                    if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                            $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                            $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
+                            $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                            \Log::info('message sent');
 
+                        }
                     }
+                    elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
+                        if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                            $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                            $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
+                            $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                            \Log::info('message sent');
+
+                        }
+                    }
+                    
 
 
 
@@ -97,11 +110,24 @@ class Kernel extends ConsoleKernel
                     echo "something went wrong";
                 }
                 finally{
-                    if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end <= date('H:i') && $this->users[$this->counter]->time_exclusion_setting_start <= date('H:i') || $this->users[$this->counter]->time_exclusion_setting_end >= date('H:i')){
-                        $client = Client::find($this->users[$this->counter]->id);
-                        $client->dm_sent = 1;
-                        $client->save();
+
+                    if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                            $client = Client::find($this->users[$this->counter]->id);
+                            $client->dm_sent = 1;
+                            $client->save();
+                            \Log::info('update ok');
+                        }
                     }
+                    elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
+                        if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                            $client = Client::find($this->users[$this->counter]->id);
+                            $client->dm_sent = 1;
+                            $client->save();
+                            \Log::info('update ok');
+                        }
+                    }
+                    
                 }
                 $this->counter++;
             })
