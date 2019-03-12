@@ -612,10 +612,23 @@ class UserController extends Controller
     public function deliverySetting(){
         if(Auth::user()){
         $id = Auth::user()->id;
+        $schedule_id = DB::table('schedule')
+                        ->join('user_schedule','schedule.id','=','user_schedule.schedule_id')
+                        ->select('schedule.draft as draft')
+                        ->where('user_schedule.user_id',$id)->get();
+       if(isset($schedule_id)){
+            foreach ($schedule_id as $schedule) {
+                $ex_draft[] = $schedule->draft;
+            }
+        }
         $templates = Template::select('title','id')->where([['user_id','=',$id]])->get();
-        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
-//        print_r($templates) ;
-//        exit();
+        if(isset($ex_draft)){
+        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->whereNotIn('id', $ex_draft)->get();
+        }else{
+            $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();;
+        }
+       // print_r($ex_draft) ;
+       // exit();
 
         
         $title = '配信設定';
@@ -890,7 +903,8 @@ class UserController extends Controller
             // $hashtag = $request->search;
             $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
             if($user_info->instagram_username == NULL || $user_info->instagram_password == NULL){
-                return back()->with('instagram_error_msg',"You must provide instagram username and password from dashboard");
+                // return back()->with('instagram_error_msg',"You must provide instagram username and password from dashboard");
+                return redirect('dashboard');
             }
             $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
             $rank_token= \InstagramAPI\Signatures::generateUUID();
