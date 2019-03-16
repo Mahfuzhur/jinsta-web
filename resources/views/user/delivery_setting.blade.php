@@ -252,14 +252,26 @@
 
     if(end_time_minitues > start_time_minitues)
     {
+      
       var minitues_diff = end_time_minitues - start_time_minitues;
       var total_minitues = remain_hour*minitues_diff;
       var total_hour = Math.ceil(total_minitues/5);
 
       // alert(total_hour);
+    
     }
     else if(end_time_minitues < start_time_minitues)
     {
+
+      if(remain_hour == 1){
+        
+          var first_time = '24:00';
+          var first_time = moment.duration(first_time, "HH:mm");
+          var subtract_time = first_time.subtract(start_time); 
+          var first_time_minitues = (subtract_time.hours()*60+subtract_time.minutes());
+          var total_hour = Math.ceil(first_time_minitues/5);
+        
+      }else{
       var first_time = '24:00';
       var first_time = moment.duration(first_time, "HH:mm");
       var subtract_time = first_time.subtract(start_time); 
@@ -270,9 +282,10 @@
       var start_min = moment.duration(start_min, "HH:mm");
       var second_time = end_time.subtract(start_min);
       var second_time_minitues = (second_time.hours()*60+second_time.minutes());
-      var total_minitues = remain_hour*(first_time_minitues + second_time_minitues);
+      var total_minitues = (remain_hour*(first_time_minitues + second_time_minitues))-second_time_minitues;
       var total_hour = Math.ceil(total_minitues/5);
       // alert(total_hour);
+    }
 
     }
       
@@ -281,7 +294,7 @@
         document.getElementById("sent_times").innerHTML = total_hour+"通";
       }
     }else{
-      alert('invalid date');
+      alert('End date should greater than start date');
     }
   }else{
     document.getElementById("sent_times").innerHTML = "0通";
