@@ -173,8 +173,8 @@ class LoginController extends Controller
                 ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
                 ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
                 , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
-                'client.hashtag_id','client.id','template.title','template.description','template.image')
-            ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],
+                'client.hashtag_id','client.id','template.title','template.description','template.image','schedule.status')
+            ->where([['client.dm_sent','!=','1'],['schedule.status','!=','0'],['schedule.delivery_period_start','<=',$current_date],
                 ['schedule.delivery_period_end','>=',$current_date]])
             ->groupBy('hashtag.hashtag')
             ->get();

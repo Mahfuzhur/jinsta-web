@@ -59,6 +59,10 @@ Route::get('/analytics','UserController@analytics');
 Route::get('/request','UserController@request');
 Route::post('/set-schedule','UserController@SetSchedule');
 
+Route::get('/schedule-list','UserController@scheduleList');
+Route::post('/schedule-action','UserController@scheduleAction');
+Route::get('/schedule-delete/{id}','UserController@scheduleDelete');
+
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
 Route::get('test','LoginController@test');

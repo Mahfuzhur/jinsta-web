@@ -20,6 +20,35 @@
     @else
     Jinsta
     @endif</title>
+
+    <script type="text/javascript">
+         function schedule_action($id){
+          var id = $id;
+          var token = $('meta[name="csrf-token"]').attr('content');
+          // console.log(id);
+          jQuery.ajax({
+            type: "POST",
+            url: "{{URL::to('schedule-action')}}",
+            data: {
+            "_method": 'POST',
+            "_token": token,
+            "id":id
+            },                     
+           success: function(response){
+            if(response.data === 'stop'){
+              // alert('schedule stop');
+              jQuery('#schedule_stop'+response.id).hide();
+              jQuery('#schedule_start'+response.id).show();
+            }else if(response.data === 'start'){
+              // alert('schedule start');
+              jQuery('#schedule_start'+response.id).hide();
+              jQuery('#schedule_stop'+response.id).show();              
+            }
+            
+           }
+          });
+        }       
+    </script>
   </head>
   <body class="delivery_setting_page">
     <!-- top header -->
@@ -101,6 +130,17 @@
                   配信設定
                   </a>
               @endif
+              @if(isset($schedule_list))
+                <a class="Summary active" href="{{URL::to('schedule-list')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
+                  スケジュールリスト
+                </a>
+              @else
+              <a class="Summary" href="{{URL::to('schedule-list')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
+                  スケジュールリスト
+                </a>
+              @endif
               @if(isset($analytics))
                 <a class="Progress active" href="{{URL::to('analytics')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/analytics.png')}}" alt=""></span>
@@ -112,10 +152,18 @@
                   アナリティクス
                 </a>
               @endif
-                <a class="Summary" href="{{URL::to('request')}}">
+              @if(isset($request))
+                <a class="Summary active" href="{{URL::to('request')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
                   ご請求
                 </a>
+              @else
+              <a class="Summary" href="{{URL::to('request')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
+                  ご請求
+                </a>
+              @endif
+              
             </div>
 
         </div>

@@ -1097,6 +1097,74 @@ class UserController extends Controller
 
     }
 
+    public function scheduleList(){
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+            $title = 'スケジュール一覧';
+            $schedule_list = 'active';
+            $all_schedule = DB::table('users')
+            ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+            ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+            ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template', 'template.id', '=', 'template_schedule.template_id')
+            ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+            ->select('schedule.id as s_id','users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
+                ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
+                ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
+                , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
+                'client.hashtag_id','client.id','template.title','template.description','template.image','schedule.status')
+            ->where([['user_schedule.user_id','=',$user_id]])
+            ->whereNull('schedule.deleted_at')
+            ->orderBy('schedule.id','desc')
+            ->groupBy('schedule.id')
+            ->paginate(10);
+
+            $user_main_content = view('user.schedule_list',compact('all_schedule'));
+            return view('master',compact('user_main_content','title','schedule_list'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function scheduleAction(Request $request){
+        if(Auth::user()){
+            $id = $request->id;
+            // $status = $request->input('schedule_status');
+
+            $schedule = Schedule::findOrfail($id);
+            // echo "<pre>";
+            // print_r($schedule);
+            // exit();
+            if($schedule->status == 1){
+                $schedule->status = 0;
+                $schedule->save();
+                // return redirect('schedule-list');
+                return response()->json(['data'=>'stop','id' => $id]);
+            }elseif($schedule->status == 0){
+                $schedule->status = 1;
+                $schedule->save();
+                // return redirect('schedule-list');
+                return response()->json(['data'=>'start','id' => $id]);
+            }
+
+        }else{
+            return Redirect::to('/admin-login');
+        }
+
+    }
+
+    public function scheduleDelete($id)
+    {
+        if(Auth::user()){
+            $flag = Schedule::where('id',$id)->delete();          
+        return redirect('schedule-list')->with('delete_success','Schedule deleted successfully');
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
     public function index()
     {
         //
