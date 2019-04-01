@@ -49,8 +49,8 @@
                     @if($data->hashtag_id == $without_data->hashtag_id)
                       <div class="row progressbar_holder">
                         <div class="progress_title">
-                           <span class="hashtag">#{{str_limit($data->hashtag, $limit = 10, $end = '..')}}</span>
-                           <span class="letter">{{str_limit($data->title, $limit = 10, $end = '..')}}</span>
+                           <span class="hashtag">#{{str_limit($data->hashtag, $limit = 12, $end = '..')}}</span>
+                           <span class="letter">{{str_limit($data->title, $limit = 12, $end = '..')}}</span>
                         </div>                        
 
                         <div class="progress_size">
@@ -142,7 +142,7 @@
             <h4>開封率</h4>
           </div> -->
           <div class="rect_box">
-            <h4>アクション回数 <br>{{$numberOfLists}}</h4>
+            <h4>アクション回数 <br>{{$numberOfSchedule}}</h4>
           </div>
         </div>
         <div class="envelope_area">

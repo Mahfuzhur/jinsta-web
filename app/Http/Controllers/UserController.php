@@ -83,9 +83,19 @@ class UserController extends Controller
 
             $title = 'Index page';
             $user_info = DB::table('users')->where('id',$user_id)->first();
-            $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
-            $selfInfo = $this->ig->people->getSelfInfo();
-            $json_selfinfo = json_decode($selfInfo,true);
+            try{
+                if($user_info->instagram_username != NULL && $user_info->instagram_password != NULL){
+                    $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
+                    $selfInfo = $this->ig->people->getSelfInfo();
+                    $json_selfinfo = json_decode($selfInfo,true);
+                }else{
+                        $json_selfinfo['message'] = '';
+                    }
+            }catch (\Exception $ex){
+                $json_selfinfo['message'] = '';
+                // return $ex;
+            }
+            
 
             $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
             ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
@@ -493,10 +503,21 @@ class UserController extends Controller
                 
             ]);
 
+            $user_id = Auth::user()->id;
+            $user_info = DB::table('users')->where('id',$user_id)->first();
+            if($user_info->instagram_username == NULL || $user_info->instagram_username == NULL){
+                return redirect('dashboard');
+            }
+
             $delivery_period_start = $request->delivery_period_start;
             $delivery_period_end = $request->delivery_period_end;
             $date_exclusion_setting_start = $request->date_exclusion_setting_start;
             $date_exclusion_setting_end = $request->date_exclusion_setting_end;
+
+            if(strtotime($delivery_period_end) < strtotime($delivery_period_start)){
+                return back()->with('date_erroe_msg','End date must be greater than start date');
+            }
+
 
             $specify_time_start = $request->specify_time_start;
             $specify_time_end = $request->specify_time_end;
@@ -505,14 +526,22 @@ class UserController extends Controller
 
             $specify_time_start = Carbon::parse($specify_time_start);
             $specify_time_end = Carbon::parse($specify_time_end);
-            $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
-            $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
             $specify_time_start = $specify_time_start->subHour(6)->format('H:i');
             $specify_time_end = $specify_time_end->subHour(6)->format('H:i');
-            $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(6)->format('H:i');
-            $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(6)->format('H:i');
 
+            if($specify_time_start == $specify_time_end){
+                return back()->with('time_erroe_msg','Start and End time can not be same');
+            }
 
+            if($time_exclusion_setting_start != NULL && $time_exclusion_setting_end != NULL){
+                $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
+                $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
+                
+                $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(6)->format('H:i');
+                $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(6)->format('H:i');
+            }
+
+            
 
 
 
@@ -583,10 +612,23 @@ class UserController extends Controller
     public function deliverySetting(){
         if(Auth::user()){
         $id = Auth::user()->id;
+        $schedule_id = DB::table('schedule')
+                        ->join('user_schedule','schedule.id','=','user_schedule.schedule_id')
+                        ->select('schedule.draft as draft')
+                        ->where('user_schedule.user_id',$id)->get();
+       if(isset($schedule_id)){
+            foreach ($schedule_id as $schedule) {
+                $ex_draft[] = $schedule->draft;
+            }
+        }
         $templates = Template::select('title','id')->where([['user_id','=',$id]])->get();
-        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
-//        print_r($templates) ;
-//        exit();
+        if(isset($ex_draft)){
+        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->whereNotIn('id', $ex_draft)->get();
+        }else{
+            $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();;
+        }
+       // print_r($ex_draft) ;
+       // exit();
 
         
         $title = '配信設定';
@@ -610,7 +652,8 @@ class UserController extends Controller
     public function analytics(){
         if(Auth::user()){
             $user_id = Auth::user()->id;
-            $numberOfLists = UserSchedule::where('user_id',$user_id)->count();
+            $numberOfLists = Hashtag::where('user_id',$user_id)->count();
+            $numberOfSchedule = UserSchedule::where('user_id',$user_id)->count();
             $numberSent = Client::where([['dm_sent', '=', '1'],['user_id','=',$user_id]])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
@@ -647,7 +690,7 @@ class UserController extends Controller
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
             ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
 
-        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info'));
+        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info','numberOfSchedule'));
         return view('master',compact('user_main_content','analytics','title'));
         }else{
             return redirect ('user-login');
@@ -859,6 +902,10 @@ class UserController extends Controller
             $hashtag = $request->hashtag;
             // $hashtag = $request->search;
             $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
+            if($user_info->instagram_username == NULL || $user_info->instagram_password == NULL){
+                // return back()->with('instagram_error_msg',"You must provide instagram username and password from dashboard");
+                return redirect('dashboard');
+            }
             $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
             $rank_token= \InstagramAPI\Signatures::generateUUID();
             $result = $this->ig->hashtag->search($hashtag);
@@ -1013,6 +1060,106 @@ class UserController extends Controller
             $flag = Template::destroy($id);
            
             return redirect('manuscript-registration')->with('delete_success','Template deleted successfully');
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function updateInstagramInfo(){
+        if(Auth::user()){
+            $title = 'instagram情報のアップデート';
+            $user_main_content = view('user.update_instagram_info');
+            return view('master',compact('user_main_content','title'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function checkUpdateInstagramInfo(Request $request){
+        $user_id =Auth::user()->id;
+        $userName = $request->email;
+        $password = $request->password;
+        try{
+           $result1 = $this->ig->login($userName,$password);
+
+             $result = DB::table('users')
+                ->where('id', $user_id)
+                ->update(['instagram_username' => $userName,'instagram_password' => $password]);
+            return redirect('update-instagram-info')->with('success_msg','Instagram information successfully updated');
+        }
+        catch (\Exception $ex){
+            return redirect('update-instagram-info')->with('check','invalid instagram username or password or security check');
+            // return $ex;
+        }
+
+        //$selfInfo = $this->ig->people->getSelfInfo();
+
+
+    }
+
+    public function scheduleList(){
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+            $title = 'スケジュール一覧';
+            $schedule_list = 'active';
+            $all_schedule = DB::table('users')
+            ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+            ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+            ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template', 'template.id', '=', 'template_schedule.template_id')
+            ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+            ->select('schedule.id as s_id','users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
+                ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
+                ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
+                , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
+                'client.hashtag_id','client.id','template.title','template.description','template.image','schedule.status')
+            ->where([['user_schedule.user_id','=',$user_id]])
+            ->whereNull('schedule.deleted_at')
+            ->orderBy('schedule.id','desc')
+            ->groupBy('schedule.id')
+            ->paginate(10);
+
+            $user_main_content = view('user.schedule_list',compact('all_schedule'));
+            return view('master',compact('user_main_content','title','schedule_list'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function scheduleAction(Request $request){
+        if(Auth::user()){
+            $id = $request->id;
+            // $status = $request->input('schedule_status');
+
+            $schedule = Schedule::findOrfail($id);
+            // echo "<pre>";
+            // print_r($schedule);
+            // exit();
+            if($schedule->status == 1){
+                $schedule->status = 0;
+                $schedule->save();
+                // return redirect('schedule-list');
+                return response()->json(['data'=>'stop','id' => $id]);
+            }elseif($schedule->status == 0){
+                $schedule->status = 1;
+                $schedule->save();
+                // return redirect('schedule-list');
+                return response()->json(['data'=>'start','id' => $id]);
+            }
+
+        }else{
+            return Redirect::to('/admin-login');
+        }
+
+    }
+
+    public function scheduleDelete($id)
+    {
+        if(Auth::user()){
+            $flag = Schedule::where('id',$id)->delete();          
+        return redirect('schedule-list')->with('delete_success','Schedule deleted successfully');
         }else{
             return redirect ('user-login');
         }

@@ -27,6 +27,12 @@
 	        	</div>
 	        	@endif
 
+	        	@if(session('instagram_error_msg'))
+	        	<div class="alert alert-danger">
+	        		{{session('instagram_error_msg')}}
+	        	</div>
+	        	@endif
+
 	        	@if ( Session::has('hashtag_found_msg') )
                     <div class="alert alert-danger alert-dismissible" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -46,11 +52,11 @@
 	                <div class="input-group"> 
 	                	                           
 	                    @if(isset($hashtag))                           
-	                    <input type="text" name="hashtag" id="hashtag" value="{{$hashtag}}" class="hashtag_input">
+	                    <input type="text" name="hashtag" id="hashtag" value="{{$hashtag}}" class="hashtag_input" required="">
 	                    @elseif(Session::get('hashtag_found_msg'))
-	                    <input type="text" name="hashtag" id="hashtag"  value="{{old('hashtag')}}" class="hashtag_input">
+	                    <input type="text" name="hashtag" id="hashtag"  value="{{old('hashtag')}}" class="hashtag_input" required="">
 	                    @else
-	                    <input type="text" name="hashtag" id="hashtag"  placeholder="#なしでキーワードだけ入力してください" class="hashtag_input">
+	                    <input type="text" name="hashtag" id="hashtag"  placeholder="#なしでキーワードだけ入力してください" class="hashtag_input" required="">
 	                    @endif
 	                    
 	                    <div class="input-group-append" style="margin-left: -10px;">

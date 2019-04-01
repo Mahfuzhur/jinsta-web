@@ -38,6 +38,8 @@ Route::get('/create-destination','UserController@hashtagList');
 Route::get('/hashtag-manually-add','UserController@createDestination');
 // Route::get('/create-destination','UserController@createDestination');
 Route::get('/user-login','UserController@userLogin');
+Route::get('/update-instagram-info','UserController@updateInstagramInfo');
+Route::post('/check-update-instagram-info','UserController@checkUpdateInstagramInfo');
 
 Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
 
@@ -56,6 +58,10 @@ Route::get('/template','UserController@template');
 Route::get('/analytics','UserController@analytics');
 Route::get('/request','UserController@request');
 Route::post('/set-schedule','UserController@SetSchedule');
+
+Route::get('/schedule-list','UserController@scheduleList');
+Route::post('/schedule-action','UserController@scheduleAction');
+Route::get('/schedule-delete/{id}','UserController@scheduleDelete');
 
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
