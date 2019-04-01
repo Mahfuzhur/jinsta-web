@@ -159,33 +159,67 @@ class LoginController extends Controller
 
 
 
-        $current_date = date("d-m-Y");
-        $current_time = date("H:i");
-        $this->users = DB::table('users')
-            ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
-            ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
-            ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
-            ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
-            ->join('template', 'template.id', '=', 'template_schedule.template_id')
-            ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
-            ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
-            ->select('users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
-                ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
-                ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
-                , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
-                'client.hashtag_id','client.id','template.title','template.description','template.image')
-            ->where([['client.dm_sent','!=','1'],['schedule.delivery_period_start','<=',$current_date],
-                ['schedule.delivery_period_end','>=',$current_date]])
-            ->groupBy('hashtag.hashtag')
-            ->get();
+        $hashtagName = 'hash';
+        // $exit_info = DB::table('hashtag')->where('hashtag',$hashtagName)->first();
+        // if($exit_info){
+        //     return redirect('create-destination')->with('errot_message','Hashtag already exits');
+        // }
 
+        // echo "<pre>";
+        // print_r($user_info);
+        // exit();
+        $this->ig->login('webvision100','instagram123456');
+//             session()->put('userName','webvision100');
+//             session()->put('password','instagram123456');
+        //$hastag = $this->ig->hashtag->search('worldseriescricket');
+        $rank_token= \InstagramAPI\Signatures::generateUUID();
+        $result = $this->ig->hashtag->getFeed($hashtagName,$rank_token);
+        //$result = $this->ig->media->getComments('1965957446195605717_7312650484');
+        $obj = json_decode($result);
+        //$userid = array();
+        $counter = 0;
 
-       return $this->users;
+//        $row = count($obj->items);
+//        $current_time = Carbon::now()->addHour(6);
+//        $update_time = Carbon::now()->addHour(6);
+//        $user = new Hashtag();
+//        $user->user_id= $user_id;
+//        $user->hashtag= $hashtagName;
+//        $user->created_at= $current_time;
+//        $user->updated_at= $update_time;
+//        $user->save();
+//        $lastInsertId = $user->id;
+
+        // $flag = DB::table('hashtag')->insert($hashtag_data)->lastInsertId();
+        // echo "<pre>";
+        // print_r($lastInsertId);
+        // exit();
+
+        foreach($obj->items as $media) {
+            $insert[] = $media->user->pk;
+        }
+
+        if(isset($obj->ranked_items)){
+
+            foreach ($obj->ranked_items as $media) {
+
+                // echo $obj->ranked_items[0]->user->pk  ;
+                // echo ",";
+                foreach ($media->preview_comments as $preview_comment){
+                    // echo $preview_comment->user_id;
+                    // echo ",";
+                    array_push($insert,$preview_comment->user_id);
+                }
+
+            }
+        }
 
 //        foreach($this->users as $this->user){
 //           echo $this->user->name;
 //
 //        }
+
+        return response()->json($obj);
     }
     public function InstagramRank(){
 
