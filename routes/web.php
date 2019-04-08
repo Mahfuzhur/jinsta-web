@@ -66,6 +66,15 @@ Route::get('/schedule-delete/{id}','UserController@scheduleDelete');
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
 Route::get('test','LoginController@test');
+
+
+/* Admin Panel Route Start */
+
+Route::get('/admin-login','AdminController@adminLogin');
+
+
+
+/* Admin Panel Route Start */
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
