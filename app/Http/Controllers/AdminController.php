@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 class AdminController extends Controller
 {
@@ -53,6 +56,25 @@ class AdminController extends Controller
     public function show($id)
     {
         //
+    }
+    public function emailList(){
+        $users = User::select('company_name','name', 'email')->get();
+
+        return view('admin.email',compact('users'));
+    }
+
+    public function emailListRequest(Request $request){
+        $email = $request->input('email');
+      print_r($email);
+
+    }
+
+    public function mail()
+    {
+        $name = 'Krunal';
+        Mail::to('mahfuzhur@gmail.com')->send(new SendMailable());
+
+        return 'Email was sent';
     }
 
     /**
