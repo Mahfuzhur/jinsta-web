@@ -288,6 +288,7 @@
           $('#description').show();
         }
 
+
             function confirm_click(){
 
                 var check = confirm('Are you sure to delete this?');

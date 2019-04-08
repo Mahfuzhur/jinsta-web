@@ -973,38 +973,66 @@ class UserController extends Controller
         // print_r($lastInsertId);
         // exit();
         
-        foreach($obj->items as $media) {
-            $insert[] = $media->user->pk;
-        }
+//        foreach($obj->items as $media) {
+//            $insert[] = $media->user->pk;
+//        }
+//
+//        if(isset($obj->ranked_items)){
+//
+//            foreach ($obj->ranked_items as $media) {
+//
+//                // echo $obj->ranked_items[0]->user->pk  ;
+//                // echo ",";
+//                foreach ($media->preview_comments as $preview_comment){
+//                   // echo $preview_comment->user_id;
+//                    // echo ",";
+//                    array_push($insert,$preview_comment->user_id);
+//                }
+//
+//            }
+//        }
+            try{
+               // $obj = json_decode($result);
 
-        if(isset($obj->ranked_items)){
+                foreach($obj->items as $media) {
+                    //$insert[] = $media->user->pk;
+                    $result = $media->id;
+                    $likers = $this->ig->media->getLikers($result);
+//            foreach ($likers->users as $like){
+//                $insert[] = $like->pk;
+//            }
+                    // $likers = $likers->users;
+                    $likers = json_decode($likers);
+                    foreach ($likers->users as $like){
+//                        $insert[] = $like->pk;
+                        $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $like->pk,'created_at' => $current_time, 'updated_at' => $update_time];
+                        //$count++;
+                    }
 
-            foreach ($obj->ranked_items as $media) {
-
-                // echo $obj->ranked_items[0]->user->pk  ;
-                // echo ",";
-                foreach ($media->preview_comments as $preview_comment){
-                   // echo $preview_comment->user_id;
-                    // echo ",";
-                    array_push($insert,$preview_comment->user_id);
                 }
+            }
+            catch (\Exception $ex){
+                echo $ex;
 
             }
+            finally{
+//            $row = count($insert);
+//
+//                // echo "<pre>";
+//                // print_r($insert);
+//                // exit();
+//
+//            for ($i=0; $i < $row; $i++) {
+//            if($obj->items){
+//            $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $insert[$i],'created_at' => $current_time, 'updated_at' => $update_time];
+//            }
+                $flag = Client::insert($insert_data);
         }
 
-        $row = count($insert);
+            //$flag = Client::insert($insert_data);
 
-        // echo "<pre>";
-        // print_r($insert);
-        // exit();
 
-        for ($i=0; $i < $row; $i++) { 
-            if($obj->items){
-                $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $insert[$i],'created_at' => $current_time, 'updated_at' => $update_time];
-            }
-        }
 
-        $flag = Client::insert($insert_data);
 
         return redirect('create-destination')->with('message','Hastag and its ID added successfully');
 

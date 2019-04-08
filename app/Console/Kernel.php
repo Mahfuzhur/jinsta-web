@@ -32,7 +32,6 @@ class Kernel extends ConsoleKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-
     protected function schedule(Schedule $schedule)
     {
 
@@ -67,74 +66,74 @@ class Kernel extends ConsoleKernel
         if ($this->users != null){
             $this->counter = 0;
             foreach($this->users as $this->user){
-               // echo '**' .$this->counter++. '*';
-            $schedule->call(function () {
+                // echo '**' .$this->counter++. '*';
+                $schedule->call(function () {
 
-                try{
+                    try{
 
 
-                    $this->ig = new \InstagramAPI\Instagram();
-                     echo $this->users[$this->counter]->client_id;
+                        $this->ig = new \InstagramAPI\Instagram();
+                        echo $this->users[$this->counter]->client_id;
 
-                    $result = $this->ig->login($this->users[$this->counter]->instagram_username,$this->users[$this->counter]->instagram_password);
-                    $recipents = [
-                        'users' => [$this->users[$this->counter]->client_id]
-                    ];
-                    $time_in_12_hour_format  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_start));
-                    $time_in_12_hour_format_ex_start  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_start));
-                    $time_in_12_hour_format_end  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_end));
-                    $time_in_12_hour_format_ex_end  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_end));
+                        $result = $this->ig->login($this->users[$this->counter]->instagram_username,$this->users[$this->counter]->instagram_password);
+                        $recipents = [
+                            'users' => [$this->users[$this->counter]->client_id]
+                        ];
+                        $time_in_12_hour_format  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_start));
+                        $time_in_12_hour_format_ex_start  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_start));
+                        $time_in_12_hour_format_end  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_end));
+                        $time_in_12_hour_format_ex_end  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_end));
 
 //
-                    if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
                             if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
-                            $imagePath = 'uploads/'.$this->users[$this->counter]->image;
-                            $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
-                            $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
-                            \Log::info('message sent');
+                                $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                                $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
+                                $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                                \Log::info('message sent');
 
+                            }
                         }
-                    }
-                    elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
-                        if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
-                            $imagePath = 'uploads/'.$this->users[$this->counter]->image;
-                            $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
-                            $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
-                            \Log::info('message sent');
+                        elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                                $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                                $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
+                                $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                                \Log::info('message sent');
 
+                            }
                         }
+
+
+
+
+                    }catch (\Exception $ex){
+                        echo "something went wrong";
                     }
-                    
+                    finally{
 
-
-
-                }catch (\Exception $ex){
-                    echo "something went wrong";
-                }
-                finally{
-
-                    if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
                             if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
-                            $client = Client::find($this->users[$this->counter]->id);
-                            $client->dm_sent = 1;
-                            $client->save();
-                            \Log::info('update ok');
+                                $client = Client::find($this->users[$this->counter]->id);
+                                $client->dm_sent = 1;
+                                $client->save();
+                                \Log::info('update ok');
+                            }
                         }
-                    }
-                    elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
-                        if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
-                            $client = Client::find($this->users[$this->counter]->id);
-                            $client->dm_sent = 1;
-                            $client->save();
-                            \Log::info('update ok');
+                        elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                                $client = Client::find($this->users[$this->counter]->id);
+                                $client->dm_sent = 1;
+                                $client->save();
+                                \Log::info('update ok');
+                            }
                         }
+
                     }
-                    
-                }
-                $this->counter++;
-            })
-                ->everyMinute();
-            echo $this->user->delivery_period_start;
+                    $this->counter++;
+                })
+                    ->everyMinute();
+                echo $this->user->delivery_period_start;
             }
         }else{
             \Log::info('i was here');
@@ -142,15 +141,9 @@ class Kernel extends ConsoleKernel
 
 
 //        $schedule->call(function () {
-
 //            \Log::info('i was here');
-//        }
-//
-//
-////        $schedule->call(function () {
-////            \Log::info('i was here');
-////       })->everyMinute();
-//    }
+//       })->everyMinute();
+    }
 
     /**
      * Register the Closure based commands for the application.
