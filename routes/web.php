@@ -82,6 +82,7 @@ Route::get('/all-email','AdminController@allEmailList');
 Route::get('/send/mail','AdminController@mail');
 Route::get('admin-email','AdminController@emailList');
 Route::get('/edit-company-info/{id}','AdminController@editCompanyInfo');
+Route::post('/update-company-info/{id}','AdminController@updateCompanyInfo');
 
 
 
