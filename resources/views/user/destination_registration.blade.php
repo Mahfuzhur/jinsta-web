@@ -21,10 +21,10 @@
 
           <div class="tem_sec_holder">
               <div class="tem_sec">
-                  @if($all_hashtag != NULL)
+                  @if(count($all_hashtag) > 0)
                    <h4 class="tem_text">登録済みリスト</h4>
                    @else  
-                   <h4 class="tem_text">登録済ずの宛先リスト（#リスト）はありません。<br>新規作成をお願いします。</h4>
+                   <h4 class="tem_text">登録済ずの宛先リスト（ハッシュタグリスト）はありません。<br>新規作成をお願いします。</h4>
                    @endif
                    @if ( Session::has('success') )
                       <div class="alert alert-success alert-dismissible" role="alert">

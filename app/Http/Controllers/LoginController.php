@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 use GuzzleHttp\Exception\ServerException;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use App\Exceptions\Handler;
 use InstagramAPI\Instagram;
 class LoginController extends Controller
 {
+
     public $ig;
     public function __construct()
     {
@@ -25,6 +27,7 @@ class LoginController extends Controller
     }
 
     public function userLogin(){
+
 
         if(Auth::user()){
 
@@ -60,8 +63,8 @@ class LoginController extends Controller
             return redirect('registration-success');
         }
         catch (\Exception $ex){
-            //return redirect('instagram-info')->with('check','invalid username or password');
-            return $ex;
+            return redirect('instagram-info')->with('check','invalid instagram username or password');
+            // return $ex;
         }
 
         //$selfInfo = $this->ig->people->getSelfInfo();
@@ -153,12 +156,55 @@ class LoginController extends Controller
 
 
     public function test(){
-               $this->ig->login('webvision100','instagram123456');
+        $count = 0;
+        $this->ig->login('webvision100','instagram123456');
 
-       $result = $this->ig->direct->getThread('340282366841710300949128248620635291710');
+        $rank_token= \InstagramAPI\Signatures::generateUUID();
+        $result = $this->ig->hashtag->getFeed('bpl',$rank_token);
+        //$result = $this->ig->media->getLikers('2011632325306376775_7905756331');
+        //$result = $this->ig->hashtag->search('nature');
+        //$result = $this->ig->media->getComments('1965957446195605717_7312650484');
+        try{
+            $obj = json_decode($result);
+
+            foreach($obj->items as $media) {
+                //$insert[] = $media->user->pk;
+                $result = $media->id;
+                $likers = $this->ig->media->getLikers($result);
+//            foreach ($likers->users as $like){
+//                $insert[] = $like->pk;
+//            }
+                // $likers = $likers->users;
+                $likers = json_decode($likers);
+                foreach ($likers->users as $like){
+                    $insert[] = $like->pk;
+                    //$count++;
+                }
+
+            }
+        }
+        catch (\Exception $ex){
+            echo $ex;
+
+        }
+
+//        if(isset($obj->ranked_items)){
+//
+//            foreach ($obj->ranked_items as $media) {
+//
+//                // echo $obj->ranked_items[0]->user->pk  ;
+//                // echo ",";
+//                foreach ($media->preview_comments as $preview_comment){
+//                    // echo $preview_comment->user_id;
+//                    // echo ",";
+//                    array_push($insert,$preview_comment->user_id);
+//                }
+//
+//            }
+//        }
 
 
-        return $result;
+        return response()->json($insert);
     }
     public function InstagramRank(){
 

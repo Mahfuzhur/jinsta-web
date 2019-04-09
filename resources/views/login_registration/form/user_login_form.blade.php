@@ -1,6 +1,6 @@
 @extend('login_registration.master')
 @section('content')
-    <div class="container">
+    <div class="container u_main_content">
       <div class="row">
           <div class="wizard">
               <!-- <div class="wizard-inner">

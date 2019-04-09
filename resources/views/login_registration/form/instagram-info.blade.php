@@ -1,6 +1,6 @@
 @extend('login_registration.master')
 @section('content')
-<div class="container">
+<div class="container u_main_content">
       <div class="row">
           <div class="page_heading">
               <h2 class="">3STEPで簡単サインイン</h2>
@@ -40,7 +40,7 @@
                 <div class="form_title">
                   <h3>Instagramアカウント情報を入力</h3>
                   @if(session('check'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-danger">
                         {{ session('check') }}
                     </div>
                     @endif

@@ -36,6 +36,15 @@
                         <strong>{{ Session::get('error') }}</strong>
                     </div>
                     @endif
+                    @if ( Session::has('error_msg') )
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>{{ Session::get('error_msg') }}</strong>
+                    </div>
+                    @endif
                     <div class="hashtag_title left-border m-b-40">
                         <h4>#から作成</h4>
                         <div class="input_box">
@@ -44,30 +53,37 @@
                                     <span class="input-group-text" id=""><i class="fa fa-plus-circle"></i></span>
                                 </div>
                                 <input type="text" name="hashtag" id="hashtag" placeholder="#から作成"
-                                       class="hashtag_input">
+                                       class="hashtag_input form-control" required="">
                             </div>
                         </div>
 
                     </div>
-                    <div class="csv_upload left-border m-b-40">
-                        <h4 class="">ファイルアップロード</h4>
+                    <div class="hashtag_title left-border m-b-40">
+                        <h4 class="">csvファイルのアップロード</h4>
                         <div class="input_box">
-                            <label for="file">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id=""><i class="fa fa-upload"></i></span>
+                                </div>
+                                <input type="file" name="file" id="file" class="inputfile csv_input"
+                                   data-multiple-caption="{count} files selected" multiple="">
+                            </div>
+                            <!-- <label for="file">
                                 <span><i class="fa fa-upload"></i></span>
                             </label>
                             <input type="file" name="file" id="file" class="inputfile csv_input"
-                                   data-multiple-caption="{count} files selected" multiple="">
+                                   data-multiple-caption="{count} files selected" multiple=""> -->
                         </div>
                     </div>
 
-                    <div class="id_title left-border m-b-40">
+                    <div class="hashtag_title left-border m-b-40">
                         <h4>個別入力</h4>
                         <div class="input_box">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id=""><i class="fa fa-pencil"></i></span>
                                 </div>
-                                <input type="text" name="id" id="id" class="id_input">
+                                <input type="text" name="id" id="id" placeholder="コンマ（、）で区切られたIDを与える" class="id_input form-control">
                             </div>
                         </div>
                     </div>

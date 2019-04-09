@@ -42,21 +42,29 @@
               </div>
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="img/iconshade222.png" alt=""></span> 進行ステータス</h4>      
-                  <div class="row progressbar_holder">
-                      <div class="progress_title">
-                         <span class="hashtag">#□□</span>
-                         <span class="letter">B</span>
-                      </div>                        
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span> 進行ステータス</h4>      
+                  @if(isset($data_info))
+                   @foreach($data_info['dm_sent'] as $data )
+                    @foreach($data_info['without_dm_sent'] as $without_data )                     
+                    @if($data->hashtag_id == $without_data->hashtag_id)
+                      <div class="row progressbar_holder">
+                        <div class="progress_title">
+                           <span class="hashtag">#{{str_limit($data->hashtag, $limit = 12, $end = '..')}}</span>
+                           <span class="letter">{{str_limit($data->title, $limit = 12, $end = '..')}}</span>
+                        </div>                        
 
-                      <div class="progress_size">
-                         <div class="progress">
-                            <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:80%; min-width: 20px;">80%
-                            </div>
-                         </div>
-                      </div>  
-                   </div>
-                   <div class="row progressbar_holder">
+                        <div class="progress_size">
+                           <div class="progress">
+                              <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:{{floor($data->total_sent*100/$without_data->total_row)}}%; min-width: 20px;">{{floor($data->total_sent*100/$without_data->total_row)}}%
+                              </div>
+                           </div>
+                        </div>  
+                     </div>
+                     @endif
+                      @endforeach
+                     @endforeach
+                     @endif
+                   <!-- <div class="row progressbar_holder">
                       <div class="progress_title">
                          <span class="hashtag">#〇〇</span>
                          <span class="letter">A</span>
@@ -81,7 +89,7 @@
                             </div>
                          </div>
                       </div>  
-                </div>
+                </div> -->
             </div>                    
             </div>
             <!-- <div class="col-md-5">
@@ -130,11 +138,11 @@
           <div class="rect_box">
             <h4>送信数 <br> {{$numberSent}}</h4>
           </div>
-          <div class="rect_box">
+          <!-- <div class="rect_box">
             <h4>開封率</h4>
-          </div>
+          </div> -->
           <div class="rect_box">
-            <h4>アクション回数 <br>{{$numberOfLists}}</h4>
+            <h4>アクション回数 <br>{{$numberOfSchedule}}</h4>
           </div>
         </div>
         <div class="envelope_area">

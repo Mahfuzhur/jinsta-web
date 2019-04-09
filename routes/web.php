@@ -38,6 +38,8 @@ Route::get('/create-destination','UserController@hashtagList');
 Route::get('/hashtag-manually-add','UserController@createDestination');
 // Route::get('/create-destination','UserController@createDestination');
 Route::get('/user-login','UserController@userLogin');
+Route::get('/update-instagram-info','UserController@updateInstagramInfo');
+Route::post('/check-update-instagram-info','UserController@checkUpdateInstagramInfo');
 
 Route::post('/save-hashtag-info','UserController@saveHashtagInfo');
 
@@ -57,9 +59,25 @@ Route::get('/analytics','UserController@analytics');
 Route::get('/request','UserController@request');
 Route::post('/set-schedule','UserController@SetSchedule');
 
+Route::get('/schedule-list','UserController@scheduleList');
+Route::post('/schedule-action','UserController@scheduleAction');
+Route::get('/schedule-delete/{id}','UserController@scheduleDelete');
+
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
 Route::get('test','LoginController@test');
+
+
+/* Admin Panel Route Start */
+
+Route::get('/admin-login','AdminController@adminLogin');
+Route::get('/admin-email','AdminController@emailList');
+Route::post('/admin-email-list','AdminController@emailListRequest');
+Route::get('/send/email', 'AdminController@mail');
+
+
+
+/* Admin Panel Route Start */
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -1,6 +1,6 @@
 @extend('login_registration.master')
 @section('content')
-<div class="container">
+<div class="container u_main_content">
       <div class="row">
           <div class="page_heading">
               <h2 class="">3STEPで簡単サインイン</h2>

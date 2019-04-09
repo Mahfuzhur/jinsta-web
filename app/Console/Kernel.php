@@ -12,6 +12,7 @@ use InstagramAPI;
 use GuzzleHttp\Exception\ServerException;
 use App\Client;
 use Log;
+use Carbon;
 
 
 class Kernel extends ConsoleKernel
@@ -33,9 +34,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
         try{
 
-            $this->user = DB::table('users')
+            $current_date = date("d-m-Y");
+            $current_time = date("H:i");
+            $this->users = DB::table('users')
                 ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
                 ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
                 ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
@@ -48,44 +52,89 @@ class Kernel extends ConsoleKernel
                     ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
                     , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
                     'client.hashtag_id','client.id','template.title','template.description','template.image')
-                ->where([['client.dm_sent','!=','1']])
+                ->where([['client.dm_sent','!=','1'],['schedule.status','=','1'],['schedule.delivery_period_start','<=',$current_date],
+                    ['schedule.delivery_period_end','>=',$current_date]])
+                ->whereNull('schedule.deleted_at')
                 ->groupBy('hashtag.hashtag')
-                ->first();
+                ->get();
+
+
         }catch (\Exception $ex){
-            echo "something went wrong";
+            echo $ex;
         }
 
-        if ($this->user != null){
-            $schedule->call(function () {
+        if ($this->users != null){
+            $this->counter = 0;
+            foreach($this->users as $this->user){
+                // echo '**' .$this->counter++. '*';
+                $schedule->call(function () {
 
-                try{
-
-
-                    $this->ig = new \InstagramAPI\Instagram();
-
-                    $result = $this->ig->login($this->user->instagram_username,$this->user->instagram_password);
-                    $recipents = [
-                        'users' => [$this->user->client_id]
-                    ];
-                    $imagePath = 'uploads/'.$this->user->image;
-                    $this->ig->direct->sendText($recipents,$this->user->title);
-                    $this->ig->direct->sendText($recipents,$this->user->description);
-                    $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                    try{
 
 
-                }catch (\Exception $ex){
-                    echo "something went wrong";
-                }
-                finally{
-                    $client = Client::find($this->user->id);
-                    $client->dm_sent = 1;
-                    $client->save();
-                }
-            })->between($this->user->delivery_period_start,$this->user->delivery_period_end)
-                ->unlessBetween($this->user->date_exclusion_setting_start,$this->user->date_exclusion_setting_end)
-                ->between($this->user->specify_time_start,$this->user->specify_time_end)
-                ->unlessBetween($this->user->time_exclusion_setting_start,$this->user->time_exclusion_setting_end)
-                ->everyMinute();
+                        $this->ig = new \InstagramAPI\Instagram();
+                        echo $this->users[$this->counter]->client_id;
+
+                        $result = $this->ig->login($this->users[$this->counter]->instagram_username,$this->users[$this->counter]->instagram_password);
+                        $recipents = [
+                            'users' => [$this->users[$this->counter]->client_id]
+                        ];
+                        $time_in_12_hour_format  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_start));
+                        $time_in_12_hour_format_ex_start  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_start));
+                        $time_in_12_hour_format_end  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_end));
+                        $time_in_12_hour_format_ex_end  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_end));
+
+//
+                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                                $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                                $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
+                                $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                                \Log::info('message sent');
+
+                            }
+                        }
+                        elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                                $imagePath = 'uploads/'.$this->users[$this->counter]->image;
+                                $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
+                                $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                                \Log::info('message sent');
+
+                            }
+                        }
+
+
+
+
+                    }catch (\Exception $ex){
+                        echo "something went wrong";
+                    }
+                    finally{
+
+                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                                $client = Client::find($this->users[$this->counter]->id);
+                                $client->dm_sent = 1;
+                                $client->save();
+                                \Log::info('update ok');
+                            }
+                        }
+                        elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
+                            if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
+                                $client = Client::find($this->users[$this->counter]->id);
+                                $client->dm_sent = 1;
+                                $client->save();
+                                \Log::info('update ok');
+                            }
+                        }
+
+                    }
+                    $this->counter++;
+                })
+                    ->everyMinute();
+                echo $this->user->delivery_period_start;
+            }
         }else{
             \Log::info('i was here');
         }

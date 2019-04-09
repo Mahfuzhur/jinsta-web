@@ -6,10 +6,16 @@
     <div class="row row-eq-height">
       <div class="col-md-6 col-sm-12">
           <div class="test_section">
-
+            @if(!isset($json_selfinfo['message']))
              <center><img class="test_img" src="{{$json_selfinfo['user']['profile_pic_url']}}"></center>
               <div class="test"><center>{{$json_selfinfo['user']['username']}}</center></div>
+            @else
+            <div class="test"><center style="color: #c32727;font-size: 20px;text-align: justify !important; padding: 20px;">*このメッセージは、テンプレートを送信できないことを示しています。
 
+              2要素認証をオフにして、[設定]の[プライバシーとセキュリティ]オプションで自分のプロファイルを公開してください。
+
+              ここであなたのInstagramの資格情報を更新する <a href="{{URL::to('update-instagram-info')}}" style="color: #06af94;">Update</a></center></div>
+            @endif
 <!--             <div class="row inst_section">-->
 <!--                <div class="inst_title first">-->
 <!--                   <h4 class="instagram">Instagram</h4>                              -->
@@ -47,8 +53,8 @@
           </ul>
           <div class="tab-content">                    
             <div class="tab-pane" id="1a">
-                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>フォントサイズ統一してください。</h3><br>
-                  <div class="row progress_vertical_holder">
+                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
+                  <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
                           <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
@@ -97,16 +103,16 @@
                         </div>
                          <p>Sep</p>                                 
                     </div>
-                 </div> 
+                 </div>  -->
                  <div class="dash_footer">
-                    <span class="total"><b>100,000 </br> 送信数</b></span> <br>
-                    <span class="total"><b>1,000 </br> 既読数 </b></span> <br>
-                    <span class="total"><b> 1% </br> 既読率</b></span>
+                    <span class="total"><b>送信数 : {{$last_day}}</b></span> <br>
+                    <!-- <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
+                    <span class="total"><b> 既読率 </br>1% </b></span> -->
                 </div>
             </div>
             <div class="tab-pane" id="2a">
                 <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
-                <div class="row progress_vertical_holder">
+                <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
                           <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
@@ -155,16 +161,16 @@
                         </div>
                          <p>Sep</p>                                 
                     </div>
-                 </div>                   
+                 </div>  -->                  
                  <div class="dash_footer">
-                    <span class="total"><b>100,000 </br> 送信数</b></span> <br>
-                    <span class="total"><b>1,000 </br> 既読数 </b></span> <br>
-                    <span class="total"><b> 1% </br> 既読率 </b></span>
+                    <span class="total"><b>送信数 : {{$last_week}}</b></span> <br>
+                    <!-- <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
+                    <span class="total"><b> 既読率 </br> 1% </b></span> -->
                 </div>                      
           </div>
           <div class="tab-pane active" id="3a">
                 <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
-                <div class="row progress_vertical_holder">
+                <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
                           <div class="progress-bar progress_color" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="height: 30%;">
@@ -213,11 +219,11 @@
                         </div>
                          <p>Sep</p>                                 
                     </div>
-                 </div>                     
+                 </div> -->                     
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 <br> 100,000</b></span> <br>
-                    <span class="total"><b>既読数 <br> 1,000</b></span> <br>
-                    <span class="total"><b>既読率 <br> 1%</b></span>
+                    <span class="total"><b>送信数 : {{$last_month}}</b></span> <br>
+                    <!-- <span class="total"><b>既読数 <br> 1,000</b></span> <br>
+                    <span class="total"><b>既読率 <br> 1%</b></span> -->
                 </div>                      
             </div>
           </div>
@@ -226,21 +232,24 @@
 
            <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""></span> 進行ステータス</h4>
            @if(isset($data_info))
-           @foreach($data_info as $data )                     
-
+           @foreach($data_info['dm_sent'] as $data )
+            @foreach($data_info['without_dm_sent'] as $without_data )                     
+            @if($data->hashtag_id == $without_data->hashtag_id)
               <div class="row progressbar_holder">
                 <div class="progress_title">
-                   <span class="hashtag">#{{$data->hashtag}}</span>
-                   <span class="letter">{{$data->title}}</span>
+                   <span class="hashtag">#{{str_limit($data->hashtag, $limit = 10, $end = '..')}}</span>
+                   <span class="letter">{{str_limit($data->title, $limit = 10, $end = '..')}}</span>
                 </div>                        
 
                 <div class="progress_size">
                    <div class="progress">
-                      <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:80%; min-width: 20px;">{{$data->total_sent}}
+                      <div class="progress-bar progress_color" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:{{floor($data->total_sent*100/$without_data->total_row)}}%; min-width: 20px;">{{floor($data->total_sent*100/$without_data->total_row)}}%
                       </div>
                    </div>
                 </div>  
              </div>
+             @endif
+              @endforeach
              @endforeach
              @endif
              <!-- <div class="row progressbar_holder">

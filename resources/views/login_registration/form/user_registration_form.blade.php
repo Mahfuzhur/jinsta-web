@@ -1,7 +1,7 @@
 @extend('login_registration.master')
 @section('content')
 
-    <div class="container">
+    <div class="container u_main_content">
       <div class="row">
         <div class="page_heading">
           <h2 class="">3STEPで簡単サインイン</h2>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                       <label for="mobile">電話番号</label>
-                      <input type="number" class="form-control" name="mobile" id="mobile" placeholder="0362738450(ハイフンなし" value="{{ old('mobile') }}" required="">
+                      <input type="number" class="form-control" name="mobile" id="mobile" placeholder="0362738450(ハイフンなし)" value="{{ old('mobile') }}" required="">
                       @if ($errors->has('mobile'))
                           <span class="help-block">
                               <strong>{{ $errors->first('mobile') }}</strong>
@@ -84,7 +84,7 @@
                       <input type="password" class="form-control" name="password" id="password" placeholder="sample1234（6文字以上）" required="">
                       @if ($errors->has('password'))
                           <span class="help-block">
-                              <strong>パスワードは6文字以上で設定をお願いします。</strong>
+                              <strong>{{ $errors->first('password') }}</strong>
                           </span>
                       @endif
                     </div>

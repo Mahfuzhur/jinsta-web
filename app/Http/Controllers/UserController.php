@@ -66,28 +66,68 @@ class UserController extends Controller
         // $user_profile_image = Session::get('current_user_image');
         if(Auth::user()){
 
+
             $user_id = Auth::user()->id;
+//            $all_hashtags = DB::select("SELECT a.id, a.hashtag, COUNT(c.client_id) AS total_user
+//                    FROM hashtag a
+//                    JOIN client c ON c.hashtag_id = a.id
+//                    WHERE a.user_id = $user_id
+//                    GROUP BY a.id");
+            $month = \Carbon\Carbon::today()->subDays(30);
+            $week = \Carbon\Carbon::today()->subDays(7);
+            $day = \Carbon\Carbon::today()->subDays(1);
+
+            $last_month = Client::where([['updated_at', '>=', $month],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_week = Client::where([['updated_at', '>=', $week],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_day = Client::where([['updated_at', '>=', $day],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+
             $title = 'Index page';
             $user_info = DB::table('users')->where('id',$user_id)->first();
-            $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
-            $selfInfo = $this->ig->people->getSelfInfo();
-            $json_selfinfo = json_decode($selfInfo,true);
+            try{
+                if($user_info->instagram_username != NULL && $user_info->instagram_password != NULL){
+                    $result = $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
+                    $selfInfo = $this->ig->people->getSelfInfo();
+                    $json_selfinfo = json_decode($selfInfo,true);
+                }else{
+                        $json_selfinfo['message'] = '';
+                    }
+            }catch (\Exception $ex){
+                $json_selfinfo['message'] = '';
+                // return $ex;
+            }
+            
 
-            // $data = DB::table('client')
-        // ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
-        // ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
-        // ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
-        // ->join('template', 'template_schedule.template_id', '=', 'template.id')
-        // ->select('hashtag.hashtag','client.hashtag_id','hashtag_schedule.schedule_id','template_schedule.template_id','template.title')->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->get();
+            $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
 
-        $data_info = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
-                    FROM client client
-                    JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
-                    JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
-                    JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
-                    JOIN template template ON template_schedule.template_id = template.id
-                    WHERE client.user_id = $user_id AND client.dm_sent = 1                     
-                    GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+            $data_info['without_dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
+
+        // $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id AND client.dm_sent = 1                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        // $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
 
         // echo "<pre>";
         // print_r($json_selfinfo['user']['username']);
@@ -98,7 +138,7 @@ class UserController extends Controller
             $numberOfLists = Schedule::count();
             $numberSent = Client::where([['dm_sent', '=', '1']])->count();
             $title = 'Index page';
-            $user_main_content = view('user.dashboard',compact('numberOfLists','numberSent','json_selfinfo','data_info'));
+            $user_main_content = view('user.dashboard',compact('numberOfLists','numberSent','json_selfinfo','data_info','last_day','last_month','last_week'));
 
             return view('master',compact('user_main_content','title'));
         }else{
@@ -136,12 +176,14 @@ class UserController extends Controller
 
         $this->validate($request, [
 
-            'title' => 'required|max:500',
-            'description' => 'required',
-            'image' => 'required|image|mimes:jpg,jpeg,png,svg'
+            'image' => 'image|mimes:jpg,jpeg,png,svg'
         ]);
 
-        $file_path_name = "";
+        if($request->title == NULL && $request->description == NULL && $request->image == NULL){
+            return redirect('create-manuscript')->with('empty_msg','少なくとも1つの欄に記入してください');
+        }
+
+        $imageName = NULL;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
             $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
@@ -185,12 +227,15 @@ class UserController extends Controller
         if(Auth::user()){
         $this->validate($request, [
 
-            'title' => 'required|max:500',
-            'description' => 'required',
             'image' => 'image|mimes:jpg,jpeg,png,svg'
         ]);
 
-        $imageName = $request->exits_image;
+        if($request->title == NULL && $request->description == NULL && $request->image == NULL){
+            return back()->with('empty_msg','少なくとも1つの欄に記入してください');
+        }
+
+        // $imageName = $request->exits_image;
+        $imageName = NULL;
         if (Input::hasFile('image')) {
             $file = Input::file('image');
             $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
@@ -218,16 +263,17 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $title = '宛先登録';
         $active_destination = 'active';
-        // $all_hashtag = DB::table('hashtag')->where('user_id',$user_id)
-                 // ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
-                 // ->select('hashtag.hashtag as title','client.client_id as id')
-        //         ->get();
+       $all_hashtag = hashtag::selectRaw('hashtag.id,hashtag.hashtag, count(client.client_id) as total_user')
+                 ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
+                 ->where('hashtag.user_id',$user_id)
+                 ->groupBy('hashtag.id')
+                 ->get();
 
-        $all_hashtag = DB::select("SELECT a.id, a.hashtag, COUNT(c.client_id) AS total_user
-                    FROM hashtag a
-                    JOIN client c ON c.hashtag_id = a.id
-                    WHERE a.user_id = $user_id
-                    GROUP BY a.id");
+        // $all_hashtag = DB::select("SELECT a.id, a.hashtag, COUNT(c.client_id) AS total_user
+        //             FROM hashtag a
+        //             JOIN client c ON c.hashtag_id = a.id
+        //             WHERE a.user_id = $user_id
+        //             GROUP BY a.id");
 
         // foreach($all_hashtag as $hashtag){
         //     $client_id[] = DB::table('client')->select(DB::raw('count(*) as user_count'))->where('user_id',$user_id)->where('hashtag_id',$hashtag->id)->get();
@@ -296,8 +342,8 @@ class UserController extends Controller
 
         $this->validate($request, [
 
-            'hashtag' => 'required|unique:hashtag|max:500',
-            'id' => 'required'
+            'hashtag' => 'required|max:500',
+            
         ]);
 
         $user_id = Auth::user()->id;
@@ -305,7 +351,7 @@ class UserController extends Controller
         $update_time = Carbon::now()->addHour(6);
         $hashtag_insert_id = Hashtag::create(['user_id'=>$user_id,'hashtag'=>$request->hashtag,'created_at' => $current_time, 'updated_at' => $update_time]);
 
-        if($request->hasFile('file')){
+        if($request->hasFile('file') && $request->id != NULL){
             $extension = File::extension($request->file->getClientOriginalName());
             if ($extension == "csv") {
 
@@ -337,7 +383,7 @@ class UserController extends Controller
 
                     $row = count($insert);
 
-                    for ($i=1; $i < $row; $i++) { 
+                    for ($i=0; $i < $row; $i++) { 
                         if($insert[$i]['client_id'] != null && $insert[$i]['client_id'] != 'NULL'){
                             $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $insert[$i]['client_id'],'created_at' => $current_time, 'updated_at' => $update_time];
                         }
@@ -369,10 +415,52 @@ class UserController extends Controller
                 return back();
  
             }else {
-                Session::flash('error', 'File is a '.$extension.' file.!! Please upload a valid csv file..!!');
+                Session::flash('error', 'ファイルは '.$extension.' ファイル。！！有効なcsvファイルをアップロードしてください。');
                 return back();
             }
-        }else{
+        }elseif($request->hasFile('file') && $request->id == NULL){
+            $extension = File::extension($request->file->getClientOriginalName());
+            if ($extension == "csv") {
+                $path = $request->file->getRealPath();               
+                $data = array_map('str_getcsv', file($path));                              
+                if(!empty($data)){
+                    $data_count = count($data);
+                    for ($i=0; $i < $data_count ; $i++) { 
+                        foreach ($data[$i] as $key => $value) {                              
+                                $insert[] = [
+                                'client_id' => $value,
+                                ];                            
+                        }
+                    }
+                    $row = count($insert);
+                    for ($i=0; $i < $row; $i++) { 
+                        if($insert[$i]['client_id'] != null && $insert[$i]['client_id'] != 'NULL'){
+                            $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $hashtag_insert_id->id,'client_id' => $insert[$i]['client_id'],'created_at' => $current_time, 'updated_at' => $update_time];
+                        }
+                    }
+
+                    // echo "<pre>";
+                    // print_r($row);
+                    // exit();
+
+                    if(!empty($insert_data)){
+                        $insertData = DB::table('client')->insert($insert_data);
+                        if ($insertData) {
+                            Session::flash('success', 'Your client id successfully added');
+                        }else {                        
+                            Session::flash('error', 'Error inserting the data..');
+                            return back();
+                        }
+                    }
+                }
+                return back();
+            }else {
+                Session::flash('error', 'ファイルは '.$extension.' ファイル。！！有効なcsvファイルをアップロードしてください。');
+                return back();
+            }
+        }
+
+        elseif($request->hasFile('file') == NULL && $request->id != NULL){
             $manual_id = $request->id;
             $data = explode(",", $manual_id);
             $manual_row = count($data);
@@ -389,7 +477,11 @@ class UserController extends Controller
                 
             }
             return back();
+        }else{
+            return redirect('hashtag-manually-add')->with('error_msg','あなたはcsvファイルか手動ユーザーIDを与えなければなりません');
         }
+
+
         }else{
             return redirect ('user-login');
         }
@@ -399,12 +491,102 @@ class UserController extends Controller
     public function SetSchedule(Request $request){
 
         if(Auth::user()){
+
+            $this->validate($request, [
+
+                'draft' => 'required',
+                'destination' => 'required',
+                'delivery_period_start' => 'required',
+                'delivery_period_end' => 'required',
+                'specify_time_start' => 'required',
+                'specify_time_end' => 'required'
+                
+            ]);
+
+            $user_id = Auth::user()->id;
+            $user_info = DB::table('users')->where('id',$user_id)->first();
+            if($user_info->instagram_username == NULL || $user_info->instagram_username == NULL){
+                return redirect('dashboard');
+            }
+
+            $delivery_period_start = $request->delivery_period_start;
+            $delivery_period_end = $request->delivery_period_end;
+            $date_exclusion_setting_start = $request->date_exclusion_setting_start;
+            $date_exclusion_setting_end = $request->date_exclusion_setting_end;
+
+            if(strtotime($delivery_period_end) < strtotime($delivery_period_start)){
+                return back()->with('date_erroe_msg','End date must be greater than start date');
+            }
+
+
+            $specify_time_start = $request->specify_time_start;
+            $specify_time_end = $request->specify_time_end;
+            $time_exclusion_setting_start = $request->time_exclusion_setting_start;
+            $time_exclusion_setting_end = $request->time_exclusion_setting_end;
+
+            $specify_time_start = Carbon::parse($specify_time_start);
+            $specify_time_end = Carbon::parse($specify_time_end);
+            $specify_time_start = $specify_time_start->subHour(6)->format('H:i');
+            $specify_time_end = $specify_time_end->subHour(6)->format('H:i');
+
+            if($specify_time_start == $specify_time_end){
+                return back()->with('time_erroe_msg','Start and End time can not be same');
+            }
+
+            if($time_exclusion_setting_start != NULL && $time_exclusion_setting_end != NULL){
+                $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
+                $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
+                
+                $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(6)->format('H:i');
+                $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(6)->format('H:i');
+            }
+
+            
+
+
+
+
+//            if($delivery_period_start > $delivery_period_end){
+//                return redirect('delivery-setting')->with('schedule_err_msg','End date should be greater than start date');
+//            }
+//            if($date_exclusion_setting_start != NULL || $date_exclusion_setting_end){
+//                if($date_exclusion_setting_start > $date_exclusion_setting_end){
+//                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
+//                }
+//            }
+//            if($specify_time_start > $specify_time_end){
+//                return redirect('delivery-setting')->with('schedule_err_msg','End time should be greater than start time');
+//            }
+//            if($time_exclusion_setting_start != NULL || $time_exclusion_setting_end){
+//                if($time_exclusion_setting_start > $time_exclusion_setting_end){
+//                    return redirect('delivery-setting')->with('schedule_err_msg','Exclusion End date should be greater than exclusion start date');
+//                }
+//            }
+
             $user_id = Auth::user()->id;
 
-            $result = Schedule::create($request->all());
+            // $result = Schedule::create($request->all());
             
             $current_time = Carbon::now()->addHour(6);
             $update_time = Carbon::now()->addHour(6);
+
+            $result = new Schedule();
+            $result->destination = $request->destination;
+            $result->draft = $request->draft;
+            $result->delivery_period_start = $delivery_period_start;
+            $result->delivery_period_end = $delivery_period_end;
+            $result->date_exclusion_setting_start = $date_exclusion_setting_start;
+            $result->date_exclusion_setting_end = $date_exclusion_setting_end;
+            $result->specify_time_start = $specify_time_start;
+            $result->specify_time_end = $specify_time_end;
+            $result->time_exclusion_setting_start = $time_exclusion_setting_start;
+            $result->time_exclusion_setting_end = $time_exclusion_setting_end;
+            $result->created_at = $current_time;
+            $result->updated_at = $update_time;
+            $result->save();
+
+            // $schedule_data = array(array('destination' => $request->destination, 'draft' => $request->draft,'delivery_period_start' => $delivery_period_start, 'delivery_period_end' => $delivery_period_end,'date_exclusion_setting_start' => $date_exclusion_setting_start, 'date_exclusion_setting_end' => $date_exclusion_setting_end,'specify_time_start' => $specify_time_start, 'specify_time_end' => $specify_time_end,'time_exclusion_setting_start' => $time_exclusion_setting_start, 'time_exclusion_setting_end' => $time_exclusion_setting_end,'created_at' =>$current_time,'updated_at' => $update_time));
+            // $schedule = Schedule::insert($schedule_data);
 
             $template_data = array(array('template_id' => $request->destination, 'schedule_id' => $result->id,'created_at' =>$current_time,'updated_at' => $update_time));
             $template_schedule = TemplateSchedule::insert($template_data);
@@ -419,14 +601,34 @@ class UserController extends Controller
         }
     }
 
+    public function time_subtract($time){
+        $to = \Carbon\Carbon::createFromFormat('H:s', $time);
+        $from = \Carbon\Carbon::createFromFormat('H:s', '6:00');
+        $diffInSeconds = $to->diffInSeconds($from);
+        return gmdate('H:s', $diffInSeconds);
+    }
+
 
     public function deliverySetting(){
         if(Auth::user()){
         $id = Auth::user()->id;
+        $schedule_id = DB::table('schedule')
+                        ->join('user_schedule','schedule.id','=','user_schedule.schedule_id')
+                        ->select('schedule.draft as draft')
+                        ->where('user_schedule.user_id',$id)->get();
+       if(isset($schedule_id)){
+            foreach ($schedule_id as $schedule) {
+                $ex_draft[] = $schedule->draft;
+            }
+        }
         $templates = Template::select('title','id')->where([['user_id','=',$id]])->get();
-        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
-//        print_r($templates) ;
-//        exit();
+        if(isset($ex_draft)){
+        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->whereNotIn('id', $ex_draft)->get();
+        }else{
+            $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();;
+        }
+       // print_r($ex_draft) ;
+       // exit();
 
         
         $title = '配信設定';
@@ -449,11 +651,46 @@ class UserController extends Controller
 
     public function analytics(){
         if(Auth::user()){
-            $numberOfLists = Schedule::count();
-            $numberSent = Client::where([['dm_sent', '=', '1']])->count();
+            $user_id = Auth::user()->id;
+            $numberOfLists = Hashtag::where('user_id',$user_id)->count();
+            $numberOfSchedule = UserSchedule::where('user_id',$user_id)->count();
+            $numberSent = Client::where([['dm_sent', '=', '1'],['user_id','=',$user_id]])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
-        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent'));
+
+        // $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id AND client.dm_sent = 1                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        // $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
+        //             FROM client client
+        //             JOIN hashtag hashtag ON client.hashtag_id = hashtag.id
+        //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
+        //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
+        //             JOIN template template ON template_schedule.template_id = template.id
+        //             WHERE client.user_id = $user_id                     
+        //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+        $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
+
+            $data_info['without_dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row')
+            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
+
+        $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info','numberOfSchedule'));
         return view('master',compact('user_main_content','analytics','title'));
         }else{
             return redirect ('user-login');
@@ -462,9 +699,11 @@ class UserController extends Controller
 
     public function request(){
         if(Auth::user()){
+        $user_id = Auth::user()->id;
         $title = 'ご請求';
         $request = 'active';
-        $user_main_content = view('user.request');
+        $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+        $user_main_content = view('user.request',compact('numberSent'));
         return view('master',compact('user_main_content','request','title'));
         }else{
             return redirect ('user-login');
@@ -661,12 +900,22 @@ class UserController extends Controller
         if(Auth::user()){
             $user_id = Auth::user()->id;
             $hashtag = $request->hashtag;
+            // $hashtag = $request->search;
             $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
+            if($user_info->instagram_username == NULL || $user_info->instagram_password == NULL){
+                // return back()->with('instagram_error_msg',"You must provide instagram username and password from dashboard");
+                return redirect('dashboard');
+            }
             $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
             $rank_token= \InstagramAPI\Signatures::generateUUID();
             $result = $this->ig->hashtag->search($hashtag);
           
             $obj = json_decode($result);
+            if($obj->results == null){
+                return redirect('create-destination')->with('hashtag_found_msg','この＃キーワード検索でポストがありません。')->withInput();
+                // return response()->json(['success'=>'この＃キーワード検索でポストがありません。']);
+                
+            }
             $hashtagName = array();
             $postCounter = array();
 
@@ -674,7 +923,8 @@ class UserController extends Controller
 
             $title = '宛先登録';
             $active_destination = 'active';
-            $user_main_content = view('user.hashtag_list',compact('results'));
+            // return view('user.ajax_search',compact('results','hashtag'));
+            $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
             return view('master',compact('user_main_content','active_destination','title'));
         }else{
             return redirect ('user-login');
@@ -688,10 +938,10 @@ class UserController extends Controller
 
         $user_id = Auth::user()->id;
         $hashtagName = $request->hashtag_list;
-        $exit_info = DB::table('hashtag')->where('hashtag',$hashtagName)->first();
-        if($exit_info){
-            return redirect('create-destination')->with('errot_message','Hashtag already exits');
-        }
+        // $exit_info = DB::table('hashtag')->where('hashtag',$hashtagName)->first();
+        // if($exit_info){
+        //     return redirect('create-destination')->with('errot_message','Hashtag already exits');
+        // }
         $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
         // echo "<pre>";
         // print_r($user_info);
@@ -723,35 +973,66 @@ class UserController extends Controller
         // print_r($lastInsertId);
         // exit();
         
-        foreach($obj->items as $media) {
-            $insert[] = $media->user->pk;
-        }
+//        foreach($obj->items as $media) {
+//            $insert[] = $media->user->pk;
+//        }
+//
+//        if(isset($obj->ranked_items)){
+//
+//            foreach ($obj->ranked_items as $media) {
+//
+//                // echo $obj->ranked_items[0]->user->pk  ;
+//                // echo ",";
+//                foreach ($media->preview_comments as $preview_comment){
+//                   // echo $preview_comment->user_id;
+//                    // echo ",";
+//                    array_push($insert,$preview_comment->user_id);
+//                }
+//
+//            }
+//        }
+            try{
+               // $obj = json_decode($result);
 
-        foreach ($obj->ranked_items as $media) {
+                foreach($obj->items as $media) {
+                    //$insert[] = $media->user->pk;
+                    $result = $media->id;
+                    $likers = $this->ig->media->getLikers($result);
+//            foreach ($likers->users as $like){
+//                $insert[] = $like->pk;
+//            }
+                    // $likers = $likers->users;
+                    $likers = json_decode($likers);
+                    foreach ($likers->users as $like){
+//                        $insert[] = $like->pk;
+                        $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $like->pk,'created_at' => $current_time, 'updated_at' => $update_time];
+                        //$count++;
+                    }
 
-            // echo $obj->ranked_items[0]->user->pk  ;
-            // echo ",";
-            foreach ($media->preview_comments as $preview_comment){
-               // echo $preview_comment->user_id;
-                // echo ",";
-                array_push($insert,$preview_comment->user_id);
+                }
             }
+            catch (\Exception $ex){
+                echo $ex;
 
-        }
-
-        $row = count($insert);
-
-        // echo "<pre>";
-        // print_r($insert);
-        // exit();
-
-        for ($i=0; $i < $row; $i++) { 
-            if($obj->items){
-                $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $insert[$i],'created_at' => $current_time, 'updated_at' => $update_time];
             }
+            finally{
+//            $row = count($insert);
+//
+//                // echo "<pre>";
+//                // print_r($insert);
+//                // exit();
+//
+//            for ($i=0; $i < $row; $i++) {
+//            if($obj->items){
+//            $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $insert[$i],'created_at' => $current_time, 'updated_at' => $update_time];
+//            }
+                $flag = Client::insert($insert_data);
         }
 
-        $flag = Client::insert($insert_data);
+            //$flag = Client::insert($insert_data);
+
+
+
 
         return redirect('create-destination')->with('message','Hastag and its ID added successfully');
 
@@ -786,8 +1067,8 @@ class UserController extends Controller
     {
         if(Auth::user()){
             // Hashtag::destroy($id);
-            $flag = HashtagSchedule::where('hashtag_id',$id)->delete();
-            $flag = Client::where('hashtag_id',$id)->delete();        
+            // $flag = HashtagSchedule::where('hashtag_id',$id)->delete();
+            // $flag = Client::where('hashtag_id',$id)->delete();        
             $flag = Hashtag::destroy($id);
            
       //   DB::table('hashtag')
@@ -807,6 +1088,106 @@ class UserController extends Controller
             $flag = Template::destroy($id);
            
             return redirect('manuscript-registration')->with('delete_success','Template deleted successfully');
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function updateInstagramInfo(){
+        if(Auth::user()){
+            $title = 'instagram情報のアップデート';
+            $user_main_content = view('user.update_instagram_info');
+            return view('master',compact('user_main_content','title'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function checkUpdateInstagramInfo(Request $request){
+        $user_id =Auth::user()->id;
+        $userName = $request->email;
+        $password = $request->password;
+        try{
+           $result1 = $this->ig->login($userName,$password);
+
+             $result = DB::table('users')
+                ->where('id', $user_id)
+                ->update(['instagram_username' => $userName,'instagram_password' => $password]);
+            return redirect('update-instagram-info')->with('success_msg','Instagram information successfully updated');
+        }
+        catch (\Exception $ex){
+            return redirect('update-instagram-info')->with('check','invalid instagram username or password or security check');
+            // return $ex;
+        }
+
+        //$selfInfo = $this->ig->people->getSelfInfo();
+
+
+    }
+
+    public function scheduleList(){
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+            $title = 'スケジュール一覧';
+            $schedule_list = 'active';
+            $all_schedule = DB::table('users')
+            ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+            ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+            ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template', 'template.id', '=', 'template_schedule.template_id')
+            ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+            ->select('schedule.id as s_id','users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
+                ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
+                ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
+                , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
+                'client.hashtag_id','client.id','template.title','template.description','template.image','schedule.status')
+            ->where([['user_schedule.user_id','=',$user_id]])
+            ->whereNull('schedule.deleted_at')
+            ->orderBy('schedule.id','desc')
+            ->groupBy('schedule.id')
+            ->paginate(10);
+
+            $user_main_content = view('user.schedule_list',compact('all_schedule'));
+            return view('master',compact('user_main_content','title','schedule_list'));
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
+    public function scheduleAction(Request $request){
+        if(Auth::user()){
+            $id = $request->id;
+            // $status = $request->input('schedule_status');
+
+            $schedule = Schedule::findOrfail($id);
+            // echo "<pre>";
+            // print_r($schedule);
+            // exit();
+            if($schedule->status == 1){
+                $schedule->status = 0;
+                $schedule->save();
+                // return redirect('schedule-list');
+                return response()->json(['data'=>'stop','id' => $id]);
+            }elseif($schedule->status == 0){
+                $schedule->status = 1;
+                $schedule->save();
+                // return redirect('schedule-list');
+                return response()->json(['data'=>'start','id' => $id]);
+            }
+
+        }else{
+            return Redirect::to('/admin-login');
+        }
+
+    }
+
+    public function scheduleDelete($id)
+    {
+        if(Auth::user()){
+            $flag = Schedule::where('id',$id)->delete();          
+        return redirect('schedule-list')->with('delete_success','Schedule deleted successfully');
         }else{
             return redirect ('user-login');
         }

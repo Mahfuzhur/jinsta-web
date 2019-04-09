@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{asset('assets/img/favicon.png')}}" rel="icon">
     <!-- custom css -->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     <!-- bootstrap css -->
@@ -12,18 +13,52 @@
     <!-- jQuery  ui -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+
+
+
     <title>
     @if(isset($title))
     {{$title}}
     @else
     Jinsta
     @endif</title>
+
+    <script type="text/javascript">
+         function schedule_action($id){
+          var id = $id;
+          var token = $('meta[name="csrf-token"]').attr('content');
+          // console.log(id);
+          jQuery.ajax({
+            type: "POST",
+            url: "{{URL::to('schedule-action')}}",
+            data: {
+            "_method": 'POST',
+            "_token": token,
+            "id":id
+            },                     
+           success: function(response){
+            if(response.data === 'stop'){
+              // alert('schedule stop');
+              jQuery('#schedule_stop'+response.id).hide();
+              jQuery('#schedule_start'+response.id).show();
+            }else if(response.data === 'start'){
+              // alert('schedule start');
+              jQuery('#schedule_start'+response.id).hide();
+              jQuery('#schedule_stop'+response.id).show();              
+            }
+            
+           }
+          });
+        }       
+    </script>
   </head>
   <body class="delivery_setting_page">
     <!-- top header -->
 
     <header>
-      <div class="container-fluid" style="position: fixed">
+      <div class="container-fluid">
         <div class="row top_fixed" >
           <div class="header_left logo_top">
               <a href="{{URL::to('dashboard')}}" class="logo_holder">
@@ -55,7 +90,7 @@
       </div>
     </header>
 
-    <div id="wrapper" class="toggled" style="padding-top: 4%">
+    <div id="wrapper" class="toggled">
       <!-- toggle menu -->
 
       <a href="#menu-toggle" class="btn btn-secondary" id="sidebar_toggle">
@@ -99,6 +134,17 @@
                   配信設定
                   </a>
               @endif
+              @if(isset($schedule_list))
+                <a class="Summary active" href="{{URL::to('schedule-list')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
+                  スケジュールリスト
+                </a>
+              @else
+              <a class="Summary" href="{{URL::to('schedule-list')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
+                  スケジュールリスト
+                </a>
+              @endif
               @if(isset($analytics))
                 <a class="Progress active" href="{{URL::to('analytics')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/analytics.png')}}" alt=""></span>
@@ -110,10 +156,18 @@
                   アナリティクス
                 </a>
               @endif
-                <a class="Summary" href="{{URL::to('request')}}">
+              @if(isset($request))
+                <a class="Summary active" href="{{URL::to('request')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
                   ご請求
                 </a>
+              @else
+              <a class="Summary" href="{{URL::to('request')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
+                  ご請求
+                </a>
+              @endif
+              
             </div>
 
         </div>
@@ -135,6 +189,45 @@
     <script src="{{asset('assets/js/main.js')}}"></script>
 
     <script>
+
+      // $(document).ready(function(){
+ 
+      //    $("#but_search").click(function(){
+      //     var search = $('#hashtag').val();
+      //     var token = $('meta[name="csrf-token"]').attr('content');
+      //     // console.log(token);
+
+      //     jQuery.ajax({
+      //       type: "POST",
+      //       url: "{{URL::to('hashtag-list-search')}}",
+      //       data: {
+      //       "_method": 'POST',
+      //       "_token": token,
+      //       "search": search,
+      //       },
+      //      dataType: 'html',
+           
+      //      beforeSend: function(){
+      //       // Show image container
+      //       $("#loader").show();
+      //      },
+      //      success: function(response){
+      //       if(response.success){
+      //         $('.hashtag_search_alert').html(result.success);
+      //       }else{
+      //         $('.response').empty();
+      //         $('.response').append(response);
+      //       }
+            
+      //      },
+      //      complete:function(data){
+      //       // Hide image container
+      //       $("#loader").hide();
+      //      }
+      //     });
+         
+      //    });
+      //   });
       // custom date format
       $(function(){
         $("#delivery_pr_start").datepicker({ dateFormat: 'dd-mm-yy'});
@@ -147,8 +240,11 @@
         $('.preview').show();
           $('#blah').hide();
           // $('#title').hide();
-          $('#description').hide();
-          $('.image_show').after('<img id="blah" src="#" alt="your image" style="display:none;"/>');
+          var description = $("textarea").val();
+          // document.getElementById("title").innerHTML = title;
+          document.getElementById("description").innerHTML = description;
+          $('#description').show();
+          $('.image_show').after('<img id="blah" src="#" alt="your image" />');
           if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
@@ -156,6 +252,30 @@
               .attr('src', e.target.result)
               .width(250)
               .height(200);
+              document.getElementById('image_show_small').src =  e.target.result;
+              document.getElementById('no_image_id').src =  e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+
+        function readimageURL(input) { 
+        $('.preview').show();
+          $('#blah').hide();
+          // $('#title').hide();
+          var description = $("textarea").val();
+          // document.getElementById("title").innerHTML = title;
+          document.getElementById("description").innerHTML = description;
+          $('#description').show();
+          $('.image_show').after('<img id="blah" src="#" alt="your image"/>');
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+              $('#blah')
+              .attr('src', e.target.result)
+              .width(250)
+              .height(200);
+              document.getElementById('no_image_id').src =  e.target.result;
             };
             reader.readAsDataURL(input.files[0]);
           }
@@ -171,6 +291,7 @@
           // $('#title').show();
           $('#description').show();
         }
+
 
             function confirm_click(){
 

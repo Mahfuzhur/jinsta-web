@@ -12,9 +12,15 @@
           </div>
 
           <div class="tem_sec_holder">
+            @if(count($all_template) > 0)
               <div class="tem_sec">
                    <h4 class="tem_text">登録済みテンプレート</h4>     
               </div>
+            @else
+            <div class="tem_sec">
+                   <h4 class="tem_text">登録済ずの原稿テンプレートはありません。<br>新規作成をお願いします。</h4>     
+              </div>
+              @endif
           </div>
 
           @if(session('edit_success'))
@@ -40,7 +46,11 @@
                 <div class="col-sm-4">
                   <div class="single_template">
                       <div class="img_holder">
+                        @if($template->image != NULL)
                           <img src="{{asset('uploads/'.$template->image)}}" alt="Image" style="width:250px;height: 150px;">
+                        @else
+                        <img src="{{asset('assets/img/No_Image_Available.jpg')}}" alt="Image" style="width:250px;height: 150px;">
+                        @endif
                       </div>
                       <div class="temp_content">
                           <div class="title">
@@ -55,11 +65,11 @@
                               <a href="{{URL::to('edit-template/'.$template->id)}}">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                               </a>
-                              <!-- <span onclick="return confirm_click();">
+                              <span onclick="return confirm_click();">
                               <a href="{{URL::to('delete-template/'.$template->id)}}" class="confirmation">
                                 <i class="fa fa-remove" aria-hidden="true"></i>
                               </a>
-                            </span> -->
+                            </span>
                           </div>
                       </div>
                   </div>
