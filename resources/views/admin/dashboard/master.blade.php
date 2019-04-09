@@ -94,7 +94,7 @@
         <div id="sidebar-wrapper">
 
             <div class="sidebar">
-              @if(isset($active_manuscript))
+              @if(isset($active_company_list))
                 <a class="template active" href="{{URL::to('all-company-list')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>
                   Account List
@@ -105,17 +105,18 @@
                   Account List
                 </a>
               @endif
-              <!-- @if(isset($active_destination))
-                <a class="Plan active" href="{{URL::to('destination-registration')}}">
+              @if(isset($active_mail))
+                <a class="Plan active" href="{{URL::to('dall-email')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  宛先登録
+                  Mail
                 </a>
               @else
-                <a class="Plan" href="{{URL::to('destination-registration')}}">
+                <a class="Plan" href="{{URL::to('all-email')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  宛先登録
+                  Mail
                 </a>
               @endif
+              <!-- 
               @if(isset($delivery_setting))
                 <a class="Schedule active" href="{{URL::to('delivery-setting')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/calandersetting.png')}}" alt=""></span>

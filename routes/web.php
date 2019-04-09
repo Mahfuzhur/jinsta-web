@@ -74,8 +74,8 @@ Route::get('/admin-login','AdminController@adminLogin');
 Route::post('/admin-login-check','AdminController@adminLoginCheck');
 Route::get('/admin-dashboard','AdminController@adminDashboard');
 Route::get('/all-company-list','AdminController@allCompanyList');
-
-
+Route::post('/admin-logout','AdminController@adminLogout');
+Route::get('/all-email','AdminController@allEmailList');
 
 
 

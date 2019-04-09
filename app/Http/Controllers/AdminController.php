@@ -19,15 +19,23 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function session_check(){
+    public function is_admin_login_check(){
 
         $admin_id = Session::get('current_admin_id');
         return $admin_id;
     }
 
-    public function is_admin_login_check(){
+    public function adminLogin()
+    {
         $main_content = view('admin.login_form.admin_login');
         return view('admin.login_form.admin_master',compact('main_content'));
+    }
+
+    public function adminLogout(){
+
+        Session::put('current_admin_id','');
+        Session::put('current_admin_name','');
+        return redirect('admin-login');
     }
 
     public function adminLoginCheck(Request $request){
@@ -63,9 +71,22 @@ class AdminController extends Controller
     public function allCompanyList(){
 
         if($this->is_admin_login_check() != null){
+            $active_company_list = 'active';
             $all_company = User::where([['account_status','=',3]])->paginate(10);
             $main_content = view('admin.dashboard.all_company_info',compact('all_company'));
-            return view('admin.dashboard.master',compact('main_content'));
+            return view('admin.dashboard.master',compact('main_content','active_company_list'));
+        }else{
+            return redirect('/admin-login');
+        }
+    }
+
+    public function allEmailList(){
+
+        if($this->is_admin_login_check() != null){
+            $active_mail = 'active';
+            $all_user_email = User::where([['account_status','=',3]])->paginate(10);
+            $main_content = view('admin.dashboard.all_email_list',compact('all_user_email'));
+            return view('admin.dashboard.master',compact('main_content','active_mail'));
         }else{
             return redirect('/admin-login');
         }

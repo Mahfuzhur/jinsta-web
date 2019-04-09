@@ -6,7 +6,7 @@
             <div class="col-md-12">
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>スケジュール一覧</h4>   
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>All Company List</h4>   
                 @if(session('delete_success'))
                 <div class="alert alert-success">
                   {{ session('delete_success') }}
