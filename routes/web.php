@@ -78,6 +78,7 @@ Route::get('/all-company-list','AdminController@allCompanyList');
 
 
 
+
 /* Admin Panel Route Start */
 Auth::routes();
 
