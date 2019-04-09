@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Session;
+use App\Admin;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -13,11 +16,61 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function adminLogin()
-    {
-        $main_content = view('admin.admin_login');
-        return view('admin.admin_master',compact('main_content'));
+    public function session_check(){
+
+        $admin_id = Session::get('current_admin_id');
+        return $admin_id;
     }
+
+    public function is_admin_login_check(){
+        $main_content = view('admin.login_form.admin_login');
+        return view('admin.login_form.admin_master',compact('main_content'));
+    }
+
+    public function adminLoginCheck(Request $request){
+
+        $email = $request->email;
+        $password = md5($request->password);
+
+        $info = Admin::where([['email','=',$email],['password','=',$password]])->first();
+
+        if(isset($info)){
+            Session::put('current_admin_id',$info->id);
+            Session::put('current_admin_name',$info->name);
+            return redirect('/admin-dashboard');
+        }else{
+            return redirect('/admin-login')->with('login_err','Email or Password invalid');
+        }
+
+    }
+
+    public function adminDashboard(){
+
+        if($this->is_admin_login_check() != null){        
+            // $title = 'Dashboard';
+            $admin_name = Session::get('current_admin_name');
+            $main_content = view('admin.dashboard.dashboard');
+            return view('admin.dashboard.master',compact('main_content','admin_name'));
+        }else{
+            return redirect('/admin-login');
+        }
+        
+    }
+
+    public function allCompanyList(){
+
+        if($this->is_admin_login_check() != null){
+            $all_company = User::where([['account_status','=',3]])->paginate(10);
+            $main_content = view('admin.dashboard.all_company_info',compact('all_company'));
+            return view('admin.dashboard.master',compact('main_content'));
+        }else{
+            return redirect('/admin-login');
+        }
+    }
+
+
+
+
     public function index()
     {
         //

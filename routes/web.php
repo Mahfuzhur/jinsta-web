@@ -71,6 +71,10 @@ Route::get('test','LoginController@test');
 /* Admin Panel Route Start */
 
 Route::get('/admin-login','AdminController@adminLogin');
+Route::post('/admin-login-check','AdminController@adminLoginCheck');
+Route::get('/admin-dashboard','AdminController@adminDashboard');
+Route::get('/all-company-list','AdminController@allCompanyList');
+
 
 
 
