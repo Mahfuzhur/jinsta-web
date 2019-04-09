@@ -71,6 +71,9 @@ Route::get('test','LoginController@test');
 /* Admin Panel Route Start */
 
 Route::get('/admin-login','AdminController@adminLogin');
+Route::get('/admin-email','AdminController@emailList');
+Route::post('/admin-email-list','AdminController@emailListRequest');
+Route::get('/send/email', 'AdminController@mail');
 
 
 
