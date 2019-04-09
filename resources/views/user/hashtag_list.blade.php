@@ -2,7 +2,7 @@
 @section('user_main_content')
 <div id="page-content-wrapper">
 	<div class="container-fluid">
-	  <div class="row create_destination">
+	  <div class="row create_destination">            
 	    <div class="col-sm-12 main_content">
 	        <div class="box_title">
 	            <h4>宛先名は削除でお願いします。</h4>
@@ -22,14 +22,14 @@
 	        	</div>
 	        	@endif
 	            <h4>#から作成</h4>
-	            <div class="input_box">
-	                <div class="input-group">
+	            <div class="input_box">                    
+	                <div class="input-group">                            
 	                    <input type="text" name="hashtag" id="hashtag" placeholder="#から作成" class="hashtag_input">
 	                    <div class="input-group-append" style="margin-left: -10px;">
 	                    	<button type="submit" name="" class="btn btn-info" style="background: #06af94;">Search</button>
 	                      <!-- <span class="input-group-text" id="">Search</span> -->
 	                    </div>
-	                </div>
+	                </div>                   
 	            </div>
 	        </div>
 			</form>
@@ -52,7 +52,7 @@
 	                @endif
 	                <?php $i++;?>
                     @endforeach
-
+ 				   
 	                  <!-- <label class="checkcontainer">
 	                    <input type="radio" name="list" value=""><br>
 	                    <span class="radiobtn"></span>
@@ -92,38 +92,33 @@
 	                </div> -->
 	            </div>
 	        </div>
-
+	        
 	        <!-- <div class="csv_upload left-border m-b-40">
 	            <h4 class="">ファイルアップロード</h4>
 	            <div class="input_box">
 	              <label for="file">
-	                  <span><i class="fa fa-upload"></i></span>
+	                  <span><i class="fa fa-upload"></i></span> 
 	              </label>
-	              <input type="file" name="file[]" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="">
+	              <input type="file" name="file[]" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="">                      
 	            </div>
 	        </div>
 
 	        <div class="id_title left-border m-b-40">
 	            <h4>個別入力</h4>
-	            <div class="input_box">
+	            <div class="input_box">                    
 	                <div class="input-group">
 	                    <div class="input-group-prepend">
 	                      <span class="input-group-text" id=""><i class="fa fa-pencil"></i></span>
 	                    </div>
-	                    <input type="text" name="id" id="id" class="id_input">
-	                </div>
+	                    <input type="text" name="id" id="id" class="id_input">                   
+	                </div>                   
 	            </div>
 	        </div> -->
-
-
+	       
+	        
 	        <div class="form_buttons">
-<!--	             <button class="btn_cancel p_btn">削除する</button>-->
-<!--	            <button type="sybmit" class="btn_done p_btn">登録</button>-->
-                <div class="text-center">
-                    <div class="spinner-border" role="status">
-                        <button type="submit" class="sr-only">Loading...</button>
-                    </div>
-                </div>
+	            <!-- <button class="btn_cancel p_btn">削除する</button> -->
+	            <button type="sybmit" class="btn_done p_btn">登録</button>
 	        </div>
 	        @endif
 
@@ -138,11 +133,6 @@
 		      </a>
 		   </div>
 		</div>
-<!--          <div class="success_progress_holder progress-container">-->
-<!--              <p class="s_message">Do not close your browser!<br>Wait until your request is processed! <br>This might take a-->
-<!--                  few minutes!</p>-->
-<!--              <div class="loader"></div>-->
-<!--          </div>-->
 
 	</div>
 

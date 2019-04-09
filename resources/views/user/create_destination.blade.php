@@ -102,6 +102,12 @@
             <!-- <br> -->
             <!-- @endforeach
             @endif -->
+            <div class="success_progress_holder progress-container">
+                <p class="s_message">Do not close your browser!<br>Wait until your request is processed! <br>This might
+                    take a
+                    few minutes!</p>
+                <div class="loader"></div>
+            </div>
             <div class="envelope_area">
                 <div class="envelope">
                     <a href="#">
