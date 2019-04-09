@@ -2,7 +2,7 @@
 @section('user_main_content')
 <div id="page-content-wrapper">
 	<div class="container-fluid">
-	  <div class="row create_destination">
+	  <div class="row create_destination">            
 	    <div class="col-sm-12 main_content">
 	        <!-- <div class="box_title">
 	            <h4>宛先名は削除でお願いします。</h4>
@@ -26,6 +26,7 @@
 	        		{{session('message')}}
 	        	</div>
 	        	@endif
+
 
 
 	        	@if(session('instagram_error_msg'))
@@ -61,16 +62,18 @@
 	                    @endif
 	                    
 
+
 	                    <div class="input-group-append" style="margin-left: -10px;">
 	                    	<button type="submit" name="" id="but_search" class="btn btn-info" style="background: #06af94;">Search</button>
 	                      <!-- <span class="input-group-text" id="">Search</span> -->
 	                    </div>
-	                </div>
+	                </div>                   
 	            </div>
 	        </div>
 			</form>
 			<!-- <div class='response'></div> -->
 			<form action="{{URL::to('hashtag-list-search-csv')}}" method="post">
+
 
 			    {{csrf_field()}}
 			    <div class="radio_list_area">
@@ -161,6 +164,7 @@
 			    @endif
 
 
+
 			</form>
 	    </div>
 
@@ -172,11 +176,6 @@
 		      </a>
 		   </div>
 		</div>
-<!--          <div class="success_progress_holder progress-container">-->
-<!--              <p class="s_message">Do not close your browser!<br>Wait until your request is processed! <br>This might take a-->
-<!--                  few minutes!</p>-->
-<!--              <div class="loader"></div>-->
-<!--          </div>-->
 
 	</div>
 

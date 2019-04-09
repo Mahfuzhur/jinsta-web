@@ -210,6 +210,19 @@ class UserController extends Controller
             return redirect ('user-login');
         }
     }
+    public function invoice()
+    {
+        $user_main_content = view('user.invoice');
+        return view('master',compact('user_main_content'));
+    }
+
+    public function invoiceDetails()
+    {
+
+            $invoice = DB::table('invoice')->get()->all();
+            $user_main_content = view('user.invoice_details',compact('invoice'));
+            return view('master',compact('user_main_content'));
+    }
 
     public function editTemplate($id)
     {
