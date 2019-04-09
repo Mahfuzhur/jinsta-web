@@ -92,6 +92,13 @@ class AdminController extends Controller
         }
     }
 
+    public function editCompanyInfo($id){
+        $active_company_list = 'active';
+        $single_company_info = User::where([['id','=',$id],['account_status','=',3]])->first();
+        $main_content = view('admin.dashboard.edit_company_info',compact('single_company_info'));
+        return view('admin.dashboard.master',compact('active_company_list','main_content'));
+    }
+
 
 
 
