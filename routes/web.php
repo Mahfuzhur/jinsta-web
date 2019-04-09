@@ -26,6 +26,9 @@ Route::get('/manuscript-registration','UserController@manuscriptRegistration');
 Route::get('/create-manuscript','UserController@createManuscript');
 Route::get('/hashtag-list','UserController@hashtagList');
 
+Route::get('/invoice', 'UserController@invoice');
+Route::get('/invoice_details', 'UserController@invoiceDetails');
+
 Route::post('/save-menuscript-info', 'UserController@saveMenuscriptInfo');
 Route::get('/edit-template/{id}', 'UserController@editTemplate');
 Route::post('/update-template/{id}', 'UserController@updateTemplate');
