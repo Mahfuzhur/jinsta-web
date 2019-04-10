@@ -185,10 +185,12 @@ class AdminController extends Controller
     }
 
     public function emailSent(Request $request){
-        $emails = $request->input('email');
+        $this->emails = $request->input('email');
+        $this->subject = $request->input('subject');
+        $body = $request->input('body');
 
         //Mail::to($emails)->send(new SendMailable());
-      //  $data = array('name'=>"Virat Gandhi");
+        $data = array('name'=>"taglet");
 //        Mail::send('mail', $data, function($message) {
 //            $message->to('abc@gmail.com', 'Tutorials Point')->subject
 //            ('Laravel Testing Mail with Attachment');
@@ -196,6 +198,14 @@ class AdminController extends Controller
 //            $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
 //            $message->from('xyz@gmail.com','Virat Gandhi');
 //        });
+            Mail::send('mail', $data, function($message) {
+            $message->to($this->emails, 'Tutorials Point')->subject
+            ($this->subject);
+//            $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
+//            $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
+            $message->from('dosnixtech@gmail.com','taglet');
+        });
+
     }
 
     /**

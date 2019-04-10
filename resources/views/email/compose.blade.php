@@ -36,6 +36,11 @@
                         @foreach($emails as $email)
                             <input type="hidden" name="email[]" value="{{$email}}">
                         @endforeach
+                        
+                        <label for="temp_regi">
+                            Subject
+                        </label>
+                        <input type="text" class="form-control title" id="text" name="subject" maxlength="170" placeholder="subject" rows="5">
 
                     </div>
                     <div class="m-b-35">
