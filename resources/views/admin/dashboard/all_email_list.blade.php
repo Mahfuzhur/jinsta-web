@@ -13,9 +13,11 @@
                 </div> 
                 @endif 
                 <div style="margin-bottom: 15px;">
-                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>
+<!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
+                    <input type='checkbox' name='showhide' onchange="checkAll(this)"><span style="font-weight: bold;">Select All</span>
                 </div>
-                 
+                  <form action="{{URL::to('admin-email-compose')}}" method="post">
+                      {{csrf_field()}}
                   <table class="table table-hover">
                     <thead>
                       <tr>
@@ -26,6 +28,7 @@
                       </tr>
                     </thead>
                     <tbody>
+                    <?php $counter =0; ?>
                       <?php
                         if(isset($_GET['page'])){
                           $i = ($_GET['page']*10)-9;
@@ -36,14 +39,15 @@
                       ?>
                       @if(isset($all_user_email))
                         @foreach($all_user_email as $user_email)
-                        <tr>
-                          <td><input type="checkbox" name="email"></td>
+                        <tr id='tr_{{$counter}}'>
+                          <td><input type='checkbox' name='email[]' value="{{$user_email->email}}" id='check_{{$counter}}'></td>
                           <td>{{$user_email->company_name}}</td>
                           <td>{{$user_email->name}}</td>
                           <td>{{$user_email->email}}</td>
                         </tr>
                         <?php
                           $i++;
+                          $counter++;
                         ?>
                         @endforeach
                       @endif
@@ -53,13 +57,14 @@
             </div>
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
-                {{$all_user_email->links()}}                         
+
                 </ul>
               </nav> 
 
               <div>
-                <button class="btn btn-success btn-sm">Compose Mail</button>
+                <button type="submit" class="btn btn-success btn-sm">Compose Mail</button>
               </div>
+            </form>
         </div>
         
         <div class="envelope_area">
@@ -70,4 +75,51 @@
            </div>
         </div>           
   </div>
+    <script type='text/javascript'>
+
+        // Set check or unchecked all checkboxes
+        function checkAll(e) {
+            var checkboxes = document.getElementsByName('email[]');
+
+            if (e.checked) {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = true;
+                }
+            } else {
+                for (var i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+            }
+        }
+
+        // Hide Checked rows
+        function hideChecked(){
+            var checkboxes = document.getElementsByName('email[]');
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                var checkid = checkboxes[i].id;
+                var split_id = checkid.split("_");
+                var rowno = split_id[1];
+                if(checkboxes[i].checked){
+                    document.getElementById("tr_"+rowno).style.display="none";
+                }
+            }
+
+        }
+
+        // Reset layout
+        function reset(){
+            var checkboxes = document.getElementsByName('email[]');
+            document.getElementsByName("showhide")[0].checked=false;
+
+            for (var i = 0; i < checkboxes.length; i++) {
+                var checkid = checkboxes[i].id;
+                var split_id = checkid.split("_");
+                var rowno = split_id[1];
+                document.getElementById("tr_"+rowno).style.display="table-row";
+                checkboxes[i].checked = false;
+            }
+
+        }
+    </script>
 @endsection

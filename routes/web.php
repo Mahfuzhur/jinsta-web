@@ -77,7 +77,8 @@ Route::get('/all-company-list','AdminController@allCompanyList');
 Route::post('/admin-logout','AdminController@adminLogout');
 Route::get('/all-email','AdminController@allEmailList');
 Route::get('/send/mail','AdminController@mail');
-Route::get('admin-email','AdminController@emailList');
+Route::post('/admin-email-compose','AdminController@emailCompose');
+Route::post('/admin-email-sent','AdminController@emailSent');
 
 
 

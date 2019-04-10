@@ -84,7 +84,8 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
             $active_mail = 'active';
-            $all_user_email = User::where([['account_status','=',3]])->paginate(10);
+            $all_user_email = User::select('company_name','name', 'email')->where([['account_status','=',3]])->get();
+           // $users = User::select('company_name','name', 'email')->get();
             $main_content = view('admin.dashboard.all_email_list',compact('all_user_email'));
             return view('admin.dashboard.master',compact('main_content','active_mail'));
         }else{
@@ -137,9 +138,11 @@ class AdminController extends Controller
         return view('admin.email',compact('users'));
     }
 
-    public function emailListRequest(Request $request){
-        $email = $request->input('email');
-      print_r($email);
+    public function emailCompose(Request $request){
+        $emails = $request->input('email');
+        $main_content = view('email.compose',compact('emails'));
+        return view('admin.dashboard.master',compact('main_content'));
+       // return view('email.compose',compact('emails'));
 
     }
 
@@ -149,6 +152,20 @@ class AdminController extends Controller
         Mail::to('mahfuzhur@gmail.com')->send(new SendMailable());
 
         return 'Email was sent';
+    }
+
+    public function emailSent(Request $request){
+        $emails = $request->input('email');
+
+        //Mail::to($emails)->send(new SendMailable());
+      //  $data = array('name'=>"Virat Gandhi");
+//        Mail::send('mail', $data, function($message) {
+//            $message->to('abc@gmail.com', 'Tutorials Point')->subject
+//            ('Laravel Testing Mail with Attachment');
+//            $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
+//            $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
+//            $message->from('xyz@gmail.com','Virat Gandhi');
+//        });
     }
 
     /**
