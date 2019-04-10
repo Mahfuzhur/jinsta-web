@@ -35,7 +35,7 @@ class AdminController extends Controller
 
         Session::put('current_admin_id','');
         Session::put('current_admin_name','');
-        return redirect('admin-login');
+        return redirect('/');
     }
 
     public function adminLoginCheck(Request $request){
@@ -63,7 +63,7 @@ class AdminController extends Controller
             $main_content = view('admin.dashboard.dashboard');
             return view('admin.dashboard.master',compact('main_content','admin_name'));
         }else{
-            return redirect('/admin-login');
+            return redirect('/');
         }
         
     }
@@ -76,7 +76,7 @@ class AdminController extends Controller
             $main_content = view('admin.dashboard.all_company_info',compact('all_company'));
             return view('admin.dashboard.master',compact('main_content','active_company_list'));
         }else{
-            return redirect('/admin-login');
+            return redirect('/');
         }
     }
 
@@ -89,8 +89,38 @@ class AdminController extends Controller
             $main_content = view('admin.dashboard.all_email_list',compact('all_user_email'));
             return view('admin.dashboard.master',compact('main_content','active_mail'));
         }else{
-            return redirect('/admin-login');
+            return redirect('/');
         }
+    }
+
+    public function editCompanyInfo($id){
+        if($this->is_admin_login_check() != null){
+            $active_company_list = 'active';
+            $single_company_info = User::where([['id','=',$id],['account_status','=',3]])->first();
+            $main_content = view('admin.dashboard.edit_company_info',compact('single_company_info'));
+            return view('admin.dashboard.master',compact('active_company_list','main_content'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function updateCompanyInfo(request $request,$id){
+
+        $this->validate($request,[
+            'company_name' => 'required',
+            'name' => 'required',
+            'email' => 'required|unique:users,email,'.$id,
+            'mobile' => 'required'
+        ]);
+
+        $info = User::findOrFail($id);
+        $info->company_name = $request->company_name;
+        $info->name = $request->name;
+        $info->email = $request->email;
+        $info->mobile = $request->mobile;
+        $info->save();
+        return redirect('/all-company-list')->with('update_info_msg','Information successfully updated');
+
     }
 
 

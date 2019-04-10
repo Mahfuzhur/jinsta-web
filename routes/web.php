@@ -26,6 +26,9 @@ Route::get('/manuscript-registration','UserController@manuscriptRegistration');
 Route::get('/create-manuscript','UserController@createManuscript');
 Route::get('/hashtag-list','UserController@hashtagList');
 
+Route::get('/invoice', 'UserController@invoice');
+Route::get('/invoice_details', 'UserController@invoiceDetails');
+
 Route::post('/save-menuscript-info', 'UserController@saveMenuscriptInfo');
 Route::get('/edit-template/{id}', 'UserController@editTemplate');
 Route::post('/update-template/{id}', 'UserController@updateTemplate');
@@ -77,8 +80,14 @@ Route::get('/all-company-list','AdminController@allCompanyList');
 Route::post('/admin-logout','AdminController@adminLogout');
 Route::get('/all-email','AdminController@allEmailList');
 Route::get('/send/mail','AdminController@mail');
+
 Route::post('/admin-email-compose','AdminController@emailCompose');
 Route::post('/admin-email-sent','AdminController@emailSent');
+
+
+Route::get('admin-email','AdminController@emailList');
+Route::get('/edit-company-info/{id}','AdminController@editCompanyInfo');
+Route::post('/update-company-info/{id}','AdminController@updateCompanyInfo');
 
 
 

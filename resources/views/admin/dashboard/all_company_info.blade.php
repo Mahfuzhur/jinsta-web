@@ -6,7 +6,12 @@
             <div class="col-md-12">
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>All Company List</h4>   
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>All Company List</h4> 
+                @if(session('update_info_msg'))
+                <div class="alert alert-success">
+                  {{ session('update_info_msg') }}
+                </div> 
+                @endif   
                 @if(session('delete_success'))
                 <div class="alert alert-success">
                   {{ session('delete_success') }}
@@ -56,13 +61,16 @@
                               </div>
                             </div> -->
 
-                            <select class="btn btn-success btn-md">
+                            <!-- <select class="btn btn-success btn-md">
                               <option>Manage</option>
-                              <option><a href="#">Edit</a></option>
+                              <option><a href="{{URL::to('edit-company-info/'.$company->id)}}">Edit</a></option>
                               <option><a href="#">Delete</a></option>
                               <option><a href="#">Suspend</a></option>
                               <option><a href="#">Extra</a></option>
-                            </select>
+                            </select> -->
+                            <a href="{{URL::to('edit-company-info/'.$company->id)}}" title="Edit"><i class="fa fa-edit"></i></a>
+                            <a href="#" title="Delete"><i class="fa fa-trash"></i></a>
+                            <a href="#" title="Suspend"><i class="fa fa-remove"></i></a>
                             
                           </td>
                         </tr>
