@@ -47,7 +47,6 @@
                                 data-original-title="Delete Item" data-toggle="tooltip"
                                 data-placement="top" title="">Save
                         </button>
-<!--                        <button onclick="myFunction()">Click me</button>-->
                     </div>
                 </div>
                 </form>
@@ -55,5 +54,4 @@
         </div>
     </div>
 </div>
-
 @endsection
