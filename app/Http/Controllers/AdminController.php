@@ -164,7 +164,27 @@ class AdminController extends Controller
         return view('admin.dashboard.master',compact('main_content','active_trial'));
     }
 
+    public function settings()
+    {
+        $active_setting = 'active';
+        $main_content = view('admin.dashboard.settings');
+        return view('admin.dashboard.master',compact('main_content','active_setting'));
+    }
 
+    public function invoice()
+    {
+        $active_invoice = 'active';
+        $main_content = view('admin.dashboard.invoice');
+        return view('admin.dashboard.master',compact('main_content','active_invoice'));
+    }
+
+    public function invoiceDetails()
+    {
+        $active_invoice = 'active';
+        $invoice = DB::table('invoice')->get()->all();
+        $main_content = view('admin.dashboard.invoice_details',compact('invoice'));
+        return view('admin.dashboard.master',compact('main_content','active_invoice'));
+    }
 
 
     public function index()
