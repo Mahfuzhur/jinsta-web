@@ -11,6 +11,7 @@ use File;
 use Excel;
 use DB;
 use Session;
+use Alert;
 use InstagramAPI;
 use App\Template;
 use App\Hashtag;
