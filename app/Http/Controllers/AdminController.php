@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Session;
 use App\Admin;
 use App\User;
+use DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 
@@ -72,7 +73,7 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $all_company = User::where([['account_status','=',3]])->paginate(10);
+            $all_company = DB::table('users')->whereIn('account_status',[2,3])->get();
             $main_content = view('admin.dashboard.all_company_info',compact('all_company'));
             return view('admin.dashboard.master',compact('main_content','active_company_list'));
         }else{
@@ -95,7 +96,7 @@ class AdminController extends Controller
     public function editCompanyInfo($id){
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $single_company_info = User::where([['id','=',$id],['account_status','=',3]])->first();
+            $single_company_info = DB::table('users')->where([['id','=',$id]])->whereIn('account_status',[2,3])->first();
             $main_content = view('admin.dashboard.edit_company_info',compact('single_company_info'));
             return view('admin.dashboard.master',compact('active_company_list','main_content'));
         }else{
@@ -105,21 +106,62 @@ class AdminController extends Controller
 
     public function updateCompanyInfo(request $request,$id){
 
-        $this->validate($request,[
-            'company_name' => 'required',
-            'name' => 'required',
-            'email' => 'required|unique:users,email,'.$id,
-            'mobile' => 'required'
-        ]);
+        if($this->is_admin_login_check() != null){
+            $this->validate($request,[
+                'company_name' => 'required',
+                'name' => 'required',
+                'email' => 'required|unique:users,email,'.$id,
+                'mobile' => 'required'
+            ]);
 
-        $info = User::findOrFail($id);
-        $info->company_name = $request->company_name;
-        $info->name = $request->name;
-        $info->email = $request->email;
-        $info->mobile = $request->mobile;
-        $info->save();
-        return redirect('/all-company-list')->with('update_info_msg','Information successfully updated');
+            $info = User::findOrFail($id);
+            $info->company_name = $request->company_name;
+            $info->name = $request->name;
+            $info->email = $request->email;
+            $info->mobile = $request->mobile;
+            $info->save();
+            return redirect('/all-company-list')->with('update_info_msg','Information successfully updated');
+        }else{
+            return redirect('/');
+        }
 
+    }
+
+    public function deleteCompanyInfo($id){
+
+        if ($this->is_admin_login_check() != null) {
+            User::destroy($id);
+            return redirect('/all-company-list')->with('delete_msg','Company information deleted successfully');
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function suspendCompanyInfo(Request $request){
+        if($this->is_admin_login_check() != null){
+            $id = $request->id;
+            // return response()->json(['data'=>$id]);
+            $c_info = User::findOrFail($id);
+            if($c_info->account_status == 2){
+                User::where('id',$id)->update(array('account_status' => 3));
+            }elseif ($c_info->account_status == 3) {
+                User::where('id',$id)->update(array('account_status' => 2));
+            }
+            
+            $all_company = DB::table('users')->whereIn('account_status',[2,3])->get();
+            // return redirect('/all-company-list')->with('suspend_msg','Company suspend successfully.');
+            return view('admin.dashboard.ajax_suspend_list',compact('all_company'));
+        }else{
+            return redirect('/');
+        }
+        
+    }
+
+    public function allTrialCompanyList(){
+        $active_trial = 'active';
+        $all_company_trial_list = User::where([['account_status','=',1]])->get();
+        $main_content = view('admin.dashboard.all_company_trial_list',compact('all_company_trial_list'));
+        return view('admin.dashboard.master',compact('main_content','active_trial'));
     }
 
 

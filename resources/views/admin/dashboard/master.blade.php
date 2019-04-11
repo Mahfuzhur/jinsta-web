@@ -19,6 +19,27 @@
   </title>
 
     <script type="text/javascript">
+
+      function suspend_user($id){
+        var id = $id;
+          var token = $('meta[name="csrf-token"]').attr('content');
+          // console.log(id);
+          jQuery.ajax({
+            type: "POST",
+            url: "{{URL::to('suspend-company-info')}}",
+            data: {
+            "_method": 'POST',
+            "_token": token,
+            "id":id
+            },                     
+           success: function(response){
+            $('#ajax_suspend_list').html(response);
+            // console.log(response.data);
+            
+           }
+          });
+
+      }
          function schedule_action($id){
           var id = $id;
           var token = $('meta[name="csrf-token"]').attr('content');
@@ -106,7 +127,7 @@
                 </a>
               @endif
               @if(isset($active_mail))
-                <a class="Plan active" href="{{URL::to('dall-email')}}">
+                <a class="Plan active" href="{{URL::to('all-email')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
                   Mail
                 </a>
@@ -114,6 +135,17 @@
                 <a class="Plan" href="{{URL::to('all-email')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
                   Mail
+                </a>
+              @endif
+              @if(isset($active_trial))
+                <a class="Plan active" href="{{URL::to('all-trial-company-list')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                  Trial List
+                </a>
+              @else
+                <a class="Plan" href="{{URL::to('all-trial-company-list')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                  Trial List
                 </a>
               @endif
               <!-- 
@@ -287,7 +319,7 @@
         }
 
 
-            function confirm_click(){
+            function check_delete(){
 
                 var check = confirm('Are you sure to delete this?');
                 if(check){

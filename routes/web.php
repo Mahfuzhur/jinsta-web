@@ -83,6 +83,9 @@ Route::get('/send/mail','AdminController@mail');
 Route::get('admin-email','AdminController@emailList');
 Route::get('/edit-company-info/{id}','AdminController@editCompanyInfo');
 Route::post('/update-company-info/{id}','AdminController@updateCompanyInfo');
+Route::get('/delete-company-info/{id}','AdminController@deleteCompanyInfo');
+Route::post('/suspend-company-info','AdminController@suspendCompanyInfo');
+Route::get('/all-trial-company-list','AdminController@allTrialCompanyList');
 
 
 

@@ -12,7 +12,7 @@
                   {{ session('delete_success') }}
                 </div> 
                 @endif 
-                <div style="margin-bottom: 15px;">
+                <div style="margin-bottom: 15px;margin-left: 10px;">
                   <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>
                 </div>
                  
