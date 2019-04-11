@@ -223,6 +223,11 @@ class UserController extends Controller
             $user_main_content = view('user.invoice_details',compact('invoice'));
             return view('master',compact('user_main_content'));
     }
+    public function settings()
+    {
+        $user_main_content = view('user.settings');
+        return view('master',compact('user_main_content'));
+    }
 
     public function editTemplate($id)
     {
