@@ -79,7 +79,7 @@
                         <td>{{$single_setting_info->trial_period}}</td>
                         <td>{{$single_setting_info->invoice_grace_time}}</td>
                         <td>{{$single_setting_info->message_rate}}</td>
-                        <td><a href="{{URL::to('edit-setting/'.$single_setting_info->id)}}" class="btn btn-success btn-sm">Edit</a></td>
+                        <td><a href="{{URL::to('edit-setting/'.Crypt::encrypt($single_setting_info->id))}}" class="btn btn-success btn-sm">Edit</a></td>
                     </tr>
                 </table>
                 @endif

@@ -62,7 +62,7 @@
                             </p>
                           </div>                              
                           <div class="edit_icon">
-                              <a href="{{URL::to('edit-template/'.$template->id)}}">
+                              <a href="{{URL::to('edit-template/'.Crypt::encrypt($template->id))}}">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                               </a>
                               <span onclick="return confirm_click();">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Crypt;
 use Session;
 use App\Admin;
 use App\User;
@@ -97,7 +98,7 @@ class AdminController extends Controller
     public function editCompanyInfo($id){
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $single_company_info = DB::table('users')->where([['id','=',$id]])->whereIn('account_status',[2,3])->first();
+            $single_company_info = DB::table('users')->where([['id','=',Crypt::decrypt($id)]])->whereIn('account_status',[2,3])->first();
             $main_content = view('admin.dashboard.edit_company_info',compact('single_company_info'));
             return view('admin.dashboard.master',compact('active_company_list','main_content'));
         }else{
@@ -200,7 +201,7 @@ class AdminController extends Controller
     public function editSetting($id){
         if($this->is_admin_login_check() != null){
             $active_setting = 'active';
-            $single_setting_info = Setting::where('id',$id)->first();
+            $single_setting_info = Setting::where('id',Crypt::decrypt($id))->first();
             $main_content = view('admin.dashboard.edit_setting',compact('single_setting_info'));
             return view('admin.dashboard.master',compact('main_content','active_setting'));
         }else{

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use Crypt;
 use Auth;
 use File;
 use Excel;
@@ -214,7 +215,7 @@ class UserController extends Controller
     public function editTemplate($id)
     {
         if(Auth::user()){
-        $single_template = Template::findOrfail($id);
+        $single_template = Template::findOrfail(Crypt::decrypt($id));
         $manage_template = view('user.edit_template',compact('single_template'));
         return view('master',compact('manage_template'));
         }else{

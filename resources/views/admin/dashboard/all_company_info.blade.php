@@ -68,7 +68,7 @@
                             <form action="URL::to('suspend-company-info')" method="post">
                               {{csrf_field()}}
                               
-                            <a href="{{URL::to('edit-company-info/'.$company->id)}}" title="Edit"><i class="fa fa-edit"></i></a>
+                            <a href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}" title="Edit"><i class="fa fa-edit"></i></a>
                             <a href="{{URL::to('delete-company-info/'.$company->id)}}" title="Delete" onclick="return check_delete();"><i class="fa fa-trash"></i></a>
                             
                               <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
