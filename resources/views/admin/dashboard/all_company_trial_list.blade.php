@@ -33,10 +33,10 @@
                           <td>{{$company_trial_list->company_name}}</td>
                           <td>{{$company_trial_list->email}}</td>
                           <td>{{$company_trial_list->mobile}}</td>
-                          <td>{{$company_trial_list-> trial_duration}}</td>
+                          <td>{{$trial_period->trial_period}}</td>
                           <?php
                           
-                            $added_date = \Carbon\Carbon::parse($company_trial_list->updated_at)->addDays($company_trial_list->trial_duration);
+                            $added_date = \Carbon\Carbon::parse($company_trial_list->updated_at)->addDays($trial_period->trial_period);
                             $today = \Carbon\Carbon::today()->addDays(0);
                             $due_date = $added_date->format('d-m-Y')
                           ?>

@@ -86,6 +86,9 @@ Route::get('/delete-company-info/{id}','AdminController@deleteCompanyInfo');
 Route::post('/suspend-company-info','AdminController@suspendCompanyInfo');
 Route::get('/all-trial-company-list','AdminController@allTrialCompanyList');
 Route::get('/settings', 'AdminController@settings');
+Route::post('/add-setting','AdminController@addSetting');
+Route::get('/edit-setting/{id}','AdminController@editSetting');
+Route::post('/update-setting/{id}','AdminController@updateSetting');
 Route::get('/invoice', 'AdminController@invoice');
 Route::get('/invoice-details', 'AdminController@invoiceDetails');
 

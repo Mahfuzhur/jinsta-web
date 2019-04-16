@@ -10,6 +10,7 @@ use App\User;
 use DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
+use App\Setting;
 
 
 class AdminController extends Controller
@@ -158,32 +159,92 @@ class AdminController extends Controller
     }
 
     public function allTrialCompanyList(){
-        $active_trial = 'active';
-        $all_company_trial_list = User::where([['account_status','=',1]])->get();
-        $main_content = view('admin.dashboard.all_company_trial_list',compact('all_company_trial_list'));
-        return view('admin.dashboard.master',compact('main_content','active_trial'));
+        if($this->is_admin_login_check() != null){
+            $active_trial = 'active';
+            $trial_period = Setting::select('trial_period')->first();
+            $all_company_trial_list = User::where([['account_status','=',1]])->get();
+            $main_content = view('admin.dashboard.all_company_trial_list',compact('all_company_trial_list','trial_period'));
+            return view('admin.dashboard.master',compact('main_content','active_trial'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function settings()
     {
-        $active_setting = 'active';
-        $main_content = view('admin.dashboard.settings');
-        return view('admin.dashboard.master',compact('main_content','active_setting'));
+        if($this->is_admin_login_check() != null){
+            $active_setting = 'active';
+            $single_setting_info = Setting::orderBy('id','desc')->first();
+            $main_content = view('admin.dashboard.settings',compact('single_setting_info'));
+            return view('admin.dashboard.master',compact('main_content','active_setting'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function addSetting(Request $request){
+        if($this->is_admin_login_check() != null){
+            $info = new Setting();
+            $info->trial_period = $request->trial_period;
+            $info->invoice_grace_time = $request->invoice_grace_time;
+            $info->message_rate = $request->message_rate;
+            $info->demo1 = $request->demo1;
+            $info->demo2 = $request->demo2;
+            $info->save();
+            return redirect('settings')->with('add_msg','Setting added successfully.');
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function editSetting($id){
+        if($this->is_admin_login_check() != null){
+            $active_setting = 'active';
+            $single_setting_info = Setting::where('id',$id)->first();
+            $main_content = view('admin.dashboard.edit_setting',compact('single_setting_info'));
+            return view('admin.dashboard.master',compact('main_content','active_setting'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function updateSetting(Request $request,$id){
+        if($this->is_admin_login_check() != null){
+            $info = Setting::findOrFail($id);
+            $info->trial_period = $request->trial_period;
+            $info->invoice_grace_time = $request->invoice_grace_time;
+            $info->message_rate = $request->message_rate;
+            $info->demo1 = $request->demo1;
+            $info->demo2 = $request->demo2;
+            $info->save();
+            return redirect('settings')->with('update_msg','Setting updateed successfully.');
+        }else{
+            return redirect('/');
+        }
+
     }
 
     public function invoice()
     {
-        $active_invoice = 'active';
-        $main_content = view('admin.dashboard.invoice');
-        return view('admin.dashboard.master',compact('main_content','active_invoice'));
+        if($this->is_admin_login_check() != null){
+            $active_invoice = 'active';
+            $main_content = view('admin.dashboard.invoice');
+            return view('admin.dashboard.master',compact('main_content','active_invoice'));
+        }else{
+            return redirect('/');
+        }
     }
 
     public function invoiceDetails()
     {
-        $active_invoice = 'active';
-        $invoice = DB::table('invoice')->get()->all();
-        $main_content = view('admin.dashboard.invoice_details',compact('invoice'));
-        return view('admin.dashboard.master',compact('main_content','active_invoice'));
+        if($this->is_admin_login_check() != null){
+            $active_invoice = 'active';
+            $invoice = DB::table('invoice')->get()->all();
+            $main_content = view('admin.dashboard.invoice_details',compact('invoice'));
+            return view('admin.dashboard.master',compact('main_content','active_invoice'));
+        }else{
+            return redirect('/');
+        }
     }
 
 
