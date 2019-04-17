@@ -36,6 +36,11 @@
                         @foreach($emails as $email)
                             <input type="hidden" name="email[]" value="{{$email}}">
                         @endforeach
+                        
+                        <label for="temp_regi">
+                            Subject
+                        </label>
+                        <input type="text" class="form-control title" id="text" name="subject" maxlength="170" placeholder="subject" rows="5">
 
                     </div>
                     <div class="m-b-35">
@@ -54,7 +59,7 @@
                                 <span style="font-size: 13px;">画像登録(推奨画像サイズ：横1200px×縦600px)</span>
 
                             </label>
-                            <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readURL(this);">
+                            <input type="file" name="file" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="">
                             <img src="{{asset('assets/img/No_Image_Available.jpg')}}" id="image_show_small" alt="Image" style="width:100px;height: 50px;">
                             <!-- <img id="image_show_small" src="#" alt="your image" /> -->
                             <!-- <span class="image_show_small"></span>  -->
