@@ -148,6 +148,28 @@
                   Trial List
                 </a>
               @endif
+              @if(isset($active_setting))
+                <a class="Plan active" href="{{URL::to('settings')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                  Settings
+                </a>
+              @else
+                <a class="Plan" href="{{URL::to('settings')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                  Settings
+                </a>
+              @endif
+              @if(isset($active_invoice))
+                <a class="Plan active" href="{{URL::to('invoice')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                  Invoice
+                </a>
+              @else
+                <a class="Plan" href="{{URL::to('invoice')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                  Invoice
+                </a>
+              @endif
               <!-- 
               @if(isset($delivery_setting))
                 <a class="Schedule active" href="{{URL::to('delivery-setting')}}">

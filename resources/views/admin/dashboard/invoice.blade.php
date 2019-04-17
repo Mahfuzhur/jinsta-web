@@ -2,27 +2,22 @@
 @section('user_main_content')
 <div id="page-content-wrapper" class="analytics">
     <div class="container-fluid">
-        <div class="create_btn_holder">
-            <div class="create_new_template">
-                <span class="new_template">更新</span>
-            </div>
-        </div>
         <div class="row">
 
             <div class="col-md-12">
 
                 <div class="progress_view">
-                    <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>請求の詳細
+                    <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Invoice
                     </h4>
 
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th scope="col">SL</th>
-                            <th scope="col">Invoice No.</th>
-                            <th scope="col">Issue Date</th>
-                            <th scope="col">Due Date</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Paid</th>
+                            <th scope="col">Unpaid</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -35,18 +30,17 @@
                         }
 
                         ?>
-                        @foreach($invoice as $invoice)
+
                         <tr>
                             <td>{{$i}}</td>
-                            <td>{{$invoice->id}}</td>
-                            <td>{{$invoice->issue_date}}</td>
-                            <td>{{$invoice->due_date}}</td>
-                            <td>{{$invoice->billing_status}}</td>
+                            <td>Name</td>
+                            <td>name@gmail.com</td>
+                            <td>4</td>
+                            <td>1</td>
                             <td>
                                 <button type="button" name="btn" class="btn btn-success">Payment</button>
                             </td>
                         </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -62,4 +56,5 @@
             </div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection

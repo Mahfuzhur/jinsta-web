@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Crypt;
 use Session;
 use App\Admin;
 use App\User;
 use DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
+use App\Setting;
 use Illuminate\Support\Facades\Input;
+
 
 
 class AdminController extends Controller
@@ -98,7 +101,7 @@ class AdminController extends Controller
     public function editCompanyInfo($id){
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $single_company_info = DB::table('users')->where([['id','=',$id]])->whereIn('account_status',[2,3])->first();
+            $single_company_info = DB::table('users')->where([['id','=',Crypt::decrypt($id)]])->whereIn('account_status',[2,3])->first();
             $main_content = view('admin.dashboard.edit_company_info',compact('single_company_info'));
             return view('admin.dashboard.master',compact('active_company_list','main_content'));
         }else{
@@ -160,13 +163,93 @@ class AdminController extends Controller
     }
 
     public function allTrialCompanyList(){
-        $active_trial = 'active';
-        $all_company_trial_list = User::where([['account_status','=',1]])->get();
-        $main_content = view('admin.dashboard.all_company_trial_list',compact('all_company_trial_list'));
-        return view('admin.dashboard.master',compact('main_content','active_trial'));
+        if($this->is_admin_login_check() != null){
+            $active_trial = 'active';
+            $trial_period = Setting::select('trial_period')->first();
+            $all_company_trial_list = User::where([['account_status','=',1]])->get();
+            $main_content = view('admin.dashboard.all_company_trial_list',compact('all_company_trial_list','trial_period'));
+            return view('admin.dashboard.master',compact('main_content','active_trial'));
+        }else{
+            return redirect('/');
+        }
     }
 
+    public function settings()
+    {
+        if($this->is_admin_login_check() != null){
+            $active_setting = 'active';
+            $single_setting_info = Setting::orderBy('id','desc')->first();
+            $main_content = view('admin.dashboard.settings',compact('single_setting_info'));
+            return view('admin.dashboard.master',compact('main_content','active_setting'));
+        }else{
+            return redirect('/');
+        }
+    }
 
+    public function addSetting(Request $request){
+        if($this->is_admin_login_check() != null){
+            $info = new Setting();
+            $info->trial_period = $request->trial_period;
+            $info->invoice_grace_time = $request->invoice_grace_time;
+            $info->message_rate = $request->message_rate;
+            $info->demo1 = $request->demo1;
+            $info->demo2 = $request->demo2;
+            $info->save();
+            return redirect('settings')->with('add_msg','Setting added successfully.');
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function editSetting($id){
+        if($this->is_admin_login_check() != null){
+            $active_setting = 'active';
+            $single_setting_info = Setting::where('id',Crypt::decrypt($id))->first();
+            $main_content = view('admin.dashboard.edit_setting',compact('single_setting_info'));
+            return view('admin.dashboard.master',compact('main_content','active_setting'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function updateSetting(Request $request,$id){
+        if($this->is_admin_login_check() != null){
+            $info = Setting::findOrFail($id);
+            $info->trial_period = $request->trial_period;
+            $info->invoice_grace_time = $request->invoice_grace_time;
+            $info->message_rate = $request->message_rate;
+            $info->demo1 = $request->demo1;
+            $info->demo2 = $request->demo2;
+            $info->save();
+            return redirect('settings')->with('update_msg','Setting updateed successfully.');
+        }else{
+            return redirect('/');
+        }
+
+    }
+
+    public function invoice()
+    {
+        if($this->is_admin_login_check() != null){
+            $active_invoice = 'active';
+            $main_content = view('admin.dashboard.invoice');
+            return view('admin.dashboard.master',compact('main_content','active_invoice'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function invoiceDetails()
+    {
+        if($this->is_admin_login_check() != null){
+            $active_invoice = 'active';
+            $invoice = DB::table('invoice')->get()->all();
+            $main_content = view('admin.dashboard.invoice_details',compact('invoice'));
+            return view('admin.dashboard.master',compact('main_content','active_invoice'));
+        }else{
+            return redirect('/');
+        }
+    }
 
 
     public function index()
