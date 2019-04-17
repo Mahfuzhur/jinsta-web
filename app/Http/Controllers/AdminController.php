@@ -9,6 +9,7 @@ use App\Admin;
 use App\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
+use Illuminate\Support\Facades\Input;
 
 
 class AdminController extends Controller
@@ -170,7 +171,7 @@ class AdminController extends Controller
 
     public function emailCompose(Request $request){
         $emails = $request->input('email');
-        $main_content = view('email.compose',compact('emails'));
+        $main_content = view('admin.dashboard.compose',compact('emails'));
         return view('admin.dashboard.master',compact('main_content'));
        // return view('email.compose',compact('emails'));
 
@@ -179,33 +180,27 @@ class AdminController extends Controller
     public function mail()
     {
         $name = 'Krunal';
-        Mail::to('mahfuzhur@gmail.com')->send(new SendMailable());
+        Mail::to('mahfuzhur@gmail.com')->send(new SendMailable('2','2'));
 
         return 'Email was sent';
     }
 
     public function emailSent(Request $request){
-        $this->emails = $request->input('email');
-        $this->subject = $request->input('subject');
+        $emails = $request->input('email');
+        $subject = $request->input('subject');
         $body = $request->input('body');
+        $body = $request->input('file');
+        if (Input::hasFile('file')) {
+            $file = Input::file('file');
+            $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
+           // $image = str_replace(' ', '+', $file_path_name);
+           // $imageName = str_random(10).'.'.'png';
+            // return $imageName;
+            // exit();
+            $file->move('uploads/', $file_path_name);
+        }
 
-        //Mail::to($emails)->send(new SendMailable());
-        $data = array('name'=>"taglet");
-//        Mail::send('mail', $data, function($message) {
-//            $message->to('abc@gmail.com', 'Tutorials Point')->subject
-//            ('Laravel Testing Mail with Attachment');
-//            $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
-//            $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
-//            $message->from('xyz@gmail.com','Virat Gandhi');
-//        });
-            Mail::send('mail', $data, function($message) {
-            $message->to($this->emails, 'Tutorials Point')->subject
-            ($this->subject);
-//            $message->attach('C:\laravel-master\laravel\public\uploads\image.png');
-//            $message->attach('C:\laravel-master\laravel\public\uploads\test.txt');
-            $message->from('dosnixtech@gmail.com','taglet');
-        });
-
+        Mail::to($emails)->send(new SendMailable($subject,$body,$file_path_name));
     }
 
     /**

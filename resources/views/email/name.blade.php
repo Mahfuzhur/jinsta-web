@@ -1,3 +1,4 @@
 <div>
-    Hi, This is : mahfuzh
+    subject: {{$subject}}<br>
+    body: {{body}
 </div>
