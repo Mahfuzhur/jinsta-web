@@ -42,11 +42,11 @@
                         </div>
                     </div>
 
+
                     <div style="margin-left: 43%">
-                        <button onclick="return confirm('Do you really want to Update this item?');"
-                                type="submit" class="btn btn-success"
-                                data-original-title="Delete Item" data-toggle="tooltip"
-                                data-placement="top" title="">Update
+                        <button onclick="return confirm('Do you really want to Update this item?');"       type="submit" class="btn btn-success"
+                        data-original-title="Delete Item" data-toggle="tooltip"
+                        data-placement="top" title="">Update
                         </button>
                     </div>
                 </div>
