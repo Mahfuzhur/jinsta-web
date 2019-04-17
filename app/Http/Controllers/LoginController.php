@@ -157,36 +157,41 @@ class LoginController extends Controller
 
     public function test(){
         $count = 0;
-        $this->ig->login('webvision100','instagram123456');
+        $this->ig->login('asifahmmed','@Sif12345');
 
         $rank_token= \InstagramAPI\Signatures::generateUUID();
-        $result = $this->ig->hashtag->getFeed('bpl',$rank_token);
+        //$result = $this->ig->hashtag->getFeed('bpl',$rank_token);
+        $result = $this->ig->people->getSelfFollowers($rank_token);
+        //$result = $this->ig->people->getInfoById('8576826038');
+        $result = $this->ig->people->getInfoById('8576826038');
+        //$result = $result->getUser()->getPublicEmail();
+        //$result = $result->getUser()->getContactPhoneNumber();
         //$result = $this->ig->media->getLikers('2011632325306376775_7905756331');
         //$result = $this->ig->hashtag->search('nature');
         //$result = $this->ig->media->getComments('1965957446195605717_7312650484');
-        try{
-            $obj = json_decode($result);
-
-            foreach($obj->items as $media) {
-                //$insert[] = $media->user->pk;
-                $result = $media->id;
-                $likers = $this->ig->media->getLikers($result);
-//            foreach ($likers->users as $like){
-//                $insert[] = $like->pk;
+//        try{
+//            $obj = json_decode($result);
+//
+//            foreach($obj->items as $media) {
+//                //$insert[] = $media->user->pk;
+//                $result = $media->id;
+//                $likers = $this->ig->media->getLikers($result);
+////            foreach ($likers->users as $like){
+////                $insert[] = $like->pk;
+////            }
+//                // $likers = $likers->users;
+//                $likers = json_decode($likers);
+//                foreach ($likers->users as $like){
+//                    $insert[] = $like->pk;
+//                    //$count++;
+//                }
+//
 //            }
-                // $likers = $likers->users;
-                $likers = json_decode($likers);
-                foreach ($likers->users as $like){
-                    $insert[] = $like->pk;
-                    //$count++;
-                }
-
-            }
-        }
-        catch (\Exception $ex){
-            echo $ex;
-
-        }
+//        }
+//        catch (\Exception $ex){
+//            echo $ex;
+//
+//        }
 
 //        if(isset($obj->ranked_items)){
 //
@@ -204,7 +209,7 @@ class LoginController extends Controller
 //        }
 
 
-        return response()->json($insert);
+        return response()->json($result);
     }
     public function InstagramRank(){
 

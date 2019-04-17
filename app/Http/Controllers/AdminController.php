@@ -12,6 +12,8 @@ use DB;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 use App\Setting;
+use Illuminate\Support\Facades\Input;
+
 
 
 class AdminController extends Controller
@@ -87,7 +89,8 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
             $active_mail = 'active';
-            $all_user_email = User::where([['account_status','=',3]])->paginate(10);
+            $all_user_email = User::select('company_name','name', 'email')->where([['account_status','=',3]])->get();
+           // $users = User::select('company_name','name', 'email')->get();
             $main_content = view('admin.dashboard.all_email_list',compact('all_user_email'));
             return view('admin.dashboard.master',compact('main_content','active_mail'));
         }else{
@@ -291,18 +294,38 @@ class AdminController extends Controller
         return view('admin.email',compact('users'));
     }
 
-    public function emailListRequest(Request $request){
-        $email = $request->input('email');
-      print_r($email);
+    public function emailCompose(Request $request){
+        $emails = $request->input('email');
+        $main_content = view('admin.dashboard.compose',compact('emails'));
+        return view('admin.dashboard.master',compact('main_content'));
+       // return view('email.compose',compact('emails'));
 
     }
 
     public function mail()
     {
         $name = 'Krunal';
-        Mail::to('mahfuzhur@gmail.com')->send(new SendMailable());
+        Mail::to('mahfuzhur@gmail.com')->send(new SendMailable('2','2'));
 
         return 'Email was sent';
+    }
+
+    public function emailSent(Request $request){
+        $emails = $request->input('email');
+        $subject = $request->input('subject');
+        $body = $request->input('body');
+        $body = $request->input('file');
+        if (Input::hasFile('file')) {
+            $file = Input::file('file');
+            $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
+           // $image = str_replace(' ', '+', $file_path_name);
+           // $imageName = str_random(10).'.'.'png';
+            // return $imageName;
+            // exit();
+            $file->move('uploads/', $file_path_name);
+        }
+
+        Mail::to($emails)->send(new SendMailable($subject,$body,$file_path_name));
     }
 
     /**

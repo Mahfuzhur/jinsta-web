@@ -10,15 +10,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SendMailable extends Mailable
 {
     use Queueable, SerializesModels;
-
+    
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($subject, $body,$filename)
     {
-        //
+        $this->subject = $subject;
+        $this->body = $body;
+        $this->filename = $filename;
     }
 
     /**
@@ -28,6 +30,9 @@ class SendMailable extends Mailable
      */
     public function build()
     {
-        return $this->view('email.name');
+        return $this->from('dosnixtech@gmail.com','jinsta')->view('email.name')->with([
+                        'subject' => $this->subject,
+                        'body' => $this->body,
+                    ])->subject($this->subject)->attach('uploads/'.$this->filename);
     }
 }

@@ -79,6 +79,11 @@ Route::get('/all-company-list','AdminController@allCompanyList');
 Route::post('/admin-logout','AdminController@adminLogout');
 Route::get('/all-email','AdminController@allEmailList');
 Route::get('/send/mail','AdminController@mail');
+
+Route::post('/admin-email-compose','AdminController@emailCompose');
+Route::post('/admin-email-sent','AdminController@emailSent');
+
+
 Route::get('admin-email','AdminController@emailList');
 Route::get('/edit-company-info/{id}','AdminController@editCompanyInfo');
 Route::post('/update-company-info/{id}','AdminController@updateCompanyInfo');
@@ -91,6 +96,7 @@ Route::get('/edit-setting/{id}','AdminController@editSetting');
 Route::post('/update-setting/{id}','AdminController@updateSetting');
 Route::get('/invoice', 'AdminController@invoice');
 Route::get('/invoice-details', 'AdminController@invoiceDetails');
+
 
 
 
