@@ -17,8 +17,8 @@
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
                     <input type='checkbox' name='showhide' onchange="checkAll(this)"><span style="font-weight: bold;">Select All</span>
 
-                <div style="margin-bottom: 15px;margin-left: 10px;">
-                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>
+<!--                <div style="margin-bottom: 15px;margin-left: 10px;">-->
+<!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
 
                 </div>
                   <form action="{{URL::to('admin-email-compose')}}" method="post">

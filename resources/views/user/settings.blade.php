@@ -43,12 +43,12 @@
 
                     <div style="margin-left: 60%">
                         
-                        <button onclick="return confirm('Do you really want to Save this item?');"
-                                type="submit" class="btn btn-success"
-                                data-original-title="Delete Item" data-toggle="tooltip"
-                                data-placement="top" title="">Save
-                        </button>
-<!--                        <button onclick="myFunction()">Click me</button>-->
+<!--                        <button onclick="return confirm('Do you really want to Save this item?');"-->
+<!--                                type="submit" class="btn btn-success"-->
+<!--                                data-original-title="Delete Item" data-toggle="tooltip"-->
+<!--                                data-placement="top" title="">Save-->
+<!--                        </button>-->
+                        <button onclick="myFunction()">Click me</button>
                     </div>
                 </div>
             </div>
