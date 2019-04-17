@@ -21,6 +21,7 @@ use App\HashtagSchedule;
 use App\TemplateSchedule;
 use App\UserSchedule;
 
+
 class UserController extends Controller
 {
     /**

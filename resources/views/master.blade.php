@@ -21,6 +21,7 @@
 
 
 
+
     <title>
     @if(isset($title))
     {{$title}}
