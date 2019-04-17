@@ -6,7 +6,7 @@
             <div class="col-md-12">
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Edit Company Information</h4>   
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Change Information</h4>   
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -33,7 +33,7 @@
                     <label>Mobile</label>
                     <input type="text" name="mobile" class="form-control" value="{{$single_company_info->mobile}}" placeholder="Enter mobile" required="">
                     <br>
-                    <button type="submit" class="btn btn-success btn-md">Update</button>
+                    <button type="submit" class="btn btn-success btn-md">Save Changes</button>
                   </form>
                 </div>
               </div>                    

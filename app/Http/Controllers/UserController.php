@@ -11,6 +11,7 @@ use File;
 use Excel;
 use DB;
 use Session;
+use Alert;
 use InstagramAPI;
 use App\Template;
 use App\Hashtag;
@@ -222,6 +223,11 @@ class UserController extends Controller
             $invoice = DB::table('invoice')->get()->all();
             $user_main_content = view('user.invoice_details',compact('invoice'));
             return view('master',compact('user_main_content'));
+    }
+    public function settings()
+    {
+        $user_main_content = view('user.settings');
+        return view('master',compact('user_main_content'));
     }
 
     public function editTemplate($id)
