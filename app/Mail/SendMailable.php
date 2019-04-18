@@ -16,11 +16,11 @@ class SendMailable extends Mailable
      *
      * @return void
      */
-    public function __construct($subject, $body)
+    public function __construct($subject, $body,$filename)
     {
         $this->subject = $subject;
         $this->body = $body;
-        //$this->filename = $filename;
+        $this->filename = $filename;
     }
 
     /**
@@ -30,13 +30,13 @@ class SendMailable extends Mailable
      */
     public function build()
     {
-        return $this->view('email.name')->with([
-            'subject' => $this->subject,
-            'body' => $this->body,
-        ])->subject($this->subject);
-//        return $this->view('email.name')->with([
-//                        'subject' => $this->subject,
-//                        'body' => $this->body,
-//                    ])->subject($this->subject)->attach('uploads/'.$this->filename);
+                return $this->from('dosnixtech@gmail.com','jinsta')
+                    ->view('email.name')
+                    ->with([
+                    'body' => $this->body
+                ])
+                    ->subject($this->subject)
+                    ->attach('uploads/'.$this->filename);
+
     }
 }
