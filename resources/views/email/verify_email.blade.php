@@ -1,0 +1,1 @@
+<a href="{{URL::to('verify/'.$token)}}">verify</a>

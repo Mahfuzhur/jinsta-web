@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Session;
 use Auth;
 use DB;
+use App\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyMail;
 use InstagramAPI;
 use App\Exceptions\Handler;
 use InstagramAPI\Instagram;
@@ -60,6 +63,14 @@ class LoginController extends Controller
              $result = DB::table('users')
                 ->where('id', $user_id)
                 ->update(['instagram_username' => $userName,'instagram_password' => $password]);
+             if (isset($result)){
+                 $token = str_random(40);
+                 $user = User::find($user_id);
+                 $user->verify_email = $token;
+                 Mail::to($user->email)->send(new VerifyMail($token));
+                 $user->save();
+             }
+
             return redirect('registration-success');
         }
         catch (\Exception $ex){
