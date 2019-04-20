@@ -20,6 +20,8 @@ use App\Schedule;
 use App\HashtagSchedule;
 use App\TemplateSchedule;
 use App\UserSchedule;
+use App\Setting;
+use App\User;
 
 class UserController extends Controller
 {
@@ -138,10 +140,16 @@ class UserController extends Controller
 
             $numberOfLists = Schedule::count();
             $numberSent = Client::where([['dm_sent', '=', '1']])->count();
+
+            $trial_period = Setting::select('trial_period')->first();
+            $company_info = User::where([['id','=',$user_id]])->first();
+            $added_date = \Carbon\Carbon::parse($company_info->updated_at)->addDays($trial_period->trial_period);
+            $today = \Carbon\Carbon::today()->addDays(0);
+
             $title = 'Index page';
             $user_main_content = view('user.dashboard',compact('numberOfLists','numberSent','json_selfinfo','data_info','last_day','last_month','last_week'));
 
-            return view('master',compact('user_main_content','title'));
+            return view('master',compact('user_main_content','title','added_date','today','company_info'));
         }else{
             return redirect ('user-login');
         }
@@ -703,8 +711,9 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $title = 'ご請求';
         $request = 'active';
+        $message_rate = Setting::select('message_rate')->first();
         $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
-        $user_main_content = view('user.request',compact('numberSent'));
+        $user_main_content = view('user.request',compact('numberSent','message_rate'));
         return view('master',compact('user_main_content','request','title'));
         }else{
             return redirect ('user-login');

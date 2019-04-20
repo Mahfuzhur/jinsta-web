@@ -77,7 +77,7 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $all_company = DB::table('users')->whereIn('account_status',[2,3])->get();
+            $all_company = User::whereIn('account_status',[2,3])->get();
             $main_content = view('admin.dashboard.all_company_info',compact('all_company'));
             return view('admin.dashboard.master',compact('main_content','active_company_list'));
         }else{
@@ -246,6 +246,43 @@ class AdminController extends Controller
             $invoice = DB::table('invoice')->get()->all();
             $main_content = view('admin.dashboard.invoice_details',compact('invoice'));
             return view('admin.dashboard.master',compact('main_content','active_invoice'));
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function composeMailTrialCompany(Request $request){
+
+        if($this->is_admin_login_check() != null){
+
+            $active_trial = 'active';
+            $emails = $request->input('email');
+            // echo "<pre>";
+            // print_r($emails);
+            // exit();
+            $main_content = view('admin.dashboard.trial_company_mail',compact('emails'));
+            return view('admin.dashboard.master',compact('main_content','active_trial'));
+
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function sendMailTrialCompany(Request $request){
+
+        if($this->is_admin_login_check() != null){
+
+            $email = $request->input('email');
+            $subject = $request->input('subject');
+            $body = $request->input('body');
+            if (Input::hasFile('file')) {
+                $file = Input::file('file');
+                $filepath = rand(1,10).$file->getClientOriginalName();
+                $file->move('uploads/',$filepath);
+            }
+
+            Mail::to($email)->send(new SendMailable($subject,$body,$filepath));
+
         }else{
             return redirect('/');
         }

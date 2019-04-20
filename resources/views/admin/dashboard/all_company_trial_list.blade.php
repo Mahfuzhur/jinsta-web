@@ -7,8 +7,12 @@
 
               <div class="progress_view">
                 <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>All Trial List</h4> 
+                <form action="{{URL::to('compose-mail-trial-company')}}" method="post">
+                  {{csrf_field()}}
+                
                 <div style="margin-bottom: 15px;margin-left: 10px;">
-                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>
+                  <input type="checkbox" name="email" onchange="ckeckalltrialcompany(this);"> <span style="font-weight: bold;">Select All</span>
+                  <button type="submit" class="btn btn-success btn-sm pull-right">Send Mail</button>
                 </div>
                   <table class="table table-hover">
                     <thead>
@@ -21,14 +25,14 @@
                         <th scope="col">Trail Duration</th>
                         <th scope="col">Expire Date</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <!-- <th scope="col">Action</th> -->
                       </tr>
                     </thead>
                     <tbody>
                       @if(isset($all_company_trial_list))
                         @foreach($all_company_trial_list as $company_trial_list)
                         <tr>
-                          <td><input type="checkbox" name=""></td>
+                          <td><input type="checkbox" name="email[]" value="{{$company_trial_list->email}}"></td>
                           <td>{{$company_trial_list->name}}</td>
                           <td>{{$company_trial_list->company_name}}</td>
                           <td>{{$company_trial_list->email}}</td>
@@ -46,14 +50,15 @@
                           @else
                           <td style="color: red;">Trial Expired</td>
                           @endif
-                          <td>
+                          <!-- <td>
                           <a href="{{URL::to('send-mail-trial-company/'.$company_trial_list->id)}}" title="Send Mail" class="btn btn-success btn-sm">Send Mail</a>
-                          </td>
+                          </td> -->
                         </tr>
                         @endforeach
                       @endif
                     </tbody>
                   </table>
+                  </form>
               </div>                    
             </div> 
         </div>
@@ -66,4 +71,25 @@
            </div>
         </div>           
   </div>
+
+  <script type="text/javascript">
+    
+    function ckeckalltrialcompany(e){
+      var all_checkbox_list = document.getElementsByName('email[]');
+
+      console.log(all_checkbox_list);
+
+      if(e.checked){
+        for (var i = 0;i < all_checkbox_list.length; i++) {
+          all_checkbox_list[i].checked = true;
+        }
+      }else{
+        for (var i = 0; i < all_checkbox_list.length; i++) {
+          all_checkbox_list[i].checked = false;
+        }
+      }
+
+    }
+
+  </script>
 @endsection

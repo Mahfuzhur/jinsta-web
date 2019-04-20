@@ -1,6 +1,41 @@
 @extend('master')
 @section('user_main_content')
-<div id="page-content-wrapper">        
+<div id="page-content-wrapper"> 
+
+<!-- <input type="button" class="btn btn-lg btn-primary show-modal" value="Show Demo Modal"> -->
+    
+    <!-- Modal HTML -->
+    <form action="{{URL::to('save-user-extra-information')}}" method="post">
+      {{csrf_field()}}
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  
+                    <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                    <h4 class="modal-title"><span style="color: red;">Trial Expire</span>. Give below information</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <input type="text" name="" class="form-control" placeholder="Name">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="" class="form-control" placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <textarea name="address" class="form-control" placeholder="Address" rows="4"></textarea>
+                  </div>
+                    <!-- <p>Do you want to save changes you made to document before closing?</p>
+                    <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p> -->
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <button type="submit" class="btn btn-info">Save</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+  </form>      
 
   <div class="container-fluid">
     <div class="row row-eq-height">
@@ -290,6 +325,7 @@
     </div>
   </div>
 </div>
+
 @endsection
 
 

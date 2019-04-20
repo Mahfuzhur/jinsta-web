@@ -187,7 +187,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <!-- custom js -->
     <script src="{{asset('assets/js/main.js')}}"></script>
-
+    @if(isset($added_date))
+      @if($added_date <= $today && $company_info->account_status == 1)
+      <script type="text/javascript">
+        $(document).ready(function(){
+              // $(".show-modal").click(function(){
+              $("#myModal").modal({
+                  backdrop: 'static',
+                  keyboard: false
+              });
+          // });
+        });
+      </script>
+      @endif
+      @endif
     <script>
 
       // $(document).ready(function(){

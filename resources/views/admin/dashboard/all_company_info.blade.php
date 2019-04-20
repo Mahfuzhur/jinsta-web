@@ -57,7 +57,26 @@
                           <td style="color: green;">Active</td>
                           @endif
                           <td>
-                          
+                            <form action="URL::to('suspend-company-info')" method="post">
+                              {{csrf_field()}}
+                              <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manage
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}">Edit</a>
+                                <a class="dropdown-item" href="{{URL::to('delete-company-info/'.$company->id)}}" onclick="return check_delete();">Delete</a>
+                                @if($company->account_status == 2)
+                                <a class="dropdown-item" href="javascript:void(0);" title="Make Active" value="{{$company->id}}" onclick="suspend_user({{$company->id}});">Active</a>
+                                @elseif($company->account_status == 3)
+                                <a class="dropdown-item" href="javascript:void(0);" title="Make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}});">Suspend</a>
+                                @endif
+                                <!-- <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Separated </a>
+                              </div> -->
+                            </div>
+                          </form>
                             <!-- <select class="btn btn-success btn-md">
                               <option>Manage</option>
                               <option><a href="{{URL::to('edit-company-info/'.$company->id)}}">Edit</a></option>
@@ -65,7 +84,7 @@
                               <option><a href="#">Suspend</a></option>
                               <option><a href="#">Extra</a></option>
                             </select> -->
-                            <form action="URL::to('suspend-company-info')" method="post">
+                            <!-- <form action="URL::to('suspend-company-info')" method="post">
                               {{csrf_field()}}
                               
                             <a href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}" title="Edit"><i class="fa fa-edit"></i></a>
@@ -78,7 +97,7 @@
                               <a href="javascript:void(0);" title="make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}});"><i class="fa fa-remove"></i></a>
                               @endif                        
                               
-                            </form>
+                            </form> -->
                           </td>
                         </tr>
                         <?php
