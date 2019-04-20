@@ -174,74 +174,86 @@
 
         </div>
 
-    </div>
-    <!-- /#sidebar-wrapper -->
+        <!-- /#sidebar-wrapper -->
 
-    <!-- Page Content -->
-    @yield('user_main_content')
-    <!-- /#page-content-wrapper -->
-</div>
+        <!-- Page Content -->
+        @yield('user_main_content')
+          <!-- /#page-content-wrapper -->
+      </div>
 
 
-<!-- jquery core -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- jquery core -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<!-- bootstrap js -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<!-- custom js -->
-<script src="{{asset('assets/js/main.js')}}"></script>
+    <!-- bootstrap js -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <!-- custom js -->
+    <script src="{{asset('assets/js/main.js')}}"></script>
+    @if(isset($added_date))
+      @if($added_date <= $today && $company_info->account_status == 1)
+      <script type="text/javascript">
+        $(document).ready(function(){
+              // $(".show-modal").click(function(){
+              $("#myModal").modal({
+                  backdrop: 'static',
+                  keyboard: false
+              });
+          // });
+        });
+      </script>
+      @endif
+      @endif
+    <script>
 
-<script>
+      // $(document).ready(function(){
+ 
+      //    $("#but_search").click(function(){
+      //     var search = $('#hashtag').val();
+      //     var token = $('meta[name="csrf-token"]').attr('content');
+      //     // console.log(token);
 
-    // $(document).ready(function(){
+      //     jQuery.ajax({
+      //       type: "POST",
+      //       url: "{{URL::to('hashtag-list-search')}}",
+      //       data: {
+      //       "_method": 'POST',
+      //       "_token": token,
+      //       "search": search,
+      //       },
+      //      dataType: 'html',
+           
+      //      beforeSend: function(){
+      //       // Show image container
+      //       $("#loader").show();
+      //      },
+      //      success: function(response){
+      //       if(response.success){
+      //         $('.hashtag_search_alert').html(result.success);
+      //       }else{
+      //         $('.response').empty();
+      //         $('.response').append(response);
+      //       }
+            
+      //      },
+      //      complete:function(data){
+      //       // Hide image container
+      //       $("#loader").hide();
+      //      }
+      //     });
+         
+      //    });
+      //   });
+      // custom date format
+      $(function(){
+        $("#delivery_pr_start").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#delivery_pr_end").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#except_start").datepicker({ dateFormat: 'dd-mm-yy'});
+        $("#except_end").datepicker({ dateFormat: 'dd-mm-yy'});
+      });
 
-    //    $("#but_search").click(function(){
-    //     var search = $('#hashtag').val();
-    //     var token = $('meta[name="csrf-token"]').attr('content');
-    //     // console.log(token);
+      function readURL(input) { 
 
-    //     jQuery.ajax({
-    //       type: "POST",
-    //       url: "{{URL::to('hashtag-list-search')}}",
-    //       data: {
-    //       "_method": 'POST',
-    //       "_token": token,
-    //       "search": search,
-    //       },
-    //      dataType: 'html',
-
-    //      beforeSend: function(){
-    //       // Show image container
-    //       $("#loader").show();
-    //      },
-    //      success: function(response){
-    //       if(response.success){
-    //         $('.hashtag_search_alert').html(result.success);
-    //       }else{
-    //         $('.response').empty();
-    //         $('.response').append(response);
-    //       }
-
-    //      },
-    //      complete:function(data){
-    //       // Hide image container
-    //       $("#loader").hide();
-    //      }
-    //     });
-
-    //    });
-    //   });
-    // custom date format
-    $(function () {
-        $("#delivery_pr_start").datepicker({dateFormat: 'dd-mm-yy'});
-        $("#delivery_pr_end").datepicker({dateFormat: 'dd-mm-yy'});
-        $("#except_start").datepicker({dateFormat: 'dd-mm-yy'});
-        $("#except_end").datepicker({dateFormat: 'dd-mm-yy'});
-    });
-
-    function readURL(input) {
         $('.preview').show();
         $('#blah').hide();
         // $('#title').hide();

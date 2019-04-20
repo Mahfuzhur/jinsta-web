@@ -1,4 +1,7 @@
-<a href="{{URL::to('verify/'.$token)}}">verify</a>
+
+
+<!--<button href="{{URL::to('verify/'.$token)}}">verify</button>-->
+<!--<a href="{{URL::to('verify/'.$token)}}">verify</a>-->
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,14 +18,14 @@
 <body>
 <div class="card text-center">
     <div class="card-header">
-        <img src="{{asset('assets/img/logo.png')}}" alt="">
+<!--        <img src="{{asset('assets/img/logo.png')}}" alt="">-->
         <p class="card-text"><b>Confirm Your Email</b></p>
     </div>
     <div class="card-body">
         <h5 class="card-title">Dear Mahmudul,</h5>
         <p class="card-text">Thanks for Joining our International community. To Complete your Registration, Please
             Confirm Your Email Address:</p>
-        <a href="#" class="btn btn-success">Confirm Email</a>
+        <a href="{{URL::to('verify/'.$token)}}" class="btn btn-success">Confirm Email</a>
         <p class="card-text">This Link is Unique to Your Account and Can't be Shared. It Will Expire in 14 Days. If You
             Need any help you can always reach us at <b>dosnixtech@gmail.com</b>
             <br>
@@ -47,5 +50,6 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+
 
 
