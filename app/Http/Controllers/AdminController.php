@@ -153,7 +153,7 @@ class AdminController extends Controller
                 User::where('id',$id)->update(array('account_status' => 2));
             }
             
-            $all_company = DB::table('users')->whereIn('account_status',[2,3])->get();
+            $all_company = User::whereIn('account_status',[2,3])->get();
             // return redirect('/all-company-list')->with('suspend_msg','Company suspend successfully.');
             return view('admin.dashboard.ajax_suspend_list',compact('all_company'));
         }else{
