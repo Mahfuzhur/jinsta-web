@@ -96,6 +96,7 @@ Route::get('/edit-setting/{id}','AdminController@editSetting');
 Route::post('/update-setting/{id}','AdminController@updateSetting');
 Route::get('/invoice', 'AdminController@invoice');
 Route::get('/invoice-details', 'AdminController@invoiceDetails');
+Route::get('/verify/{token}', 'UserController@verifyEmail');
 
 
 

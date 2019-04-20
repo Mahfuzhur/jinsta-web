@@ -1,4 +1,3 @@
 <div>
-    subject: {{$subject}}<br>
-    body: {{body}
+     {{$body}}
 </div>

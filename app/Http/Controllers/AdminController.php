@@ -305,7 +305,7 @@ class AdminController extends Controller
     public function mail()
     {
         $name = 'Krunal';
-        Mail::to('mahfuzhur@gmail.com')->send(new SendMailable('2','2'));
+        Mail::to('mahfuzhur@gmail.com')->send(new SendMailable());
 
         return 'Email was sent';
     }
@@ -314,7 +314,7 @@ class AdminController extends Controller
         $emails = $request->input('email');
         $subject = $request->input('subject');
         $body = $request->input('body');
-        $body = $request->input('file');
+
         if (Input::hasFile('file')) {
             $file = Input::file('file');
             $file_path_name = rand(1, 10000000) . $file->getClientOriginalName();
@@ -325,7 +325,8 @@ class AdminController extends Controller
             $file->move('uploads/', $file_path_name);
         }
 
-        Mail::to($emails)->send(new SendMailable($subject,$body,$file_path_name));
+        $result = Mail::to($emails)->send(new SendMailable($subject,$body,$file_path_name));
+        echo $result;
     }
 
     /**
