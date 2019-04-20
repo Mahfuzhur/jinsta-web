@@ -12,10 +12,12 @@ use File;
 use Excel;
 use DB;
 use Session;
+use Alert;
 use InstagramAPI;
 use App\Template;
 use App\Hashtag;
 use App\Client;
+use App\User;
 use App\Schedule;
 use App\HashtagSchedule;
 use App\TemplateSchedule;
@@ -1201,6 +1203,21 @@ class UserController extends Controller
         }else{
             return redirect ('user-login');
         }
+    }
+    public function verifyEmail($token){
+        $this->user = User::where('verify_email',$token)->first();
+
+
+        if ($this->user != null){
+            //print_r($user);
+            $this->user->verify_email = 1;
+            $this->user->save();
+            return redirect('login');
+        }
+        else{
+           echo 'not verified';
+        }
+       
     }
 
     public function index()
