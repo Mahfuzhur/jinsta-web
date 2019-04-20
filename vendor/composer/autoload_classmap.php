@@ -35,6 +35,7 @@ return array(
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Schedule' => $baseDir . '/app/Schedule.php',
+    'App\\Setting' => $baseDir . '/app/Setting.php',
     'App\\Template' => $baseDir . '/app/Template.php',
     'App\\TemplateSchedule' => $baseDir . '/app/TemplateSchedule.php',
     'App\\User' => $baseDir . '/app/User.php',
