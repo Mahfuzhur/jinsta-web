@@ -177,11 +177,13 @@
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        @yield('user_main_content')
+        
           <!-- /#page-content-wrapper -->
       </div>
 
+        @yield('user_main_content')
 
+      </div>
     <!-- jquery core -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

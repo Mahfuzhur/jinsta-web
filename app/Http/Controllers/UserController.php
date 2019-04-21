@@ -23,7 +23,7 @@ use App\HashtagSchedule;
 use App\TemplateSchedule;
 use App\UserSchedule;
 use App\Setting;
-use App\User;
+// use App\User;
 
 class UserController extends Controller
 {
