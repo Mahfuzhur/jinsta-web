@@ -17,6 +17,14 @@
     <title>
     Dashboard
   </title>
+      <style>
+          .email {
+              background-color: white;
+              width: 623px;
+              height: 110px;
+              overflow: scroll;
+          }
+      </style>
 
     <script type="text/javascript">
 
