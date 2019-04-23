@@ -40,7 +40,7 @@
                         @endforeach
 
                         <label for="temp_regi">
-                            
+
                         </label>
                         <input type="text" class="form-control title" id="text" name="subject" maxlength="170" placeholder="subject" rows="5">
 
