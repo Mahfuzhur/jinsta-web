@@ -95,14 +95,14 @@ Route::post('/add-setting','AdminController@addSetting');
 Route::get('/edit-setting/{id}','AdminController@editSetting');
 Route::post('/update-setting/{id}','AdminController@updateSetting');
 Route::get('/invoice', 'AdminController@invoice');
-Route::get('/invoice-details', 'AdminController@invoiceDetails');
+Route::get('/invoice-details/{id}', 'AdminController@invoiceDetails');
 
 Route::post('/compose-mail-trial-company','AdminController@composeMailTrialCompany');
 Route::post('/send-mail-trial-company','AdminController@sendMailTrialCompany');
 
 Route::get('/verify/{token}', 'UserController@verifyEmail');
 
-
+Route::get('/payment-receive/{id}','AdminController@paymentReceive');
 
 
 

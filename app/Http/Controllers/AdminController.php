@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMailable;
 use App\Setting;
 use Illuminate\Support\Facades\Input;
+use Auth;
 
 
 
@@ -232,18 +233,25 @@ class AdminController extends Controller
     {
         if($this->is_admin_login_check() != null){
             $active_invoice = 'active';
-            $main_content = view('admin.dashboard.invoice');
+            $all_company = User::where([['account_status','=',3]])->get()->all();
+            // $all_company = User::selectRaw('users.company_name,users.email, count(invoice.invoice_id) as invoice_no')
+            //      ->leftJoin('invoice', 'users.id', '=', 'invoice.user_id')
+            //      ->where([['users.account_status','=',3]])
+            //      ->groupBy('users.id')
+            //      ->get();
+            $main_content = view('admin.dashboard.invoice',compact('all_company'));
             return view('admin.dashboard.master',compact('main_content','active_invoice'));
         }else{
             return redirect('/');
         }
     }
 
-    public function invoiceDetails()
+    public function invoiceDetails($id)
     {
         if($this->is_admin_login_check() != null){
             $active_invoice = 'active';
-            $invoice = DB::table('invoice')->get()->all();
+
+            $invoice = DB::table('invoice')->where('user_id',Crypt::decrypt($id))->get()->all();
             $main_content = view('admin.dashboard.invoice_details',compact('invoice'));
             return view('admin.dashboard.master',compact('main_content','active_invoice'));
         }else{
@@ -283,6 +291,18 @@ class AdminController extends Controller
 
             Mail::to($email)->send(new SendMailable($subject,$body,$filepath));
 
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function paymentReceive($id)
+    {
+        if($this->is_admin_login_check() != null){
+            $active_invoice = 'active';
+
+            $invoice = DB::table('invoice')->where('invoice_id',Crypt::decrypt($id))->update(['billing_status' => 'paid']);
+            return back()->with('payment_msg','Payment successfull');
         }else{
             return redirect('/');
         }
