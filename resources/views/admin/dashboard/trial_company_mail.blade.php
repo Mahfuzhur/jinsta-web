@@ -30,15 +30,17 @@
                         <label for="temp_regi">
                             To :
                         </label>
-                        @foreach($emails as $email)
-                        {{$email}},
-                        @endforeach
+                        <div class="email">
+                            @foreach($emails as $email)
+                            {{$email}},
+                            @endforeach
+                        </div>
                         @foreach($emails as $email)
                             <input type="hidden" name="email[]" value="{{$email}}">
                         @endforeach
-                        <hr>
+
                         <label for="temp_regi">
-                            Subject
+
                         </label>
                         <input type="text" class="form-control title" id="text" name="subject" maxlength="170" placeholder="subject" rows="5">
 
