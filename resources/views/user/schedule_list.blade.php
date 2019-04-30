@@ -15,14 +15,15 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">SL</th>
-                        <th scope="col">Hashtag</th>
-                        <th scope="col">Template</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">End Date</th>
-                        <th scope="col">Start Time</th>
-                        <th scope="col">End Time</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">#</th>
+                        <th scope="col">ハッシュタグ</th>
+                        <th scope="col">テンプレート</th>
+                        <th scope="col">配信開始日</th>
+                        <th scope="col">配信終了日</th>
+                        <th scope="col">開始時刻</th>
+                        <th scope="col">終了時刻</th>
+                        <th scope="col">ステータス</th>
+                        <th scope="col">アクション</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,10 @@
                         }else{
                           $i = 1;
                         }
+
+                        // $date = \Carbon\Carbon::today()->format('d-m-Y');
+                        // echo $date;
+                        // exit();
                         
                       ?>
                       @if(isset($all_schedule))
@@ -43,11 +48,24 @@
                           <td>{{$schedule->delivery_period_start}}</td>
                           <td>{{$schedule->delivery_period_end}}</td>
                           <?php
+                          $current_date = \Carbon\Carbon::today()->format('Y-m-d');
+                          $start_date = \Carbon\Carbon::parse($schedule->delivery_period_start)->format('Y-m-d');
+                          $end_date = \Carbon\Carbon::parse($schedule->delivery_period_end)->format('Y-m-d');
+
+                          // echo $current_date.','.$start_date.','.$end_date;
+                          // exit();
                             $start_time = \Carbon\Carbon::parse($schedule->specify_time_start)->addHour(9)->format('H:i');
                             $end_time = \Carbon\Carbon::parse($schedule->specify_time_end)->addHour(9)->format('H:i');
                           ?>
                           <td>{{$start_time}}</td>
                           <td>{{$end_time}}</td>
+                          @if($current_date >= $start_date && $current_date <= $end_date)
+                          <td style="color: green;">ランニング</td>
+                          @elseif($current_date < $start_date)
+                          <td style="color: #bbbb24;">保留中</td>
+                          @else($current_date > $end_date)
+                          <td style="color: red;">期限切れ</td>
+                          @endif
                           <td>
                             <form action="{{URL::to('schedule-action')}}" method="post">
                               {{csrf_field()}}
@@ -57,17 +75,17 @@
 
                               @if($schedule->status == 1)
                               <!-- <input type="submit" name="" class="btn btn-danger btn-sm" value="Stop"> -->
-                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">Stop</button>
+                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">停止</button>
 
-                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">Start</button>
+                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">削除</button>
 
                               @elseif($schedule->status == 0)
                               <!-- <input type="submit" name="" class="btn btn-success btn-sm" value="Start"> -->
-                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">Start</button>
+                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">削除</button>
 
-                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">Stop</button>
+                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">停止</button>
                               @endif
-                              <a href="{{URL::to('schedule-delete/'.$schedule->s_id)}}" class="btn btn-danger btn-sm" onclick="return confirm_click();">Delete</a>
+                              <a href="{{URL::to('schedule-delete/'.$schedule->s_id)}}" class="btn btn-danger btn-sm" onclick="return confirm_click();">削除する</a>
                             </form>
                             
                           </td>
