@@ -31,16 +31,28 @@
 
                         ?>
 
-                        <tr>
-                            <td>{{$i}}</td>
-                            <td>Name</td>
-                            <td>name@gmail.com</td>
-                            <td>4</td>
-                            <td>1</td>
-                            <td>
-                                <button type="button" name="btn" class="btn btn-success">Payment</button>
-                            </td>
-                        </tr>
+                        @if(isset($all_company))
+                        @foreach($all_company as $company)
+                            <tr>
+                                <td>{{$i}}</td>
+                                <td>{{$company->company_name}}</td>
+                                <td>{{$company->email}}</td>
+                                <?php                               
+                                    $paid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status','paid']])->count();
+                                    $unpaid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status','unpaid']])->count();
+                                ?>
+                                <td>{{$paid_invoice}}</td>
+                                <td>{{$unpaid_invoice}}</td>
+                                <td>
+                                    <!-- <button type="button" name="btn" class="btn btn-success">Details</button> -->
+                                    <a href="{{URL::to('invoice-details/'.Crypt::encrypt($company->id))}}" class="btn btn-success">Details</a>
+                                </td>
+                            </tr>
+                        <?php
+                            $i++;
+                        ?>
+                        @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
