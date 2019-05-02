@@ -15,7 +15,7 @@
 
                 <div style="margin-bottom: 15px;">
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
-                    <input type='checkbox' name='showhide' onchange="checkAll(this)"><span style="font-weight: bold;">Select All</span>
+                    <input type='checkbox' name='showhide' onchange="checkAll(this)"><span style="font-weight: bold;">すべて選択</span>
 
 <!--                <div style="margin-bottom: 15px;margin-left: 10px;">-->
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
@@ -26,10 +26,10 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">Mark</th>
-                        <th scope="col">Company Name</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">マーク</th>
+                        <th scope="col">会社名</th>
+                        <th scope="col">担当者名</th>
+                        <th scope="col">メールアドレス</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -67,18 +67,18 @@
               </nav> 
 
               <div>
-                <button type="submit" class="btn btn-success btn-sm">Compose Mail</button>
+                <button type="submit" class="btn btn-success btn-sm">メール作成</button>
               </div>
             </form>
         </div>
         
-        <div class="envelope_area">
-           <div class="envelope">
-              <a href="#">
-                <img src="{{asset('assets/img/message64.png')}}" alt="">
-              </a>
-           </div>
-        </div>           
+<!--        <div class="envelope_area">-->
+<!--           <div class="envelope">-->
+<!--              <a href="#">-->
+<!--                <img src="{{asset('assets/img/message64.png')}}" alt="">-->
+<!--              </a>-->
+<!--           </div>-->
+<!--        </div>           -->
   </div>
     <script type='text/javascript'>
 

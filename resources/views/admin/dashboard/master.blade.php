@@ -126,56 +126,56 @@
               @if(isset($active_company_list))
                 <a class="template active" href="{{URL::to('all-company-list')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>
-                  Account List
+                    アカウント管理
                 </a>
               @else
                 <a class="template" href="{{URL::to('all-company-list')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>
-                  Account List
+                    アカウント管理
                 </a>
               @endif
               @if(isset($active_mail))
                 <a class="Plan active" href="{{URL::to('all-email')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Mail
+                    請求担当者管理
                 </a>
               @else
                 <a class="Plan" href="{{URL::to('all-email')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Mail
+                    請求担当者管理
                 </a>
               @endif
               @if(isset($active_trial))
                 <a class="Plan active" href="{{URL::to('all-trial-company-list')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Trial List
+                    お試しリスト
                 </a>
               @else
                 <a class="Plan" href="{{URL::to('all-trial-company-list')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Trial List
+                    お試しリスト
                 </a>
               @endif
-              @if(isset($active_setting))
-                <a class="Plan active" href="{{URL::to('settings')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Settings
-                </a>
-              @else
-                <a class="Plan" href="{{URL::to('settings')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Settings
-                </a>
-              @endif
+<!--              @if(isset($active_setting))-->
+<!--                <a class="Plan active" href="{{URL::to('settings')}}">-->
+<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+<!--                    設定-->
+<!--                </a>-->
+<!--              @else-->
+<!--                <a class="Plan" href="{{URL::to('settings')}}">-->
+<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+<!--                    設定-->
+<!--                </a>-->
+<!--              @endif-->
               @if(isset($active_invoice))
                 <a class="Plan active" href="{{URL::to('invoice')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Invoice
+                    請求管理
                 </a>
               @else
                 <a class="Plan" href="{{URL::to('invoice')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                  Invoice
+                    請求管理
                 </a>
               @endif
               <!-- 

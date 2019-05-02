@@ -26,12 +26,12 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">SL</th>
-                            <th scope="col">Invoice No.</th>
-                            <th scope="col">Issue Date</th>
-                            <th scope="col">Due Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">#</th>
+                            <th scope="col">請求番号</th>
+                            <th scope="col">発行日</th>
+                            <th scope="col">入金期限</th>
+                            <th scope="col">ステータス</th>
+                            <th scope="col">管理</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -80,12 +80,12 @@
 
         </div>
 
-        <div class="envelope_area">
-            <div class="envelope">
-                <a href="#">
-                    <img src="{{asset('assets/img/message64.png')}}" alt="">
-                </a>
-            </div>
-        </div>
+<!--        <div class="envelope_area">-->
+<!--            <div class="envelope">-->
+<!--                <a href="#">-->
+<!--                    <img src="{{asset('assets/img/message64.png')}}" alt="">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
     @endsection

@@ -13,12 +13,12 @@
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">SL</th>
-                            <th scope="col">Company</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Paid</th>
-                            <th scope="col">Unpaid</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">会社名</th>
+                            <th scope="col" class="text-center">メールアドレス</th>
+                            <th =scope="col" class="text-center">支払済</th>
+                            <th scope="col" class="text-center">未払い</th>
+                            <th scope="col" class="text-center">管理</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -34,18 +34,18 @@
                         @if(isset($all_company))
                         @foreach($all_company as $company)
                             <tr>
-                                <td>{{$i}}</td>
-                                <td>{{$company->company_name}}</td>
-                                <td>{{$company->email}}</td>
+                                <td class="text-center">{{$i}}</td>
+                                <td class="text-center">{{$company->company_name}}</td>
+                                <td class="text-center">{{$company->email}}</td>
                                 <?php                               
                                     $paid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status','paid']])->count();
                                     $unpaid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status','unpaid']])->count();
                                 ?>
-                                <td>{{$paid_invoice}}</td>
-                                <td>{{$unpaid_invoice}}</td>
-                                <td>
+                                <td class="text-center">{{$paid_invoice}}</td>
+                                <td class="text-center">{{$unpaid_invoice}}</td>
+                                <td class="text-center">
                                     <!-- <button type="button" name="btn" class="btn btn-success">Details</button> -->
-                                    <a href="{{URL::to('invoice-details/'.Crypt::encrypt($company->id))}}" class="btn btn-success">Details</a>
+                                    <a href="{{URL::to('invoice-details/'.Crypt::encrypt($company->id))}}" class="btn btn-success">詳細</a>
                                 </td>
                             </tr>
                         <?php
@@ -60,13 +60,13 @@
 
         </div>
 
-        <div class="envelope_area">
-            <div class="envelope">
-                <a href="#">
-                    <img src="{{asset('assets/img/message64.png')}}" alt="">
-                </a>
-            </div>
-        </div>
+<!--        <div class="envelope_area">-->
+<!--            <div class="envelope">-->
+<!--                <a href="#">-->
+<!--                    <img src="{{asset('assets/img/message64.png')}}" alt="">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </div>
 @endsection

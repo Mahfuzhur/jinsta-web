@@ -80,11 +80,11 @@
         </div>
       </div>
 
-        <div class="envelope_area">
-           <div class="envelope">
-              <i class="fa fa-envelope" aria-hidden="true"></i>
-           </div>
-        </div>
+<!--        <div class="envelope_area">-->
+<!--           <div class="envelope">-->
+<!--              <i class="fa fa-envelope" aria-hidden="true"></i>-->
+<!--           </div>-->
+<!--        </div>-->
     </div>
 </div>
 @endsection

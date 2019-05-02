@@ -11,20 +11,20 @@
                   {{csrf_field()}}
                 
                 <div style="margin-bottom: 15px;margin-left: 10px;">
-                  <input type="checkbox" name="email" onchange="ckeckalltrialcompany(this);"> <span style="font-weight: bold;">Select All</span>
-                  <button type="submit" class="btn btn-success btn-sm pull-right">Send Mail</button>
+                  <input type="checkbox" name="email" onchange="ckeckalltrialcompany(this);"> <span style="font-weight: bold;">すべて選択</span>
+                  <button type="submit" class="btn btn-success btn-sm pull-right">メールを送る</button>
                 </div>
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">Mark</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Company Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Mobile</th>
-                        <th scope="col">Trail Duration</th>
-                        <th scope="col">Expire Date</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">マーク</th>
+                        <th scope="col">名</th>
+                        <th scope="col">会社名</th>
+                        <th scope="col">メールアドレス</th>
+                        <th scope="col">モバイル</th>
+                        <th scope="col">トレイル期間</th>
+                        <th scope="col">有効期限</th>
+                        <th scope="col">状態</th>
                         <!-- <th scope="col">Action</th> -->
                       </tr>
                     </thead>
@@ -63,13 +63,13 @@
             </div> 
         </div>
         
-        <div class="envelope_area">
-           <div class="envelope">
-              <a href="#">
-                <img src="{{asset('assets/img/message64.png')}}" alt="">
-              </a>
-           </div>
-        </div>           
+<!--        <div class="envelope_area">-->
+<!--           <div class="envelope">-->
+<!--              <a href="#">-->
+<!--                <img src="{{asset('assets/img/message64.png')}}" alt="">-->
+<!--              </a>-->
+<!--           </div>-->
+<!--        </div>           -->
   </div>
 
   <script type="text/javascript">

@@ -106,12 +106,12 @@
               </nav> 
         </div>
         
-        <div class="envelope_area">
-           <div class="envelope">
-              <a href="#">
-                <img src="{{asset('assets/img/message64.png')}}" alt="">
-              </a>
-           </div>
-        </div>           
+<!--        <div class="envelope_area">-->
+<!--           <div class="envelope">-->
+<!--              <a href="#">-->
+<!--                <img src="{{asset('assets/img/message64.png')}}" alt="">-->
+<!--              </a>-->
+<!--           </div>-->
+<!--        </div>           -->
   </div>
 @endsection
