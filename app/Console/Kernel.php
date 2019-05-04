@@ -11,6 +11,7 @@ use DB;
 use InstagramAPI;
 use GuzzleHttp\Exception\ServerException;
 use App\Client;
+use App\History;
 use Log;
 use Carbon;
 
@@ -47,14 +48,19 @@ class Kernel extends ConsoleKernel
                 ->join('template', 'template.id', '=', 'template_schedule.template_id')
                 ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
                 ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+                ->leftJoin('history', 'client.id', '=', 'history.client_id_fk')
+                ->leftJoin('history as h1', 'hashtag.id', '=', 'h1.hashtag_name')
+                ->leftJoin('history as h2', 'template.id', '=', 'h1.template_name')
+                ->leftJoin('history as h3', 'users.id', '=', 'h1.user_id')
                 ->select('users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
                     ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
                     ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
                     , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
-                    'client.hashtag_id','client.id','template.title','template.description','template.image')
-                ->where([['client.dm_sent','!=','1'],['schedule.status','=','1'],['schedule.delivery_period_start','<=',$current_date],
+                    'client.hashtag_id','client.id','template.title','template.id as template_id','template.description','template.image')
+                ->where([['history.client_id_fk','=',null],['schedule.status','=','1'],['schedule.delivery_period_start','<=',$current_date],
                     ['schedule.delivery_period_end','>=',$current_date]])
                 ->whereNull('schedule.deleted_at')
+                ->groupBy('template.title')
                 ->groupBy('hashtag.hashtag')
                 ->get();
 
@@ -65,12 +71,17 @@ class Kernel extends ConsoleKernel
 
         if ($this->users != null){
             $this->counter = 0;
+
             foreach($this->users as $this->user){
-                // echo '**' .$this->counter++. '*';
+//                 echo '**' .$this->counter. '*';
+//                 exit();
                 $schedule->call(function () {
 
+//                    print_r($this->users[$this->counter]);
+//                    exit();
                     try{
-
+                        echo '**' .$this->counter. '*';
+//                        exit();
 
                         $this->ig = new \InstagramAPI\Instagram();
                         echo $this->users[$this->counter]->client_id;
@@ -83,9 +94,12 @@ class Kernel extends ConsoleKernel
                         $time_in_12_hour_format_ex_start  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_start));
                         $time_in_12_hour_format_end  = date("g:i a", strtotime($this->users[$this->counter]->specify_time_end));
                         $time_in_12_hour_format_ex_end  = date("g:i a", strtotime($this->users[$this->counter]->time_exclusion_setting_end));
+                        $this->history_result = History::where(['user_id' => $this->users[$this->counter]->user_id,'hashtag_name' => $this->users[$this->counter]->hashtag,'client_id'=>$this->users[$this->counter]->client_id,'template_name'=>$this->users[$this->counter]->title ])->get();
+//                        print_r($this->history_result);
+//                        exit();
 
 //
-                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end ){
                             if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
                                 $imagePath = 'uploads/'.$this->users[$this->counter]->image;
                                 $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
@@ -103,28 +117,41 @@ class Kernel extends ConsoleKernel
 
                             }
                         }
-
-
-
 
                     }catch (\Exception $ex){
                         echo "something went wrong";
                     }
                     finally{
 
-                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end){
+                        if($this->users[$this->counter]->specify_time_start <= $this->users[$this->counter]->specify_time_end ){
                             if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
-                                $client = Client::find($this->users[$this->counter]->id);
-                                $client->dm_sent = 1;
-                                $client->save();
+//                                $client = Client::find($this->users[$this->counter]->id);
+//                                $client->dm_sent = 1;
+//                                $client->save();
+                                    $history = new History();
+                                    $history->user_id = $this->users[$this->counter]->user_id;
+                                    $history->hashtag_name = $this->users[$this->counter]->hashtag_id;
+                                    $history->client_id = $this->users[$this->counter]->client_id;
+                                    $history->template_name = $this->users[$this->counter]->template_id;
+                                    $history->client_id_fk = $this->users[$this->counter]->id;
+                                    $history->created_at = Carbon\Carbon::now()->addHour(6);
+                                $history->save();
                                 \Log::info('update ok');
                             }
                         }
-                        elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end){
+                        elseif($this->users[$this->counter]->specify_time_start >= $this->users[$this->counter]->specify_time_end ){
                             if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
-                                $client = Client::find($this->users[$this->counter]->id);
-                                $client->dm_sent = 1;
-                                $client->save();
+//                                $client = Client::find($this->users[$this->counter]->id);
+//                                $client->dm_sent = 1;
+//                                $client->save();
+                                $history = new History();
+                                $history->user_id = $this->users[$this->counter]->user_id;
+                                $history->hashtag_name = $this->users[$this->counter]->hashtag_id;
+                                $history->client_id = $this->users[$this->counter]->client_id;
+                                $history->template_name = $this->users[$this->counter]->template_id;
+                                $history->client_id_fk = $this->users[$this->counter]->id;
+                                $history->created_at = Carbon\Carbon::now()->addHour(6);
+                                $history->save();
                                 \Log::info('update ok');
                             }
                         }
