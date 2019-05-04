@@ -29,6 +29,11 @@
               <div class="sign_in_form">
                 <div class="form_title">
                   <h3>Login</h3>
+                  @if(session('email_verify_message'))
+                    <div class="alert alert-danger">
+                        {{ session('email_verify_message') }}
+                    </div>
+                    @endif
                     @if(session('check'))
                     <div class="alert alert-success">
                         {{ session('check') }}

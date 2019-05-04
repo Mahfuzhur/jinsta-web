@@ -68,9 +68,9 @@
                                 <a class="dropdown-item" href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}">編集</a>
                                 <a class="dropdown-item" href="{{URL::to('delete-company-info/'.$company->id)}}" onclick="return check_delete();">削除</a>
                                 @if($company->account_status == 2)
-                                <a class="dropdown-item" href="javascript:void(0);" title="Make Active" value="{{$company->id}}" onclick="suspend_user({{$company->id}});">活動的</a>
+                                <a class="dropdown-item" href="javascript:void(0);" title="Make Active" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'active');">活動的</a>
                                 @elseif($company->account_status == 3)
-                                <a class="dropdown-item" href="javascript:void(0);" title="Make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}});">サスペンド</a>
+                                <a class="dropdown-item" href="javascript:void(0);" title="Make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'suspend');">サスペンド</a>
                                 @endif
                                 <!-- <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated </a>

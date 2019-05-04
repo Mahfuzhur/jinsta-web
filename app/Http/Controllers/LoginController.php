@@ -68,6 +68,21 @@ class LoginController extends Controller
                  $user = User::find($user_id);
                  $user->verify_email = $token;
                  Mail::to($user->email)->send(new VerifyMail($token));
+
+                //  $data = array(
+                //     'token' => $token
+                // );
+                
+                // $emails = $user->email;
+                
+                // Mail::send('email.verify_email', $data, function($message) use ($data,$emails)
+                // {
+                //     $message->to($emails);
+                //     $message->subject('Account verification email');
+                //     $message->from('info@backslashkey.com');
+                    
+                // });
+                
                  $user->save();
              }
 

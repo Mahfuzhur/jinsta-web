@@ -28,8 +28,12 @@
 
     <script type="text/javascript">
 
-      function suspend_user($id){
-        var id = $id;
+      function suspend_user($id,$status){
+
+        var change_msg = confirm('are you sure to '+$status+' this company?');
+        if(change_msg){
+
+          var id = $id;
           var token = $('meta[name="csrf-token"]').attr('content');
           // console.log(id);
           jQuery.ajax({
@@ -46,6 +50,11 @@
             
            }
           });
+
+        }
+        else{
+          return false;
+        }
 
       }
          function schedule_action($id){
@@ -83,7 +92,7 @@
       <div class="container-fluid">
         <div class="row top_fixed" >
           <div class="header_left logo_top">
-              <a href="{{URL::to('admin-dashboard')}}" class="logo_holder">
+              <a href="{{URL::to('all-company-list')}}" class="logo_holder">
                 <img src="{{asset('assets/img/logo.png')}}" alt="">
               </a>
           </div>
@@ -94,7 +103,7 @@
                     <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                     <ul class="dropdown-item-holder">
                         <li>
-                        <a class="dropdown-item" href="{{URL::to('dashboard')}}">Dashboard</a>
+                        <a class="dropdown-item" href="{{URL::to('all-company-list')}}">Dashboard</a>
                         </li>
                         <li>
                           <a class="dropdown-item" href="{{URL::to('admin-logout')}}" onclick="event.preventDefault();
@@ -145,7 +154,7 @@
                     請求担当者管理
                 </a>
               @endif
-              @if(isset($active_trial))
+              <!-- @if(isset($active_trial))
                 <a class="Plan active" href="{{URL::to('all-trial-company-list')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
                     お試しリスト
@@ -155,7 +164,7 @@
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
                     お試しリスト
                 </a>
-              @endif
+              @endif -->
 <!--              @if(isset($active_setting))-->
 <!--                <a class="Plan active" href="{{URL::to('settings')}}">-->
 <!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->

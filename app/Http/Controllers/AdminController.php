@@ -54,7 +54,7 @@ class AdminController extends Controller
         if(isset($info)){
             Session::put('current_admin_id',$info->id);
             Session::put('current_admin_name',$info->name);
-            return redirect('/admin-dashboard');
+            return redirect('/all-company-list');
         }else{
             return redirect('/admin-login')->with('login_err','Email or Password invalid');
         }
@@ -250,9 +250,9 @@ class AdminController extends Controller
     {
         if($this->is_admin_login_check() != null){
             $active_invoice = 'active';
-
+            $user_info = User::where('id',Crypt::decrypt($id))->first();
             $invoice = DB::table('invoice')->where('user_id',Crypt::decrypt($id))->get()->all();
-            $main_content = view('admin.dashboard.invoice_details',compact('invoice'));
+            $main_content = view('admin.dashboard.invoice_details',compact('invoice','user_info'));
             return view('admin.dashboard.master',compact('main_content','active_invoice'));
         }else{
             return redirect('/');
@@ -301,7 +301,7 @@ class AdminController extends Controller
         if($this->is_admin_login_check() != null){
             $active_invoice = 'active';
 
-            $invoice = DB::table('invoice')->where('invoice_id',Crypt::decrypt($id))->update(['billing_status' => 'paid']);
+            $invoice = DB::table('invoice')->where('invoice_id',Crypt::decrypt($id))->update(['billing_status' => 1]);
             return back()->with('payment_msg','Payment successfull');
         }else{
             return redirect('/');
@@ -381,6 +381,21 @@ class AdminController extends Controller
             // exit();
             $file->move('uploads/', $file_path_name);
         }
+
+       //  $data = array(
+       //      'subject' => $subject,
+       //      'body' => $body
+       // );
+        
+       //  Mail::send('email.name', $data, function($message) use ($data,$file_path_name,$emails)
+       //  {
+       //      $message->to($emails);
+       //      $message->subject($data['subject']);
+       //      $message->from('info@backslashkey.com');
+       //      $message->attach(asset('uploads/'.$file_path_name));
+       //  });
+        
+       //  return redirect('all-email')->with('mail_success','Mail sent successfully');
 
         $result = Mail::to($emails)->send(new SendMailable($subject,$body,$file_path_name));
         echo $result;

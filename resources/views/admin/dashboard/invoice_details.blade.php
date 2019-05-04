@@ -2,16 +2,23 @@
 @section('user_main_content')
 <div id="page-content-wrapper" class="analytics">
     <div class="container-fluid">
-        <!-- <div class="create_btn_holder">
-            <div class="create_new_template">
-                <span class="new_template">更新</span>
-            </div>
-        </div> -->
+        
         <div class="row">
 
             <div class="col-md-12">
 
                 <div class="progress_view">
+                    <div class="create_btn_holder">
+                        <div class="create_invoice_details">
+                            <span class="new_template">{{$user_info->name}}</span><br>
+                            <span class="new_template">{{$user_info->company_name}}</span><br>
+                            <span class="new_template">{{$user_info->mobile}}</span><br>
+                            <span class="new_template">{{$user_info->email}}</span><br>
+                            
+                            <a href="" class="btn btn-success" style="width: 100%;margin-top: 10px;">Update</a>
+                        </div>
+                    </div>
+
                     <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Invoice Details
                     </h4>
 
@@ -53,7 +60,11 @@
                             <td>{{$invoice->invoice_id}}</td>
                             <td>{{$issue_date}}</td>
                             <td>{{$due_date}}</td>
-                            <td>{{$invoice->billing_status}}</td>
+                            @if($invoice->billing_status == 1)
+                            <td style="color: green;">入金済</td>
+                            @elseif($invoice->billing_status == 0)
+                            <td style="color: red;">未入金</td>
+                            @endif
                             <td>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,7 +72,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Send Mail</a>
-                                        @if($invoice->billing_status == 'unpaid')
+                                        @if($invoice->billing_status == 0)
                                         <a class="dropdown-item" href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}">Received</a>
                                         @endif
                                         <a class="dropdown-item" href="#">Creat Invoice</a>
@@ -72,6 +83,7 @@
                                 </div>
                             </td>
                         </tr>
+                        <?php $i++;?>
                         @endforeach
                         </tbody>
                     </table>

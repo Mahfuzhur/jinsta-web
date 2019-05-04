@@ -38,8 +38,8 @@
                                 <td class="text-center">{{$company->company_name}}</td>
                                 <td class="text-center">{{$company->email}}</td>
                                 <?php                               
-                                    $paid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status','paid']])->count();
-                                    $unpaid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status','unpaid']])->count();
+                                    $paid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status',1]])->count();
+                                    $unpaid_invoice = DB::table('invoice')->where([['user_id',$company->id],['billing_status',0]])->count();
                                 ?>
                                 <td class="text-center">{{$paid_invoice}}</td>
                                 <td class="text-center">{{$unpaid_invoice}}</td>

@@ -1,13 +1,13 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">SL</th>
-      <th scope="col">Name</th>
-      <th scope="col">Company Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Mobile</th>
-      <th scope="col">Status</th>
-      <th scope="col">Action</th>
+      <th scope="col">#</th>
+      <th scope="col">名</th>
+      <th scope="col">会社名</th>
+      <th scope="col">メールアドレス</th>
+      <th scope="col">電話番号</th>
+      <th scope="col">ステータス</th>
+      <th scope="col">管理</th>
     </tr>
   </thead>
   <tbody>
@@ -39,15 +39,15 @@
               <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
             <div class="btn-group">
               <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Manage
+                管理する
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}">Edit</a>
-                <a class="dropdown-item" href="{{URL::to('delete-company-info/'.$company->id)}}" onclick="return check_delete();">Delete</a>
+                <a class="dropdown-item" href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}">編集</a>
+                <a class="dropdown-item" href="{{URL::to('delete-company-info/'.$company->id)}}" onclick="return check_delete();">削除</a>
                 @if($company->account_status == 2)
-                <a class="dropdown-item" href="javascript:void(0);" title="Make Active" value="{{$company->id}}" onclick="suspend_user({{$company->id}});">Active</a>
+                <a class="dropdown-item" href="javascript:void(0);" title="Make Active" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'active');">活動的</a>
                 @elseif($company->account_status == 3)
-                <a class="dropdown-item" href="javascript:void(0);" title="Make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}});">Suspend</a>
+                <a class="dropdown-item" href="javascript:void(0);" title="Make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'suspend');">サスペンド</a>
                 @endif
                 <!-- <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Separated </a>

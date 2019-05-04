@@ -687,6 +687,7 @@ span.round-tab {
 .create_btn_holder a:hover{
   color: #ff9b8e;
 }
+
 .create_new_template {
     border: 1px solid #06af94;
     padding: 10px 30px;
@@ -696,6 +697,20 @@ span.round-tab {
     border-radius: 4px;
     width: 230px;
     text-align: center;
+}
+.create_invoice_details {
+    /*border: 1px solid #06af94;*/
+    padding: 10px 30px;
+    /*background-color: #06af94;*/
+    box-shadow: 0px 0px 2px #06af94;
+    color: #3c3434;
+    border-radius: 4px;
+    width: 300px;
+    text-align: left;
+}
+
+.create_invoice_details a:hover{
+    color: #3c3434;
 }
 .create_btn_holder {
     display: flex;
