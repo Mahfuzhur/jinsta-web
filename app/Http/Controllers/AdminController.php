@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\History;
+use App\Invoice;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Crypt;
@@ -251,9 +254,10 @@ class AdminController extends Controller
     {
         if($this->is_admin_login_check() != null){
             $active_invoice = 'active';
+            $user_id = Crypt::decrypt($id);
             $user_info = User::where('id',Crypt::decrypt($id))->first();
             $invoice = DB::table('invoice')->where('user_id',Crypt::decrypt($id))->get()->all();
-            $main_content = view('admin.dashboard.invoice_details',compact('invoice','user_info'));
+            $main_content = view('admin.dashboard.invoice_details',compact('invoice','user_info','user_id'));
             return view('admin.dashboard.master',compact('main_content','active_invoice'));
         }else{
             return redirect('/');
@@ -307,6 +311,35 @@ class AdminController extends Controller
         }else{
             return redirect('/');
         }
+    }
+
+    public function CreateBill(Request $request){
+
+        $year =Carbon::now()->year;
+        $month = $request->month;
+        $user_id = $request->user_id;
+//        echo $year;
+//
+//        exit();
+
+        $result = History::whereYear('created_at', '=', $year)
+            ->whereMonth('created_at', '=', $month)
+            ->where('user_id' , '=',$user_id )
+            ->count();
+        $setting = Setting::select('invoice_grace_time')->get();
+        $day = $setting[0]->invoice_grace_time;
+//        echo  $setting[0]->invoice_grace_time;
+//        exit();
+        $invoice = new Invoice();
+        $invoice-> user_id = $user_id;
+        $invoice-> issue_date = Carbon::now();
+        $invoice-> due_date = Carbon::now()->addDays($day);
+        $invoice-> billing_status = 0;
+        $invoice-> dm_total_number = $result;
+        $invoice-> dm_total_number = $result;
+        $invoice->save();
+
+        return back()->with('invoice','invoice Created');
     }
 
 

@@ -2,12 +2,42 @@
 @section('user_main_content')
 <div id="page-content-wrapper" class="analytics">
     <div class="container-fluid">
-        
+
         <div class="row">
 
             <div class="col-md-12">
-
+                @if(session('invoice'))
+                <div class="alert alert-success">
+                    {{ session('invoice') }}
+                </div>
+                @endif
                 <div class="progress_view">
+                    <form action="{{URL::to('create-bill')}}" method="post">
+                        {{csrf_field()}}
+                        <div class="form-group row">
+                            <label class="col-2 col-form-label">Create Invoice</label>
+                            <div class="col-4">
+                                <select name="month" class="form-control">
+                                    <option value="1">January/{{ date('Y') }}</option>
+                                    <option value="2">February/{{ date('Y') }}</option>
+                                    <option value="3">March/{{ date('Y') }}</option>
+                                    <option value="4">April/{{ date('Y') }}</option>
+                                    <option value="5">May/{{ date('Y') }}</option>
+                                    <option value="6">June/{{ date('Y') }}</option>
+                                    <option value="7">July/{{ date('Y') }}</option>
+                                    <option value="8">August/{{ date('Y') }}</option>
+                                    <option value="9">September/{{ date('Y') }}</option>
+                                    <option value="10">October/{{ date('Y') }}</option>
+                                    <option value="11">November/{{ date('Y') }}</option>
+                                    <option value="12">December/{{ date('Y') }}</option>
+                                </select>
+                                <input name="user_id" value="{{$user_id}}" type="hidden">
+
+                            </div>
+                        </div>
+                        <button type="submit">submit</button>
+                    </form>
+
                     <div class="create_btn_holder">
                         <div class="create_invoice_details">
                             <span class="new_template">{{$user_info->name}}</span><br>
@@ -38,7 +68,10 @@
                             <th scope="col">発行日</th>
                             <th scope="col">入金期限</th>
                             <th scope="col">ステータス</th>
+                            <th scope="col">Total message sent</th>
                             <th scope="col">管理</th>
+
+
                         </tr>
                         </thead>
                         <tbody>
@@ -58,8 +91,9 @@
                             ?>
                             <td>{{$i}}</td>
                             <td>{{$invoice->invoice_id}}</td>
-                            <td>{{$issue_date}}</td>
-                            <td>{{$due_date}}</td>
+                            <td>{{$invoice->issue_date}}</td>
+                            <td>{{$invoice->due_date}}</td>
+                            <td>{{$invoice->dm_total_number}}</td>
                             @if($invoice->billing_status == 1)
                             <td style="color: green;">入金済</td>
                             @elseif($invoice->billing_status == 0)
