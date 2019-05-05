@@ -633,11 +633,12 @@ class UserController extends Controller
             }
         }
         $templates = Template::select('title','id')->where([['user_id','=',$id]])->get();
-        if(isset($ex_draft)){
-        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->whereNotIn('id', $ex_draft)->get();
-        }else{
-            $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();;
-        }
+//        if(isset($ex_draft)){
+//        $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->whereNotIn('id', $ex_draft)->get();
+//        }else{
+//            $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
+//        }
+            $hashtags = Hashtag::select('hashtag','id')->where([['user_id','=',$id]])->get();
        // print_r($ex_draft) ;
        // exit();
 
