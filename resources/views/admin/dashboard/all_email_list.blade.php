@@ -6,23 +6,23 @@
             <div class="col-md-12">
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Mail List</h4>   
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Mail List ({{$total}})</h4>   
                 @if(session('delete_success'))
                 <div class="alert alert-success">
                   {{ session('delete_success') }}
                 </div> 
                 @endif 
-
+                <form action="{{URL::to('admin-email-compose')}}" method="post">
+                      {{csrf_field()}}
                 <div style="margin-bottom: 15px;">
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
-                    <input type='checkbox' name='showhide' onchange="checkAll(this)"><span style="font-weight: bold;">すべて選択</span>
+                    <input type='checkbox' name='showhide' onchange="checkAll(this)" style="width: 15px;height: 15px;margin-left: 10px;"><span style="font-weight: bold;font-size: 20px;padding-left: 5px;">すべて選択</span>
 
 <!--                <div style="margin-bottom: 15px;margin-left: 10px;">-->
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
-
+                    <button type="submit" class="btn btn-success btn-md pull-right" style="background: #06af94">メール作成</button>
                 </div>
-                  <form action="{{URL::to('admin-email-compose')}}" method="post">
-                      {{csrf_field()}}
+                  <div class="table-wrapper-scroll-y my-custom-scrollbar">
                   <table class="table table-hover">
                     <thead>
                       <tr>
@@ -58,6 +58,7 @@
                       @endif
                     </tbody>
                   </table>
+                </div>
               </div>                    
             </div>
             <nav aria-label="Page navigation">
@@ -67,7 +68,7 @@
               </nav> 
 
               <div>
-                <button type="submit" class="btn btn-success btn-sm">メール作成</button>
+                
               </div>
             </form>
         </div>

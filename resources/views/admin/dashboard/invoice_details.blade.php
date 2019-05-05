@@ -29,8 +29,8 @@
                     </div>
 
                     @endif
-
-                    <table class="table table-hover">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -87,6 +87,7 @@
                         @endforeach
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
 

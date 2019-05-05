@@ -24,6 +24,15 @@
               height: 110px;
               overflow: scroll;
           }
+
+          .my-custom-scrollbar {
+            position: relative;
+            height: 425px;
+            overflow: auto;
+            }
+          .table-wrapper-scroll-y {
+            display: block;
+            }
       </style>
 
     <script type="text/javascript">
@@ -104,6 +113,9 @@
                     <ul class="dropdown-item-holder">
                         <li>
                         <a class="dropdown-item" href="{{URL::to('all-company-list')}}">Dashboard</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{URL::to('settings')}}">Settings</a>
                         </li>
                         <li>
                           <a class="dropdown-item" href="{{URL::to('admin-logout')}}" onclick="event.preventDefault();

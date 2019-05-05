@@ -91,8 +91,9 @@ class AdminController extends Controller
         if($this->is_admin_login_check() != null){
             $active_mail = 'active';
             $all_user_email = User::select('company_name','name', 'email')->where([['account_status','=',3]])->get();
+            $total = count($all_user_email);
            // $users = User::select('company_name','name', 'email')->get();
-            $main_content = view('admin.dashboard.all_email_list',compact('all_user_email'));
+            $main_content = view('admin.dashboard.all_email_list',compact('all_user_email','total'));
             return view('admin.dashboard.master',compact('main_content','active_mail'));
         }else{
             return redirect('/');
