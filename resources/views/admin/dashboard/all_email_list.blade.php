@@ -17,6 +17,11 @@
                   {{ session('mail_err_msg') }}
                 </div> 
                 @endif
+                @if(session('mail_success'))
+                <div class="alert alert-success">
+                  {{ session('mail_success') }}
+                </div> 
+                @endif
                 <form action="{{URL::to('admin-email-compose')}}" method="post" id="devel-generate-content-form">
                       {{csrf_field()}}
                 <div style="margin-bottom: 15px;">
