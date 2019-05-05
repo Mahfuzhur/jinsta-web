@@ -38,7 +38,7 @@
               <div class="sign_in_form">
                 <div class="form_title">
                   <h3>登録が完了しました！</h3>
-                  <!-- <p>完了まで数分程度かかることがあります。しばらくお待ちください。</p> -->
+                  <p style="color: green;">A verification link has been sent to your email.</p>
                 </div>
                 <a href="{{URL::to('dashboard')}}">
                   <div class="button_holder">                                     

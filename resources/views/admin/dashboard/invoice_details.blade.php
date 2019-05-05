@@ -67,8 +67,8 @@
                             <th scope="col">請求番号</th>
                             <th scope="col">発行日</th>
                             <th scope="col">入金期限</th>
-                            <th scope="col">ステータス</th>
                             <th scope="col">Total message sent</th>
+                            <th scope="col">ステータス</th>
                             <th scope="col">管理</th>
 
 
