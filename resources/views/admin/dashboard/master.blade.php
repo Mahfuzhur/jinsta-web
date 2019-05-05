@@ -267,6 +267,27 @@
 
     <script>
 
+      $(document).ready(function(){
+
+          var $checkboxes = $('#devel-generate-content-form td input[type="checkbox"]');
+              
+          $checkboxes.change(function(){
+              var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+              // $('#count-checked-checkboxes').text(countCheckedCheckboxes);
+              
+              $('#edit-count-checked-checkboxes').text(countCheckedCheckboxes+'/');
+              // document.getElementById("edit-count-checked-checkboxes").innerHTML = countCheckedCheckboxes+'/';
+          });
+
+          // $('input[type="checkbox"]').click(function(){
+          //   var total_check = $('.test:checked').length;
+          //    document.getElementById("edit-count-checked-checkboxes").innerHTML = total_check+'/';
+          //     // alert($('.test:checked').length);
+
+          // });
+
+      });
+
       // $(document).ready(function(){
  
       //    $("#but_search").click(function(){

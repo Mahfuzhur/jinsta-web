@@ -6,13 +6,18 @@
             <div class="col-md-12">
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Mail List ({{$total}})</h4>   
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Mail List (<span id="edit-count-checked-checkboxes"></span>{{$total}})</h4>   
                 @if(session('delete_success'))
                 <div class="alert alert-success">
                   {{ session('delete_success') }}
                 </div> 
                 @endif 
-                <form action="{{URL::to('admin-email-compose')}}" method="post">
+                @if(session('mail_err_msg'))
+                <div class="alert alert-danger">
+                  {{ session('mail_err_msg') }}
+                </div> 
+                @endif
+                <form action="{{URL::to('admin-email-compose')}}" method="post" id="devel-generate-content-form">
                       {{csrf_field()}}
                 <div style="margin-bottom: 15px;">
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
@@ -86,12 +91,14 @@
         // Set check or unchecked all checkboxes
         function checkAll(e) {
             var checkboxes = document.getElementsByName('email[]');
-
+            var total_check = checkboxes.length;
             if (e.checked) {
+              document.getElementById("edit-count-checked-checkboxes").innerHTML = total_check+'/';
                 for (var i = 0; i < checkboxes.length; i++) {
                     checkboxes[i].checked = true;
                 }
             } else {
+              document.getElementById("edit-count-checked-checkboxes").innerHTML = '';
                 for (var i = 0; i < checkboxes.length; i++) {
                     checkboxes[i].checked = false;
                 }

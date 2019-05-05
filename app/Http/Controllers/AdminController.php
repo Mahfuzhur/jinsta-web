@@ -387,6 +387,9 @@ class AdminController extends Controller
 
     public function emailCompose(Request $request){
         $emails = $request->input('email');
+        if(empty($emails)){
+            return back()->with('mail_err_msg','You have to select atleast 1 email');
+        }
         $main_content = view('admin.dashboard.compose',compact('emails'));
         return view('admin.dashboard.master',compact('main_content'));
        // return view('email.compose',compact('emails'));
