@@ -18,18 +18,18 @@
                             <label class="col-2 col-form-label">Create Invoice</label>
                             <div class="col-4">
                                 <select name="month" class="form-control">
-                                    <option value="1">January/{{ date('Y') }}</option>
-                                    <option value="2">February/{{ date('Y') }}</option>
-                                    <option value="3">March/{{ date('Y') }}</option>
-                                    <option value="4">April/{{ date('Y') }}</option>
-                                    <option value="5">May/{{ date('Y') }}</option>
-                                    <option value="6">June/{{ date('Y') }}</option>
-                                    <option value="7">July/{{ date('Y') }}</option>
-                                    <option value="8">August/{{ date('Y') }}</option>
-                                    <option value="9">September/{{ date('Y') }}</option>
-                                    <option value="10">October/{{ date('Y') }}</option>
-                                    <option value="11">November/{{ date('Y') }}</option>
-                                    <option value="12">December/{{ date('Y') }}</option>
+                                    <option value="1">January {{ date('Y') }}</option>
+                                    <option value="2">February {{ date('Y') }}</option>
+                                    <option value="3">March {{ date('Y') }}</option>
+                                    <option value="4">April {{ date('Y') }}</option>
+                                    <option value="5">May {{ date('Y') }}</option>
+                                    <option value="6">June {{ date('Y') }}</option>
+                                    <option value="7">July {{ date('Y') }}</option>
+                                    <option value="8">August {{ date('Y') }}</option>
+                                    <option value="9">September {{ date('Y') }}</option>
+                                    <option value="10">October {{ date('Y') }}</option>
+                                    <option value="11">November {{ date('Y') }}</option>
+                                    <option value="12">December {{ date('Y') }}</option>
                                 </select>
                                 <input name="user_id" value="{{$user_id}}" type="hidden">
 
