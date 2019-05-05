@@ -21,7 +21,8 @@
                 <div class="alert alert-success">
                   {{session('suspend_msg')}}
                 </div>
-                @endif   
+                @endif  
+                <div class="table-wrapper-scroll-y my-custom-scrollbar"> 
                   <table class="table table-hover" id="ajax_suspend_list">
                     <thead>
                       <tr>
@@ -107,6 +108,7 @@
                       @endif
                     </tbody>
                   </table>
+                  </div>
               </div>                    
             </div>
             <nav aria-label="Page navigation">

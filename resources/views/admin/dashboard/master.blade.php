@@ -24,6 +24,15 @@
               height: 110px;
               overflow: scroll;
           }
+
+          .my-custom-scrollbar {
+            position: relative;
+            height: 425px;
+            overflow: auto;
+            }
+          .table-wrapper-scroll-y {
+            display: block;
+            }
       </style>
 
     <script type="text/javascript">
@@ -104,6 +113,9 @@
                     <ul class="dropdown-item-holder">
                         <li>
                         <a class="dropdown-item" href="{{URL::to('all-company-list')}}">Dashboard</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{URL::to('settings')}}">Settings</a>
                         </li>
                         <li>
                           <a class="dropdown-item" href="{{URL::to('admin-logout')}}" onclick="event.preventDefault();
@@ -254,6 +266,27 @@
     <script src="{{asset('assets/js/main.js')}}"></script>
 
     <script>
+
+      $(document).ready(function(){
+
+          var $checkboxes = $('#devel-generate-content-form td input[type="checkbox"]');
+              
+          $checkboxes.change(function(){
+              var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+              // $('#count-checked-checkboxes').text(countCheckedCheckboxes);
+              
+              $('#edit-count-checked-checkboxes').text(countCheckedCheckboxes+'/');
+              // document.getElementById("edit-count-checked-checkboxes").innerHTML = countCheckedCheckboxes+'/';
+          });
+
+          // $('input[type="checkbox"]').click(function(){
+          //   var total_check = $('.test:checked').length;
+          //    document.getElementById("edit-count-checked-checkboxes").innerHTML = total_check+'/';
+          //     // alert($('.test:checked').length);
+
+          // });
+
+      });
 
       // $(document).ready(function(){
  

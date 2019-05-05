@@ -9,8 +9,8 @@
                 <div class="progress_view">
                     <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Invoice
                     </h4>
-
-                    <table class="table table-hover">
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">#</th>
@@ -55,6 +55,7 @@
                         @endif
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
 
