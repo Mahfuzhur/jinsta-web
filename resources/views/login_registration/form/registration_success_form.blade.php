@@ -40,14 +40,14 @@
                   <h3>登録が完了しました！</h3>
                   <p style="color: green;">A verification link has been sent to your email.</p>
                 </div>
-                <a href="{{URL::to('dashboard')}}">
+                <!-- <a href="{{URL::to('dashboard')}}">
                   <div class="button_holder">                                     
                     <button type="submit" class="btn registration_btn">今すぐ始める！</button>
                       <div class="form-group">
                           <a href="#">お問い合わせはコチラ</a>
                       </div>
                   </div>
-                </a>
+                </a> -->
                 
               </div>
           </div>

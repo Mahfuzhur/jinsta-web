@@ -1213,7 +1213,7 @@ class UserController extends Controller
             //print_r($user);
             $this->user->verify_email = 1;
             $this->user->save();
-            return redirect('login');
+            return redirect('user-login');
         }
         else{
            echo 'not verified';
