@@ -11,6 +11,7 @@
                         <form action="{{URL::to('admin-email-sent')}}" method="post" role="form" class="form-horizontal"
                               enctype="multipart/form-data">
                             {{ csrf_field() }}
+                            <h4 class="progress_margin"><span><img src="{{asset('assets/img/mail.png')}}" alt=""></span>Mail</h4>
                             <div class="box_title">
                                 @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -38,6 +39,9 @@
                                         {{$email}},
                                         @endforeach
                                     </div>
+                                    @foreach($emails as $email)
+                                    <input type="hidden" name="email[]" value="{{$email}}">
+                                    @endforeach
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Subject</label>
@@ -59,7 +63,7 @@
                                                       <span class="btn green fileinput-button">
                                                         <i class="fa fa-plus fa fa-white"></i>
                                                         <span>Attachment</span>
-                                                        <input type="file" name="files[]" multiple="">
+                                                        <input type="file" name="file" multiple="">
                                                       </span>
                                         <button class="btn btn-send" type="submit">Send</button>
                                     </div>
