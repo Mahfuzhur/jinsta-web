@@ -58,6 +58,9 @@ class UserController extends Controller
 
     public function registrationSuccess(){
         if(Auth::user()){
+        Auth::logout();
+        Session::flush();
+
         $success_page = 'success_page';
         $content = view('login_registration.form.registration_success_form');
         return view('login_registration.master',compact('content','success_page'));
@@ -1207,7 +1210,8 @@ class UserController extends Controller
     }
     public function verifyEmail($token){
         $this->user = User::where('verify_email',$token)->first();
-
+        Auth::logout();
+        Session::flush();
 
         if ($this->user != null){
             //print_r($user);
@@ -1216,7 +1220,7 @@ class UserController extends Controller
             return redirect('user-login');
         }
         else{
-           echo 'not verified';
+           echo 'Email not verified';
         }
        
     }

@@ -67,7 +67,7 @@ class LoginController extends Controller
                  $token = str_random(40);
                  $user = User::find($user_id);
                  $user->verify_email = $token;
-                 Mail::to($user->email)->send(new VerifyMail($token));
+                 // Mail::to($user->email)->send(new VerifyMail($token));
 
                 //  $data = array(
                 //     'token' => $token
