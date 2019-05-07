@@ -1216,6 +1216,7 @@ class UserController extends Controller
         if ($this->user != null){
             //print_r($user);
             $this->user->verify_email = 1;
+            $this->user->account_status = 1;
             $this->user->save();
             return redirect('user-login');
         }
