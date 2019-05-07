@@ -3,90 +3,78 @@
 <div id="page-content-wrapper">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-7 col-sm-6 create_form_sec">
-                <form action="{{URL::to('admin-email-sent')}}" method="post" enctype="multipart/form-data">
-                    {{ csrf_field() }}
-                    <div class="box_title">
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                        @if(session('add_success'))
-                        <div class="alert alert-success">
-                            {{ session('add_success') }}
-                        </div>
-                        @endif
-                        @if(session('empty_msg'))
-                        <div class="alert alert-success">
-                            {{ session('empty_msg') }}
-                        </div>
-                        @endif
-                        <!-- <h4>テンプレート名：テストテストテスト</h4> -->
-                        <label for="temp_regi">
-                            To :
-                        </label>
+            <div class="col-md-10 col-sm-6 create_form_sec">
+                <div class="card">
+                    <div class="card-body">
 
-                        <div class="email">
-                            @foreach($emails as $email)
-                            {{$email}},
-                            @endforeach
-                        </div>
 
-                        @foreach($emails as $email)
-                            <input type="hidden" name="email[]" value="{{$email}}">
-                        @endforeach
-                        
-                        <label for="temp_regi">
+                        <form action="{{URL::to('admin-email-sent')}}" method="post" role="form" class="form-horizontal"
+                              enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <h4 class="progress_margin"><span><img src="{{asset('assets/img/mail.png')}}" alt=""></span>Mail</h4>
+                            <div class="box_title">
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+                                @if(session('add_success'))
+                                <div class="alert alert-success">
+                                    {{ session('add_success') }}
+                                </div>
+                                @endif
+                                @if(session('empty_msg'))
+                                <div class="alert alert-success">
+                                    {{ session('empty_msg') }}
+                                </div>
+                                @endif
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">To</label>
+                                    <div class=" email col-lg-10" style="border: 1px solid #ced4da; margin-left: 2%">
+                                        @foreach($emails as $email)
+                                        {{$email}},
+                                        @endforeach
+                                    </div>
+                                    @foreach($emails as $email)
+                                       <input type="hidden" name="email[]" value="{{$email}}">
+                                   @endforeach
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Subject</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" placeholder="Subject" id="text" name="subject"
+                                               class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">Message</label>
+                                    <div class="col-lg-10" style="#ced4da;">
+                                        <textarea rows="10" cols="30" class="form-control" id="text1" name="body"
+                                                  placeholder="mail body"></textarea>
+                                    </div>
+                                </div>
 
-                        </label>
-                        <input type="text" class="form-control title" id="text" name="subject" maxlength="170" placeholder="subject" rows="5">
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                                      <span class="btn green fileinput-button">
+                                                        <i class="fa fa-plus fa fa-white"></i>
+                                                        <span>Attachment</span>
+                                                        <input type="file" name="file" multiple="">
+                                                      </span>
+                                        <button class="btn btn-send" type="submit">Send</button>
+                                    </div>
+                                </div>
+                            </div>
 
+                        </form>
                     </div>
-                    <div class="m-b-35">
-                        <div class="input_box">
-                            <label for="temp_regi">
-                                テキスト登録
-                            </label>
-                            <textarea class="form-control" id="text1" name="body" maxlength="170" placeholder="mail body" rows="5"></textarea>
-                            <span class="pull-right label label-default" id="count_message"></span>
-                        </div>
-                    </div>
-                    <div class="img_reg_upload">
-                        <div class="input_box">
-                            <label for="file">
-                                <span><i class="fa fa-download" aria-hidden="true"></i></span>
-                                <span style="font-size: 13px;">画像登録(推奨画像サイズ：横1200px×縦600px)</span>
-
-                            </label>
-                            <input type="file" name="file" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="">
-                            <img src="{{asset('assets/img/No_Image_Available.jpg')}}" id="image_show_small" alt="Image" style="width:100px;height: 50px;">
-                            <!-- <img id="image_show_small" src="#" alt="your image" /> -->
-                            <!-- <span class="image_show_small"></span>  -->
-
-                        </div>
-                        <div class="form_buttons">
-                            <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
-                            <input class="btn_done p_btn" type="submit" value="登録する">
-                        </div>
-                    </div>
-
+                </div>
             </div>
-            </form>
-
         </div>
-
-<!--        <div class="envelope_area">-->
-<!--            <div class="envelope">-->
-<!--                <a href="#">-->
-<!--                    <img src="{{asset('assets/img/message64.png')}}" alt="">-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 </div>
 @endsection

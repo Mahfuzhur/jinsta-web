@@ -12,7 +12,7 @@
                 </div>
                 @endif
                 <div class="progress_view">
-                    <form action="{{URL::to('create-bill')}}" method="post">
+                    <!-- <form action="{{URL::to('create-bill')}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group row">
                             <label class="col-2 col-form-label">Create Invoice</label>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <button type="submit">submit</button>
-                    </form>
+                    </form> -->
 
                     <div class="create_btn_holder">
                         <div class="create_invoice_details">
@@ -67,8 +67,8 @@
                             <th scope="col">請求番号</th>
                             <th scope="col">発行日</th>
                             <th scope="col">入金期限</th>
+                            <th scope="col">送信メッセージ</th>
                             <th scope="col">ステータス</th>
-                            <th scope="col">Total message sent</th>
                             <th scope="col">管理</th>
 
 
@@ -109,7 +109,7 @@
                                         @if($invoice->billing_status == 0)
                                         <a class="dropdown-item" href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}">Received</a>
                                         @endif
-                                        <a class="dropdown-item" href="#">Creat Invoice</a>
+                                        <a class="dropdown-item" href="#">Print Invoice</a>
                                         <!-- <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Separated </a>
                                       </div> -->
