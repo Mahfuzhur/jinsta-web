@@ -108,6 +108,7 @@ Route::get('/payment-receive/{id}','AdminController@paymentReceive');
 
 
 
+
 /* Admin Panel Route Start */
 Auth::routes();
 
