@@ -193,7 +193,7 @@
     <!-- custom js -->
     <script src="{{asset('assets/js/main.js')}}"></script>
     @if(isset($added_date))
-      @if($added_date <= $today && $company_info->account_status == 1)
+      @if($added_date < $today && $company_info->account_status == 1)
       <script type="text/javascript">
         $(document).ready(function(){
               // $(".show-modal").click(function(){
