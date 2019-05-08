@@ -40,8 +40,8 @@
                                         @endforeach
                                     </div>
                                     @foreach($emails as $email)
-                                    <input type="hidden" name="email[]" value="{{$email}}">
-                                    @endforeach
+                                       <input type="hidden" name="email[]" value="{{$email}}">
+                                   @endforeach
                                 </div>
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label">Subject</label>

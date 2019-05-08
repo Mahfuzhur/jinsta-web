@@ -17,11 +17,16 @@
                   {{ session('mail_err_msg') }}
                 </div> 
                 @endif
+                @if(session('mail_success'))
+                <div class="alert alert-success">
+                  {{ session('mail_success') }}
+                </div> 
+                @endif
                 <form action="{{URL::to('admin-email-compose')}}" method="post" id="devel-generate-content-form">
                       {{csrf_field()}}
                 <div style="margin-bottom: 15px;">
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
-                    <input type='checkbox' name='showhide' onchange="checkAll(this)" style="width: 15px;height: 15px;margin-left: 10px;"><span style="font-weight: bold;font-size: 20px;padding-left: 5px;">すべて選択</span>
+                    <input type='checkbox' name='showhide' onchange="checkAll(this)" style="width: 20px;height: 20px;margin-left: 10px;"><span style="font-weight: bold;font-size: 20px;padding-left: 5px;">すべて選択</span>
 
 <!--                <div style="margin-bottom: 15px;margin-left: 10px;">-->
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
@@ -50,7 +55,7 @@
                       @if(isset($all_user_email))
                         @foreach($all_user_email as $user_email)
                         <tr id='tr_{{$counter}}'>
-                          <td><input type='checkbox' name='email[]' value="{{$user_email->email}}" id='check_{{$counter}}'></td>
+                          <td><input type='checkbox' name='email[]' value="{{$user_email->email}}" id='check_{{$counter}}' style="width: 15px;height: 15px;"></td>
                           <td>{{$user_email->company_name}}</td>
                           <td>{{$user_email->name}}</td>
                           <td>{{$user_email->email}}</td>

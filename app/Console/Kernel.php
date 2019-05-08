@@ -170,6 +170,10 @@ class Kernel extends ConsoleKernel
 //        $schedule->call(function () {
 //            \Log::info('i was here');
 //       })->everyMinute();
+        if (Carbon\Carbon::now()->day == 1){
+            $schedule->call('App\Http\Controllers\AdminController@monthlyBill')->between('01:00','24:00');
+        }
+
     }
 
     /**
