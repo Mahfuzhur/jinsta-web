@@ -12,7 +12,7 @@
                 </div>
                 @endif
                 <div class="progress_view">
-                    <!-- <form action="{{URL::to('create-bill')}}" method="post">
+                   <form action="{{URL::to('create-bill')}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group row">
                             <label class="col-2 col-form-label">Create Invoice</label>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <button type="submit">submit</button>
-                    </form> -->
+                    </form>
 
                     <div class="create_btn_holder">
                         <div class="create_invoice_details">
