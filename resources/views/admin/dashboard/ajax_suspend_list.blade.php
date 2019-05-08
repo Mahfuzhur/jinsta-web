@@ -1,13 +1,13 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">名</th>
-      <th scope="col">会社名</th>
-      <th scope="col">メールアドレス</th>
-      <th scope="col">電話番号</th>
-      <th scope="col">ステータス</th>
-      <th scope="col">管理</th>
+      <th scope="col" class="text-center">#</th>
+      <th scope="col" class="text-center">名</th>
+      <th scope="col" class="text-center">会社名</th>
+      <th scope="col" class="text-center">メールアドレス</th>
+      <th scope="col" class="text-center">電話番号</th>
+      <th scope="col" class="text-center">ステータス</th>
+      <th scope="col" class="text-center">管理</th>
     </tr>
   </thead>
   <tbody>
@@ -22,17 +22,17 @@
     @if(isset($all_company))
       @foreach($all_company as $company)
       <tr>
-        <td>{{$i}}</td>
-        <td>{{$company->name}}</td>
-        <td>{{$company->company_name}}</td>
-        <td>{{$company->email}}</td>
-        <td>{{$company->mobile}}</td>
+        <td class="text-center">{{$i}}</td>
+        <td class="text-center">{{$company->name}}</td>
+        <td class="text-center">{{$company->company_name}}</td>
+        <td class="text-center">{{$company->email}}</td>
+        <td class="text-center">{{$company->mobile}}</td>
         @if($company->account_status == 2)
-        <td style="color: red;">Suspended</td>
+        <td style="color: red;" class="text-center">Suspended</td>
         @elseif($company->account_status == 3)
-        <td style="color: green;">Active</td>
+        <td style="color: green;" class="text-center">Active</td>
         @endif
-        <td>
+        <td class="text-center">
 
           <form action="URL::to('suspend-company-info')" method="post">
               {{csrf_field()}}

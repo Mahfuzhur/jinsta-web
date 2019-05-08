@@ -36,10 +36,10 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">マーク</th>
-                        <th scope="col">会社名</th>
-                        <th scope="col">担当者名</th>
-                        <th scope="col">メールアドレス</th>
+                        <th scope="col" class="text-center">マーク</th>
+                        <th scope="col" class="text-center">会社名</th>
+                        <th scope="col" class="text-center">担当者名</th>
+                        <th scope="col" class="text-center">メールアドレス</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -55,10 +55,10 @@
                       @if(isset($all_user_email))
                         @foreach($all_user_email as $user_email)
                         <tr id='tr_{{$counter}}'>
-                          <td><input type='checkbox' name='email[]' value="{{$user_email->email}}" id='check_{{$counter}}' style="width: 15px;height: 15px;"></td>
-                          <td>{{$user_email->company_name}}</td>
-                          <td>{{$user_email->name}}</td>
-                          <td>{{$user_email->email}}</td>
+                          <td class="text-center"><input type='checkbox' name='email[]' value="{{$user_email->email}}" id='check_{{$counter}}' style="width: 15px;height: 15px;"></td>
+                          <td class="text-center">{{$user_email->company_name}}</td>
+                          <td class="text-center">{{$user_email->name}}</td>
+                          <td class="text-center">{{$user_email->email}}</td>
                         </tr>
                         <?php
                           $i++;

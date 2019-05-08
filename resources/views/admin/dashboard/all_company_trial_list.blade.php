@@ -17,14 +17,14 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">マーク</th>
-                        <th scope="col">名</th>
-                        <th scope="col">会社名</th>
-                        <th scope="col">メールアドレス</th>
-                        <th scope="col">モバイル</th>
-                        <th scope="col">トレイル期間</th>
-                        <th scope="col">有効期限</th>
-                        <th scope="col">状態</th>
+                        <th scope="col" class="text-center">マーク</th>
+                        <th scope="col" class="text-center">名</th>
+                        <th scope="col" class="text-center">会社名</th>
+                        <th scope="col" class="text-center">メールアドレス</th>
+                        <th scope="col" class="text-center">モバイル</th>
+                        <th scope="col" class="text-center">トレイル期間</th>
+                        <th scope="col" class="text-center">有効期限</th>
+                        <th scope="col" class="text-center">状態</th>
                         <!-- <th scope="col">Action</th> -->
                       </tr>
                     </thead>
@@ -32,23 +32,23 @@
                       @if(isset($all_company_trial_list))
                         @foreach($all_company_trial_list as $company_trial_list)
                         <tr>
-                          <td><input type="checkbox" name="email[]" value="{{$company_trial_list->email}}"></td>
-                          <td>{{$company_trial_list->name}}</td>
-                          <td>{{$company_trial_list->company_name}}</td>
-                          <td>{{$company_trial_list->email}}</td>
-                          <td>{{$company_trial_list->mobile}}</td>
-                          <td>{{$trial_period->trial_period}}</td>
+                          <td class="text-center"><input type="checkbox" name="email[]" value="{{$company_trial_list->email}}"></td>
+                          <td class="text-center">{{$company_trial_list->name}}</td>
+                          <td class="text-center">{{$company_trial_list->company_name}}</td>
+                          <td class="text-center">{{$company_trial_list->email}}</td>
+                          <td class="text-center">{{$company_trial_list->mobile}}</td>
+                          <td class="text-center">{{$trial_period->trial_period}}</td>
                           <?php
                           
                             $added_date = \Carbon\Carbon::parse($company_trial_list->updated_at)->addDays($trial_period->trial_period);
                             $today = \Carbon\Carbon::today()->addDays(0);
                             $due_date = $added_date->format('d-m-Y')
                           ?>
-                          <td>{{$due_date}}</td>
+                          <td class="text-center">{{$due_date}}</td>
                           @if($added_date >= $today)
-                          <td style="color: green;">Trial</td>
+                          <td style="color: green;" class="text-center">Trial</td>
                           @else
-                          <td style="color: red;">Trial Expired</td>
+                          <td style="color: red;" class="text-center">Trial Expired</td>
                           @endif
                           <!-- <td>
                           <a href="{{URL::to('send-mail-trial-company/'.$company_trial_list->id)}}" title="Send Mail" class="btn btn-success btn-sm">Send Mail</a>

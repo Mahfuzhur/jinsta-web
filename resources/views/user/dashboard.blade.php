@@ -20,11 +20,17 @@
                     <input type="text" name="" class="form-control" placeholder="Name">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="" class="form-control" placeholder="Email">
+                    <input type="text" name="" class="form-control" placeholder="Company Name">
                   </div>
-                  <div class="form-group">
-                    <textarea name="address" class="form-control" placeholder="Address" rows="4"></textarea>
-                  </div>
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control" placeholder="Contact Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control" placeholder="Street Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control" placeholder="Postal Code">
+                    </div>
                     <!-- <p>Do you want to save changes you made to document before closing?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p> -->
                 </div>
