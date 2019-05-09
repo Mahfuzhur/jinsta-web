@@ -615,6 +615,18 @@
                   ご請求
                 </a>
               @endif -->
+
+              @if(isset($active_hashstag_compare))
+                <a class="Plan active" href="{{URL::to('compare-hashtag')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                    お試しリスト
+                </a>
+              @else
+                <a class="Plan" href="{{URL::to('compare-hashtag')}}">
+                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                    お試しリスト
+                </a>
+              @endif
               
             </div>
 

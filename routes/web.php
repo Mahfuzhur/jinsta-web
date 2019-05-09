@@ -104,7 +104,7 @@ Route::post('/send-mail-trial-company','AdminController@sendMailTrialCompany');
 Route::get('/verify/{token}', 'UserController@verifyEmail');
 
 Route::get('/payment-receive/{id}','AdminController@paymentReceive');
-
+Route::get('/compare-hashtag','AdminController@compareHashtag');
 
 
 

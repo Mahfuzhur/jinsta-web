@@ -390,6 +390,19 @@ class AdminController extends Controller
 
     }
 
+    public function compareHashtag(){
+
+        if($this->is_admin_login_check() != null){
+
+            $active_hashtag_compare = 'active';
+            $main_content = view('admin.dashboard.compare_hashtag');
+            return view('admin.dashboard.master',compact('main_content','active_hashtag_compare'));
+
+        }else{
+            return redirect('/');
+        }
+    }
+
 
     public function index()
     {

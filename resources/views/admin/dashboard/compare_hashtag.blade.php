@@ -1,0 +1,113 @@
+@extend('master')
+@section('user_main_content')
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row create_destination">            
+        <div class="col-md-6 main_content">
+            <!-- <div class="box_title">
+                <h4>宛先名は削除でお願いします。</h4>
+            </div> -->
+            <form action="{{URL::to('hashtag-list-search')}}" method="post">
+            {{csrf_field()}}
+            <div id='loader' style='display: none;'>
+              <img src="{{asset('assets/img/progressbar2.gif')}}">
+            </div>
+            <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
+            <h4>配信対象リスト名</h4>
+            <div class="hashtag_title left-border m-b-40">
+                <div class="input_box">                    
+                    <div class="input-group"> 
+
+                        <input type="text" name="hashtag" id="hashtag"  placeholder="ID:12345" class="hashtag_input" required="" style="height: 70px;border-radius: 2px;max-width: 360px;">
+                    </div>                   
+                </div>
+            </div>
+            <h4>除外ハッシュタグ</h4>
+            <div class="hashtag_title left-border m-b-40">
+                <div class="input_box">                    
+                    <div class="input-group"> 
+
+                        <input type="text" name="hashtag" id="hashtag"  placeholder="Tokyo" class="hashtag_input" required="">
+
+                        <div class="input-group-append" style="margin-left: -10px;">
+                            <button type="submit" name="" id="but_search" class="btn btn-info" style="background: #06af94;">Search</button>
+                          <!-- <span class="input-group-text" id="">Search</span> -->
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+            </form>
+
+            <div class="form_buttons">
+                <button type="sybmit" class="btn_done p_btn">除外リスト生成</button>
+            </div>
+            <div class="single_radio radio1" style="margin-top: 30px;">
+            
+                <label class="checkcontainer" style="width: 40%"> 除外リストの新規作成
+                    <input type="radio" name="hashtag_list" value="" required=""><br>
+                    <span class="radiobtn"></span>
+                </label>
+                <label class="checkcontainer" style="width: 40%">既存配信リストの更新
+                    <input type="radio" name="list" value=""><br>
+                    <span class="radiobtn"></span>
+                </label>
+                
+            </div>
+            <div class="form_buttons">
+                <button type="sybmit" class="btn_done p_btn">除外リストを保存</button>
+            </div>
+            
+        </div>
+        <div class="col-md-1" style="border-left: 2px solid #eae0e0;"></div>
+        <div class="col-md-5 main_content">
+            
+            <!-- <div class="box_title">
+                <h4>宛先名は削除でお願いします。</h4>
+            </div> -->
+            
+            <!-- <div class='response'></div> -->
+            <form action="{{URL::to('hashtag-list-search-csv')}}" method="post">
+
+
+                {{csrf_field()}}
+                <div class="radio_list_area">
+                    
+                    <div class="radio_label">
+                        <h3>リストを選択</h3>
+                    </div>
+                    <div class="radio_list" style="display: block;">
+                        <div class="single_radio radio1">
+                        
+                          <label class="checkcontainer" style="float: inherit; width: 100%"> hashtag name
+                            <input type="radio" name="hashtag_list" value="" required="">
+                            <span class="radiobtn"></span>
+                          </label>
+                          <label class="checkcontainer" style="float: inherit; width: 100%"> hashtag name
+                            <input type="radio" name="list" value="">
+                            <span class="radiobtn"></span>
+                          </label>
+                          <label class="checkcontainer" style="float: inherit; width: 100%"> hashtag name
+                            <input type="radio" name="list" value="">
+                            <span class="radiobtn"></span>
+                          </label>
+                         
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- <div class="form_buttons" style="text-align: left;">
+                    <button type="sybmit" class="btn_done p_btn">登録</button>
+                </div> -->
+               
+
+
+
+            </form>
+        </div>
+
+
+    </div>
+
+
+</div>
+@endsection
