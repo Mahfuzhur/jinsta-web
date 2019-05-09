@@ -39,6 +39,11 @@
                         {{ session('check') }}
                     </div>
                     @endif
+                    @if(session('suspend_msg'))
+                    <div class="alert alert-danger">
+                        {{ session('suspend_msg') }}
+                    </div>
+                    @endif
                 </div>
                 <form role="form" method="POST" action="{{ route('login') }}">
                   {{ csrf_field() }}
