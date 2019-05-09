@@ -81,6 +81,12 @@ class UserController extends Controller
 //                    JOIN client c ON c.hashtag_id = a.id
 //                    WHERE a.user_id = $user_id
 //                    GROUP BY a.id");
+            $check_suspend_user = User::findOrfail($user_id);
+            if($check_suspend_user->account_status == 2){
+                Auth::logout();
+                Session::flush();
+                return back()->with('suspend_msg','Your account has been suspended. Plese contact with us for further queries.');
+            } 
             $month = \Carbon\Carbon::today()->subDays(30);
             $week = \Carbon\Carbon::today()->subDays(7);
             $day = \Carbon\Carbon::today()->subDays(1);
@@ -1224,6 +1230,19 @@ class UserController extends Controller
            echo 'Email not verified';
         }
        
+    }
+
+    public function compareHashtag(){
+
+        if(Auth::user()){
+
+            $active_hashtag_compare = 'active';
+            $main_content = view('user.compare_hashtag');
+            return view('master',compact('main_content','active_hashtag_compare'));
+
+        }else{
+            return redirect ('user-login');
+        }
     }
 
     public function index()
