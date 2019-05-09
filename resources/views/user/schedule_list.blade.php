@@ -15,15 +15,15 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ハッシュタグ</th>
-                        <th scope="col">テンプレート</th>
-                        <th scope="col">配信開始日</th>
-                        <th scope="col">配信終了日</th>
-                        <th scope="col">開始時刻</th>
-                        <th scope="col">終了時刻</th>
-                        <th scope="col">ステータス</th>
-                        <th scope="col">アクション</th>
+                        <th scope="col" class="text-center">#</th>
+                        <th scope="col" class="text-center">ハッシュタグ</th>
+                        <th scope="col" class="text-center">テンプレート</th>
+                        <th scope="col" class="text-center">配信開始日</th>
+                        <th scope="col" class="text-center">配信終了日</th>
+                        <th scope="col" class="text-center">開始時刻</th>
+                        <th scope="col" class="text-center">終了時刻</th>
+                        <th scope="col" class="text-center">ステータス</th>
+                        <th scope="col" class="text-center">アクション</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -42,11 +42,11 @@
                       @if(isset($all_schedule))
                         @foreach($all_schedule as $schedule)
                         <tr>
-                          <td>{{$i}}</td>
-                          <td>{{$schedule->hashtag}}</td>
-                          <td>{{$schedule->title}}</td>
-                          <td>{{$schedule->delivery_period_start}}</td>
-                          <td>{{$schedule->delivery_period_end}}</td>
+                          <td class="text-center">{{$i}}</td>
+                          <td class="text-center">{{$schedule->hashtag}}</td>
+                          <td class="text-center">{{$schedule->title}}</td>
+                          <td class="text-center">{{$schedule->delivery_period_start}}</td>
+                          <td class="text-center">{{$schedule->delivery_period_end}}</td>
                           <?php
                           $current_date = \Carbon\Carbon::today()->format('Y-m-d');
                           $start_date = \Carbon\Carbon::parse($schedule->delivery_period_start)->format('Y-m-d');
@@ -57,16 +57,16 @@
                             $start_time = \Carbon\Carbon::parse($schedule->specify_time_start)->addHour(9)->format('H:i');
                             $end_time = \Carbon\Carbon::parse($schedule->specify_time_end)->addHour(9)->format('H:i');
                           ?>
-                          <td>{{$start_time}}</td>
-                          <td>{{$end_time}}</td>
+                          <td class="text-center">{{$start_time}}</td>
+                          <td class="text-center">{{$end_time}}</td>
                           @if($current_date >= $start_date && $current_date <= $end_date)
-                          <td style="color: green;">ランニング</td>
+                          <td style="color: green;" class="text-center">ランニング</td>
                           @elseif($current_date < $start_date)
-                          <td style="color: #bbbb24;">保留中</td>
+                          <td style="color: #bbbb24;" class="text-center">保留中</td>
                           @else($current_date > $end_date)
-                          <td style="color: red;">期限切れ</td>
+                          <td style="color: red;" class="text-center">期限切れ</td>
                           @endif
-                          <td>
+                          <td class="text-center">
                             <form action="{{URL::to('schedule-action')}}" method="post">
                               {{csrf_field()}}
                               <input type="hidden" name="schedule_id" value="{{$schedule->s_id}}">

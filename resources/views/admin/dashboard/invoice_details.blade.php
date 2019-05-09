@@ -12,7 +12,7 @@
                 </div>
                 @endif
                 <div class="progress_view">
-                    <!-- <form action="{{URL::to('create-bill')}}" method="post">
+                   <form action="{{URL::to('create-bill')}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group row">
                             <label class="col-2 col-form-label">Create Invoice</label>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <button type="submit">submit</button>
-                    </form> -->
+                    </form>
 
                     <div class="create_btn_holder">
                         <div class="create_invoice_details">
@@ -63,13 +63,13 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">請求番号</th>
-                            <th scope="col">発行日</th>
-                            <th scope="col">入金期限</th>
-                            <th scope="col">送信メッセージ</th>
-                            <th scope="col">ステータス</th>
-                            <th scope="col">管理</th>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">請求番号</th>
+                            <th scope="col" class="text-center">発行日</th>
+                            <th scope="col" class="text-center">入金期限</th>
+                            <th scope="col" class="text-center">送信メッセージ</th>
+                            <th scope="col" class="text-center">ステータス</th>
+                            <th scope="col" class="text-center">管理</th>
 
 
                         </tr>
@@ -89,17 +89,17 @@
                                 $issue_date = \Carbon\Carbon::parse($invoice->issue_date)->format('d-m-Y');
                                 $due_date = \Carbon\Carbon::parse($invoice->due_date)->format('d-m-Y');
                             ?>
-                            <td>{{$i}}</td>
-                            <td>{{$invoice->invoice_id}}</td>
-                            <td>{{$invoice->issue_date}}</td>
-                            <td>{{$invoice->due_date}}</td>
-                            <td>{{$invoice->dm_total_number}}</td>
+                            <td class="text-center">{{$i}}</td>
+                            <td class="text-center">{{$invoice->invoice_id}}</td>
+                            <td class="text-center">{{$invoice->issue_date}}</td>
+                            <td class="text-center">{{$invoice->due_date}}</td>
+                            <td class="text-center">{{$invoice->dm_total_number}}</td>
                             @if($invoice->billing_status == 1)
-                            <td style="color: green;">入金済</td>
+                            <td style="color: green;" class="text-center">入金済</td>
                             @elseif($invoice->billing_status == 0)
-                            <td style="color: red;">未入金</td>
+                            <td style="color: red;" class="text-center">未入金</td>
                             @endif
-                            <td>
+                            <td class="text-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Payment
