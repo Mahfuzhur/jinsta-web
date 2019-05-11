@@ -53,20 +53,20 @@
                     </div>
                 </div>
               </div> -->
-                <!--<div class="request_select">-->
-                <!--    <div class="input_box">-->
-                <!--      <label for="destination">-->
-                <!--          宛先-->
-                <!--      </label>-->
-                <!--      <select class="dest_input" id="destination" name="destination">-->
-                <!--          <option value=""></option>-->
-                <!--          <option value="">Template 1</option>-->
-                <!--          <option value="">Template 2</option>-->
-                <!--          <option value="">Template 3</option>-->
-                <!--          <option value="">Template 4</option>-->
-                <!--      </select>                   -->
-                <!--    </div>                 -->
-                <!--</div>-->
+                <!-- <div class="request_select">
+                    <div class="input_box">
+                      <label for="destination">
+                          宛先
+                      </label>
+                      <select class="dest_input" id="destination" name="destination">
+                          <option value=""></option>
+                          <option value="">Template 1</option>
+                         <option value="">Template 2</option>
+                          <option value="">Template 3</option>
+                      <option value="">Template 4</option>
+                 </select>                  
+                   </div>                 
+                                   </div> -->
                 <div class="dash_footer">
                     <span class="total">
                         <ul>

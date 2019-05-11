@@ -172,7 +172,7 @@
             </a>
             @endif
 
-            @if(isset($active_hashstag_compare))
+            @if(isset($active_hashtag_compare))
                 <a class="Plan active" href="{{URL::to('compare-hashtag')}}">
                   <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
                     お試しリスト

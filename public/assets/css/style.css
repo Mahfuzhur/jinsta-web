@@ -720,6 +720,7 @@ span.round-tab {
     border-radius: 4px;
     width: 300px;
     text-align: left;
+    margin-top: -140px;
 }
 
 .create_invoice_details a:hover{
