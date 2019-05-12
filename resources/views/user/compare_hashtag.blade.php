@@ -15,9 +15,9 @@
             <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
             <h4>配信対象リスト名</h4>
             <div class="hashtag_title left-border m-b-40">
-                <div class="input_box">                    
-                    <div class="input-group"> 
-                        {{$compareHashtag->hashtag}}
+                <div class="input_box">
+                    {{$compareHashtag->hashtag}}
+                    <div class="input-group">
                         <input type="text" name="hashtag" id="hashtag"  value="{{$compareHashtag->total_user}}" class="hashtag_input" required="" style="height: 70px;border-radius: 2px;max-width: 360px;">
                     </div>                   
                 </div>
@@ -52,7 +52,7 @@
                     <span class="radiobtn"></span>
                 </label>
                 <label class="checkcontainer" style="width: 40%">既存配信リストの更新
-                    <input type="radio" name="list" value=""><br>
+                    <input type="radio" name="hashtag_list" value=""><br>
                     <span class="radiobtn"></span>
                 </label>
                 
@@ -84,7 +84,7 @@
                             <?php $i=0;?>
                             @foreach($results as $result)
                             @if($i < 9)
-                            <label class="checkcontainer"> {{$result->name}}-> {{$result->search_result_subtitle}}
+                            <label class="checkcontainer" style="width: 50%;"> {{$result->name}}-> {{$result->search_result_subtitle}}
                                 <input type="radio" name="hashtag_list" value="{{$result->name}}" required=""><br>
                                 <input type="hidden" name="flag" value="1">
                                 <span class="radiobtn"></span>
