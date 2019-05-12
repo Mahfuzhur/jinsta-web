@@ -73,7 +73,11 @@
                       <h4>{{$hashtag->total_user}}人</h4>
                       <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin rhoncus nisi tincidunt.</p> -->
                     </div>              
-                    
+                    <form action="{{URL::to('compare-hashtag')}}" method="post">
+                        {{csrf_field()}}
+                        <input type="hidden" name="hashtag" value="{{$hashtag->id}}">
+                        <button type="submit">compare</button>
+                    </form>
                   </div>
                 </div>
             </div>

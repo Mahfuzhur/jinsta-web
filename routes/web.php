@@ -37,7 +37,9 @@ Route::post('/save-destination-registration/{id}','UserController@saveDestinatio
 Route::get('/delete-destination-registration/{id}','UserController@deleteDestinationRegistration');
 Route::get('/delete-template/{id}', 'UserController@deleteTemplate');
 Route::get('/create-destination','UserController@hashtagList');
+
 Route::get('/hashtag-manually-add','UserController@createDestination');
+Route::get('/compare','UserController@compare');
 // Route::get('/create-destination','UserController@createDestination');
 Route::get('/user-login','UserController@userLogin');
 Route::get('/update-instagram-info','UserController@updateInstagramInfo');
@@ -104,7 +106,7 @@ Route::post('/send-mail-trial-company','AdminController@sendMailTrialCompany');
 Route::get('/verify/{token}', 'UserController@verifyEmail');
 
 Route::get('/payment-receive/{id}','AdminController@paymentReceive');
-Route::get('/compare-hashtag','UserController@compareHashtag');
+Route::post('/compare-hashtag','UserController@compareHashtag');
 
 
 
