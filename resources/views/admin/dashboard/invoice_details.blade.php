@@ -15,9 +15,11 @@
                    <form action="{{URL::to('create-bill')}}" method="post">
                         {{csrf_field()}}
                         <div class="form-group row">
-                            <label class="col-2 col-form-label">Create Invoice</label>
-                            <div class="col-4">
-                                <select name="month" class="form-control">
+                            <!-- <label class="col-2 col-form-label">Create Invoice</label> -->
+                            <h4 class="progress_margin" style="margin-top: 20px;"><span style="margin-left: 15px;"><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Invoice</h4>
+                            <div class="col-4" style="margin-top: 20px;">
+                                <select name="month" class="form-control" style="box-shadow: 1px 2px 10px #e2dede;">
+                                    <option>Select Invoice Month</option>
                                     <option value="1">January {{ date('Y') }}</option>
                                     <option value="2">February {{ date('Y') }}</option>
                                     <option value="3">March {{ date('Y') }}</option>
@@ -34,8 +36,10 @@
                                 <input name="user_id" value="{{$user_id}}" type="hidden">
 
                             </div>
+                            
                         </div>
-                        <button type="submit">submit</button>
+                        <button type="submit" class="btn btn-success" style="margin-left: 355px;font-size: 15px;">Create Details</button>
+                        
                     </form>
 
                     <div class="create_btn_holder">
