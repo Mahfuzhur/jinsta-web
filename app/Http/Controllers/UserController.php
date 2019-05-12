@@ -289,6 +289,7 @@ class UserController extends Controller
                  ->groupBy('hashtag.id')
                  ->get();
 
+
         // $all_hashtag = DB::select("SELECT a.id, a.hashtag, COUNT(c.client_id) AS total_user
         //             FROM hashtag a
         //             JOIN client c ON c.hashtag_id = a.id
@@ -946,8 +947,23 @@ class UserController extends Controller
             $title = '宛先登録';
             $active_destination = 'active';
             // return view('user.ajax_search',compact('results','hashtag'));
-            $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
-            return view('master',compact('user_main_content','active_destination','title'));
+            if ($request->flag !=null){
+                $compareHashtag = $request->compareHashtag;
+                $compareHashtag = json_decode($compareHashtag);
+                $compareHashtag = hashtag::selectRaw('hashtag.id,hashtag.hashtag, count(client.client_id) as total_user')
+                    ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
+                    ->where('hashtag.user_id',$user_id)
+                    ->where('hashtag.id',$compareHashtag->id)
+                    ->first();
+
+                $user_main_content = view('user.compare_hashtag',compact('results','hashtag','compareHashtag'));
+                return view('master',compact('user_main_content','active_destination','title'));
+            }
+            else{
+                $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
+                return view('master',compact('user_main_content','active_destination','title'));
+            }
+
         }else{
             return redirect ('user-login');
         }
@@ -1050,7 +1066,9 @@ class UserController extends Controller
 //            }
                 $flag = Client::insert($insert_data);
         }
+        if($request->flag != null){
 
+        }
             //$flag = Client::insert($insert_data);
 
 
@@ -1232,12 +1250,18 @@ class UserController extends Controller
        
     }
 
-    public function compareHashtag(){
-
+    public function compareHashtag(Request $request){
+         $hashtag_id= $request->hashtag;
+         $user_id = Auth::user()->id;
+        $compareHashtag = hashtag::selectRaw('hashtag.id,hashtag.hashtag, count(client.client_id) as total_user')
+            ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
+            ->where('hashtag.user_id',$user_id)
+            ->where('hashtag.id',$hashtag_id)
+            ->first();
         if(Auth::user()){
 
             $active_hashtag_compare = 'active';
-            $main_content = view('user.compare_hashtag');
+            $main_content = view('user.compare_hashtag',compact('compareHashtag'));
             return view('master',compact('main_content','active_hashtag_compare'));
 
         }else{

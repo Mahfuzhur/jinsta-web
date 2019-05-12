@@ -17,8 +17,8 @@
             <div class="hashtag_title left-border m-b-40">
                 <div class="input_box">                    
                     <div class="input-group"> 
-
-                        <input type="text" name="hashtag" id="hashtag"  placeholder="ID:12345" class="hashtag_input" required="" style="height: 70px;border-radius: 2px;max-width: 360px;">
+                        {{$compareHashtag->hashtag}}
+                        <input type="text" name="hashtag" id="hashtag"  value="{{$compareHashtag->total_user}}" class="hashtag_input" required="" style="height: 70px;border-radius: 2px;max-width: 360px;">
                     </div>                   
                 </div>
             </div>
@@ -26,13 +26,17 @@
             <div class="hashtag_title left-border m-b-40">
                 <div class="input_box">                    
                     <div class="input-group"> 
+                        <form action="{{URL::to('hashtag-list-search')}}" method="post">
+                            <input type="text" name="hashtag" id="hashtag"  placeholder="Tokyo" class="hashtag_input" required="">
+                            <input type="hidden" name="flag" value="1">
+                            <input type="hidden" name="compareHashtag" value="{{$compareHashtag}}">
 
-                        <input type="text" name="hashtag" id="hashtag"  placeholder="Tokyo" class="hashtag_input" required="">
+                            <div class="input-group-append" style="margin-left: -10px;">
+                                <button type="submit" name="" id="but_search" class="btn btn-info" style="background: #06af94;">Search</button>
+                                <!-- <span class="input-group-text" id="">Search</span> -->
+                            </div>
+                        </form>
 
-                        <div class="input-group-append" style="margin-left: -10px;">
-                            <button type="submit" name="" id="but_search" class="btn btn-info" style="background: #06af94;">Search</button>
-                          <!-- <span class="input-group-text" id="">Search</span> -->
-                        </div>
                     </div>                   
                 </div>
             </div>
@@ -71,34 +75,34 @@
 
                 {{csrf_field()}}
                 <div class="radio_list_area">
-                    
+                    @if(isset($results))
                     <div class="radio_label">
-                        <h3>リストを選択</h3>
+                        <h3>Select List</h3>
                     </div>
-                    <div class="radio_list" style="display: block;">
+                    <div class="radio_list">
                         <div class="single_radio radio1">
-                        
-                          <label class="checkcontainer" style="float: inherit; width: 100%"> hashtag name
-                            <input type="radio" name="hashtag_list" value="" required="">
-                            <span class="radiobtn"></span>
-                          </label>
-                          <label class="checkcontainer" style="float: inherit; width: 100%"> hashtag name
-                            <input type="radio" name="list" value="">
-                            <span class="radiobtn"></span>
-                          </label>
-                          <label class="checkcontainer" style="float: inherit; width: 100%"> hashtag name
-                            <input type="radio" name="list" value="">
-                            <span class="radiobtn"></span>
-                          </label>
-                         
+                            <?php $i=0;?>
+                            @foreach($results as $result)
+                            @if($i < 9)
+                            <label class="checkcontainer"> {{$result->name}}-> {{$result->search_result_subtitle}}
+                                <input type="radio" name="hashtag_list" value="{{$result->name}}" required=""><br>
+                                <input type="hidden" name="flag" value="1">
+                                <span class="radiobtn"></span>
+                            </label>
+                            @endif
+                            <?php $i++;?>
+                            @endforeach
+
                         </div>
-                        
+
                     </div>
                 </div>
-                <!-- <div class="form_buttons" style="text-align: left;">
+
+                <div class="form_buttons">
+                    <!-- <button class="btn_cancel p_btn">削除する</button> -->
                     <button type="sybmit" class="btn_done p_btn">登録</button>
-                </div> -->
-               
+                </div>
+                @endif
 
 
 
