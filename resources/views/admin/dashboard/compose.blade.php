@@ -33,7 +33,7 @@
                                 </div>
                                 @endif
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">To</label>
+                                    <label class="col-lg-2 control-label">宛先</label>
                                     <div class=" email col-lg-10" style="border: 1px solid #ced4da; margin-left: 2%">
                                         @foreach($emails as $email)
                                         {{$email}},
@@ -44,7 +44,7 @@
                                    @endforeach
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label">Subject</label>
+                                    <label class="col-lg-2 control-label">件名</label>
                                     <div class="col-lg-10">
                                         <input type="text" placeholder="Subject" id="text" name="subject"
                                                class="form-control">
