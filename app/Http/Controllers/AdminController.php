@@ -17,6 +17,7 @@ use App\Mail\SendMailable;
 use App\Setting;
 use Illuminate\Support\Facades\Input;
 use Auth;
+use PDF;
 
 
 
@@ -405,6 +406,22 @@ class AdminController extends Controller
             }
         }
 
+    }
+
+    public function createInvoice($id){
+
+        if($this->is_admin_login_check() != null){
+
+            $customer_info = User::findOrFail(Crypt::decrypt($id));
+            $setting_info = Setting::get()->first();
+            // echo "<pre>";
+            // print_r($customer_info);
+            // exit();
+            $pdf = PDF::loadView('admin.dashboard.pdf.invoice', compact('customer_info','setting_info'));
+            return $pdf->stream('customers.pdf');
+        }else{
+            return redirect('/');
+        }
     }
 
 

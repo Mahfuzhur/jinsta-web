@@ -60,11 +60,11 @@
                           <td class="text-center">{{$start_time}}</td>
                           <td class="text-center">{{$end_time}}</td>
                           @if($current_date >= $start_date && $current_date <= $end_date)
-                          <td style="color: green;" class="text-center">ランニング</td>
+                          <td style="color: green;font-weight:bold;" class="text-center">ランニング</td>
                           @elseif($current_date < $start_date)
-                          <td style="color: #bbbb24;" class="text-center">保留中</td>
+                          <td style="color: #bbbb24;font-weight:bold;" class="text-center">保留中</td>
                           @else($current_date > $end_date)
-                          <td style="color: red;" class="text-center">期限切れ</td>
+                          <td style="color: red;font-weight:bold;" class="text-center">期限切れ</td>
                           @endif
                           <td class="text-center">
                             <form action="{{URL::to('schedule-action')}}" method="post">

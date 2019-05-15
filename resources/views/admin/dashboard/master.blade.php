@@ -483,14 +483,14 @@
                     <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                     <ul class="dropdown-item-holder">
                         <li>
-                        <a class="dropdown-item" href="{{URL::to('all-company-list')}}">Dashboard</a>
+                        <a class="dropdown-item" href="{{URL::to('all-company-list')}}">ダッシュボード</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{URL::to('settings')}}">Settings</a>
+                            <a class="dropdown-item" href="{{URL::to('settings')}}">設定</a>
                         </li>
                         <li>
                           <a class="dropdown-item" href="{{URL::to('admin-logout')}}" onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">Logout</a>
+                             document.getElementById('logout-form').submit();">ログアウト</a>
                              <form id="logout-form" action="{{URL::to('admin-logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>

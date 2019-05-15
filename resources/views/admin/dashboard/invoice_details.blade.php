@@ -99,9 +99,9 @@
                             <td class="text-center">{{$invoice->due_date}}</td>
                             <td class="text-center">{{$invoice->dm_total_number}}</td>
                             @if($invoice->billing_status == 1)
-                            <td style="color: green;" class="text-center">入金済</td>
+                            <td style="color: green;font-weight:bold;" class="text-center">入金済</td>
                             @elseif($invoice->billing_status == 0)
-                            <td style="color: red;" class="text-center">未入金</td>
+                            <td style="color: red;font-weight:bold;" class="text-center">未入金</td>
                             @endif
                             <td class="text-center">
                                 <div class="btn-group">
@@ -113,7 +113,7 @@
                                         @if($invoice->billing_status == 0)
                                         <a class="dropdown-item" href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}">Received</a>
                                         @endif
-                                        <a class="dropdown-item" href="#">Print Invoice</a>
+                                        <a class="dropdown-item" href="{{URL::to('create-invoice/'.Crypt::encrypt($invoice->user_id))}}" target="_blank">Print Invoice</a>
                                         <!-- <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Separated </a>
                                       </div> -->
