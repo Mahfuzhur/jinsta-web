@@ -9,7 +9,8 @@
     <!-- bootstrap css -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> 
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css">
+<!--      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
     <!-- jQuery  ui -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
@@ -22,6 +23,9 @@
               /*background-color: #7a7a7a;*/
               width: 80%;
               height: 90%;
+              padding: .375rem .75rem;
+              border-radius: .25rem;
+              border: 1px solid #ced4da;
               overflow-x: auto;
               white-space: nowrap;
           }
@@ -517,23 +521,27 @@
             <div class="sidebar">
               @if(isset($active_company_list))
                 <a class="template active" href="{{URL::to('all-company-list')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>
+                    <!--<span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>-->
+                    <i class="fas fa-address-book"></i>
                     アカウント管理
                 </a>
               @else
                 <a class="template" href="{{URL::to('all-company-list')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>
+                    <!--<span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>-->
+                    <i class="fas fa-address-book"></i>
                     アカウント管理
                 </a>
               @endif
               @if(isset($active_mail))
                 <a class="Plan active" href="{{URL::to('all-email')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                    <!--<span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-envelope"></i>
                     請求担当者管理
                 </a>
               @else
                 <a class="Plan" href="{{URL::to('all-email')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+                    <!--<span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-envelope"></i>
                     請求担当者管理
                 </a>
               @endif
@@ -561,12 +569,14 @@
 <!--              @endif-->
               @if(isset($active_invoice))
                 <a class="Plan active" href="{{URL::to('invoice')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-file-invoice"></i>
                     請求管理
                 </a>
               @else
                 <a class="Plan" href="{{URL::to('invoice')}}">
-                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
+<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-file-invoice"></i>
                     請求管理
                 </a>
               @endif

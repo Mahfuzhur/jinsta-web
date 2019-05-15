@@ -10,14 +10,14 @@
                   </div>
               </a>
           </div>
-          <div class="create_btn_holder">
-              <a href="{{URL::to('hashtag-manually-add')}}">
-                  <div class="create_new_template">                            
-                    <span><i class="fa fa-plus" aria-hidden="true"></i></span>
-                    <span class="new_template">手動で追加</span>
-                  </div>
-              </a>
-          </div>
+<!--          <div class="create_btn_holder">-->
+<!--              <a href="{{URL::to('hashtag-manually-add')}}">-->
+<!--                  <div class="create_new_template">                            -->
+<!--                    <span><i class="fa fa-plus" aria-hidden="true"></i></span>-->
+<!--                    <span class="new_template">手動で追加</span>-->
+<!--                  </div>-->
+<!--              </a>-->
+<!--          </div>-->
 
           <div class="tem_sec_holder">
               <div class="tem_sec">
@@ -76,7 +76,7 @@
                     <form action="{{URL::to('compare-hashtag')}}" method="post">
                         {{csrf_field()}}
                         <input type="hidden" name="hashtag" value="{{$hashtag->id}}">
-                        <button class="btn btn-success btn-md btn-responsive" style="margin-left: 23%" type="submit" >Exclusion & Update</button>
+                        <button class="btn btn-success btn-md btn-responsive" style="margin-left: 35%" type="submit" >送信設定</button>
                     </form>
                   </div>
                 </div>

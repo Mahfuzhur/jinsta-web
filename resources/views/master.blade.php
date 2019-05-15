@@ -10,7 +10,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css">
     <!-- jQuery  ui -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
@@ -75,11 +75,11 @@
                             <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                             <ul class="dropdown-item-holder">
                                 <li>
-                                    <a class="dropdown-item" href="{{URL::to('dashboard')}}">Dashboard</a>
+                                    <a class="dropdown-item" href="{{URL::to('dashboard')}}">ダッシュボード</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">Logout</a>
+                             document.getElementById('logout-form').submit();">ログアウト</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                           style="display: none;">
                                         {{ csrf_field() }}
