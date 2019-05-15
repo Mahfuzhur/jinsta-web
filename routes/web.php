@@ -52,6 +52,7 @@ Route::get('/download-csv/{hashtagName}','UserController@downloadCSV');
 Route::get('/hashtag-list','UserController@hashtagList');
 Route::post('/hashtag-list-search','UserController@hashtagListSearch');
 Route::post('/hashtag-list-search-csv','UserController@hashtagListSearchCSV');
+Route::post('/save-new-hashtag','UserController@saveNewHashtag');
 
 
 Route::post('/hashtag-search','UserController@hashtagSearch');

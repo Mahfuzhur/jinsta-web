@@ -955,6 +955,7 @@ class UserController extends Controller
                     ->where('hashtag.user_id',$user_id)
                     ->where('hashtag.id',$compareHashtag->id)
                     ->first();
+                session(['compareHashtag' => $compareHashtag]);
 
                 $user_main_content = view('user.compare_hashtag',compact('results','hashtag','compareHashtag'));
                 return view('master',compact('user_main_content','active_destination','title'));
@@ -971,8 +972,6 @@ class UserController extends Controller
 
     public function hashtagListSearchCSV(Request $request){
         if(Auth::user()){
-
-        
 
         $user_id = Auth::user()->id;
         $hashtagName = $request->hashtag_list;
@@ -1068,13 +1067,35 @@ class UserController extends Controller
         }
         if($request->flag != null){
 
+            $compareHashtag = json_decode($request->compareHashtag);
+            $mainHashtag = Client::select('client_id')->where('hashtag_id' , '=', $compareHashtag->id)->get();
+            $secondHashtag = Client::select('client_id')->where('hashtag_id' , '=', $lastInsertId)->get();
+            $first = array();
+            $second = array();
+
+            foreach ($mainHashtag as $mainHashtag){
+                array_push($first,$mainHashtag->client_id);
+            }
+            foreach ($secondHashtag as $secondHashtag){
+                array_push($second,$secondHashtag->client_id);
+            }
+
+            $new_hashtag = array_diff($first,$second);
+//            print_r($new);
+//            exit();
+            $active_destination = 'active';
+            $compareHashtag = session('compareHashtag');
+            $user_main_content = view('user.compare_hashtag',compact('compareHashtag','lastInsertId','new_hashtag'));
+            return view('master',compact('user_main_content','active_destination'));
         }
             //$flag = Client::insert($insert_data);
 
 
 
+        else{
+            return redirect('create-destination')->with('message','Hastag and its ID added successfully');
+        }
 
-        return redirect('create-destination')->with('message','Hastag and its ID added successfully');
 
         // $headers = array(
         // "Content-type" => "text/csv",
@@ -1268,7 +1289,43 @@ class UserController extends Controller
             return redirect ('user-login');
         }
     }
+    public function saveNewHashtag(Request $request){
 
+        $newHashtagName = $request->hashtag;
+        $secondHashtagId = $request->secondHashtagId;
+        $firstHashtagId = $request->firstHashtagId;
+        $newHashtag = $request->newHashtag;
+
+
+        try{
+            $clientDeleted = DB::table('client')->where('hashtag_id',$secondHashtagId)->delete();
+            $clientDeleted = DB::table('client')->where('hashtag_id',$firstHashtagId)->delete();
+            $hashtagDelted = DB::table('hashtag')->where('id', $secondHashtagId)->delete();
+            $hashtagDelted = DB::table('hashtag')->where('id', $firstHashtagId)->delete();
+
+
+        }catch (\Exception $ex){
+            echo $ex;
+        }
+
+        $hashtag = new Hashtag();
+        $hashtag->user_id = Auth::user()->id;
+        $hashtag->hashtag = $newHashtagName;
+        $hashtag->created_at = Carbon::now()->addHour(9);
+        $hashtag->save();
+        $lastInsertedId = $hashtag->id;
+
+        foreach($newHashtag as $newHashtag){
+
+            $client = new Client();
+            $client->user_id = Auth::user()->id;
+            $client->hashtag_id = $lastInsertedId;
+            $client->client_id = $newHashtag;
+            $client->created_at = Carbon::now()->addHour(9);
+            $client->save();
+        }
+        return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
+    }
     public function index()
     {
         //

@@ -42,24 +42,25 @@
             </div>
             </form>
 
-            <div class="form_buttons">
-                <button type="sybmit" class="btn_done p_btn">除外リスト生成</button>
-            </div>
-            <div class="single_radio radio1" style="margin-top: 30px;">
-            
-                <label class="checkcontainer" style="width: 40%"> 除外リストの新規作成
-                    <input type="radio" name="hashtag_list" value="" required=""><br>
-                    <span class="radiobtn"></span>
-                </label>
-                <label class="checkcontainer" style="width: 40%">既存配信リストの更新
-                    <input type="radio" name="list" value=""><br>
-                    <span class="radiobtn"></span>
-                </label>
-                
-            </div>
-            <div class="form_buttons">
-                <button type="sybmit" class="btn_done p_btn">除外リストを保存</button>
-            </div>
+
+
+            <form action="{{URL::to('save-new-hashtag')}}" method="post">
+                {{csrf_field()}}
+                @if(isset($lastInsertId))
+                <input type="text" name="hashtag" value="{{$compareHashtag->hashtag}}" required="">
+                <input type="hidden" name="secondHashtagId" value="{{$lastInsertId}}">
+                <input type="hidden" name="firstHashtagId" value="{{$compareHashtag->id}}">
+                @foreach($new_hashtag as $new_hashtag)
+                <input type="hidden" name="newHashtag[]" value="{{$new_hashtag}}">
+                @endforeach
+                <div class="form_buttons">
+                    <button type="sybmit" class="btn_done p_btn">除外リストを保存</button>
+                </div>
+                @endif
+
+            </form>
+
+
             
         </div>
         <div class="col-md-1" style="border-left: 2px solid #eae0e0;"></div>
@@ -86,6 +87,7 @@
                             @if($i < 9)
                             <label class="checkcontainer"> {{$result->name}}-> {{$result->search_result_subtitle}}
                                 <input type="radio" name="hashtag_list" value="{{$result->name}}" required=""><br>
+                                <input type="hidden" name="compareHashtag" value="{{$compareHashtag}}">
                                 <input type="hidden" name="flag" value="1">
                                 <span class="radiobtn"></span>
                             </label>
