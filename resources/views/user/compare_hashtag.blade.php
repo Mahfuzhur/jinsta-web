@@ -13,12 +13,13 @@
               <img src="{{asset('assets/img/progressbar2.gif')}}">
             </div>
             <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
-            <h4>配信対象リスト名</h4>
+            <h4>配信詳細設定</h4>
             <div class="hashtag_title left-border m-b-40">
                 <div class="input_box">
-                    {{$compareHashtag->hashtag}}
+
                     <div class="input-group">
-                        <input type="text" name="hashtag" id="hashtag"  value="{{$compareHashtag->total_user}}" class="hashtag_input" required="" style="height: 70px;border-radius: 2px;max-width: 360px;">
+                        <input type="text" name="hashtag" id="hashtag"  value="宛先名： {{$compareHashtag->hashtag}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 420px;">
+                        <input type="text" name="hashtag" id="hashtag"  value="送信対象者数: {{$compareHashtag->total_user}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 420px;">
                     </div>                   
                 </div>
             </div>
