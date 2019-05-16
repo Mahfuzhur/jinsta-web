@@ -15,7 +15,6 @@
     <!-- jQuery  ui -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
@@ -222,45 +221,6 @@
       @endif
     <script>
 
-      // $(document).ready(function(){
- 
-      //    $("#but_search").click(function(){
-      //     var search = $('#hashtag').val();
-      //     var token = $('meta[name="csrf-token"]').attr('content');
-      //     // console.log(token);
-
-      //     jQuery.ajax({
-      //       type: "POST",
-      //       url: "{{URL::to('hashtag-list-search')}}",
-      //       data: {
-      //       "_method": 'POST',
-      //       "_token": token,
-      //       "search": search,
-      //       },
-      //      dataType: 'html',
-           
-      //      beforeSend: function(){
-      //       // Show image container
-      //       $("#loader").show();
-      //      },
-      //      success: function(response){
-      //       if(response.success){
-      //         $('.hashtag_search_alert').html(result.success);
-      //       }else{
-      //         $('.response').empty();
-      //         $('.response').append(response);
-      //       }
-            
-      //      },
-      //      complete:function(data){
-      //       // Hide image container
-      //       $("#loader").hide();
-      //      }
-      //     });
-         
-      //    });
-      //   });
-      // custom date format
       $(function(){
         $("#delivery_pr_start").datepicker({ dateFormat: 'dd-mm-yy'});
         $("#delivery_pr_end").datepicker({ dateFormat: 'dd-mm-yy'});
@@ -363,6 +323,8 @@
                 })
             }
         })
+
+
     }
 </script>
 
