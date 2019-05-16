@@ -5,19 +5,30 @@
     <title>invoice</title>
     <style>
 
+    body{
+        font-family: ipag;
+    }
 
-        @font-face {
-            font-family: 'wackysushi';
+    hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #1b17176b; /* Modern Browsers */
+}
+
+        /*@font-face {
+            font-family: 'Japanese';
             font-style: normal;
             font-weight: normal;
-            src: url(https://www.backslashkey.com/jinsta-test/fonts/wackysushi.ttf) format('truetype');
-        }
+            src: url('public/assets/Japanese.ttf') format('truetype');
+        }*/
     </style>
 </head>
 <body>
 
 <div>
-    <h1 style="text-align: center">御請求書</h1>
+    <h1 style="text-align: center;">御請求書</h1>
 </div>
 
 
@@ -33,7 +44,7 @@
 <!--        <p style="font-size:20px;font-weight: bold;">Telephone:</p>-->
 <!--    </div>-->
 <table style="width: 100%">
-    <td align="left" style="width: 40%;font-size: 18px;">
+    <td align="left" style="width: 40%;font-size: 15px;">
         <p>
             <span>{{ $customer_info->name }}</span><br>
             <span>{{ $customer_info->mobile }}</span><br>
@@ -43,17 +54,20 @@
 <!--        <p>Phone Number:</p>-->
 <!--        <p>Client Address:</p>-->
     </td>
-    <td style="width: 20%;"></td>
-    <td align="left" style="width: 40%;font-size: 18px;">
+    <td style="width: 30%;"></td>
+    <td align="left" style="width: 30%;font-size: 15px;">
         <!--            <img src="{{asset('assets/img/logo.png')}}">-->
         <p>
-            <span>dosnix technology</span><br>
-            <span>Banosree, Main road;Dhaka</span><br>
-            <span>0123456789</span><br>
-            <span>Fax:1234569857</span><br>
-            <span>Invoice Number:#326548214</span><br>
-            <span>Billing Date:01/05/2019</span><br>
-            <span>Payment Deadline:07/05/2019</span>
+            <span><img src="{{asset('assets/img/taglettericon.png')}}" alt="" style="width: 60px;height: 60px;"></span><br>
+            <span>株式会社TagLetter</span><br>
+            <span>〒171-0021</span><br>
+            <span>東京都豊島区西池袋 1-11-1</span><br>
+            <span>メトロポリタンプラザビル14階</span><br>
+            <span>TEL: 03-6273-845</span><br>
+            <span>FAX: 03-6273-8450</span><br>
+            <span>請求書番号: #326548214</span><br>
+            <span>請 求 日: 01/05/2019</span><br>
+            <span>お支払期限: 07/05/2019</span>
         </p>
 <!--        <p>Company Name:</p>-->
 <!--        <p>Company Address:</p>-->
@@ -66,33 +80,33 @@
 </table>
 
 <div>
-    <h2>Amount Billed: 27,700</h2>
+    <h2>ご請求金額   {{ ($setting_info->message_rate * $invoice_info->dm_total_number) - 0}} 円</h2>
 </div>
 <hr>
 <!--<span style="border-left: 2px solid red;"></span>-->
 
 <table style="width: 100%">
-    <tr>
-        <th align="left" style="width: 40%;">Detail</th>
-        <th style="width: 20%;text-align: center;">Unit Prize</th>
-        <th style="width: 20%;text-align: center;">Quantity</th>
-        <th style="width: 20%;text-align: center;">Prize</th>
+    <tr style="line-height: 10px;">
+        <th align="left" style="width: 40%;">詳細</th>
+        <th style="width: 20%;text-align: center;">単価</th>
+        <th style="width: 20%;text-align: center;">数量</th>
+        <th style="width: 20%;text-align: center;">価格</th>
     </tr>
-    <tr>
+    <tr style="line-height: 10px;">
         <td colspan="4"><hr></td>
     </tr>
-    <tr>
+    <tr style="line-height: 1px;">
         <td align="left" style="width: 40%;font-size: 18px;">
             <p>{{ $customer_info->name }}</p>
         </td>
         <td style="width: 20%;text-align: center;">
-            <p>2500</p>
+            <p>{{ $setting_info->message_rate }}</p>
         </td>
         <td style="width: 20%;text-align: center;">
-            <p>5</p>
+            <p>{{ $invoice_info->dm_total_number }}</p>
         </td>
         <td style="width: 20%;text-align: center;">
-            <p>7500</p>
+            <p>{{ $setting_info->message_rate * $invoice_info->dm_total_number}}</p>
         </td>
     </tr>
 
@@ -111,52 +125,59 @@
 <!--<!--        </td>-->-->
 <!--    </tr>-->
 
-    <tr>
-        <td align="left" style="width: 40%;font-size: 18px;">
+    <tr style="line-height: 10px;">
+        <td align="left" style="width: 40%;font-size: 15px;">
 
         </td>
-        <td style="width: 20%;text-align: center;">
-            <p>
-            <hr>
-                <span>Subtotal</span><br><hr>
-                <span>Consumtion Tax</span><br><hr>
-                <span>Total</span>
+        <td colspan="3" style="width: 60%;">
+            <p>           
+                <span style="margin-left: 50px;">小計</span><span style="margin-left: 250px;">{{ $setting_info->message_rate * $invoice_info->dm_total_number}} 円</span><br><hr>
+                <span style="margin-left: 50px;">消費税</span><span style="margin-left: 250px;">0 円</span><br><hr>
+                <span style="margin-left: 50px;">合計</span><span style="margin-left: 250px;">{{ ($setting_info->message_rate * $invoice_info->dm_total_number) - 0}} 円</span><br><hr>
             </p>
+        </td>
+        <!-- <td style="width: 20%;">
+            <p>
+            
+                <span>小計</span><br><hr>
+                <span>消費税</span><br><hr>
+                <span>合計</span><hr>
+            </p> -->
 <!--            <p>Subtotal</p>-->
 <!--            <p>Consumtion Tax</p>-->
 <!--            <p>Total</p>-->
-        </td>
+        <!-- </td>
         <td style="width: 20%;">
 
         </td>
-        <td style="width: 20%;text-align: center;">
+        <td style="width: 20%;">
             <p>
-            <hr>
-                <span>1000</span><br><hr>
-                <span>100</span><br><hr>
-                <span>2000</span>
-            </p>
+            
+                <span>{{ $setting_info->message_rate * $invoice_info->dm_total_number}} 円</span><br><hr>
+                <span>0 円</span><br><hr>
+                <span>{{ ($setting_info->message_rate * $invoice_info->dm_total_number) - 0}} 円</span><hr>
+            </p> -->
 <!--            <p>1000</p>-->
 <!--            <p>200</p>-->
 <!--            <p>2000</p>-->
-        </td>
+        <!-- </td> -->
     </tr>
 </table>
 
-<span style="font-size: 20px;font-weight: bold;">Payee</span><br><br>
+<span style="font-size: 20px;font-weight: bold;">振込先</span><br>
 <div style="width: 720px;height: auto;border: 1px solid #7777869c;">
     <div style="margin-left: 25px;padding: 10px;">
-        <span style="font-size: 20px;font-weight: bold;">Yokohama Bank</span><br>
-        Kannai branch (310) usually 6047465) Next stage<br><br>
-        <span style="font-size: 20px;font-weight: bold;">Mizuho Bank</span><br>
-        Shibuya branch (210) Normal 1742329) Next stage<br><br>
-        <span style="font-size: 20px;font-weight: bold;">Shonan Shinkin Bank</span><br>
-        Shibuya branch (025) usually 439,196 months) next stage
+        <span style="font-size: 18px;font-weight: bold;">【横浜銀行】</span><br>
+        <span>関内支店（310）普通 6047465 ｶ) ﾈｸｽﾄｽﾃｰｼﾞ</span><br><br>
+        <span style="font-size: 18px;font-weight: bold;">【みずほ銀行】</span><br>
+        <span>渋谷支店（210）普通 1742329 ｶ) ﾈｸｽﾄｽﾃｰｼﾞ</span><br><br>
+        <span style="font-size: 18px;font-weight: bold;">【城南信用金庫】</span><br>
+        <span>渋谷支店（025）普通 439196 ｶ) ﾈｸｽﾄｽﾃｰｼﾞ</span>
     </div>
 </div>
 <br>
-<span style="font-size: 20px;font-weight: bold;">Remarks</span><br><br>
-<div style="width: 720px;height: 80px;border: 1px solid #7777869c;">
+<span style="font-size: 20px;font-weight: bold;">備考</span><br>
+<div style="width: 720px;height: 50px;border: 1px solid #7777869c;">
 
 </div>
 

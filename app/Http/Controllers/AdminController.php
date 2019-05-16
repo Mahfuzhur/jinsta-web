@@ -408,16 +408,17 @@ class AdminController extends Controller
 
     }
 
-    public function createInvoice($id){
+    public function createInvoice($user_id,$invoice_id){
 
         if($this->is_admin_login_check() != null){
 
-            $customer_info = User::findOrFail(Crypt::decrypt($id));
+            $customer_info = User::findOrFail($user_id);
             $setting_info = Setting::get()->first();
+            $invoice_info = Invoice::where('invoice_id',$invoice_id)->first();
             // echo "<pre>";
-            // print_r($customer_info);
+            // print_r($invoice_info);
             // exit();
-            $pdf = PDF::loadView('admin.dashboard.pdf.invoice', compact('customer_info','setting_info'));
+            $pdf = PDF::loadView('admin.dashboard.pdf.invoice', compact('customer_info','setting_info','invoice_info'));
             return $pdf->stream('customers.pdf');
         }else{
             return redirect('/');
