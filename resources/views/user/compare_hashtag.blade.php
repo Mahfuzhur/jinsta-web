@@ -46,8 +46,12 @@
 
             <form action="{{URL::to('save-new-hashtag')}}" method="post">
                 {{csrf_field()}}
+                <input type="text" name="hashtag" value="{{$compareHashtag->hashtag}}" id="yourText" disabled />
+                <input type="checkbox" id="yourBox" />
+                <label>Edit current Hashtag name ?</label>
+
                 @if(isset($lastInsertId))
-                <input type="text" name="hashtag" value="{{$compareHashtag->hashtag}}" required="">
+
                 <input type="hidden" name="secondHashtagId" value="{{$lastInsertId}}">
                 <input type="hidden" name="firstHashtagId" value="{{$compareHashtag->id}}">
                 @foreach($new_hashtag as $new_hashtag)
@@ -114,4 +118,9 @@
 
 
 </div>
+    <script>
+        document.getElementById('yourBox').onchange = function() {
+        document.getElementById('yourText').disabled = !this.checked;
+        };
+    </script>
 @endsection
