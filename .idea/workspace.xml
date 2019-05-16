@@ -261,7 +261,7 @@
       <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="19" />
     <option name="y" value="54" />
     <option name="width" value="1114" />
@@ -364,7 +364,6 @@
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
-      <method v="2" />
     </configuration>
   </component>
   <component name="SvnConfiguration">
