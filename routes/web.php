@@ -68,6 +68,8 @@ Route::get('/schedule-list','UserController@scheduleList');
 Route::post('/schedule-action','UserController@scheduleAction');
 Route::get('/schedule-delete/{id}','UserController@scheduleDelete');
 
+Route::post('/save-user-extra-information','UserController@saveUserExtraInformation');
+
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
 Route::get('test','LoginController@test');

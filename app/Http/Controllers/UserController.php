@@ -23,6 +23,7 @@ use App\HashtagSchedule;
 use App\TemplateSchedule;
 use App\UserSchedule;
 use App\Setting;
+use App\UserExtraInformation;
 
 
 class UserController extends Controller
@@ -1326,6 +1327,39 @@ class UserController extends Controller
         }
         return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
     }
+
+    public function saveUserExtraInformation(Request $request){
+
+        if(Auth::user()){
+
+        $this->validate($request, [
+
+            'name' => 'required|string|max:255',
+            'company_name' => 'required|string|max:255',
+            'contact_number' => 'required|numeric',
+            'street' => 'required|max:500',
+            'postal_code' => 'required|max:255'
+        ]);
+
+        // $info = Album::create($request->all());
+
+        $user_id = Auth::user()->id;
+
+        $current_time = Carbon::now()->addHour(9);
+        $update_time = Carbon::now()->addHour(9);
+
+        $data = array(
+            array('user_id' => $user_id, 'name' => $request->name, 'company_name' => $request->company_name, 'contact_number' => $request->contact_number,'street' => $request->street,'postal_code' => $request->postal_code, 'created_at' => $current_time, 'updated_at' => $update_time)
+        );
+
+        $flag = UserExtraInformation::insert($data);
+        $update_flag = User::where('id',$user_id)->update(['account_status' => 3]);
+        return redirect('dashboard')->with('user_extra_info','Extra user information added successfully !');
+        }else{
+            return redirect ('user-login');
+        }
+    }
+
     public function index()
     {
         //

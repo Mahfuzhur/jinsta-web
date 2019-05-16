@@ -18,6 +18,7 @@ use App\Setting;
 use Illuminate\Support\Facades\Input;
 use Auth;
 use PDF;
+use App\UserExtraInformation;
 
 
 
@@ -412,7 +413,7 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
 
-            $customer_info = User::findOrFail($user_id);
+            $customer_info = UserExtraInformation::findOrFail($user_id);
             $setting_info = Setting::get()->first();
             $invoice_info = Invoice::where('invoice_id',$invoice_id)->first();
             // echo "<pre>";

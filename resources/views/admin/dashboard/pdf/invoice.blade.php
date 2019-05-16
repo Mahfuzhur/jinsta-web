@@ -47,8 +47,9 @@
     <td align="left" style="width: 40%;font-size: 15px;">
         <p>
             <span>{{ $customer_info->name }}</span><br>
-            <span>{{ $customer_info->mobile }}</span><br>
-            <span>Tokyo, Japan</span>
+            <span>{{ $customer_info->contact_number }}</span><br>
+            <span>{{ $customer_info->street }}</span><br>
+            <span>{{ $customer_info->postal_code }}</span>
         </p>
 <!--        <p>Client Name:</p>-->
 <!--        <p>Phone Number:</p>-->
@@ -65,9 +66,13 @@
             <span>メトロポリタンプラザビル14階</span><br>
             <span>TEL: 03-6273-845</span><br>
             <span>FAX: 03-6273-8450</span><br>
-            <span>請求書番号: #326548214</span><br>
-            <span>請 求 日: 01/05/2019</span><br>
-            <span>お支払期限: 07/05/2019</span>
+            <?php
+            $issue_date = \Carbon\Carbon::parse($invoice_info->issue_date)->format('d-m-Y');
+            $due_date = \Carbon\Carbon::parse($invoice_info->due_date)->format('d-m-Y');
+            ?>
+            <span>請求書番号: #{{ $invoice_info->invoice_id }}</span><br>
+            <span>請 求 日: {{ $issue_date }}</span><br>
+            <span>お支払期限: {{ $due_date }}</span>
         </p>
 <!--        <p>Company Name:</p>-->
 <!--        <p>Company Address:</p>-->
