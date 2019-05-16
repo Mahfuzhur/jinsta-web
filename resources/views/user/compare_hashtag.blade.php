@@ -46,8 +46,13 @@
 
             <form action="{{URL::to('save-new-hashtag')}}" method="post">
                 {{csrf_field()}}
+                <input type="text" name="hashtag" style=" height: 45px; width: 413px; padding: 0.2em .5em;" value="{{$compareHashtag->hashtag}}" id="yourText" disabled />
+                <br>
+                <input type="checkbox" class="largerCheckbox"  id="yourBox" />
+                <label>Edit Hashtag</label>
+
                 @if(isset($lastInsertId))
-                <input type="text" name="hashtag" value="{{$compareHashtag->hashtag}}" required="">
+
                 <input type="hidden" name="secondHashtagId" value="{{$lastInsertId}}">
                 <input type="hidden" name="firstHashtagId" value="{{$compareHashtag->id}}">
                 @foreach($new_hashtag as $new_hashtag)
@@ -70,8 +75,6 @@
             
             <!-- <div class='response'></div> -->
             <form action="{{URL::to('hashtag-list-search-csv')}}" method="post">
-
-
                 {{csrf_field()}}
                 <div class="radio_list_area">
                     @if(isset($results))
@@ -114,4 +117,9 @@
 
 
 </div>
+    <script>
+        document.getElementById('yourBox').onchange = function() {
+        document.getElementById('yourText').disabled = !this.checked;
+        };
+    </script>
 @endsection

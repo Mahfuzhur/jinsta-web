@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\History;
+use App\Invoice;
 use Illuminate\Contracts\Encryption\EncryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -1328,6 +1330,7 @@ class UserController extends Controller
         return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
     }
 
+
     public function saveUserExtraInformation(Request $request){
 
         if(Auth::user()){
@@ -1358,6 +1361,26 @@ class UserController extends Controller
         }else{
             return redirect ('user-login');
         }
+    }
+
+
+    public function showBill(Request $request){
+       $month = $request->month;
+       $year = $request->year;
+       $user_id = Auth::user()->id;
+
+        $invoice = Invoice::where('user_id' , '=',$user_id )
+            ->where('month' ,'=',$month)
+            ->where('year','=',$year)
+            ->first();
+//        echo $invoice;
+//        exit();
+        $message_rate = Setting::select('message_rate')->first();
+        $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+        $title = 'ご請求';
+        $request = 'active';
+        $user_main_content = view('user.request',compact('invoice','numberSent','message_rate'));
+        return view('master',compact('user_main_content','request','title'));
     }
 
     public function index()
