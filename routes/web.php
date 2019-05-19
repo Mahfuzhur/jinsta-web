@@ -68,6 +68,8 @@ Route::get('/schedule-list','UserController@scheduleList');
 Route::post('/schedule-action','UserController@scheduleAction');
 Route::get('/schedule-delete/{id}','UserController@scheduleDelete');
 
+Route::post('/save-user-extra-information','UserController@saveUserExtraInformation');
+
 // Route::get('login','LoginController@login');
 Route::get('dm','LoginController@dm');
 Route::get('test','LoginController@test');
@@ -75,7 +77,7 @@ Route::get('test','LoginController@test');
 
 /* Admin Panel Route Start */
 
-Route::get('/admin-login','AdminController@adminLogin');
+Route::get('/admin','AdminController@adminLogin');
 Route::post('/admin-login-check','AdminController@adminLoginCheck');
 Route::get('/admin-dashboard','AdminController@adminDashboard');
 Route::get('/all-company-list','AdminController@allCompanyList');
@@ -109,7 +111,7 @@ Route::get('/verify/{token}', 'UserController@verifyEmail');
 
 Route::get('/payment-receive/{id}','AdminController@paymentReceive');
 Route::post('/compare-hashtag','UserController@compareHashtag');
-Route::get('/create-invoice/{id}','AdminController@createInvoice');
+Route::get('/create-invoice/{id}/{id1}','AdminController@createInvoice');
 
 
 

@@ -13,29 +13,44 @@
                 <div class="modal-header">
                   
                     <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-                    <h4 class="modal-title"><span style="color: red;">Trial Expire</span>. Give below information</h4>
+                    <h4 class="modal-title"><span style="color: red;">Trial Expire</span>. Give below information</h4><br>
                 </div>
                 <div class="modal-body">
+                  @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                   <div class="form-group">
-                    <input type="text" name="" class="form-control" placeholder="Name">
+                    <input type="text" name="name" class="form-control" placeholder="Name" required="">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="" class="form-control" placeholder="Company Name">
+                    <input type="text" name="company_name" class="form-control" placeholder="Company Name" required="">
                   </div>
                     <div class="form-group">
-                        <input type="text" name="" class="form-control" placeholder="Contact Number">
+                        <input type="text" name="contact_number" class="form-control" placeholder="Contact Number" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="" class="form-control" placeholder="Street Address">
+                        <input type="text" name="street" class="form-control" placeholder="Street Address" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="" class="form-control" placeholder="Postal Code">
+                        <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" required="">
                     </div>
                     <!-- <p>Do you want to save changes you made to document before closing?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p> -->
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">Cancel</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                              style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     <button type="submit" class="btn btn-info">Save</button>
                 </div>
             </div>
@@ -46,6 +61,11 @@
   <div class="container-fluid">
     <div class="row row-eq-height">
       <div class="col-md-6 col-sm-12">
+        @if(Session('user_extra_info'))
+        <div class="alert alert-success">
+          {{Session('user_extra_info')}}
+        </div>
+        @endif
           <div class="test_section">
             @if(!isset($json_selfinfo['message']))
              <center><img class="test_img" src="{{$json_selfinfo['user']['profile_pic_url']}}"></center>

@@ -77,9 +77,9 @@
                     <a href="{{URL::to('user-login')}}">
                         <button class="btn btn-info btn-lg" style="background-color: #06af94">ログイン</button>
                     </a>
-                    <a href="{{URL::to('admin-login')}}">
+                    <!-- <a href="{{URL::to('admin')}}">
                         <button class="btn btn-info btn-lg" style="background-color: #06af94">管理者ログイン</button>
-                    </a>
+                    </a> -->
                     <!-- <p class="login_text">Instagram でログイン</p> -->
                 </div>
 <!--                <div class="envelope_area">-->
