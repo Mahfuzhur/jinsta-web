@@ -1302,8 +1302,6 @@ class UserController extends Controller
 
         try{
             $clientDeleted = DB::table('client')->where('hashtag_id',$secondHashtagId)->delete();
-            $clientDeleted = DB::table('hashtag_schedule')->where('hashtag_id',$firstHashtagId)->delete();
-            $clientDeleted = DB::table('schedule')->where('draft',$firstHashtagId)->delete();
             $clientDeleted = DB::table('client')->where('hashtag_id',$firstHashtagId)->delete();
             $hashtagDelted = DB::table('hashtag')->where('id', $secondHashtagId)->delete();
             $hashtagDelted = DB::table('hashtag')->where('id', $firstHashtagId)->delete();
@@ -1312,19 +1310,19 @@ class UserController extends Controller
         }catch (\Exception $ex){
             echo $ex;
         }
-
-        $hashtag = new Hashtag();
-        $hashtag->user_id = Auth::user()->id;
-        $hashtag->hashtag = $newHashtagName;
-        $hashtag->created_at = Carbon::now()->addHour(9);
-        $hashtag->save();
-        $lastInsertedId = $hashtag->id;
+            Hashtag::where('id',$firstHashtagId)->update(['hashtag' => $newHashtagName]);
+//        $hashtag = new Hashtag();
+//        $hashtag->user_id = Auth::user()->id;
+//        $hashtag->hashtag = $newHashtagName;
+//        $hashtag->created_at = Carbon::now()->addHour(9);
+//        $hashtag->save();
+//        $lastInsertedId = $hashtag->id;
 
         foreach($newHashtag as $newHashtag){
 
             $client = new Client();
             $client->user_id = Auth::user()->id;
-            $client->hashtag_id = $lastInsertedId;
+            $client->hashtag_id = $firstHashtagId;
             $client->client_id = $newHashtag;
             $client->created_at = Carbon::now()->addHour(9);
             $client->save();
