@@ -1304,7 +1304,7 @@ class UserController extends Controller
             $clientDeleted = DB::table('client')->where('hashtag_id',$secondHashtagId)->delete();
             $clientDeleted = DB::table('client')->where('hashtag_id',$firstHashtagId)->delete();
             $hashtagDelted = DB::table('hashtag')->where('id', $secondHashtagId)->delete();
-            $hashtagDelted = DB::table('hashtag')->where('id', $firstHashtagId)->delete();
+
 
 
         }catch (\Exception $ex){
