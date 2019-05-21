@@ -48,7 +48,7 @@
                 {{csrf_field()}}
                 <input type="checkbox" class="largerCheckbox"  id="yourBox" />
                 <label>Edit Hashtag</label><br>
-                <input type="text" name="hashtag" style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value="{{$compareHashtag->hashtag}}" id="yourText" disabled />
+                <input readonly type="text" name="hashtag" style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value="{{$compareHashtag->hashtag}}" id="yourText"  />
                 
                 
 
@@ -120,7 +120,7 @@
 </div>
     <script>
         document.getElementById('yourBox').onchange = function() {
-        document.getElementById('yourText').disabled = !this.checked;
+        document.getElementById('yourText').readOnly = false;
         };
     </script>
 @endsection
