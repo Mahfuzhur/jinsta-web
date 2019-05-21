@@ -30,7 +30,7 @@
 
 <!--                <div style="margin-bottom: 15px;margin-left: 10px;">-->
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
-                    <button type="submit" class="btn btn-success btn-md pull-right" style="background: #06af94">メール作成</button>
+                    <button type="submit" class="btn btn-success btn-md pull-right" style="background: #06af94; float:right">メール作成</button>
                 </div>
                   <div class="table-wrapper-scroll-y my-custom-scrollbar">
                   <table class="table table-hover">

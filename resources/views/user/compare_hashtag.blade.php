@@ -47,6 +47,11 @@
             <form action="{{URL::to('save-new-hashtag')}}" method="post">
                 {{csrf_field()}}
 
+
+                <input type="checkbox" class="largerCheckbox"  id="yourBox" />
+                <label>Edit Hashtag</label><br>
+                <input readonly type="text" name="hashtag" style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value="{{$compareHashtag->hashtag}}" id="yourText"  />
+
                 
                 
 
