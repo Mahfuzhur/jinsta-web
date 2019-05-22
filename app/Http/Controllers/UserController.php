@@ -1000,17 +1000,19 @@ class UserController extends Controller
         $obj = json_decode($result);
         //$userid = array();
         $counter = 0;
+        if ($request->flag == null){
+            $row = count($obj->items);
+            $current_time = Carbon::now()->addHour(6);
+            $update_time = Carbon::now()->addHour(6);
+            $user = new Hashtag();
+            $user->user_id= $user_id;
+            $user->hashtag= $hashtagName;
+            $user->created_at= $current_time;
+            $user->updated_at= $update_time;
+            $user->save();
+            $lastInsertId = $user->id;
+        }
 
-        $row = count($obj->items);
-        $current_time = Carbon::now()->addHour(6);
-        $update_time = Carbon::now()->addHour(6);
-        $user = new Hashtag();
-        $user->user_id= $user_id;  
-        $user->hashtag= $hashtagName; 
-        $user->created_at= $current_time; 
-        $user->updated_at= $update_time; 
-        $user->save();
-        $lastInsertId = $user->id;
 
         // $flag = DB::table('hashtag')->insert($hashtag_data)->lastInsertId();
         // echo "<pre>";
@@ -1049,8 +1051,17 @@ class UserController extends Controller
                     $likers = json_decode($likers);
                     foreach ($likers->users as $like){
 //                        $insert[] = $like->pk;
-                        $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $like->pk,'created_at' => $current_time, 'updated_at' => $update_time];
+
                         //$count++;
+                        if($request->flag != null){
+                            $second = array();
+                            array_push($second,$like->pk);
+                        }else{
+                            $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $like->pk,'created_at' => $current_time, 'updated_at' => $update_time];
+                        }
+
+
+
                     }
 
                 }
@@ -1070,31 +1081,37 @@ class UserController extends Controller
 //            if($obj->items){
 //            $insert_data[] = ['user_id' => $user_id,'hashtag_id' => $lastInsertId,'client_id' => $insert[$i],'created_at' => $current_time, 'updated_at' => $update_time];
 //            }
-                $flag = Client::insert($insert_data);
+                if($request->flag == null){
+                    $flag = Client::insert($insert_data);
+                }
+
         }
         if($request->flag != null){
 
             $compareHashtag = json_decode($request->compareHashtag);
             $mainHashtag = Client::select('client_id')->where('hashtag_id' , '=', $compareHashtag->id)->get();
-            $secondHashtag = Client::select('client_id')->where('hashtag_id' , '=', $lastInsertId)->get();
+
             $first = array();
-            $second = array();
+
 
             foreach ($mainHashtag as $mainHashtag){
                 array_push($first,$mainHashtag->client_id);
             }
-            foreach ($secondHashtag as $secondHashtag){
-                array_push($second,$secondHashtag->client_id);
-            }
+
 
             $new_hashtag = array_diff($first,$second);
 //            print_r($new);
 //            exit();
             $active_destination = 'active';
             $compareHashtag = session('compareHashtag');
-            return view('user.ajax_compare_checkbox_select',compact('compareHashtag','lastInsertId','new_hashtag'));
+
+            return view('user.ajax_compare_checkbox_select',compact('compareHashtag','new_hashtag'));
             // $user_main_content = view('user.compare_hashtag',compact('compareHashtag','lastInsertId','new_hashtag'));
             // return view('master',compact('user_main_content','active_destination'));
+
+            // $user_main_content = view('user.compare_hashtag',compact('compareHashtag','new_hashtag'));
+            // return view('master',compact('user_main_content','active_destination'));
+
         }
             //$flag = Client::insert($insert_data);
 
@@ -1303,7 +1320,7 @@ class UserController extends Controller
     public function saveNewHashtag(Request $request){
 
         $newHashtagName = $request->hashtag;
-        $secondHashtagId = $request->secondHashtagId;
+
         $firstHashtagId = $request->firstHashtagId;
         $newHashtag = $request->newHashtag;
         // echo "<pre>";
@@ -1312,28 +1329,28 @@ class UserController extends Controller
 
 
         try{
-            $clientDeleted = DB::table('client')->where('hashtag_id',$secondHashtagId)->delete();
+
             $clientDeleted = DB::table('client')->where('hashtag_id',$firstHashtagId)->delete();
-            $hashtagDelted = DB::table('hashtag')->where('id', $secondHashtagId)->delete();
-            $hashtagDelted = DB::table('hashtag')->where('id', $firstHashtagId)->delete();
+
+
 
 
         }catch (\Exception $ex){
             echo $ex;
         }
-
-        $hashtag = new Hashtag();
-        $hashtag->user_id = Auth::user()->id;
-        $hashtag->hashtag = $newHashtagName;
-        $hashtag->created_at = Carbon::now()->addHour(9);
-        $hashtag->save();
-        $lastInsertedId = $hashtag->id;
+            Hashtag::where('id',$firstHashtagId)->update(['hashtag' => $newHashtagName]);
+//        $hashtag = new Hashtag();
+//        $hashtag->user_id = Auth::user()->id;
+//        $hashtag->hashtag = $newHashtagName;
+//        $hashtag->created_at = Carbon::now()->addHour(9);
+//        $hashtag->save();
+//        $lastInsertedId = $hashtag->id;
 
         foreach($newHashtag as $newHashtag){
 
             $client = new Client();
             $client->user_id = Auth::user()->id;
-            $client->hashtag_id = $lastInsertedId;
+            $client->hashtag_id = $firstHashtagId;
             $client->client_id = $newHashtag;
             $client->created_at = Carbon::now()->addHour(9);
             $client->save();

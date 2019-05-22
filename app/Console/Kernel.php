@@ -65,6 +65,7 @@ class Kernel extends ConsoleKernel
                 ->get();
 
 
+
         }catch (\Exception $ex){
             echo $ex;
         }
@@ -73,8 +74,8 @@ class Kernel extends ConsoleKernel
             $this->counter = 0;
 
             foreach($this->users as $this->user){
-//                 echo '**' .$this->counter. '*';
-//                 exit();
+
+            //exit();
                 $schedule->call(function () {
 
 //                    print_r($this->users[$this->counter]);

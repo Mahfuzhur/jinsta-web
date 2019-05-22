@@ -57,14 +57,17 @@
             <form action="{{URL::to('save-new-hashtag')}}" method="post">
                 {{csrf_field()}}
 
+
+
                 
                 
 
-                @if(isset($lastInsertId))
+                @if(isset($new_hashtag))
                 <input type="checkbox" class="largerCheckbox"  id="yourBox" />
                 <label>Edit Hashtag</label><br>
                 <input readonly type="text" name="hashtag"  value="{{$compareHashtag->hashtag}}" id="yourText"  />
-                <input type="hidden" name="secondHashtagId" value="{{$lastInsertId}}">
+                
+
                 <input type="hidden" name="firstHashtagId" value="{{$compareHashtag->id}}">
                 @foreach($new_hashtag as $new_hashtag)
                 <input type="hidden" name="newHashtag[]" value="{{$new_hashtag}}">

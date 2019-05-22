@@ -8,15 +8,19 @@
                 <form action="{{URL::to('update-setting/'.$single_setting_info->id)}}" method="post">
                     {{csrf_field()}}
                     <div class="progress_view">
-                        <h4 class="progress_margin"><span><img src="{{asset('assets/img/settings.jpg')}}" alt=""></span>
-                            Setting
+                        <h4 class="progress_margin"><span><img src="{{asset('assets/img/setting.png')}}" alt=""></span>
+                            Settings
                         </h4>
-<!--                        <i class="fa fa-gear" style="font-size:48px;color:black">Setting</i>-->
+
+<!--                        <i class="fa fa-cog" style="font-size:36px;color:#80dfdb">  Setting</i>-->
+<!--                        <br>-->
+<!--                        <br>-->
                         @if(session('update_msg'))
                         <div class="alert alert-success">
                             {{session('update_msg')}}
                         </div>
                         @endif
+
                         <div class="form-group row">
                             <label class="col-2 col-form-label">試用期間 (日)</label>
                             <div class="col-4">
