@@ -62,11 +62,11 @@
                 <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
                 
 
-                @if(isset($lastInsertId))
+                @if(isset($new_hashtag))
                 <input type="checkbox" class="largerCheckbox"  id="yourBox" />
                 <label>Edit Hashtag</label><br>
-                <input readonly type="text" name="hashtag_name" id="hashtag_name" value="{{$compareHashtag->hashtag}}" id="yourText"  />
-                <input type="hidden" name="secondHashtagId" id="secondHashtagId" value="{{$lastInsertId}}">
+                <input readonly type="text" name="hashtag_name" id="hashtag_name" value="{{$compareHashtag->hashtag}}" class="form-control" style="max-width: 420px;" />
+                
                 <input type="hidden" name="firstHashtagId" id="firstHashtagId" value="{{$compareHashtag->id}}">
                 @foreach($new_hashtag as $key => $new_hashtag)
                 <input type="hidden" name="newHashtag[]" id="newHashtag_{{$key}}" value="{{$new_hashtag}}">
@@ -138,7 +138,7 @@
 
          $("#final_hashtag_save").click(function(){
           var hashtag = $('#hashtag_name').val();
-          var secondHashtagId = $('#secondHashtagId').val();
+          
           var firstHashtagId = $('#firstHashtagId').val();
           var newHashtag = hashTagValue($('input[name="newHashtag[]"]'));
           console.log(hashTagValue($('input[name="newHashtag[]"]')));
@@ -146,7 +146,7 @@
           $.ajax({
            url: "{{url('save-new-hashtag')}}",
            type: "post",
-           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag,"secondHashtagId":secondHashtagId,"firstHashtagId":firstHashtagId,"newHashtag":newHashtag},
+           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag,"firstHashtagId":firstHashtagId,"newHashtag":newHashtag},
            beforeSend: function(){
             // Show image container
             // console.log(hashtag);
@@ -251,6 +251,6 @@
     </style>
     <script>
         document.getElementById('yourBox').onchange = function() {
-        document.getElementById('yourText').readOnly = false;
+        document.getElementById('hashtag_name').readOnly = false;
         };
     </script>

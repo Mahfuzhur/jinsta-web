@@ -7,7 +7,8 @@
 	        <!-- <div class="box_title">
 	            <h4>宛先名は削除でお願いします。</h4>
 	        </div> -->
-	        <form action="{{URL::to('hashtag-list-search')}}" method="post">
+	        <!-- <form action="{{URL::to('hashtag-list-search')}}" method="post"> -->
+            <form action="javascript:void(0);" method="post">
 	        {{csrf_field()}}
 	        <!-- <div id='loader' style='display: none;'>
 			  <div class="loader"> </div>
@@ -22,7 +23,7 @@
 
 			<meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
 	        <h4>#から作成</h4>
-	        
+	        <h5 id="exception_msg" style="color: red;"></h5>
 	        <div class="alert alert-success" id="hashtag_session_save" style="display: none;"></div>
 	        		
 	        <div class="hashtag_title left-border m-b-40">
@@ -154,7 +155,14 @@
            },
            success: function(response){
             
-            $('#page-content-wrapper').html(response);
+            if(response.data == 1){
+              $('#exception_msg').html(response.insta_credential_err);
+            }else if(response.data == 2){
+              $('#exception_msg').html(response.no_hashtag_err);
+            }
+            else{
+              $('#page-content-wrapper').html(response);
+            }
            },
            complete:function(data){
             // Hide image container

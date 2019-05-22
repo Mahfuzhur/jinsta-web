@@ -31,6 +31,7 @@
                 </div>
             </div>
             <h4>除外ハッシュタグ</h4>
+            <h5 id="exception_msg" style="color: red;"></h5>
             <div class="hashtag_title left-border m-b-40">
                 <div class="input_box">                    
                     <div class="input-group"> 
@@ -151,7 +152,14 @@
            },
            success: function(response){
             
-            $('#page-content-wrapper').html(response);
+            if(response.data == 1){
+              $('#exception_msg').html(response.insta_credential_err);
+            }else if(response.data == 2){
+              $('#exception_msg').html(response.no_hashtag_err);
+            }
+            else{
+              $('#page-content-wrapper').html(response);
+            }
            },
            complete:function(data){
             // Hide image container
@@ -179,10 +187,12 @@
            beforeSend: function(){
             // Show image container
             console.log(hashtag_list);
+            console.log(flag);
             $("#Load").show();
            },
            success: function(response){
             $("#Load").hide();
+            
             // if(response.flag === 1){
             //     $("#hashtag_session_save").show();
             //     $("#hashtag_session_save").html(response.data);

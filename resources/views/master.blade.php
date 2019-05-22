@@ -367,7 +367,14 @@
            },
            success: function(response){
             
-            $('#page-content-wrapper').html(response);
+            if(response.data == 1){
+              $('#exception_msg').html(response.insta_credential_err);
+            }else if(response.data == 2){
+              $('#exception_msg').html(response.no_hashtag_err);
+            }
+            else{
+              $('#page-content-wrapper').html(response);
+            }
            },
            complete:function(data){
             // Hide image container

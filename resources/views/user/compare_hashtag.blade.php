@@ -7,7 +7,8 @@
             <!-- <div class="box_title">
                 <h4>宛先名は削除でお願いします。</h4>
             </div> -->
-            <form action="{{URL::to('hashtag-list-search')}}" method="post">
+            <!-- <form action="{{URL::to('hashtag-list-search')}}" method="post"> -->
+            <form action="javascript:void(0);" method="post">
             {{csrf_field()}}
             <!-- <div id='loader' style='display: none;'>
               <img src="{{asset('assets/img/progressbar2.gif')}}">
@@ -32,6 +33,7 @@
                 </div>
             </div>
             <h4>除外ハッシュタグ</h4>
+            <h5 id="exception_msg" style="color: red;"></h5>
             <div class="hashtag_title left-border m-b-40">
                 <div class="input_box">                    
                     <div class="input-group"> 

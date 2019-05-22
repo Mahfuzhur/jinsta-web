@@ -982,6 +982,7 @@ class UserController extends Controller
 
         $user_id = Auth::user()->id;
         $hashtagName = $request->hashtag_list;
+        
         // $exit_info = DB::table('hashtag')->where('hashtag',$hashtagName)->first();
         // if($exit_info){
         //     return redirect('create-destination')->with('errot_message','Hashtag already exits');
