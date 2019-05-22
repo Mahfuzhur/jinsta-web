@@ -930,7 +930,8 @@ class UserController extends Controller
             $user_info = DB::table('users')->select('instagram_username','instagram_password')->where('id',$user_id)->first();
             if($user_info->instagram_username == NULL || $user_info->instagram_password == NULL){
                 // return back()->with('instagram_error_msg',"You must provide instagram username and password from dashboard");
-                return redirect('dashboard');
+                // return redirect('dashboard');
+                return response()->json(['insta_credential_err'=>'Update Instagram username and password from dashboard','data'=>'1']);
             }
             $this->ig->login($user_info->instagram_username,$user_info->instagram_password);
             $rank_token= \InstagramAPI\Signatures::generateUUID();
@@ -938,8 +939,8 @@ class UserController extends Controller
           
             $obj = json_decode($result);
             if($obj->results == null){
-                return redirect('create-destination')->with('hashtag_found_msg','この＃キーワード検索でポストがありません。')->withInput();
-                // return response()->json(['success'=>'この＃キーワード検索でポストがありません。']);
+                // return redirect('create-destination')->with('hashtag_found_msg','この＃キーワード検索でポストがありません。')->withInput();
+                return response()->json(['no_hashtag_err'=>'この＃キーワード検索でポストがありません。','data'=>'2']);
                 
             }
             $hashtagName = array();
@@ -960,12 +961,15 @@ class UserController extends Controller
                     ->first();
                 session(['compareHashtag' => $compareHashtag]);
 
-                $user_main_content = view('user.compare_hashtag',compact('results','hashtag','compareHashtag'));
-                return view('master',compact('user_main_content','active_destination','title'));
+                return view('user.ajax_compare_hashtag',compact('results','hashtag','compareHashtag'));
+
+                // $user_main_content = view('user.compare_hashtag',compact('results','hashtag','compareHashtag'));
+                // return view('master',compact('user_main_content','active_destination','title'));
             }
             else{
-                $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
-                return view('master',compact('user_main_content','active_destination','title'));
+                return view('user.ajax_hashtag_list',compact('results','hashtag'));
+                // $user_main_content = view('user.hashtag_list',compact('results','hashtag'));
+                // return view('master',compact('user_main_content','active_destination','title'));
             }
 
         }else{
@@ -1088,15 +1092,19 @@ class UserController extends Controller
 //            exit();
             $active_destination = 'active';
             $compareHashtag = session('compareHashtag');
-            $user_main_content = view('user.compare_hashtag',compact('compareHashtag','lastInsertId','new_hashtag'));
-            return view('master',compact('user_main_content','active_destination'));
+            return view('user.ajax_compare_checkbox_select',compact('compareHashtag','lastInsertId','new_hashtag'));
+            // $user_main_content = view('user.compare_hashtag',compact('compareHashtag','lastInsertId','new_hashtag'));
+            // return view('master',compact('user_main_content','active_destination'));
         }
             //$flag = Client::insert($insert_data);
 
 
 
         else{
-            return redirect('create-destination')->with('message','Hastag and its ID added successfully');
+            // return redirect('create-destination')->with('message','Hastag and its ID added successfully');
+            return response()->json(
+                ['data'=> 'Hastag and its ID added successfully','flag' => '1']
+            );
         }
 
 
@@ -1298,6 +1306,9 @@ class UserController extends Controller
         $secondHashtagId = $request->secondHashtagId;
         $firstHashtagId = $request->firstHashtagId;
         $newHashtag = $request->newHashtag;
+        // echo "<pre>";
+        // print_r($newHashtag);
+        // exit();
 
 
         try{
@@ -1327,7 +1338,10 @@ class UserController extends Controller
             $client->created_at = Carbon::now()->addHour(9);
             $client->save();
         }
-        return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
+        // return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
+        return response()->json(
+                ['data'=> 'Hastag and its ID updated successfully']
+            );
     }
 
 

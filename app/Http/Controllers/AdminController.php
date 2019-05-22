@@ -413,9 +413,9 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
 
-            $customer_info = UserExtraInformation::findOrFail($user_id);
+            $customer_info = UserExtraInformation::where('user_id',Crypt::decrypt($user_id))->first();
             $setting_info = Setting::get()->first();
-            $invoice_info = Invoice::where('invoice_id',$invoice_id)->first();
+            $invoice_info = Invoice::where('invoice_id',Crypt::decrypt($invoice_id))->first();
             // echo "<pre>";
             // print_r($invoice_info);
             // exit();

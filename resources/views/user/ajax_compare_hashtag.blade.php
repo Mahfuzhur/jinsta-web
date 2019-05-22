@@ -1,5 +1,4 @@
-@extend('master')
-@section('user_main_content')
+
 <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row create_destination">            
@@ -38,12 +37,12 @@
                         <form action="{{URL::to('hashtag-list-search')}}" method="post">
                             {{csrf_field()}}
                             <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
-                            <input type="text" name="hashtag" id="hashtags"  placeholder="Tokyo" class="hashtag_input" required="">
-                            <input type="hidden" id="flag" name="flag" value="1">
-                            <input type="hidden" id="compareHashtag" name="compareHashtag" value="{{$compareHashtag}}">
+                            <input type="text" name="hashtag" id="hashtag_ajax"  placeholder="Tokyo" class="hashtag_input" required="">
+                            <input type="hidden" name="flag" value="1">
+                            <input type="hidden" name="compareHashtag" value="{{$compareHashtag}}">
 
                             <div class="input-group-append" style="margin-left: -10px;">
-                                <button type="button" name="" id="but_search_hashtag" class="btn btn-info" style="background: #06af94;">Search</button>
+                                <button type="button" name="" id="ajax_but_search_hashtag" class="btn btn-info" style="background: #06af94;">Search</button>
                                 <!-- <span class="input-group-text" id="">Search</span> -->
                             </div>
                         </form>
@@ -79,10 +78,6 @@
         </div>
         <div class="col-md-1" style="border-left: 2px solid #eae0e0;"></div>
         <div class="col-md-5 main_content">
-
-            <div id='loader' style='display: none;'>
-              <div class="loader"> </div>
-            </div>
             
             <!-- <div class="box_title">
                 <h4>宛先名は削除でお願いします。</h4>
@@ -91,6 +86,7 @@
             <!-- <div class='response'></div> -->
             <form action="{{URL::to('hashtag-list-search-csv')}}" method="post">
                 {{csrf_field()}}
+                <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
                 <div class="radio_list_area">
                     @if(isset($results))
                     <div class="radio_label">
@@ -102,9 +98,9 @@
                             @foreach($results as $result)
                             @if($i < 9)
                             <label class="checkcontainer" style="width: 50%;"> {{$result->name}}-> {{$result->search_result_subtitle}}
-                                <input type="radio" name="hashtag_list" value="{{$result->name}}" required=""><br>
-                                <input type="hidden" name="compareHashtag" value="{{$compareHashtag}}">
-                                <input type="hidden" name="flag" value="1">
+                                <input type="radio" name="ajax_compare_hashtag_list" id="ajax_compare_hashtag_list"value="{{$result->name}}" required=""><br>
+                                <input type="hidden" id="compareHashtag" name="compareHashtag" value="{{$compareHashtag}}">
+                                <input type="hidden" id="flag" name="flag" value="1">
                                 <span class="radiobtn"></span>
                             </label>
                             @endif
@@ -118,7 +114,7 @@
 
                 <div class="form_buttons">
                     <!-- <button class="btn_cancel p_btn">削除する</button> -->
-                    <button type="sybmit" class="btn_done p_btn">登録</button>
+                    <button type="button" id="ajax_compare_hashtag_save" class="btn_done p_btn">登録</button>
                 </div>
                 @endif
 
@@ -132,10 +128,152 @@
 
 
 </div>
-
     <script>
-        document.getElementById('yourBox').onchange = function() {
-        document.getElementById('yourText').readOnly = false;
-        };
+
+        /* compare hashtag list serach start*/
+
+         $("#ajax_but_search_hashtag").click(function(){
+          var hashtag = $('#hashtag_ajax').val();
+          var flag = $('#flag').val();
+          var compareHashtag = $('#compareHashtag').val();
+
+          console.log(hashtag);
+          console.log(flag);
+
+          $.ajax({
+           url: "{{url('hashtag-list-search')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag,"flag":flag,"compareHashtag":compareHashtag},
+           beforeSend: function(){
+            // Show image container
+            console.log(hashtag);
+            $("#Load").show();
+           },
+           success: function(response){
+            
+            $('#page-content-wrapper').html(response);
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+         
+         });
+         /* compare hashtag list serach end*/
+
+         /* compare hashtag list serach save start*/
+
+        $("#ajax_compare_hashtag_save").click(function(){
+            
+          // var hashtag_list = $('#hashtag_list').val();
+          var hashtag_list = $("input[name='ajax_compare_hashtag_list']:checked"). val();
+          var flag = $('#flag').val();
+          var compareHashtag = $('#compareHashtag').val();
+          console.log(hashtag_list);
+
+          $.ajax({
+           url: "{{url('hashtag-list-search-csv')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","hashtag_list":hashtag_list,"flag":flag,"compareHashtag":compareHashtag},
+           beforeSend: function(){
+            // Show image container
+            console.log(hashtag_list);
+            $("#Load").show();
+           },
+           success: function(response){
+            $("#Load").hide();
+            // if(response.flag === 1){
+            //     $("#hashtag_session_save").show();
+            //     $("#hashtag_session_save").html(response.data);
+            // }else(){
+            //     $('.ajax_hashtag_list').html(response);
+            // }
+            $('#page-content-wrapper').html(response);
+            // Session["message"]=response.data;
+            // window.location = "{{URL::to('create-destination')}}";
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+         
+         });
+        /* compare hashtag list serach save end*/
+         
+        // document.getElementById('yourBox').onchange = function() {
+        // document.getElementById('yourText').readOnly = false;
+        // };
     </script>
-@endsection
+
+    <style type="text/css">
+
+
+    .load__none {
+      display: none;  
+      color:#fff;
+    }
+
+    .load__animation{
+      border: 5px solid #06af94;
+      border-top-color: #e50914;
+      border-top-style: groove;
+      height: 100px;
+      width: 100px;
+      border-radius: 100%;
+      position: relative;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1000;
+      margin: auto;
+      -webkit-animation: turn 1.5s linear infinite;
+      -o-animation: turn 1.5s linear infinite;
+      animation: turn 1.5s linear infinite;
+    }
+
+    .load {
+      position: fixed;
+      background: url(http://i.imgur.com/JUlfODF.png) no-repeat 50% fixed / cover;);
+      width: 100%;
+      height: 100vh;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      opacity: 0.8;
+      display: flex;
+      align-items:center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .load__container {
+      position: relative;
+    }
+
+    @keyframes turn {
+      from {transform: rotate(0deg)}
+      to {transform: rotate(360deg)}
+    } 
+
+    .load__title {
+      color: #fff;
+      font-size: 2rem;
+    }
+
+
+    @keyframes loadPage {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: .5;
+      }
+      100% {
+        opacity: 1;
+      }
+      
+    }
+    </style>

@@ -28,6 +28,79 @@
         Jinsta
         @endif</title>
 
+
+<style type="text/css">
+
+
+.load__none {
+  display: none;  
+  color:#fff;
+}
+
+.load__animation{
+  border: 5px solid #06af94;
+  border-top-color: #e50914;
+  border-top-style: groove;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  margin: auto;
+  -webkit-animation: turn 1.5s linear infinite;
+  -o-animation: turn 1.5s linear infinite;
+  animation: turn 1.5s linear infinite;
+}
+
+.load {
+  position: fixed;
+  background: url(http://i.imgur.com/JUlfODF.png) no-repeat 50% fixed / cover;);
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  opacity: 0.8;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.load__container {
+  position: relative;
+}
+
+@keyframes turn {
+  from {transform: rotate(0deg)}
+  to {transform: rotate(360deg)}
+} 
+
+.load__title {
+  color: #fff;
+  font-size: 2rem;
+}
+
+
+@keyframes loadPage {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    opacity: 1;
+  }
+  
+}
+</style>
+
+
     <script type="text/javascript">
         function schedule_action($id) {
             var id = $id;
@@ -220,6 +293,80 @@
       @endif
       @endif
     <script>
+
+        
+
+        $(document).ready(function(){
+
+        /* hashtag list serach start*/
+ 
+         $("#but_search").click(function(){
+          var hashtag = $('#hashtag').val();
+
+          $.ajax({
+           url: "{{url('hashtag-list-search')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag},
+           beforeSend: function(){
+            // Show image container
+            console.log(hashtag);
+            $("#Load").show();
+           },
+           success: function(response){
+            console.log(response.data);
+            if(response.data == 1){
+              $('#exception_msg').html(response.insta_credential_err);
+            }else if(response.data == 2){
+              $('#exception_msg').html(response.no_hashtag_err);
+            }
+            else{
+              $('#page-content-wrapper').html(response);
+            }
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+         
+         });
+
+        /* hashtag list serach end*/
+
+        
+        /* compare hashtag list serach start*/
+
+         $("#but_search_hashtag").click(function(){
+          var hashtag = $('#hashtags').val();
+          var flag = $('#flag').val();
+          var compareHashtag = $('#compareHashtag').val();
+
+          console.log(hashtag);
+
+          $.ajax({
+           url: "{{url('hashtag-list-search')}}",
+           type: "post",
+           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag,"flag":flag,"compareHashtag":compareHashtag},
+           beforeSend: function(){
+            // Show image container
+            console.log(hashtag);
+            $("#Load").show();
+           },
+           success: function(response){
+            
+            $('#page-content-wrapper').html(response);
+           },
+           complete:function(data){
+            // Hide image container
+            $("#Load").hide();
+           }
+          });
+         
+         });
+
+         /* compare hashtag list serach end*/
+
+        });
 
       $(function(){
         $("#delivery_pr_start").datepicker({ dateFormat: 'dd-mm-yy'});

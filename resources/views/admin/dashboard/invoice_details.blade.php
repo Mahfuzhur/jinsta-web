@@ -119,10 +119,10 @@
                                             <a class="dropdown-item" href="#">メール送信</a>
                                             @if($invoice->billing_status == 0)
                                             <a class="dropdown-item"
-                                               href="{{URL::to('payment-receive/'.$invoice->invoice_id)}}">入金済</a>
+                                               href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}">入金済</a>
                                             @endif
                                             <a class="dropdown-item"
-                                               href="{{URL::to('create-invoice/'.$invoice->user_id.'/'.$invoice->invoice_id)}}"
+                                               href="{{URL::to('create-invoice/'.Crypt::encrypt($invoice->user_id).'/'.Crypt::encrypt($invoice->invoice_id))}}"
                                                target="_blank">請求書を印刷</a>
                                             <!-- <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Separated </a>
