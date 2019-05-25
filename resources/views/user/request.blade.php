@@ -4,6 +4,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 request">
+                @if(isset($message))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+                @endif
                 <form action="{{URL::to('show-bill')}}" method="post">
                     {{csrf_field()}}
                     <div class="form-group row">

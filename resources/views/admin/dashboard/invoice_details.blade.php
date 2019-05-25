@@ -75,6 +75,7 @@
                             <tr>
                                 <th scope="col" class="text-center">#</th>
                                 <th scope="col" class="text-center">請求番号</th>
+                                <th scope="col" class="text-center">月</th>
                                 <th scope="col" class="text-center">発行日</th>
                                 <th scope="col" class="text-center">入金期限</th>
                                 <th scope="col" class="text-center">送信メッセージ</th>
@@ -101,6 +102,7 @@
                                 ?>
                                 <td class="text-center">{{$i}}</td>
                                 <td class="text-center">{{$invoice->invoice_id}}</td>
+                                <td class="text-center">0{{$invoice->month}}-{{$invoice->year}}</td>
                                 <td class="text-center">{{$invoice->issue_date}}</td>
                                 <td class="text-center">{{$invoice->due_date}}</td>
                                 <td class="text-center">{{$invoice->dm_total_number}}</td>

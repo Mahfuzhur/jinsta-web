@@ -1407,12 +1407,23 @@ class UserController extends Controller
             ->first();
 //        echo $invoice;
 //        exit();
-        $message_rate = Setting::select('message_rate')->first();
-        $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
-        $title = 'ご請求';
-        $request = 'active';
-        $user_main_content = view('user.request',compact('invoice','numberSent','message_rate'));
-        return view('master',compact('user_main_content','request','title'));
+        if ($invoice != null){
+            $message_rate = Setting::select('message_rate')->first();
+            $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+            $title = 'ご請求';
+            $request = 'active';
+            $user_main_content = view('user.request',compact('invoice','numberSent','message_rate'));
+            return view('master',compact('user_main_content','request','title'));
+        }
+        else {
+            $message_rate = Setting::select('message_rate')->first();
+            $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+            $title = 'ご請求';
+            $request = 'active';
+            $user_main_content = view('user.request',compact('invoice','numberSent','message_rate'));
+            return view('master',compact('user_main_content','request','title'))->with('message','bill not found');
+        }
+
     }
 
     public function index()
