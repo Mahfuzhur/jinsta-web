@@ -60,14 +60,18 @@
                 {{csrf_field()}}
 
 
+<!--                <input type="checkbox" class="largerCheckbox"  id="yourBox" />-->
+<!--                <label>Edit Hashtag</label><br>-->
+<!--                <input readonly type="text" name="hashtag" style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value="{{$compareHashtag->hashtag}}" id="yourText"  />-->
 
-                
+
+
                 
 
                 @if(isset($new_hashtag))
                 <input type="checkbox" class="largerCheckbox"  id="yourBox" />
                 <label>Edit Hashtag</label><br>
-                <input readonly type="text" name="hashtag"  value="{{$compareHashtag->hashtag}}" id="yourText"  />
+                <input readonly type="text" name="hashtag" style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value="{{$compareHashtag->hashtag}}" id="yourText"  />
                 
 
                 <input type="hidden" name="firstHashtagId" value="{{$compareHashtag->id}}">
