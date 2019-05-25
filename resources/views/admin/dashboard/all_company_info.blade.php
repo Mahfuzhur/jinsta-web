@@ -23,7 +23,7 @@
                 </div>
                 @endif  
                 <div class="table-wrapper-scroll-y my-custom-scrollbar"> 
-                  <table class="table table-hover" id="ajax_suspend_list">
+                  <table class="table table-hover table-bordered" id="ajax_suspend_list">
                     <thead>
                       <tr>
                         <th scope="col" class="text-center">#</th>

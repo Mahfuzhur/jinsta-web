@@ -4,9 +4,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 request">
-                @if(isset($message))
+                @if(!empty($message))
                 <div class="alert alert-success">
-                    {{ session('message') }}
+                    {{ $message }}
                 </div>
                 @endif
                 <form action="{{URL::to('show-bill')}}" method="post">

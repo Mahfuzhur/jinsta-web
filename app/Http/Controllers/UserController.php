@@ -13,6 +13,7 @@ use Auth;
 use File;
 use Excel;
 use DB;
+use Illuminate\View\View;
 use Session;
 use Alert;
 use InstagramAPI;
@@ -26,6 +27,7 @@ use App\TemplateSchedule;
 use App\UserSchedule;
 use App\Setting;
 use App\UserExtraInformation;
+
 
 
 class UserController extends Controller
@@ -1406,9 +1408,9 @@ class UserController extends Controller
             ->where('year','=',$year)
             ->first();
 
-//        echo $invoice;
-//        exit();
+
         if ($invoice != null){
+
             $message_rate = Setting::select('message_rate')->first();
             $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
             $title = 'ご請求';
@@ -1417,12 +1419,14 @@ class UserController extends Controller
             return view('master',compact('user_main_content','request','title'));
         }
         else {
+
             $message_rate = Setting::select('message_rate')->first();
             $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+            $message = 'bill not found';
             $title = 'ご請求';
             $request = 'active';
-            $user_main_content = view('user.request',compact('numberSent','message_rate'));
-            return view('master',compact('user_main_content','request','title'))->with('message','bill not found');
+            $user_main_content = view('user.request',compact('numberSent','message_rate','message'));
+            return view('master',compact('user_main_content','request','title'));
         }
 
 
