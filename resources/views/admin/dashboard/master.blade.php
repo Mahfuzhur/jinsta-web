@@ -412,6 +412,16 @@
 
     <script type="text/javascript">
 
+      function payment_received() {
+
+        var check = confirm('If you have received your payment click OK.');
+        if (check) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
       function suspend_user($id,$status){
 
         var change_msg = confirm('are you sure to '+$status+' this company?');

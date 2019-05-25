@@ -63,7 +63,7 @@
 
                             <!-- <a href="{{URL::to('edit-user-extra-info/'.Crypt::encrypt($user_info->id))}}" class="btn btn-success"
                                style="width: 100%;margin-top: 10px; color: white">Update</a> -->
-                               <button type="button" class="btn btn-success" style="width: 100%;margin-top: 10px; color: white" data-toggle="modal" data-target="#exampleModal">Upate</button>
+                               <button type="button" class="btn btn-success" style="width: 100%;margin-top: 10px; color: white" data-toggle="modal" data-target="#exampleModal">請求書情報編集</button>
 
                             
                         </div>
@@ -133,7 +133,7 @@
                                             <a class="dropdown-item" href="#">メール送信</a>
                                             @if($invoice->billing_status == 0)
                                             <a class="dropdown-item"
-                                               href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}">入金済</a>
+                                               href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}" onclick="return payment_received();">入金済</a>
                                             @endif
                                             <a class="dropdown-item"
                                                href="{{URL::to('create-invoice/'.Crypt::encrypt($invoice->user_id).'/'.Crypt::encrypt($invoice->invoice_id))}}"
@@ -160,7 +160,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">User Extra Information</h5>
+                <h5 class="modal-title" id="exampleModalLabel">請求書情報編集</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
