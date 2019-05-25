@@ -1414,7 +1414,7 @@ class UserController extends Controller
             $request = 'active';
             $user_main_content = view('user.request',compact('invoice','numberSent','message_rate'));
             return view('master',compact('user_main_content','request','title'));
-        }mkkjnjbjbhjhbghgbjh
+        }
         else {
             $message_rate = Setting::select('message_rate')->first();
             $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
