@@ -33,7 +33,7 @@
                     <button type="submit" class="btn btn-success btn-md pull-right" style="background: #06af94; float:right">メール作成</button>
                 </div>
                   <div class="table-wrapper-scroll-y my-custom-scrollbar">
-                  <table class="table table-hover">
+                  <table class="table table-hover table-bordered">
                     <thead>
                       <tr>
                         <th scope="col" class="text-center">マーク</th>
