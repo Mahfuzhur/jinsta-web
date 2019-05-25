@@ -14,7 +14,7 @@
                   <input type="checkbox" name="email" onchange="ckeckalltrialcompany(this);"> <span style="font-weight: bold;">すべて選択</span>
                   <button type="submit" class="btn btn-success btn-sm pull-right">メールを送る</button>
                 </div>
-                  <table class="table table-hover">
+                  <table class="table table-hover table-bordered">
                     <thead>
                       <tr>
                         <th scope="col" class="text-center">マーク</th>
