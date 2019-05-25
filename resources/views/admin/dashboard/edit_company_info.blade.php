@@ -24,16 +24,19 @@
                 <div class="col-md-6">
                   <form action="{{URL::to('update-company-info/'.$single_company_info->id)}}" method="post">
                     {{csrf_field()}}
-                    <label>Company Name</label>
-                    <input type="text" name="company_name" class="form-control" value="{{$single_company_info->company_name}}" placeholder="Enter company name" required="">
-                    <label>Name</label>
-                    <input type="text" name="name" class="form-control" value="{{$single_company_info->name}}" placeholder="Enter name" required="">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" value="{{$single_company_info->email}}" placeholder="Enter email" required="">
-                    <label>Mobile</label>
-                    <input type="text" name="mobile" class="form-control" value="{{$single_company_info->mobile}}" placeholder="Enter mobile" required="">
-                    <br>
-                    <button type="submit" class="btn btn-success btn-md">Save Changes</button>
+                      <div style="margin-left: 6%">
+                          <label>Company Name</label>
+                          <input type="text" name="company_name" class="form-control" value="{{$single_company_info->company_name}}" placeholder="Enter company name" required="">
+                          <label>Name</label>
+                          <input type="text" name="name" class="form-control" value="{{$single_company_info->name}}" placeholder="Enter name" required="">
+                          <label>Email</label>
+                          <input type="email" name="email" class="form-control" value="{{$single_company_info->email}}" placeholder="Enter email" required="">
+                          <label>Mobile</label>
+                          <input type="text" name="mobile" class="form-control" value="{{$single_company_info->mobile}}" placeholder="Enter mobile" required="">
+                          <br>
+                          <button type="submit" class="btn btn-success btn-md">Save Changes</button>
+                      </div>
+
                   </form>
                 </div>
               </div>                    
