@@ -552,8 +552,8 @@ class UserController extends Controller
 
             $specify_time_start = Carbon::parse($specify_time_start);
             $specify_time_end = Carbon::parse($specify_time_end);
-            $specify_time_start = $specify_time_start->subHour(6)->format('H:i');
-            $specify_time_end = $specify_time_end->subHour(6)->format('H:i');
+            $specify_time_start = $specify_time_start->subHour(9)->format('H:i');
+            $specify_time_end = $specify_time_end->subHour(9)->format('H:i');
 
             if($specify_time_start == $specify_time_end){
                 return back()->with('time_erroe_msg','Start and End time can not be same');
@@ -563,8 +563,8 @@ class UserController extends Controller
                 $time_exclusion_setting_start = Carbon::parse($time_exclusion_setting_start);
                 $time_exclusion_setting_end = Carbon::parse($time_exclusion_setting_end);
                 
-                $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(6)->format('H:i');
-                $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(6)->format('H:i');
+                $time_exclusion_setting_start = $time_exclusion_setting_start->subHour(9)->format('H:i');
+                $time_exclusion_setting_end = $time_exclusion_setting_end->subHour(9)->format('H:i');
             }
 
             

@@ -190,7 +190,7 @@
                     <div class="form-group">
                         <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" required="">
                     </div>
-                    <input type="hidden" name="info_id" class="form-control" value="{{$user_info->id}}">
+                    <input type="hidden" name="info_id" class="form-control" value="@if(isset($user_info)){{$user_info->id}}@endif">
               </div>
               <div class="modal-footer">
                 <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
