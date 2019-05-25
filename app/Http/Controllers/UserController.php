@@ -1405,6 +1405,7 @@ class UserController extends Controller
             ->where('month' ,'=',$month)
             ->where('year','=',$year)
             ->first();
+
 //        echo $invoice;
 //        exit();
         if ($invoice != null){
@@ -1420,9 +1421,10 @@ class UserController extends Controller
             $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
             $title = 'ご請求';
             $request = 'active';
-            $user_main_content = view('user.request',compact('invoice','numberSent','message_rate'));
+            $user_main_content = view('user.request',compact('numberSent','message_rate'));
             return view('master',compact('user_main_content','request','title'))->with('message','bill not found');
         }
+
 
     }
 
