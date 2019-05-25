@@ -257,7 +257,7 @@ class AdminController extends Controller
         if($this->is_admin_login_check() != null){
             $active_invoice = 'active';
             $user_id = Crypt::decrypt($id);
-            $user_info = User::where('id',Crypt::decrypt($id))->first();
+            $user_info = UserExtraInformation::where('user_id',Crypt::decrypt($id))->first();
             $invoice = DB::table('invoice')->where('user_id',Crypt::decrypt($id))->get()->all();
             $main_content = view('admin.dashboard.invoice_details',compact('invoice','user_info','user_id'));
             return view('admin.dashboard.master',compact('main_content','active_invoice'));
@@ -421,6 +421,44 @@ class AdminController extends Controller
             // exit();
             $pdf = PDF::loadView('admin.dashboard.pdf.invoice', compact('customer_info','setting_info','invoice_info'));
             return $pdf->stream('customers.pdf');
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function EditUserExtraInfo(Request $request){
+        if($this->is_admin_login_check() != null){
+            $this->validate($request, [
+
+            'name' => 'required|string|max:255',
+            'company_name' => 'required|string|max:255',
+            'contact_number' => 'required|numeric',
+            'street' => 'required',
+            'postal_code' => 'required|max:255'
+        ]);
+
+        // $info = Album::create($request->all());
+
+        $info_id = $request->info_id;
+
+        $current_time = Carbon::now()->addHour(9);
+        $update_time = Carbon::now()->addHour(9);
+
+        $data = array(
+            array('user_id' => $info_id, 'name' => $request->name, 'company_name' => $request->company_name, 'contact_number' => $request->contact_number,'street' => $request->street,'postal_code' => $request->postal_code, 'created_at' => $current_time, 'updated_at' => $update_time)
+        );
+
+        $flag = UserExtraInformation::findOrFail($info_id);
+        $flag->name = $request->name;
+        $flag->company_name = $request->company_name;
+        $flag->contact_number = $request->contact_number;
+        $flag->street = $request->street;
+        $flag->postal_code = $request->postal_code;
+        $flag->created_at = $current_time;
+        $flag->updated_at = $update_time;
+        $flag->save();
+
+        return back()->with('update_extra_info','Extra user information updated successfully !');
         }else{
             return redirect('/');
         }

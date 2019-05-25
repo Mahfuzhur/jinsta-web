@@ -45,12 +45,16 @@
 <!--    </div>-->
 <table style="width: 100%">
     <td align="left" style="width: 40%;font-size: 15px;">
+        
         <p>
+            @if(isset($customer_info))
             <span>{{ $customer_info->name }}</span><br>
             <span>{{ $customer_info->contact_number }}</span><br>
             <span>{{ $customer_info->street }}</span><br>
             <span>{{ $customer_info->postal_code }}</span>
+            @endif
         </p>
+        
 <!--        <p>Client Name:</p>-->
 <!--        <p>Phone Number:</p>-->
 <!--        <p>Client Address:</p>-->
@@ -59,7 +63,7 @@
     <td align="left" style="width: 30%;font-size: 15px;">
         <!--            <img src="{{asset('assets/img/logo.png')}}">-->
         <p>
-            <span><img src="{{asset('assets/img/taglettericon.png')}}" alt="" style="width: 60px;height: 60px;"></span><br>
+            <span><img src="{{asset('assets/img/pdf_logo.PNG')}}" alt="" style="width: 150px;height: 50px;"></span><br>
             <span>株式会社TagLetter</span><br>
             <span>〒171-0021</span><br>
             <span>東京都豊島区西池袋 1-11-1</span><br>
@@ -100,9 +104,10 @@
     <tr style="line-height: 10px;">
         <td colspan="4"><hr></td>
     </tr>
+    
     <tr style="line-height: 1px;">
         <td align="left" style="width: 40%;font-size: 18px;">
-            <p>{{ $customer_info->name }}</p>
+            <p>@if(isset($customer_info)){{ $customer_info->name }}@endif</p>
         </td>
         <td style="width: 20%;text-align: center;">
             <p>{{ $setting_info->message_rate }}</p>
@@ -114,6 +119,7 @@
             <p>{{ $setting_info->message_rate * $invoice_info->dm_total_number}}</p>
         </td>
     </tr>
+   
 
 <!--    <tr>-->
 <!--        <td align="left" style="width: 40%;font-size: 18px;">-->
@@ -187,46 +193,5 @@
 </div>
 
 
-<!--<tr>-->
-<!--    <td align="left" style="width: 50%;">-->
-<!--            <pre>-->
-<!--                Client Name:-->
-<!--                Phone Number:-->
-<!--                Client Address:-->
-<!--            </pre>-->
-<!--    </td>-->
-<!--    <td style="width: 50%;">-->
-<!--            <pre>-->
-<!--                Company Name:-->
-<!--                Company Address:-->
-<!--                Telephone:-->
-<!--                Fax:-->
-<!--                Invoice Number:-->
-<!--                Billing Date:-->
-<!--                Payment Deadline:-->
-<!--            </pre>-->
-<!--    </td>-->
-<!--</tr>-->
-
-<!--    <table>-->
-<!--  <thead>-->
-<!--    <tr>-->
-<!--      <th>ID</th>-->
-<!--      <th>Name</th>-->
-<!--      <th>Email</th>-->
-<!--      <th>Phone</th>-->
-<!--    </tr>-->
-<!--  </thead>-->
-<!--  <tbody>-->
-<!--    -->
-<!--      <tr>-->
-<!--        <td>{{ $customer_info->id }}</td>-->
-<!--        <td>{{ $customer_info->name }}</td>-->
-<!--        <td>{{ $customer_info->email }}</td>-->
-<!--        <td>{{ $customer_info->mobile }}</td>-->
-<!--      </tr>-->
-<!--    -->
-<!--  </tbody>-->
-<!--</table>-->
 </body>
 </html>

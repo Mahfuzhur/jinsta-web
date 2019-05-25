@@ -6,6 +6,12 @@
         <div class="row">
 
             <div class="col-md-12">
+                @if(Session('update_extra_info'))
+                    <div class="alert alert-success">
+                        {{Session('update_extra_info')}}
+                   </div>
+                @endif
+
                 @if(session('invoice'))
                 <div class="alert alert-success">
                     {{ session('invoice') }}
@@ -47,15 +53,21 @@
                     </form>
 
                     <div class="create_btn_holder" >
+                        @if(isset($user_info))
                         <div class="create_invoice_details">
+                            
                             <span class="new_template">{{$user_info->name}}</span><br>
                             <span class="new_template">{{$user_info->company_name}}</span><br>
-                            <span class="new_template">{{$user_info->mobile}}</span><br>
-                            <span class="new_template">{{$user_info->email}}</span><br>
+                            <span class="new_template">{{$user_info->contact_number}}</span><br>
+                            <span class="new_template">{{$user_info->street}}</span><br>
 
-                            <a href="" class="btn btn-success"
-                               style="width: 100%;margin-top: 10px; color: white">Update</a>
+                            <!-- <a href="{{URL::to('edit-user-extra-info/'.Crypt::encrypt($user_info->id))}}" class="btn btn-success"
+                               style="width: 100%;margin-top: 10px; color: white">Update</a> -->
+                               <button type="button" class="btn btn-success" style="width: 100%;margin-top: 10px; color: white" data-toggle="modal" data-target="#exampleModal">Upate</button>
+
+                            
                         </div>
+                        @endif
                     </div>
 
                     <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Invoice
@@ -140,6 +152,52 @@
             </div>
 
         </div>
+        <form action="{{URL::to('update-user-extra-information')}}" method="post">
+      {{csrf_field()}}
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">User Extra Information</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                  <div class="form-group">
+                    <input type="text" name="name" class="form-control" placeholder="Name" required="">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" name="company_name" class="form-control" placeholder="Company Name" required="">
+                  </div>
+                    <div class="form-group">
+                        <input type="text" name="contact_number" class="form-control" placeholder="Contact Number" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="street" class="form-control" placeholder="Street Address" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" required="">
+                    </div>
+                    <input type="hidden" name="info_id" class="form-control" value="{{$user_info->id}}">
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                <button type="submit" class="btn btn-success">Update</button>
+              </div>
+            </div>
+          </div>
+        </div> 
+  </form>
 
         <!--        <div class="envelope_area">-->
         <!--            <div class="envelope">-->

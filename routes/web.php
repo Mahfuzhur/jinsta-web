@@ -112,6 +112,7 @@ Route::get('/verify/{token}', 'UserController@verifyEmail');
 Route::get('/payment-receive/{id}','AdminController@paymentReceive');
 Route::post('/compare-hashtag','UserController@compareHashtag');
 Route::get('/create-invoice/{id}/{id1}','AdminController@createInvoice');
+Route::post('/update-user-extra-information','AdminController@editUserExtraInfo');
 
 
 
