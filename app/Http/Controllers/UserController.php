@@ -1385,8 +1385,7 @@ class UserController extends Controller
             ->where('month' ,'=',$month)
             ->where('year','=',$year)
             ->first();
-//        echo $invoice;
-//        exit();
+
         $message_rate = Setting::select('message_rate')->first();
         $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
         $title = 'ご請求';

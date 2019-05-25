@@ -67,7 +67,7 @@
             </form>
             
         </div>
-        <div class="col-md-1" style="border-left: 2px solid #eae0e0;"></div>
+        <div class="col-md-1" style="border-left: 2px solid #eae0e0;height: 520px"></div>
         <div class="col-md-5 main_content">
             
             <!-- <div class="box_title">
