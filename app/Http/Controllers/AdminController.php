@@ -464,6 +464,44 @@ class AdminController extends Controller
         }
     }
 
+    public function sendInvoiceMail($invoice_id){
+
+        if($this->is_admin_login_check() != null){
+
+            $setting_info = Setting::get()->first();
+            $invoice_info = Invoice::where('invoice_id',$invoice_id)->first();
+
+            $customer_info = UserExtraInformation::where('user_id',$invoice_info->user_id)->first();
+            $email = User::findOrFail($invoice_info->user_id);
+            
+            // echo "<pre>";
+            // print_r($email);
+            // exit();
+
+            // return view('admin.invoiceEmail',compact('setting_info','invoice_info','customer_info'));
+
+            $data = array(
+                'subject' => 'Invoice Details',
+                'setting_info' => $setting_info->message_rate,
+                'invoice_info' => $invoice_info->dm_total_number,
+                'customer_info' => $customer_info->name,
+                'issue_date' =>$invoice_info->issue_date
+           );
+        
+        Mail::send('admin.invoiceEmail', $data, function($message) use ($data,$emails)
+        {
+            $message->to($emails->email);
+            $message->subject($data['subject']);
+            $message->from('no-reply@htwistingmill.com');
+            
+        });
+        
+        return back()->with('invoice_mail_success','Invoice mail sent successfully');
+        }else{
+            return redirect('/');
+        }
+    }
+
 
     public function index()
     {

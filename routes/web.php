@@ -114,6 +114,9 @@ Route::post('/compare-hashtag','UserController@compareHashtag');
 Route::get('/create-invoice/{id}/{id1}','AdminController@createInvoice');
 Route::post('/update-user-extra-information','AdminController@editUserExtraInfo');
 
+Route::get('/send-invoice-mail/{id}','AdminController@sendInvoiceMail');
+
+
 
 
 /* Admin Panel Route Start */

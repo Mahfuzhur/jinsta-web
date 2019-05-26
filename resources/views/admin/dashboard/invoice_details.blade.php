@@ -81,6 +81,15 @@
                     </div>
 
                     @endif
+
+                    @if(Session('invoice_mail_success'))
+
+                    <div class="alert alert-success">
+                        {{Session('invoice_mail_success')}}
+                    </div>
+
+                    @endif
+                    
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <table class="table table-hover table-bordered">
                             <thead>
@@ -130,7 +139,7 @@
                                             Payment
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">メール送信</a>
+                                            <a class="dropdown-item" href="{{URL::to('send-invoice-mail/'.$invoice->invoice_id)}}">メール送信</a>
                                             @if($invoice->billing_status == 0)
                                             <a class="dropdown-item"
                                                href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}" onclick="return payment_received();">入金済</a>
