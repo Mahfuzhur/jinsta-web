@@ -320,48 +320,58 @@ class AdminController extends Controller
         $year =Carbon::now()->year;
         $month = $request->month;
         $user_id = $request->user_id;
-//        echo $year;
-//
-//        exit();
+        $result = User::select('updated_at')->where('id',$user_id)->first();
+        $updated_date= $result->updated_at;
+        $updated_month =  $updated_date->format('m');
+        $updated_year = $updated_date->format('Y');
+//        echo $user_id;
+////
+//       exit();
          $invoice_result = Invoice::where('user_id' , '=',$user_id )
              ->where('month' ,'=',$month)
              ->where('year','=',$year)
             ->first();
 //        echo $invoice_result;
 //        exit();
-         if (empty($invoice_result)){
-             $result = History::whereYear('created_at', '=', $year)
-                 ->whereMonth('created_at', '=', $month)
-                 ->where('user_id' , '=',$user_id )
-                 ->where('billing_status' , '!=','1' )
-                 ->count();
-             $setting = Setting::select('invoice_grace_time')->get();
-             $day = $setting[0]->invoice_grace_time;
+        if ($updated_month <= $month && $updated_year <=$year){
+            if (empty($invoice_result)){
+                $result = History::whereYear('created_at', '=', $year)
+                    ->whereMonth('created_at', '=', $month)
+                    ->where('user_id' , '=',$user_id )
+                    ->where('billing_status' , '!=','1' )
+                    ->count();
+                $setting = Setting::select('invoice_grace_time')->get();
+                $day = $setting[0]->invoice_grace_time;
 //        echo  $setting[0]->invoice_grace_time;
 //        exit();
-             $invoice = new Invoice();
-             $invoice-> user_id = $user_id;
-             $invoice-> issue_date = Carbon::now();
-             $invoice-> due_date = Carbon::now()->addDays($day);
-             $invoice-> billing_status = 0;
-             $invoice-> dm_total_number = $result;
-             $invoice-> month = $month;
-             $invoice-> year = $year;
-             $return_result = $invoice->save();
+                $invoice = new Invoice();
+                $invoice-> user_id = $user_id;
+                $invoice-> issue_date = Carbon::now();
+                $invoice-> due_date = Carbon::now()->addDays($day);
+                $invoice-> billing_status = 0;
+                $invoice-> dm_total_number = $result;
+                $invoice-> month = $month;
+                $invoice-> year = $year;
+                $return_result = $invoice->save();
 
-             if ($return_result == 1){
-                 $result = History::whereYear('created_at', '=', $year)
-                     ->whereMonth('created_at', '=', $month)
-                     ->where('user_id' , '=',$user_id )
-                     ->update(['billing_status'=>'1']);
-             }
+                if ($return_result == 1){
+                    $result = History::whereYear('created_at', '=', $year)
+                        ->whereMonth('created_at', '=', $month)
+                        ->where('user_id' , '=',$user_id )
+                        ->update(['billing_status'=>'1']);
+                }
 
 
-             return back()->with('invoice','invoice Created');
-         }
-         else{
-             return back()->with('invoice','invoice already exist');
-         }
+                return back()->with('invoice','invoice Created');
+            }
+
+            else{
+                return back()->with('invoice','invoice already exist');
+            }
+        }else{
+            return back()->with('invoice','your billing starts from '.$updated_month.'-'.$updated_year);
+        }
+
 
 
 
