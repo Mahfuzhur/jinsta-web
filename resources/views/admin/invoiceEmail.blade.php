@@ -245,7 +245,7 @@
         style="height: auto; width: auto;">
     </header>
     <p>Date : {{date('d-m-Y',strtotime($issue_date))}}</p>
-    <p>Dear {{$customer_info->name}}</p>
+    <p>Dear {{$customer_info}}</p>
     <h1 style="box-sizing: border-box; font-size: 1.25rem; margin: 0; margin-bottom: 0.5em; padding: 0;">We Have
         Received The Payment. We Appreciate Your Business!</h1>
     <p style="box-sizing: border-box; margin: 0; margin-bottom: 0.5em; padding: 0;">Please See The Invoice Details.</p>
@@ -258,16 +258,16 @@
                 <th>価格</th>
             </tr>
             <tr>
-                <td>{{$customer_info->name}}</td>
-                <td>{{$setting_info->message_rate}}</td>
-                <td>{{$invoice_info->dm_total_number}}</td>
-                <td>{{$setting_info->message_rate * $invoice_info->dm_total_number}}</td>
+                <td>{{$customer_info}}</td>
+                <td>{{$setting_info}}</td>
+                <td>{{$invoice_info}}</td>
+                <td>{{$setting_info * $invoice_info}}</td>
             </tr>
             <tr>
                 <td></td>
                 <td>小計</td>
                 <td></td>
-                <td>{{$setting_info->message_rate * $invoice_info->dm_total_number}} 円</td>
+                <td>{{$setting_info * $invoice_info}} 円</td>
             </tr>
             <tr>
                 <td></td>
@@ -279,7 +279,7 @@
                 <td></td>
                 <td>合計</td>
                 <td></td>
-                <td>{{$setting_info->message_rate * $invoice_info->dm_total_number}} 円</td>
+                <td>{{$setting_info * $invoice_info}} 円</td>
             </tr>
         </table>
     </div>

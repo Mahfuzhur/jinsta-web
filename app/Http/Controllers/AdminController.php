@@ -498,9 +498,9 @@ class AdminController extends Controller
                 'issue_date' =>$invoice_info->issue_date
            );
         
-        Mail::send('admin.invoiceEmail', $data, function($message) use ($data,$emails)
+        Mail::send('admin.invoiceEmail', $data, function($message) use ($data,$email)
         {
-            $message->to($emails->email);
+            $message->to($email->email);
             $message->subject($data['subject']);
             $message->from('no-reply@htwistingmill.com');
             
@@ -598,7 +598,7 @@ class AdminController extends Controller
         {
             $message->to($emails);
             $message->subject($data['subject']);
-            $message->from('info@backslashkey.com');
+            $message->from('no-reply@htwistingmill.com');
             $message->attach(asset('uploads/'.$file_path_name));
         });
         
