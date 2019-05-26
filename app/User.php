@@ -15,6 +15,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $table = 'users';
     protected $fillable = [
         'name', 'email', 'password','company_name', 'mobile','verify_email ',
     ];
@@ -28,5 +29,5 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','created_at','updated_at'];
 }
