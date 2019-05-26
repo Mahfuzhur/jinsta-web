@@ -53,7 +53,7 @@
                           <td class="text-center">{{$company->email}}</td>
                           <td class="text-center">{{$company->mobile}}</td>
                           @if($company->account_status == 2)
-                          <td style="color: red;" class="text-center">サスペンド</td>
+                          <td style="color: red;" class="text-center">一時停止</td>
                           @elseif($company->account_status == 3)
                           <td style="color: green;" class="text-center">アクティブ</td>
                           @endif

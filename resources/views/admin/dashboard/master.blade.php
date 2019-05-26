@@ -412,6 +412,16 @@
 
     <script type="text/javascript">
 
+      function payment_received() {
+
+        var check = confirm('If you have received your payment click OK.');
+        if (check) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
       function suspend_user($id,$status){
 
         var change_msg = confirm('are you sure to '+$status+' this company?');
@@ -532,6 +542,19 @@
                     アカウント管理
                 </a>
               @endif
+                @if(isset($active_invoice))
+                <a class="Plan active" href="{{URL::to('invoice')}}">
+                    <!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-file-invoice"></i>
+                    請求管理
+                </a>
+                @else
+                <a class="Plan" href="{{URL::to('invoice')}}">
+                    <!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-file-invoice"></i>
+                    請求管理
+                </a>
+                @endif
               @if(isset($active_mail))
                 <a class="Plan active" href="{{URL::to('all-email')}}">
                     <!--<span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
@@ -567,19 +590,7 @@
 <!--                    設定-->
 <!--                </a>-->
 <!--              @endif-->
-              @if(isset($active_invoice))
-                <a class="Plan active" href="{{URL::to('invoice')}}">
-<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
-                    <i class="fa fa-file-invoice"></i>
-                    請求管理
-                </a>
-              @else
-                <a class="Plan" href="{{URL::to('invoice')}}">
-<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
-                    <i class="fa fa-file-invoice"></i>
-                    請求管理
-                </a>
-              @endif
+
               <!-- 
               @if(isset($delivery_setting))
                 <a class="Schedule active" href="{{URL::to('delivery-setting')}}">

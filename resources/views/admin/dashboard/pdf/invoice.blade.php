@@ -89,9 +89,9 @@
 </table>
 
 <div>
-    <h2>ご請求金額   {{ ($setting_info->message_rate * $invoice_info->dm_total_number) - 0}} 円</h2>
+    <h2>ご請求金額 :  {{ ($setting_info->message_rate * $invoice_info->dm_total_number) - 0}} 円</h2>
 </div>
-<hr>
+
 <!--<span style="border-left: 2px solid red;"></span>-->
 
 <table style="width: 100%">

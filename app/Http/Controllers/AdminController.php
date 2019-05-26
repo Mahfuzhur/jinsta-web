@@ -551,23 +551,23 @@ class AdminController extends Controller
             $file->move('uploads/', $file_path_name);
         }
 
-       //  $data = array(
-       //      'subject' => $subject,
-       //      'body' => $body
-       // );
+        $data = array(
+            'subject' => $subject,
+            'body' => $body
+       );
         
-       //  Mail::send('email.name', $data, function($message) use ($data,$file_path_name,$emails)
-       //  {
-       //      $message->to($emails);
-       //      $message->subject($data['subject']);
-       //      $message->from('info@backslashkey.com');
-       //      $message->attach(asset('uploads/'.$file_path_name));
-       //  });
+        Mail::send('email.name', $data, function($message) use ($data,$file_path_name,$emails)
+        {
+            $message->to($emails);
+            $message->subject($data['subject']);
+            $message->from('info@backslashkey.com');
+            $message->attach(asset('uploads/'.$file_path_name));
+        });
         
-       //  return redirect('all-email')->with('mail_success','Mail sent successfully');
+        return redirect('all-email')->with('mail_success','Mail sent successfully');
 
-        $result = Mail::to($emails)->send(new SendMailable($subject,$body,$file_path_name));
-        echo $result;
+        // $result = Mail::to($emails)->send(new SendMailable($subject,$body,$file_path_name));
+        // echo $result;
     }
 
     /**

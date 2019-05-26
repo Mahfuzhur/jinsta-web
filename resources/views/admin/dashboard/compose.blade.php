@@ -11,8 +11,10 @@
                         <form action="{{URL::to('admin-email-sent')}}" method="post" role="form" class="form-horizontal"
                               enctype="multipart/form-data">
                             {{ csrf_field() }}
-                            <h4 class="progress_margin"><span><img src="{{asset('assets/img/mail.png')}}" alt=""></span>Mail
+                            <h4 class="progress_margin"><span><img src="{{asset('assets/img/mail2.png')}}" alt=""></span>Mail
                             </h4>
+
+<!--                            <i class="fa fa-envelope" style="color:#80dfdb">Mail</i>-->
                             <div class="box_title">
                                 @if ($errors->any())
                                 <div class="alert alert-danger">
