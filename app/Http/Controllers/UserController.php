@@ -1422,7 +1422,7 @@ class UserController extends Controller
 
             $message_rate = Setting::select('message_rate')->first();
             $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
-            $message = 'bill not found';
+            $message = 'Bill not found';
             $title = 'ご請求';
             $request = 'active';
             $user_main_content = view('user.request',compact('numberSent','message_rate','message'));
