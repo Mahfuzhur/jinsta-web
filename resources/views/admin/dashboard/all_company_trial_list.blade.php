@@ -11,17 +11,17 @@
                   {{csrf_field()}}
                 
                 <div style="margin-bottom: 15px;margin-left: 10px;">
-                  <input type="checkbox" name="email" onchange="ckeckalltrialcompany(this);"> <span style="font-weight: bold;">すべて選択</span>
-                  <button type="submit" class="btn btn-success btn-sm pull-right">メールを送る</button>
+                  <input type="checkbox" name="email" onchange="ckeckalltrialcompany(this);"  style="width: 20px;height: 20px;margin-left: 10px;"> <span style="font-weight: bold; font-size: 20px;padding-left: 5px;">すべて選択</span>
+                  <button type="submit" class="btn btn-success btn-sm pull-right" style="background: #06af94; float:right">メールを送る</button>
                 </div>
                   <table class="table table-hover table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col" class="text-center">マーク</th>
+                        <th scope="col" class="text-center">#</th>
                         <th scope="col" class="text-center">名</th>
                         <th scope="col" class="text-center">会社名</th>
                         <th scope="col" class="text-center">メールアドレス</th>
-                        <th scope="col" class="text-center">モバイル</th>
+                        <th scope="col" class="text-center">試用期間</th>
                         <th scope="col" class="text-center">トレイル期間</th>
                         <th scope="col" class="text-center">有効期限</th>
                         <th scope="col" class="text-center">状態</th>
