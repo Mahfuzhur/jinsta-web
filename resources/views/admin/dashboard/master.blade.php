@@ -542,6 +542,19 @@
                     アカウント管理
                 </a>
               @endif
+                @if(isset($active_invoice))
+                <a class="Plan active" href="{{URL::to('invoice')}}">
+                    <!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-file-invoice"></i>
+                    請求管理
+                </a>
+                @else
+                <a class="Plan" href="{{URL::to('invoice')}}">
+                    <!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
+                    <i class="fa fa-file-invoice"></i>
+                    請求管理
+                </a>
+                @endif
               @if(isset($active_mail))
                 <a class="Plan active" href="{{URL::to('all-email')}}">
                     <!--<span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
@@ -577,19 +590,7 @@
 <!--                    設定-->
 <!--                </a>-->
 <!--              @endif-->
-              @if(isset($active_invoice))
-                <a class="Plan active" href="{{URL::to('invoice')}}">
-<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
-                    <i class="fa fa-file-invoice"></i>
-                    請求管理
-                </a>
-              @else
-                <a class="Plan" href="{{URL::to('invoice')}}">
-<!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
-                    <i class="fa fa-file-invoice"></i>
-                    請求管理
-                </a>
-              @endif
+
               <!-- 
               @if(isset($delivery_setting))
                 <a class="Schedule active" href="{{URL::to('delivery-setting')}}">
