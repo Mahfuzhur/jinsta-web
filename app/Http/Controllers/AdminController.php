@@ -629,9 +629,9 @@ class AdminController extends Controller
         {
             $message->to($emails);
             $message->subject($data['subject']);
-            $message->from('info@backslashkey.com');
+            $message->from('no-reply@htwistingmill.com');
             if ($file_path_name != null){
-                $message->attach(asset('uploads/'.$file_path_name));
+                $message->attach('uploads/'.$file_path_name);
             }
 
 

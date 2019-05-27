@@ -116,6 +116,8 @@ Route::post('/update-user-extra-information','AdminController@editUserExtraInfo'
 
 Route::get('/send-invoice-mail/{id}','AdminController@sendInvoiceMail');
 
+Route::get('/user-create-invoice/{id}/{id1}','UserController@usercreateInvoice');
+
 
 
 
