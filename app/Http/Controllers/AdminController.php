@@ -309,7 +309,36 @@ class AdminController extends Controller
             $active_invoice = 'active';
 
             $invoice = DB::table('invoice')->where('invoice_id',Crypt::decrypt($id))->update(['billing_status' => 1]);
-            return back()->with('payment_msg','Payment successfull');
+
+            $setting_info = Setting::get()->first();
+            $invoice_info = Invoice::where('invoice_id',Crypt::decrypt($id))->first();
+
+            $customer_info = UserExtraInformation::where('user_id',$invoice_info->user_id)->first();
+            $email = User::findOrFail($invoice_info->user_id);
+            
+            // echo "<pre>";
+            // print_r($email);
+            // exit();
+
+            // return view('admin.invoiceEmail',compact('setting_info','invoice_info','customer_info'));
+
+            $data = array(
+                'subject' => 'Invoice Details',
+                'setting_info' => $setting_info->message_rate,
+                'invoice_info' => $invoice_info->dm_total_number,
+                'customer_info' => $customer_info->name,
+                'issue_date' =>$invoice_info->issue_date
+           );
+        
+        Mail::send('admin.invoiceEmail', $data, function($message) use ($data,$email)
+        {
+            $message->to($email->email);
+            $message->subject($data['subject']);
+            $message->from('no-reply@tagletter.com');
+            
+        });
+        
+            return back()->with('payment_msg','Payment is successfull and invoice details has been to your email.');
         }else{
             return redirect('/');
         }
@@ -506,7 +535,7 @@ class AdminController extends Controller
             
         });
         
-        return back()->with('invoice_mail_success','Invoice mail sent successfully');
+        return back()->with('invoice_mail_success','Invoice information has been sent');
         }else{
             return redirect('/');
         }

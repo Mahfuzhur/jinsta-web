@@ -414,7 +414,7 @@
 
       function payment_received() {
 
-        var check = confirm('If you have received your payment click OK.');
+        var check = confirm('invoice information mail will be sent.');
         if (check) {
             return true;
         } else {

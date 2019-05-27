@@ -246,8 +246,7 @@
     </header>
     <p>Date : {{date('d-m-Y',strtotime($issue_date))}}</p>
     <p>Dear {{$customer_info}}</p>
-    <h1 style="box-sizing: border-box; font-size: 1.25rem; margin: 0; margin-bottom: 0.5em; padding: 0;">We Have
-        Received The Payment. We Appreciate Your Business!</h1>
+    <h1 style="box-sizing: border-box; font-size: 1.25rem; margin: 0; margin-bottom: 0.5em; padding: 0;">This is your month end bill information!!</h1>
     <p style="box-sizing: border-box; margin: 0; margin-bottom: 0.5em; padding: 0;">Please See The Invoice Details.</p>
     <div style="overflow-x:auto;">
         <table>
