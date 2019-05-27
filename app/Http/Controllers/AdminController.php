@@ -61,7 +61,7 @@ class AdminController extends Controller
             Session::put('current_admin_name',$info->name);
             return redirect('/all-company-list');
         }else{
-            return redirect('/admin-login')->with('login_err','Email or Password invalid');
+            return redirect('/admin')->with('login_err','Email or Password invalid');
         }
 
     }
