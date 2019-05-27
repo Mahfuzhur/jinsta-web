@@ -97,10 +97,9 @@ class UserController extends Controller
             $week = \Carbon\Carbon::today()->subDays(7);
             $day = \Carbon\Carbon::today()->subDays(1);
 
-            $last_month = Client::where([['updated_at', '>=', $month],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
-            $last_week = Client::where([['updated_at', '>=', $week],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
-            $last_day = Client::where([['updated_at', '>=', $day],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
-
+            $last_month = History::where([['updated_at', '>=', $month],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_week = History::where([['updated_at', '>=', $week],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_day = History::where([['updated_at', '>=', $day],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
             $title = 'Index page';
             $user_info = DB::table('users')->where('id',$user_id)->first();
             try{
