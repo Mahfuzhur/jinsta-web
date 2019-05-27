@@ -617,7 +617,9 @@ class AdminController extends Controller
             // exit();
             $file->move('uploads/', $file_path_name);
         }
-
+        else{
+            $file_path_name =null;
+        }
         $data = array(
             'subject' => $subject,
             'body' => $body
@@ -627,8 +629,12 @@ class AdminController extends Controller
         {
             $message->to($emails);
             $message->subject($data['subject']);
-            $message->from('no-reply@htwistingmill.com');
-            $message->attach(asset('uploads/'.$file_path_name));
+            $message->from('info@backslashkey.com');
+            if ($file_path_name != null){
+                $message->attach(asset('uploads/'.$file_path_name));
+            }
+
+
         });
         
         return redirect('all-email')->with('mail_success','Mail sent successfully');
