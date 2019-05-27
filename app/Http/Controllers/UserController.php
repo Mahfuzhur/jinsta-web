@@ -681,7 +681,7 @@ class UserController extends Controller
             $user_id = Auth::user()->id;
             $numberOfLists = Hashtag::where('user_id',$user_id)->count();
             $numberOfSchedule = UserSchedule::where('user_id',$user_id)->count();
-            $numberSent = Client::where([['dm_sent', '=', '1'],['user_id','=',$user_id]])->count();
+            $numberSent = History::where([['dm_sent', '=', '1'],['user_id','=',$user_id]])->count();
         $title = 'アナリティクス';
         $analytics = 'active';
 
@@ -691,7 +691,7 @@ class UserController extends Controller
         //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
         //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
         //             JOIN template template ON template_schedule.template_id = template.id
-        //             WHERE client.user_id = $user_id AND client.dm_sent = 1                     
+        //             WHERE client.user_id = $user_id AND client.dm_sent = 1
         //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
 
         // $data_info['without_dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row
@@ -700,8 +700,16 @@ class UserController extends Controller
         //             JOIN hashtag_schedule hashtag_schedule ON hashtag.id = hashtag_schedule.hashtag_id
         //             JOIN template_schedule template_schedule ON hashtag_schedule.schedule_id = template_schedule.schedule_id
         //             JOIN template template ON template_schedule.template_id = template.id
-        //             WHERE client.user_id = $user_id                     
+        //             WHERE client.user_id = $user_id
         //             GROUP BY client.hashtag_id ORDER BY client.id DESC LIMIT 3");
+
+            $month = \Carbon\Carbon::today()->subDays(30);
+            $week = \Carbon\Carbon::today()->subDays(7);
+            $day = \Carbon\Carbon::today()->subDays(1);
+
+            $last_month = History::where([['updated_at', '>=', $month],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_week = History::where([['updated_at', '>=', $week],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
+            $last_day = History::where([['updated_at', '>=', $day],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
 
         $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
             ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
