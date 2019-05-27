@@ -86,9 +86,10 @@
                             @endif
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-success">
+                                    <!-- <button type="button" class="btn btn-success">
                                         Print
-                                    </button>
+                                    </button> -->
+                                    <a href="{{URL::to('user-create-invoice/'.Crypt::encrypt($invoice->user_id).'/'.Crypt::encrypt($invoice->invoice_id))}}" class="btn btn-success" target="_blank">Print</a>
 
                                 </div>
                             </td>

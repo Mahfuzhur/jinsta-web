@@ -13,6 +13,7 @@ use Auth;
 use File;
 use Excel;
 use DB;
+use PDF;
 use Illuminate\View\View;
 use Session;
 use Alert;
@@ -1430,6 +1431,23 @@ class UserController extends Controller
         }
 
 
+    }
+
+    public function usercreateInvoice($user_id,$invoice_id){
+
+        if(Auth::user()){
+
+            $customer_info = UserExtraInformation::where('user_id',Crypt::decrypt($user_id))->first();
+            $setting_info = Setting::get()->first();
+            $invoice_info = Invoice::where('invoice_id',Crypt::decrypt($invoice_id))->first();
+            // echo "<pre>";
+            // print_r($invoice_info);
+            // exit();
+            $pdf = PDF::loadView('user.invoice', compact('customer_info','setting_info','invoice_info'));
+            return $pdf->stream('customers.pdf');
+        }else{
+            return redirect('user-login');
+        }
     }
 
     public function index()

@@ -61,7 +61,7 @@ class AdminController extends Controller
             Session::put('current_admin_name',$info->name);
             return redirect('/all-company-list');
         }else{
-            return redirect('/admin-login')->with('login_err','Email or Password invalid');
+            return redirect('/admin')->with('login_err','Email or Password invalid');
         }
 
     }
@@ -629,9 +629,9 @@ class AdminController extends Controller
         {
             $message->to($emails);
             $message->subject($data['subject']);
-            $message->from('info@backslashkey.com');
+            $message->from('no-reply@htwistingmill.com');
             if ($file_path_name != null){
-                $message->attach(asset('uploads/'.$file_path_name));
+                $message->attach('uploads/'.$file_path_name);
             }
 
 
