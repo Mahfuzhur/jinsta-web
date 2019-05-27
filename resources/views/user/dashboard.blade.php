@@ -13,7 +13,7 @@
                 <div class="modal-header">
                   
                     <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-                    <h4 class="modal-title"><span style="color: red;">Trial Expire</span>. Give below information</h4><br>
+                    <h4 class="modal-title"><span style="color: red;">Trial Expired !!</span> Please fill up the Billing Contact information</h4><br>
                 </div>
                 <div class="modal-body">
                   @if ($errors->any())
@@ -26,19 +26,19 @@
                     </div>
                     @endif
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Name" required="">
+                    <input type="text" name="name" class="form-control" placeholder="お名前" required="">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="company_name" class="form-control" placeholder="Company Name" required="">
+                    <input type="text" name="company_name" class="form-control" placeholder="ご担当部署" required="">
                   </div>
                     <div class="form-group">
-                        <input type="text" name="contact_number" class="form-control" placeholder="Contact Number" required="">
+                        <input type="text" name="contact_number" class="form-control" placeholder="電話番号" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="street" class="form-control" placeholder="Street Address" required="">
+                        <input type="text" name="street" class="form-control" placeholder="住所" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" required="">
+                        <input type="text" name="postal_code" class="form-control" placeholder="Zip Code" required="">
                     </div>
                     <!-- <p>Do you want to save changes you made to document before closing?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p> -->
@@ -51,7 +51,7 @@
                               style="display: none;">
                             {{ csrf_field() }}
                         </form>
-                    <button type="submit" class="btn btn-info">Save</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
         </div>

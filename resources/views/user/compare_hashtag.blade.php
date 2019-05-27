@@ -27,8 +27,8 @@
                 <div class="input_box">
 
                     <div class="input-group">
-                        <input type="text" name="hashtag" id="hashtag"  value="宛先名： {{$compareHashtag->hashtag}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 420px;">
-                        <input type="text" name="hashtag" id="hashtag"  value="送信対象者数: {{$compareHashtag->total_user}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 420px;">
+                        <input type="text" name="hashtag" id="hashtag"  value="宛先名： {{$compareHashtag->hashtag}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 415px;">
+                        <input type="text" name="hashtag" id="hashtag"  value="送信対象者数: {{$compareHashtag->total_user}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 415px;">
                     </div>                   
                 </div>
             </div>

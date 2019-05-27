@@ -59,7 +59,7 @@
                                         <label class="col-lg-2 control-label">Message</label>
                                         <div class="col-lg-10" style="#ced4da;">
                                         <textarea rows="10" cols="30" class="form-control" id="text1" name="body"
-                                                  placeholder="mail body"></textarea>
+                                                  placeholder=""></textarea>
                                         </div>
                                     </div>
 

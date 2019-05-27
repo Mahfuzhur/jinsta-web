@@ -10,16 +10,17 @@
                 @if(session('delete_success'))
                 <div class="alert alert-success">
                   {{ session('delete_success') }}
+                    <p>{{ session('delete_success') }} &#10004; </p>
                 </div> 
                 @endif 
                 @if(session('mail_err_msg'))
                 <div class="alert alert-danger">
-                  {{ session('mail_err_msg') }}
+                    <p>{{ session('mail_err_msg') }} &#10004; </p>
                 </div> 
                 @endif
                 @if(session('mail_success'))
                 <div class="alert alert-success">
-                  {{ session('mail_success') }}
+                    <p>{{ session('mail_success') }} &#10004; </p>
                 </div> 
                 @endif
                 <form action="{{URL::to('admin-email-compose')}}" method="post" id="devel-generate-content-form">
