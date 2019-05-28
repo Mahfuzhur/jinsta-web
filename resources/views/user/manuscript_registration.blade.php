@@ -34,7 +34,7 @@
                   <span aria-hidden="true">×</span>
                   <span class="sr-only">Close</span>
               </button>
-              <strong>{{ Session::get('delete_success') }}</strong>
+              <strong>{{ Session::get('delete_success') }}  &#10004; </strong>
           </div>
           @endif
 
