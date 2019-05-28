@@ -8,13 +8,13 @@
             <div class="col-md-12">
                 @if(Session('update_extra_info'))
                     <div class="alert alert-success">
-                        {{Session('update_extra_info')}}
+                        <p>{{ session('update_extra_info') }} &#10004; </p>
                    </div>
                 @endif
 
                 @if(session('invoice'))
                 <div class="alert alert-success">
-                    {{ session('invoice') }}
+                    <p>{{ session('invoice') }} &#10004; </p>
                 </div>
                 @endif
                 <div class="progress_view">

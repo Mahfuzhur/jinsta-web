@@ -18,12 +18,12 @@
                         @endif
                         @if(session('add_success'))
                         <div class="alert alert-success">
-                            {{ session('add_success') }}
+                            <p>{{ session('add_success') }} &#10004; </p>
                         </div>
                         @endif
                         @if(session('empty_msg'))
                         <div class="alert alert-success">
-                            {{ session('empty_msg') }}
+                            <p>{{ session('empty_msg') }} &#10004; </p>
                         </div>
                         @endif
                         <!-- <h4>テンプレート名：テストテストテスト</h4> -->
@@ -36,13 +36,14 @@
                             @endforeach
                         </div>
                         @foreach($emails as $email)
-                            <input type="hidden" name="email[]" value="{{$email}}">
+                        <input type="hidden" name="email[]" value="{{$email}}">
                         @endforeach
 
                         <label for="temp_regi">
 
                         </label>
-                        <input type="text" class="form-control title" id="text" name="subject" maxlength="170" placeholder="subject" rows="5">
+                        <input type="text" class="form-control title" id="text" name="subject" maxlength="170"
+                               placeholder="subject" rows="5">
 
                     </div>
                     <div class="m-b-35">
@@ -50,7 +51,8 @@
                             <label for="temp_regi">
                                 テキスト登録
                             </label>
-                            <textarea class="form-control" id="text1" name="body" maxlength="170" placeholder="mail body" rows="5"></textarea>
+                            <textarea class="form-control" id="text1" name="body" maxlength="170"
+                                      placeholder="mail body" rows="5"></textarea>
                             <span class="pull-right label label-default" id="count_message"></span>
                         </div>
                     </div>
@@ -61,8 +63,10 @@
                                 <span style="font-size: 13px;">画像登録(推奨画像サイズ：横1200px×縦600px)</span>
 
                             </label>
-                            <input type="file" name="file" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="">
-                            <img src="{{asset('assets/img/No_Image_Available.jpg')}}" id="image_show_small" alt="Image" style="width:100px;height: 50px;">
+                            <input type="file" name="file" id="file" class="inputfile csv_input"
+                                   data-multiple-caption="{count} files selected" multiple="">
+                            <img src="{{asset('assets/img/No_Image_Available.jpg')}}" id="image_show_small" alt="Image"
+                                 style="width:100px;height: 50px;">
                             <!-- <img id="image_show_small" src="#" alt="your image" /> -->
                             <!-- <span class="image_show_small"></span>  -->
 
@@ -78,13 +82,13 @@
 
         </div>
 
-<!--        <div class="envelope_area">-->
-<!--            <div class="envelope">-->
-<!--                <a href="#">-->
-<!--                    <img src="{{asset('assets/img/message64.png')}}" alt="">-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="envelope_area">-->
+        <!--            <div class="envelope">-->
+        <!--                <a href="#">-->
+        <!--                    <img src="{{asset('assets/img/message64.png')}}" alt="">-->
+        <!--                </a>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 </div>
 @endsection

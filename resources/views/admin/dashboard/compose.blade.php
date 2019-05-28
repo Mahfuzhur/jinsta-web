@@ -27,12 +27,13 @@
                                 @endif
                                 @if(session('add_success'))
                                 <div class="alert alert-success">
-                                    {{ session('add_success') }}
+                                    <p>{{ session('add_success') }} &#10004; </p>
                                 </div>
                                 @endif
                                 @if(session('empty_msg'))
                                 <div class="alert alert-success">
-                                    {{ session('empty_msg') }}
+
+                                    <p>{{ session('empty_msg') }} &#10004; </p>
                                 </div>
                                 @endif
                                 <div style="margin-left: 13%">
@@ -65,12 +66,16 @@
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-2 col-lg-10">
-                                                      <span class="btn green fileinput-button">
+                                                      <!-- <span class="btn green fileinput-button">
                                                         <i class="fa fa-plus fa fa-white"></i>
                                                         <span>Attachment</span>
                                                         <input type="file" name="file" multiple="">
-                                                      </span>
-                                            <button class="btn btn-send" type="submit">Send</button>
+                                                      </span> -->
+                                                      <input type="file" id="file-upload" multiple required />
+                                                      <i class="fa fa-plus fa fa-white"></i><label for="file-upload">Attachment</label>
+                                                      <button class="btn btn-send pull-right" type="submit">Send</button>
+                                                      <div id="file-upload-filename"></div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -84,4 +89,29 @@
         </div>
     </div>
 </div>
+<style type="text/css">
+    input[type="file"] { 
+      z-index: -1;
+      position: absolute;
+      opacity: 0;
+    }
+</style>
+<script type="text/javascript">
+    var input = document.getElementById( 'file-upload' );
+var infoArea = document.getElementById( 'file-upload-filename' );
+
+input.addEventListener( 'change', showFileName );
+
+function showFileName( event ) {
+  
+  // the change event gives us the input it occurred in 
+  var input = event.srcElement;
+  
+  // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+  var fileName = input.files[0].name;
+  
+  // use fileName however fits your app best, i.e. add it into a div
+  infoArea.textContent = 'File name: ' + fileName;
+}
+</script>
 @endsection

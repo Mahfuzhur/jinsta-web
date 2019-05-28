@@ -17,7 +17,7 @@
 <!--                        <br>-->
                         @if(session('update_msg'))
                         <div class="alert alert-success">
-                            {{session('update_msg')}}
+                            <p>{{ session('update_msg') }} &#10004; </p>
                         </div>
                         @endif
 

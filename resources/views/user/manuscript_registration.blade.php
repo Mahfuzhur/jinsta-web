@@ -25,7 +25,7 @@
 
           @if(session('edit_success'))
           <div class="alert alert-success">
-            {{ session('edit_success') }}
+              <p>{{ session('edit_success') }} &#10004; </p>
           </div> 
           @endif
           @if ( Session::has('delete_success') )

@@ -18,12 +18,12 @@
               @endif
               @if(session('add_success'))
               <div class="alert alert-success">
-                {{ session('add_success') }}
+                  <p>{{ session('add_success') }} &#10004; </p>
               </div> 
               @endif
               @if(session('empty_msg'))
               <div class="alert alert-success">
-                {{ session('empty_msg') }}
+                  <p>{{ session('empty_msg') }} &#10004; </p>
               </div> 
               @endif
               <!-- <h4>テンプレート名：テストテストテスト</h4> -->
