@@ -459,7 +459,7 @@ class AdminController extends Controller
             // print_r($invoice_info);
             // exit();
             $pdf = PDF::loadView('admin.dashboard.pdf.invoice', compact('customer_info','setting_info','invoice_info'));
-            return $pdf->stream('customers.pdf');
+            return $pdf->stream(date('M',strtotime($invoice_info->month)).'-'.$invoice_info->year.'.pdf');
         }else{
             return redirect('/');
         }

@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 
 // text area counter
-var text_max = 170;
+var text_max = 120;
 	$('#count_message').html('0 / ' + text_max );
 
 $('#text1').keyup(function() {

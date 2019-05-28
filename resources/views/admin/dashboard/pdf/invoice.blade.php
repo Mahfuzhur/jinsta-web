@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>invoice</title>
+    <title>{{date('M',strtotime($invoice_info->month)).'-'.$invoice_info->year}}.pdf</title>
     <style>
 
     body{

@@ -30,14 +30,14 @@
               <label for="temp_regi">
                  テンプレート名
               </label>
-              <input type="text" class="form-control title" id="text" name="title" maxlength="170" placeholder="原稿名を設定してください。" rows="5">
+              <input type="text" class="form-control title" id="text" name="title" maxlength="120" placeholder="原稿名を設定してください。" rows="5">
           </div>
             <div class="m-b-35"> 
                 <div class="input_box">
                     <label for="temp_regi">
                        テキスト登録
                     </label>
-                    <textarea class="form-control" id="text1" name="description" maxlength="170" placeholder="配信原稿文を記入ください。" rows="5"></textarea>
+                    <textarea class="form-control" id="text1" name="description" maxlength="120" placeholder="配信原稿文を記入ください。" rows="5"></textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>
