@@ -18,7 +18,7 @@
                 @endif
                 @if(session('delete_success'))
                 <div class="alert alert-success">
-                  {{ session('delete_success') }}
+                    <p>{{ session('delete_success') }} &#10004; </p>
                 </div> 
                 @endif 
                 <div class="col-md-6">
