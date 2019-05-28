@@ -738,7 +738,7 @@ class UserController extends Controller
         $title = 'ご請求';
         $request = 'active';
         $message_rate = Setting::select('message_rate')->first();
-        $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+        $numberSent = History::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
         $user_main_content = view('user.request',compact('numberSent','message_rate'));
         return view('master',compact('user_main_content','request','title'));
         }else{
