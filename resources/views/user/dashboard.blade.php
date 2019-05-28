@@ -295,7 +295,7 @@
            @if(isset($data_info))
            @foreach($data_info['dm_sent'] as $data )
             @foreach($data_info['without_dm_sent'] as $without_data )                     
-            @if($data->hashtag_id == $without_data->hashtag_id)
+            @if($data->hashtag_name == $without_data->hashtag_id)
               <div class="row progressbar_holder">
                 <div class="progress_title">
                    <span class="hashtag">#{{str_limit($data->hashtag, $limit = 10, $end = '..')}}</span>
