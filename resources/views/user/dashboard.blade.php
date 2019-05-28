@@ -63,7 +63,7 @@
       <div class="col-md-6 col-sm-12">
         @if(Session('user_extra_info'))
         <div class="alert alert-success">
-          {{Session('user_extra_info')}}
+            <p> {{Session('user_extra_info')}} &#10004; </p>
         </div>
         @endif
           <div class="test_section">
