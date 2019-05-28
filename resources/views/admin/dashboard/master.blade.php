@@ -414,7 +414,17 @@
 
       function payment_received() {
 
-        var check = confirm('invoice information mail will be sent.');
+        var check = confirm('Is payment receipt confirmed ??');
+        if (check) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function send_invoice_details() {
+
+        var check = confirm('An invoice details is will be sent to user email');
         if (check) {
             return true;
         } else {

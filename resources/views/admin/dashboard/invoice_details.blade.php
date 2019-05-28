@@ -139,7 +139,7 @@
                                             Payment
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{URL::to('send-invoice-mail/'.$invoice->invoice_id)}}">メール送信</a>
+                                            <a class="dropdown-item" href="{{URL::to('send-invoice-mail/'.$invoice->invoice_id)}}" onclick="return send_invoice_details();">メール送信</a>
                                             @if($invoice->billing_status == 0)
                                             <a class="dropdown-item"
                                                href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}" onclick="return payment_received();">入金済</a>

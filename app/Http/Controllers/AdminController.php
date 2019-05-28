@@ -338,7 +338,7 @@ class AdminController extends Controller
             
         });
         
-            return back()->with('payment_msg','Payment is successfull and invoice details has been to your email.');
+            return back()->with('payment_msg','Payment is successfull and invoice details has been to user email.');
         }else{
             return redirect('/');
         }
