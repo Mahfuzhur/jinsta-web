@@ -116,19 +116,21 @@ class UserController extends Controller
             }
             
 
-            $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
-            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+            $data_info['dm_sent'] = History::selectRaw('hashtag.hashtag, history.hashtag_name,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(history.dm_sent) AS total_sent')
+            ->join('hashtag', 'history.hashtag_name', '=', 'hashtag.id')
             ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
             ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
-            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
+            ->whereNull('schedule.deleted_at')->where('history.dm_sent',1)->where('history.user_id',$user_id)->groupBy('history.hashtag_name')->orderBy('schedule.id','desc')->paginate(3);
 
             $data_info['without_dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row')
             ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
             ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
             ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
-            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->paginate(3);
+            ->whereNull('schedule.deleted_at')->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('schedule.id','desc')->paginate(3);
 
         // $data_info['dm_sent'] = DB::select("SELECT hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent
         //             FROM client client
@@ -711,19 +713,21 @@ class UserController extends Controller
             $last_week = History::where([['updated_at', '>=', $week],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
             $last_day = History::where([['updated_at', '>=', $day],['dm_sent','=', '1'],['user_id', '=', $user_id]])->count();
 
-        $data_info['dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_sent')
-            ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
+        $data_info['dm_sent'] = History::selectRaw('hashtag.hashtag, history.hashtag_name,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(history.dm_sent) AS total_sent')
+            ->join('hashtag', 'history.hashtag_name', '=', 'hashtag.id')
             ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
             ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
-            ->where('client.dm_sent',1)->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
+            ->whereNull('schedule.deleted_at')->where('history.dm_sent',1)->where('history.user_id',$user_id)->groupBy('history.hashtag_name')->orderBy('schedule.id','desc')->paginate(3);
 
             $data_info['without_dm_sent'] = Client::selectRaw('hashtag.hashtag, client.hashtag_id,hashtag_schedule.schedule_id,template_schedule.template_id,template.title, COUNT(client.dm_sent) AS total_row')
             ->join('hashtag', 'client.hashtag_id', '=', 'hashtag.id')
             ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
             ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
-            ->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('hashtag.id','desc')->paginate(3);
+            ->whereNull('schedule.deleted_at')->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('schedule.id','desc')->paginate(3);
 
         $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info','numberOfSchedule'));
         return view('master',compact('user_main_content','analytics','title'));
