@@ -9,17 +9,17 @@
                 <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>アカウントリスト</h4>
                 @if(session('update_info_msg'))
                 <div class="alert alert-success">
-                  {{ session('update_info_msg') }}
+                    <p>{{ session('update_info_msg') }} &#10004; </p>
                 </div> 
                 @endif   
                 @if(session('delete_msg'))
                 <div class="alert alert-success">
-                  {{ session('delete_msg') }}
+                    <p>{{ session('delete_msg') }} &#10004; </p>
                 </div> 
                 @endif
                 @if(session('suspend_msg'))
                 <div class="alert alert-success">
-                  {{session('suspend_msg')}}
+                    <p>{{ session('suspend_msg') }} &#10004; </p>
                 </div>
                 @endif  
                 <div class="table-wrapper-scroll-y my-custom-scrollbar"> 
