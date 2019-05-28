@@ -628,7 +628,7 @@ class AdminController extends Controller
         Mail::send('email.name', $data, function($message) use ($data,$file_path_name,$emails)
         {
             $message->to($emails);
-            $message->subject($data['subject']);
+            $message->subject('asdasdasd',$data['subject']);
             $message->from('no-reply@htwistingmill.com');
             if ($file_path_name != null){
                 $message->attach('uploads/'.$file_path_name);
