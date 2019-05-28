@@ -58,7 +58,7 @@
                 </div>
                 <div class="form_buttons">
                     <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
-                    <input class="btn_done p_btn" type="submit" value="登録する">
+                    <input class="btn_done p_btn" type="submit" value="保存する">
                 </div>
             </div>
             
