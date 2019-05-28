@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            <p>{{ session('success') }} &#10004; </p>
                         </div>
                     @endif
 

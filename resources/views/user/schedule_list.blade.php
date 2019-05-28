@@ -9,7 +9,7 @@
                 <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>スケジュール一覧</h4>   
                 @if(session('delete_success'))
                 <div class="alert alert-success">
-                  {{ session('delete_success') }}
+                    <p>{{ session('delete_success') }} &#10004; </p>
                 </div> 
                 @endif   
                   <table class="table table-hover">

@@ -18,7 +18,7 @@
               @endif
               @if(session('schedule_success'))
               <div class="alert alert-success">
-                {{session('schedule_success')}}
+                  <p>{{ session('schedule_success') }} &#10004; </p>
               </div>
               @endif
               @if(session('schedule_err_msg'))

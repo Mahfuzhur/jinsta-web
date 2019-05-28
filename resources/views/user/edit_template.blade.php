@@ -18,12 +18,12 @@
               @endif
               @if(session('add_success'))
               <div class="alert alert-success">
-                {{ session('add_success') }}
+                  <p>{{ session('add_success') }} &#10004; </p>
               </div> 
               @endif
               @if(session('empty_msg'))
               <div class="alert alert-success">
-                {{ session('empty_msg') }}
+                  <p>{{ session('empty_msg') }} &#10004; </p>
               </div> 
               @endif
               <!-- <h4>テンプレート名：テストテストテスト</h4> -->
@@ -58,7 +58,7 @@
                 </div>
                 <div class="form_buttons">
                     <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
-                    <input class="btn_done p_btn" type="submit" value="登録する">
+                    <input class="btn_done p_btn" type="submit" value="保存する">
                 </div>
             </div>
             
