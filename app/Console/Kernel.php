@@ -104,7 +104,7 @@ class Kernel extends ConsoleKernel
                             if($this->users[$this->counter]->specify_time_start <= date('H:i') && $this->users[$this->counter]->specify_time_end >= date('H:i')){
                                 $imagePath = 'uploads/'.$this->users[$this->counter]->image;
                                 $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
-                                $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                                $this->ig->direct->sendPhoto($recipents,base_path($imagePath));
                                 \Log::info('message sent');
 
                             }
@@ -113,7 +113,7 @@ class Kernel extends ConsoleKernel
                             if($this->users[$this->counter]->specify_time_start <= date('H:i') || $this->users[$this->counter]->specify_time_end >= date('H:i')){
                                 $imagePath = 'uploads/'.$this->users[$this->counter]->image;
                                 $this->ig->direct->sendText($recipents,$this->users[$this->counter]->description);
-                                $this->ig->direct->sendPhoto($recipents,public_path($imagePath));
+                                $this->ig->direct->sendPhoto($recipents,base_path($imagePath));
                                 \Log::info('message sent');
 
                             }

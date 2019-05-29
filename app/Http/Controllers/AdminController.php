@@ -330,11 +330,11 @@ class AdminController extends Controller
                 'issue_date' =>$invoice_info->issue_date
            );
         
-        Mail::send('admin.invoiceEmail', $data, function($message) use ($data,$email)
+        Mail::send('admin.paymentinvoiceEmail', $data, function($message) use ($data,$email)
         {
             $message->to($email->email);
             $message->subject($data['subject']);
-            $message->from('no-reply@tagletter.com');
+            $message->from('no-reply@tagletter.com','Tagletter');
             
         });
         
@@ -459,7 +459,7 @@ class AdminController extends Controller
             // print_r($invoice_info);
             // exit();
             $pdf = PDF::loadView('admin.dashboard.pdf.invoice', compact('customer_info','setting_info','invoice_info'));
-            return $pdf->stream(date('M',strtotime($invoice_info->month)).'-'.$invoice_info->year.'.pdf');
+            return $pdf->stream(date($invoice_info->month).'-'.$invoice_info->year.'.pdf');
         }else{
             return redirect('/');
         }
@@ -531,7 +531,7 @@ class AdminController extends Controller
         {
             $message->to($email->email);
             $message->subject($data['subject']);
-            $message->from('no-reply@htwistingmill.com');
+            $message->from('no-reply@tagletter.com','Tagletter');
             
         });
         
@@ -628,8 +628,8 @@ class AdminController extends Controller
         Mail::send('email.name', $data, function($message) use ($data,$file_path_name,$emails)
         {
             $message->to($emails);
-            $message->subject('asdasdasd',$data['subject']);
-            $message->from('no-reply@htwistingmill.com');
+            $message->subject($data['subject']);
+            $message->from('no-reply@tagletter.com','Tagletter');
             if ($file_path_name != null){
                 $message->attach('uploads/'.$file_path_name);
             }
