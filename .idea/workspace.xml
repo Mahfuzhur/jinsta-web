@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5d2b33e3-dddf-4611-bc6a-61bf7c0119f6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/views/user/create_destination.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/create_destination.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/destination_registration.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/destination_registration.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/manuscript_registration.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/manuscript_registration.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/request.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/request.blade.php" afterDir="false" />
-    </list>
+    <list default="true" id="5d2b33e3-dddf-4611-bc6a-61bf7c0119f6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -359,7 +353,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76950000" />
+    <option name="totallyTimeSpent" value="77549000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
