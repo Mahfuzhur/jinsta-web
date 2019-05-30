@@ -1309,7 +1309,7 @@ class UserController extends Controller
             return redirect('user-login');
         }
         else{
-           echo 'Email not verified';
+           return redirect('user-login');
         }
        
     }
