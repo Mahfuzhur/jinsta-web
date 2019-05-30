@@ -123,7 +123,7 @@
                                 ?>
                                 <td class="text-center">{{$i}}</td>
                                 <td class="text-center">{{$invoice->invoice_id}}</td>
-                                <td class="text-center">0{{$invoice->month}}-{{$invoice->year}}</td>
+                                <td class="text-center">{{$invoice->month}}-{{$invoice->year}}</td>
                                 <td class="text-center">{{$invoice->issue_date}}</td>
                                 <td class="text-center">{{$invoice->due_date}}</td>
                                 <td class="text-center">{{$invoice->dm_total_number}}</td>
