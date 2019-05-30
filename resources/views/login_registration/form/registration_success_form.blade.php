@@ -40,9 +40,9 @@
                   <h3>登録が完了しました！</h3>
                   <p style="color: green;">A verification link has been sent to your email.</p>
                 </div>
-                <a href="{{URL::to('user-login')}}">
+                <a href="{{URL::to('/')}}">
                   <div class="button_holder">                                     
-                    <button type="button" class="btn registration_btn" style="padding: 6px 15px;">ログイン</button>
+                    <button type="button" class="btn registration_btn" style="padding: 6px 15px;">ホーム</button>
                   </div>
                 </a>
                 

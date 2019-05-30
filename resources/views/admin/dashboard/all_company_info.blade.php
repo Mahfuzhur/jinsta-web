@@ -52,7 +52,9 @@
                           <td class="text-center">{{$company->company_name}}</td>
                           <td class="text-center">{{$company->email}}</td>
                           <td class="text-center">{{$company->mobile}}</td>
-                          @if($company->account_status == 2)
+                          @if($company->account_status == 1)
+                          <td style="color: #a29113fa;" class="text-center">お試し</td>
+                          @elseif($company->account_status == 2)
                           <td style="color: red;" class="text-center">一時停止</td>
                           @elseif($company->account_status == 3)
                           <td style="color: green;" class="text-center">アクティブ</td>

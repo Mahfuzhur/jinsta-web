@@ -83,7 +83,7 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $all_company = User::whereIn('account_status',[2,3])->get();
+            $all_company = User::whereIn('account_status',[1,2,3])->get();
             $main_content = view('admin.dashboard.all_company_info',compact('all_company'));
             return view('admin.dashboard.master',compact('main_content','active_company_list'));
         }else{
