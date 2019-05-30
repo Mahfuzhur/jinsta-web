@@ -71,7 +71,7 @@
                                                         <span>Attachment</span>
                                                         <input type="file" name="file" multiple="">
                                                       </span> -->
-                                                      <input type="file" id="file-upload" multiple required />
+                                                      <input type="file" name="file" id="file-upload" multiple required />
                                                       <i class="fa fa-plus fa fa-white"></i><label for="file-upload">Attachment</label>
                                                       <button class="btn btn-send pull-right" type="submit">Send</button>
                                                       <div id="file-upload-filename"></div>

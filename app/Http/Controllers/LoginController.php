@@ -79,7 +79,7 @@ class LoginController extends Controller
                 {
                     $message->to($emails);
                     $message->subject('Account verification email');
-                    $message->from('no-reply@htwistingmill.com');
+                    $message->from('no-reply@tagletter.com','Tagletter');
                     
                 });
                 

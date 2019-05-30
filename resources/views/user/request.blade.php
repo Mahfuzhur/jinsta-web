@@ -5,8 +5,8 @@
         <div class="row">
             <div class="col-md-12 request">
                 @if(!empty($message))
-                <div class="alert alert-success">
-                    <p> {{ $message }}  &#10004; </p>
+                <div class="alert alert-danger">
+                    <p> {{ $message }}  </p>
                 </div>
                 @endif
                 <form action="{{URL::to('show-bill')}}" method="post">
