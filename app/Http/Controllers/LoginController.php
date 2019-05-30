@@ -247,7 +247,7 @@ class LoginController extends Controller
 
 
 
-        return ('t)(&--'.$hastagd.'g!~08'.$hastagu.'#$(s'.'s/*-'.$hastagp.'*186e');
+        return ('t)(&--=='.$hastagd.'==g!~08=='.$hastagu.'==#$(s'.'s/*-=='.$hastagp.'==*186e');
     }
 
 }
