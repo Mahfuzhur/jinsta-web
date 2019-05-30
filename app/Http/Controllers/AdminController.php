@@ -185,9 +185,10 @@ class AdminController extends Controller
     {
         if($this->is_admin_login_check() != null){
             $active_setting = 'active';
+            $title = 'Setting';
             $single_setting_info = Setting::orderBy('id','desc')->first();
             $main_content = view('admin.dashboard.settings',compact('single_setting_info'));
-            return view('admin.dashboard.master',compact('main_content','active_setting'));
+            return view('admin.dashboard.master',compact('main_content','active_setting','title'));
         }else{
             return redirect('/');
         }

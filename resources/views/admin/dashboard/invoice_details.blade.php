@@ -60,6 +60,7 @@
                             <span class="new_template">{{$user_info->company_name}}</span><br>
                             <span class="new_template">{{$user_info->contact_number}}</span><br>
                             <span class="new_template">{{$user_info->street}}</span><br>
+                            <span class="new_template">{{$user_info->postal_code}}</span><br>
 
                             <!-- <a href="{{URL::to('edit-user-extra-info/'.Crypt::encrypt($user_info->id))}}" class="btn btn-success"
                                style="width: 100%;margin-top: 10px; color: white">Update</a> -->
@@ -185,19 +186,19 @@
                     </div>
                     @endif
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="Name" required="">
+                    <input type="text" name="name" class="form-control" placeholder="お名前" required="">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="company_name" class="form-control" placeholder="Company Name" required="">
+                    <input type="text" name="company_name" class="form-control" placeholder="ご担当部署" required="">
                   </div>
                     <div class="form-group">
-                        <input type="text" name="contact_number" class="form-control" placeholder="Contact Number" required="">
+                        <input type="text" name="contact_number" class="form-control" placeholder="電話番号" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="street" class="form-control" placeholder="Street Address" required="">
+                        <input type="text" name="street" class="form-control" placeholder="住所" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" required="">
+                        <input type="text" name="postal_code" class="form-control" placeholder="郵便番号" required="">
                     </div>
                     <input type="hidden" name="info_id" class="form-control" value="@if(isset($user_info)){{$user_info->id}}@endif">
               </div>

@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
 
     <title>
-    Dashboard
+    @if(isset($title)){{$title}}@else Dashboard @endif
   </title>
       <style>
           .email {

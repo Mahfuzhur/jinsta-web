@@ -38,7 +38,7 @@
                         <input type="text" name="street" class="form-control" placeholder="住所" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="postal_code" class="form-control" placeholder="Zip Code" required="">
+                        <input type="text" name="postal_code" class="form-control" placeholder="郵便番号" required="">
                     </div>
                     <!-- <p>Do you want to save changes you made to document before closing?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p> -->
