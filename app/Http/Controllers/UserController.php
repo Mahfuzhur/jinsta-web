@@ -1334,25 +1334,25 @@ class UserController extends Controller
     }
     public function saveNewHashtag(Request $request){
 
-        $newHashtagName = $request->hashtag;
+
 
         $firstHashtagId = $request->firstHashtagId;
         $newHashtag = $request->newHashtag;
         // echo "<pre>";
         // print_r($newHashtag);
         // exit();
+        if($request->updatedHashtag == null){
+            $newHashtagName = $request->updatedHashtag;
+            try{
+
+                $clientDeleted = DB::table('client')->where('hashtag_id',$firstHashtagId)->delete();
 
 
-        try{
-
-            $clientDeleted = DB::table('client')->where('hashtag_id',$firstHashtagId)->delete();
 
 
-
-
-        }catch (\Exception $ex){
-            echo $ex;
-        }
+            }catch (\Exception $ex){
+                echo $ex;
+            }
             Hashtag::where('id',$firstHashtagId)->update(['hashtag' => $newHashtagName]);
 //        $hashtag = new Hashtag();
 //        $hashtag->user_id = Auth::user()->id;
@@ -1361,19 +1361,42 @@ class UserController extends Controller
 //        $hashtag->save();
 //        $lastInsertedId = $hashtag->id;
 
-        foreach($newHashtag as $newHashtag){
+            foreach($newHashtag as $newHashtag){
 
-            $client = new Client();
-            $client->user_id = Auth::user()->id;
-            $client->hashtag_id = $firstHashtagId;
-            $client->client_id = $newHashtag;
-            $client->created_at = Carbon::now()->addHour(9);
-            $client->save();
+                $client = new Client();
+                $client->user_id = Auth::user()->id;
+                $client->hashtag_id = $firstHashtagId;
+                $client->client_id = $newHashtag;
+                $client->created_at = Carbon::now()->addHour(9);
+                $client->save();
+            }
+        }else{
+            $newHashtagName = $request->existingHashtag;
+            $current_time = Carbon::now()->addHour(6);
+            $update_time = Carbon::now()->addHour(6);
+            $user = new Hashtag();
+            $user->user_id= Auth::user()->id;
+            $user->hashtag= $newHashtagName;
+            $user->created_at= $current_time;
+            $user->updated_at= $update_time;
+            $user->save();
+            $lastInsertId = $user->id;
+
+            foreach($newHashtag as $newHashtag){
+
+                $client = new Client();
+                $client->user_id = Auth::user()->id;
+                $client->hashtag_id = $lastInsertId;
+                $client->client_id = $newHashtag;
+                $client->created_at = Carbon::now()->addHour(9);
+                $client->save();
+            }
         }
-        // return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
-        return response()->json(
-                ['data'=> 'Hastag and its ID updated successfully']
-            );
+
+         return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
+//        return response()->json(
+//                ['data'=> 'Hastag and its ID updated successfully']
+//            );
     }
 
 
