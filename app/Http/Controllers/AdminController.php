@@ -83,7 +83,7 @@ class AdminController extends Controller
 
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $all_company = User::whereIn('account_status',[2,3])->get();
+            $all_company = User::whereIn('account_status',[1,2,3])->get();
             $main_content = view('admin.dashboard.all_company_info',compact('all_company'));
             return view('admin.dashboard.master',compact('main_content','active_company_list'));
         }else{
@@ -108,7 +108,7 @@ class AdminController extends Controller
     public function editCompanyInfo($id){
         if($this->is_admin_login_check() != null){
             $active_company_list = 'active';
-            $single_company_info = DB::table('users')->where([['id','=',Crypt::decrypt($id)]])->whereIn('account_status',[2,3])->first();
+            $single_company_info = DB::table('users')->where([['id','=',Crypt::decrypt($id)]])->whereIn('account_status',[1,2,3])->first();
             $main_content = view('admin.dashboard.edit_company_info',compact('single_company_info'));
             return view('admin.dashboard.master',compact('active_company_list','main_content'));
         }else{
