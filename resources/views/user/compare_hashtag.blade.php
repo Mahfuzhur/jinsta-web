@@ -66,14 +66,12 @@
 
 
 
-                
-
                 @if(isset($new_hashtag))
-                <input type="checkbox" class="largerCheckbox"  id="yourBox" />
-                <label>Edit Hashtag</label><br>
-                <input readonly type="text" name="hashtag" style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value="{{$compareHashtag->hashtag}}" id="yourText"  />
-                
 
+                <input type="checkbox"   id="yourBox" />
+                <label>Edit Hashtag</label><br>
+                <input  type="text" name="updatedHashtag" id="yourText" disabled style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value="{{$compareHashtag->hashtag}}"   />
+                <input type="hidden" name="existingHashtag" value="{{$compareHashtag->hashtag}}">
                 <input type="hidden" name="firstHashtagId" value="{{$compareHashtag->id}}">
                 @foreach($new_hashtag as $new_hashtag)
                 <input type="hidden" name="newHashtag[]" value="{{$new_hashtag}}">
@@ -144,7 +142,7 @@
 
     <script>
         document.getElementById('yourBox').onchange = function() {
-        document.getElementById('yourText').readOnly = false;
+            document.getElementById('yourText').disabled = !this.checked;
         };
     </script>
 @endsection

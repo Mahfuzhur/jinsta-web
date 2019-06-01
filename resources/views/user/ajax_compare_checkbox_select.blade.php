@@ -251,6 +251,6 @@
     </style>
     <script>
         document.getElementById('yourBox').onchange = function() {
-        document.getElementById('hashtag_name').readOnly = false;
+            document.getElementById('yourText').disabled = !this.checked;
         };
     </script>
