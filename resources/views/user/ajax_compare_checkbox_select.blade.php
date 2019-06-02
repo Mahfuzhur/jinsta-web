@@ -65,7 +65,8 @@
                 @if(isset($new_hashtag))
                 <input type="checkbox" class="largerCheckbox"  id="yourBox" />
                 <label>Edit Hashtag</label><br>
-                <input readonly type="text" name="hashtag_name" id="hashtag_name" value="{{$compareHashtag->hashtag}}" class="form-control" style="max-width: 420px;" />
+                <input  type="text" name="updatedHashtag" id="yourText" disabled style=" height: 45px; width: 413px; padding: 0.2em .5em;border: 1px solid #ffffff;" value=""   />
+                <input type="hidden" name="existingHashtag" id="existingHashtag" value="{{$compareHashtag->hashtag}}">
                 
                 <input type="hidden" name="firstHashtagId" id="firstHashtagId" value="{{$compareHashtag->id}}">
                 @foreach($new_hashtag as $key => $new_hashtag)
@@ -137,7 +138,10 @@
     /* compare hashtag list serach start*/
 
          $("#final_hashtag_save").click(function(){
-          var hashtag = $('#hashtag_name').val();
+          // var hashtag = $('#hashtag_name').val();
+
+          var updatedHashtag = $('#yourText').val();
+          var existingHashtag = $('#existingHashtag').val();
           
           var firstHashtagId = $('#firstHashtagId').val();
           var newHashtag = hashTagValue($('input[name="newHashtag[]"]'));
@@ -146,13 +150,13 @@
           $.ajax({
            url: "{{url('save-new-hashtag')}}",
            type: "post",
-           data: {"_token": "{{ csrf_token() }}","hashtag":hashtag,"firstHashtagId":firstHashtagId,"newHashtag":newHashtag},
+           data: {"_token": "{{ csrf_token() }}","updatedHashtag":updatedHashtag,"existingHashtag":existingHashtag,"firstHashtagId":firstHashtagId,"newHashtag":newHashtag},
            beforeSend: function(){
             // Show image container
             // console.log(hashtag);
             // console.log(secondHashtagId);
-            // console.log(firstHashtagId);
-            // console.log(newHashtag);
+            console.log(updatedHashtag);
+            console.log(existingHashtag);
             $("#Load").show();
            },
            success: function(response){
@@ -208,7 +212,7 @@
 
     .load {
       position: fixed;
-      background: url(http://i.imgur.com/JUlfODF.png) no-repeat 50% fixed / cover;);
+      background: url('assets/img/preloader.png') no-repeat 50% fixed / cover;);
       width: 100%;
       height: 100vh;
       top: 0px;

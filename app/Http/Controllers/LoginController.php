@@ -182,14 +182,14 @@ class LoginController extends Controller
 
 
     public function test(){
-        $count = 0;
-        $this->ig->login('asifahmmed','@Sif12345');
+       // $count = 0;
+        //$this->ig->login('asifahmmed','@Sif12345');
 
-        $rank_token= \InstagramAPI\Signatures::generateUUID();
+        //$rank_token= \InstagramAPI\Signatures::generateUUID();
         //$result = $this->ig->hashtag->getFeed('bpl',$rank_token);
-        $result = $this->ig->people->getSelfFollowers($rank_token);
+        //$result = $this->ig->people->getSelfFollowers($rank_token);
         //$result = $this->ig->people->getInfoById('8576826038');
-        $result = $this->ig->people->getInfoById('8576826038');
+        //$result = $this->ig->people->getInfoById('8576826038');
         //$result = $result->getUser()->getPublicEmail();
         //$result = $result->getUser()->getContactPhoneNumber();
         //$result = $this->ig->media->getLikers('2011632325306376775_7905756331');
@@ -233,6 +233,30 @@ class LoginController extends Controller
 //
 //            }
 //        }
+
+
+$current_date = date("d-m-Y");
+            $current_time = date("H:i");
+            $result = DB::table('users')
+                ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+                ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+                ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+                ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+                ->join('template', 'template.id', '=', 'template_schedule.template_id')
+                ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+                ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+                ->leftJoin('history', 'client.id', '=', 'history.client_id_fk')
+                
+                ->select('users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
+                    ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
+                    ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
+                    , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
+                    'client.hashtag_id','client.id','template.title','template.id as template_id','template.description','template.image')
+                ->where([['history.client_id_fk','=',null],['schedule.status','=','1'],['schedule.delivery_period_start','<=',$current_date],
+                    ['schedule.delivery_period_end','>=',$current_date]])
+                ->whereNull('schedule.deleted_at')
+                ->groupBy('hashtag.hashtag')
+                ->get();
 
 
         return response()->json($result);
