@@ -1342,7 +1342,7 @@ class UserController extends Controller
         // print_r($newHashtag);
         // exit();
         if($request->updatedHashtag == null){
-            $newHashtagName = $request->updatedHashtag;
+            $newHashtagName = $request->existingHashtag;
             try{
 
                 $clientDeleted = DB::table('client')->where('hashtag_id',$firstHashtagId)->delete();
@@ -1371,7 +1371,7 @@ class UserController extends Controller
                 $client->save();
             }
         }else{
-            $newHashtagName = $request->existingHashtag;
+            $newHashtagName = $request->updatedHashtag;
             $current_time = Carbon::now()->addHour(6);
             $update_time = Carbon::now()->addHour(6);
             $user = new Hashtag();
@@ -1393,10 +1393,10 @@ class UserController extends Controller
             }
         }
 
-         return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
-//        return response()->json(
-//                ['data'=> 'Hastag and its ID updated successfully']
-//            );
+         // return redirect('destination-registration')->with('message','Hastag and its ID updated successfully');
+       return response()->json(
+               ['data'=> 'Hastag and its ID updated successfully']
+           );
     }
 
 
