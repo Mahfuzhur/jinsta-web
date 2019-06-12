@@ -49,9 +49,9 @@ class Kernel extends ConsoleKernel
                 ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
                 ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
                 ->leftJoin('history', 'client.id', '=', 'history.client_id_fk')
-                // ->leftJoin('history as h1', 'hashtag.id', '=', 'h1.hashtag_name')
-                // ->leftJoin('history as h2', 'template.id', '=', 'h1.template_name')
-                // ->leftJoin('history as h3', 'users.id', '=', 'h1.user_id')
+                ->leftJoin('history as h1', 'hashtag.id', '=', 'h1.hashtag_name')
+                ->leftJoin('history as h2', 'template.id', '=', 'h1.template_name')
+                ->leftJoin('history as h3', 'users.id', '=', 'h1.user_id')
                 ->select('users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
                     ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
                     ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
@@ -60,7 +60,7 @@ class Kernel extends ConsoleKernel
                 ->where([['history.client_id_fk','=',null],['schedule.status','=','1'],['schedule.delivery_period_start','<=',$current_date],
                     ['schedule.delivery_period_end','>=',$current_date]])
                 ->whereNull('schedule.deleted_at')
-                // ->groupBy('template.title')
+                ->groupBy('template.title')
                 ->groupBy('hashtag.hashtag')
                 ->get();
 

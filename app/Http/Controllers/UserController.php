@@ -1263,6 +1263,7 @@ class UserController extends Controller
     public function scheduleAction(Request $request){
         if(Auth::user()){
             $id = $request->id;
+            $user_id = Auth::user()->id;
             // $status = $request->input('schedule_status');
 
             $schedule = Schedule::findOrfail($id);
@@ -1273,13 +1274,33 @@ class UserController extends Controller
                 $schedule->status = 0;
                 $schedule->save();
                 // return redirect('schedule-list');
-                return response()->json(['data'=>'stop','id' => $id]);
+                // return response()->json(['data'=>'stop','id' => $id]);
             }elseif($schedule->status == 0){
                 $schedule->status = 1;
                 $schedule->save();
                 // return redirect('schedule-list');
-                return response()->json(['data'=>'start','id' => $id]);
+                // return response()->json(['data'=>'start','id' => $id]);
             }
+
+            $all_schedule = DB::table('users')
+                ->join('user_schedule', 'users.id', '=','user_schedule.user_id' )
+                ->join('schedule', 'schedule.id', '=', 'user_schedule.schedule_id')
+                ->join('hashtag_schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+                ->join('template_schedule', 'template_schedule.schedule_id', '=', 'schedule.id')
+                ->join('template', 'template.id', '=', 'template_schedule.template_id')
+                ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+                ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
+                ->select('schedule.id as s_id','users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
+                    ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
+                    ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
+                    , 'schedule.time_exclusion_setting_end','hashtag.hashtag','client.user_id','client.client_id',
+                    'client.hashtag_id','client.id','template.title','template.description','template.image','schedule.status')
+                ->where([['user_schedule.user_id','=',$user_id]])
+                ->whereNull('schedule.deleted_at')
+                ->orderBy('schedule.id','desc')
+                ->groupBy('schedule.id')
+                ->paginate(10);
+                return view('user.ajax_schedule_ist',compact('all_schedule'));
 
         }else{
             return Redirect::to('/admin-login');
@@ -1447,7 +1468,10 @@ class UserController extends Controller
         if ($invoice != null){
 
             $message_rate = Setting::select('message_rate')->first();
-            $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+            // $numberSent = History::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+
+            $numberSent = $invoice->dm_total_number;
+
             $title = 'ご請求';
             $request = 'active';
             $user_main_content = view('user.request',compact('invoice','numberSent','message_rate'));
@@ -1456,8 +1480,8 @@ class UserController extends Controller
         else {
 
             $message_rate = Setting::select('message_rate')->first();
-            $numberSent = Client::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
-            $message = 'Bill not found';
+            $numberSent = History::where([['user_id', '=', $user_id]])->where([['dm_sent', '=', '1']])->count();
+            $message = 'No bill is found of this month.';
             $title = 'ご請求';
             $request = 'active';
             $user_main_content = view('user.request',compact('numberSent','message_rate','message'));
@@ -1478,7 +1502,7 @@ class UserController extends Controller
             // print_r($invoice_info);
             // exit();
             $pdf = PDF::loadView('user.invoice', compact('customer_info','setting_info','invoice_info'));
-            return $pdf->stream('customers.pdf');
+            return $pdf->stream(date($invoice_info->month).'-'.$invoice_info->year.'.pdf');
         }else{
             return redirect('user-login');
         }

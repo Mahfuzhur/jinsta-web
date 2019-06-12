@@ -78,7 +78,7 @@ class LoginController extends Controller
                 Mail::send('email.verify_email', $data, function($message) use ($data,$emails)
                 {
                     $message->to($emails);
-                    $message->subject('Account verification email');
+                    $message->subject('【TAG Letter】メールアドレスの認証をお願い致します。');
                     $message->from('no-reply@tagletter.com','Tagletter');
                     
                 });
@@ -246,7 +246,9 @@ $current_date = date("d-m-Y");
                 ->join('hashtag', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
                 ->join('client', 'client.hashtag_id', '=', 'hashtag.id')
                 ->leftJoin('history', 'client.id', '=', 'history.client_id_fk')
-                
+                // ->leftJoin('history as h1', 'hashtag.id', '=', 'h1.hashtag_name')
+                // ->leftJoin('history as h2', 'template.id', '=', 'h1.template_name')
+                // ->leftJoin('history as h3', 'users.id', '=', 'h1.user_id')
                 ->select('users.name','users.instagram_username','users.instagram_password','schedule.delivery_period_start','schedule.delivery_period_end'
                     ,'schedule.date_exclusion_setting_start','schedule.date_exclusion_setting_end'
                     ,'schedule.specify_time_start','schedule.specify_time_end', 'schedule.time_exclusion_setting_start'
@@ -255,6 +257,7 @@ $current_date = date("d-m-Y");
                 ->where([['history.client_id_fk','=',null],['schedule.status','=','1'],['schedule.delivery_period_start','<=',$current_date],
                     ['schedule.delivery_period_end','>=',$current_date]])
                 ->whereNull('schedule.deleted_at')
+                // ->groupBy('template.title')
                 ->groupBy('hashtag.hashtag')
                 ->get();
 

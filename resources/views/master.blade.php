@@ -115,18 +115,26 @@
                     "id": id
                 },
                 success: function (response) {
-                    if (response.data === 'stop') {
-                        // alert('schedule stop');
-                        jQuery('#schedule_stop' + response.id).hide();
-                        jQuery('#schedule_start' + response.id).show();
-                    } else if (response.data === 'start') {
-                        // alert('schedule start');
-                        jQuery('#schedule_start' + response.id).hide();
-                        jQuery('#schedule_stop' + response.id).show();
-                    }
+
+                  $('#ajax_schedule_list').html(response);
+
+                    // if (response.data === 'stop') {
+                    //     // alert('schedule stop');
+                    //     jQuery('#schedule_stop' + response.id).hide();
+                    //     jQuery('#schedule_start' + response.id).show();
+                    // } 
+                    // else if (response.data === 'start') {
+                    //     // alert('schedule start');
+                    //     jQuery('#schedule_start' + response.id).hide();
+                    //     jQuery('#schedule_stop' + response.id).show();
+                    // }
 
                 }
             });
+        }
+
+        function schedule_expire_alert(){
+          alert('このスケジュールは期限切れです');
         }
     </script>
     <style>
@@ -457,6 +465,16 @@
     function confirm_click() {
 
         var check = confirm('Are you sure to delete this?');
+        if (check) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function delete_schedule() {
+
+        var check = confirm('配信リストを削除します。よろしいですか？');
         if (check) {
             return true;
         } else {

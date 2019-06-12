@@ -17,7 +17,7 @@
               <div class="load__container">
                 <div class="load__animation"></div>
                 <div class="load__mask"></div>
-                <span class="load__title">Please do not close the browser. Work in progress...</span>
+                <span class="load__title">リクエスト中です。ブラウザを閉じないでください。</span>
               </div>
             </div>
 
