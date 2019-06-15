@@ -681,7 +681,12 @@ class UserController extends Controller
     public function analytics(){
         if(Auth::user()){
             $user_id = Auth::user()->id;
-            $numberOfLists = Hashtag::where('user_id',$user_id)->count();
+            // $numberOfLists = Hashtag::where('user_id',$user_id)->count();
+            $numberOfLists = count(Hashtag::selectRaw('hashtag.id,hashtag.hashtag, count(client.client_id) as total_user')
+                 ->join('client', 'hashtag.id', '=', 'client.hashtag_id')
+                 ->where('hashtag.user_id',$user_id)
+                 ->groupBy('hashtag.id')
+                 ->get());
             $numberOfSchedule = UserSchedule::where('user_id',$user_id)->count();
             $numberSent = History::where([['dm_sent', '=', '1'],['user_id','=',$user_id]])->count();
         $title = 'アナリティクス';

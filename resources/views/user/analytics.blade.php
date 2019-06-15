@@ -141,9 +141,9 @@
           <!-- <div class="rect_box">
             <h4>開封率</h4>
           </div> -->
-          <div class="rect_box">
+          <!-- <div class="rect_box">
             <h4>アクション回数 <br>{{$numberOfSchedule}}</h4>
-          </div>
+          </div> -->
         </div>
 <!--        <div class="envelope_area">-->
 <!--           <div class="envelope">-->

@@ -1318,7 +1318,8 @@ button.ds_btn {
 .box_holder .rect_box {
     padding: 3em 2em;
     background-color: #ffffff;
-    width: 250px;
+    /*width: 250px;*/
+    width: 400px;
     text-align: center;
     position: relative;
     margin-bottom: 10px;
