@@ -513,6 +513,9 @@
                             <a class="dropdown-item" href="{{URL::to('settings')}}">設定</a>
                         </li>
                         <li>
+                            <a class="dropdown-item" href="{{URL::to('change-password')}}">パスワードを変更する</a>
+                        </li>
+                        <li>
                           <a class="dropdown-item" href="{{URL::to('admin-logout')}}" onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">ログアウト</a>
                              <form id="logout-form" action="{{URL::to('admin-logout') }}" method="POST" style="display: none;">

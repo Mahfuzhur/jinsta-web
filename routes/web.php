@@ -118,6 +118,9 @@ Route::get('/send-invoice-mail/{id}','AdminController@sendInvoiceMail');
 
 Route::get('/user-create-invoice/{id}/{id1}','UserController@usercreateInvoice');
 
+Route::get('/change-password','AdminController@changePassword');
+Route::post('/update-password','AdminController@updatePassword');
+
 
 
 

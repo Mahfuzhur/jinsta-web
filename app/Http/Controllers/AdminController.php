@@ -542,6 +542,44 @@ class AdminController extends Controller
         }
     }
 
+    public function changePassword(){
+
+        if($this->is_admin_login_check() != null){
+
+            $active_chg_pass = 'active';
+            $main_content = view('admin.dashboard.change_password');
+            return view('admin.dashboard.master',compact('main_content','active_chg_pass'));
+
+        }else{
+            return redirect('/');
+        }
+    }
+
+    public function updatePassword(Request $request){
+
+        if($this->is_admin_login_check() != null){
+
+            
+            $this->validate($request,[
+                'old_password' => 'required',
+                'password' => 'required|confirmed',
+                'password_confirmation' => 'required|sometimes|required_with:password'
+            ]);
+            $id = Session::get('current_admin_id');
+            $admin_info = Admin::findOrFail($id);
+            if($admin_info->password != md5($request->old_password)){
+                return back()->with('ex_msg','Old password not matched');
+            }
+
+            $admin_info->password = md5($request->password);
+            $admin_info->save();
+            return redirect('/change-password')->with('update_msg','Password updated successfully.');
+
+        }else{
+            return redirect('/');
+        }
+    }
+
 
     public function index()
     {
