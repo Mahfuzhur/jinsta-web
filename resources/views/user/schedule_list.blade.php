@@ -6,7 +6,7 @@
             <div class="col-md-12">
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>スケジュール一覧</h4>   
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Schedule List</h4>
                 @if(session('delete_success'))
                 <div class="alert alert-success">
                     <p>{{ session('delete_success') }} &#10004; </p>
@@ -16,14 +16,14 @@
                     <thead>
                       <tr>
                         <th scope="col" class="text-center">#</th>
-                        <th scope="col" class="text-center">ハッシュタグ</th>
-                        <th scope="col" class="text-center">テンプレート</th>
-                        <th scope="col" class="text-center">配信開始日</th>
-                        <th scope="col" class="text-center">配信終了日</th>
-                        <th scope="col" class="text-center">開始時刻</th>
-                        <th scope="col" class="text-center">終了時刻</th>
-                        <th scope="col" class="text-center">ステータス</th>
-                        <th scope="col" class="text-center">アクション</th>
+                        <th scope="col" class="text-center">Hashtag</th>
+                        <th scope="col" class="text-center">Template</th>
+                        <th scope="col" class="text-center">Delivery Start Date</th>
+                        <th scope="col" class="text-center">Delivery End Date</th>
+                        <th scope="col" class="text-center">Start time</th>
+                        <th scope="col" class="text-center">End Time</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -60,11 +60,11 @@
                           <td class="text-center">{{$start_time}}</td>
                           <td class="text-center">{{$end_time}}</td>
                           @if($current_date >= $start_date && $current_date <= $end_date)
-                          <td style="color: green;font-weight:bold;" class="text-center">ランニング</td>
+                          <td style="color: green;font-weight:bold;" class="text-center">Running</td>
                           @elseif($current_date < $start_date)
-                          <td style="color: #bbbb24;font-weight:bold;" class="text-center">保留中</td>
+                          <td style="color: #bbbb24;font-weight:bold;" class="text-center">On Hold</td>
                           @else($current_date > $end_date)
-                          <td style="color: red;font-weight:bold;" class="text-center">期限切れ</td>
+                          <td style="color: red;font-weight:bold;" class="text-center">Expired</td>
                           @endif
                           <td class="text-center">
                             <form action="{{URL::to('schedule-action')}}" method="post">
@@ -75,17 +75,17 @@
 
                               @if($schedule->status == 1)
                               <!-- <input type="submit" name="" class="btn btn-danger btn-sm" value="Stop"> -->
-                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">停止</button>
+                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">Stop</button>
 
-                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">削除</button>
+                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">Delete</button>
 
                               @elseif($schedule->status == 0)
                               <!-- <input type="submit" name="" class="btn btn-success btn-sm" value="Start"> -->
-                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">開始</button>
+                              <button type="button" name="btn" id="schedule_start{{$schedule->s_id}}" class="btn btn-success btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);">Start</button>
 
-                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">停止</button>
+                              <button type="button" name="btn" id="schedule_stop{{$schedule->s_id}}" class="btn btn-danger btn-sm" value="{{$schedule->s_id}}" onclick="schedule_action(this.value);" style="display: none;">Stop</button>
                               @endif
-                              <a href="{{URL::to('schedule-delete/'.$schedule->s_id)}}" class="btn btn-danger btn-sm" onclick="return confirm_click();">削除する</a>
+                              <a href="{{URL::to('schedule-delete/'.$schedule->s_id)}}" class="btn btn-danger btn-sm" onclick="return confirm_click();">Delete</a>
                             </form>
                             
                           </td>

@@ -22,14 +22,14 @@
                         @endif
 
                         <div class="form-group row">
-                            <label class="col-2 col-form-label">試用期間 (日)</label>
+                            <label class="col-2 col-form-label">Trial Period (Days)</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="trial_period"
                                        value="{{$single_setting_info->trial_period}}" placeholder="Enter trial period">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-2 col-form-label">請求書猶予時間 (日)</label>
+                            <label class="col-2 col-form-label">Invoice Grace Period (Day)</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="invoice_grace_time"
                                        value="{{$single_setting_info->invoice_grace_time}}"
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-2 col-form-label">送信単価 ( <span style="font-size: 20px;">¥</span> )</label>
+                            <label class="col-2 col-form-label">Send Bid ( <span style="font-size: 20px;">¥</span> )</label>
                             <div class="col-4">
                                 <input type="text" class="form-control" name="message_rate"
                                        value="{{$single_setting_info->message_rate}}"

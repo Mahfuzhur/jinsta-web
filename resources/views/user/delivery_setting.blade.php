@@ -6,7 +6,7 @@
         <form action="{{URL::to('set-schedule')}}"  method="post">
             {{csrf_field()}}
           <div class="col-md-12 delivery_setting">
-              <h4>宛先 & 原稿設定</h4>
+              <h4>Address & Document Settings</h4>
               @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -40,10 +40,10 @@
 
                 <div class="input_box">
                       <label for="destination">
-                          原稿
+                          Manuscript
                       </label>
                       <select class="dest_input" id="destination" name="destination" required="">
-                          <option value="">原稿を選択</option>
+                          <option value="">Select Original</option>
                            @foreach($templates as $template)
                             <option value="{{$template->id}}">{{$template->title}}</option>
                             @endforeach
@@ -51,10 +51,10 @@
                   </div>
                   <div class="input_box">
                       <label for="draft">
-                          宛先
+                          Destination
                       </label>
                       <select class="draft_input" id="draft" name="draft" required="">
-                          <option value="">ハッシュタグリストを選択</option>
+                          <option value="">Select Hashtag List</option>
                           @if(isset($hashtags))
                           @foreach($hashtags as $hashtag)
                           <option value="{{$hashtag->id}}">{{$hashtag->hashtag}}</option>
@@ -67,18 +67,18 @@
 
               </div>
               <div class="sc_settings left-border m-b-40">
-                  <h4>スケジュール設定</h4>
+                  <h4>Schedule Settings</h4>
                   <div class="input_box">
-                      <label for="delivery_pr">配信期間<span class="msg_font">(期間を選択してください。)</span>
+                      <label for="delivery_pr">Delivery Period<span class="msg_font">(Please Select a Period.)</span>
                       </label>
                       <div class="input_group">
                           <div class="input-group">
-                            <input type="text" name="delivery_period_start" id="delivery_pr_start" placeholder="日付フォーマットDD-MM-YY" value="" required="" onchange="my_function();">
+                            <input type="text" name="delivery_period_start" id="delivery_pr_start" placeholder="Date Format DD-MM-YY" value="" required="" onchange="my_function();">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>                                  
                           <span class="in_divider">~</span>
                           <div class="input-group">
-                            <input id="delivery_pr_end" type="text" class="" name="delivery_period_end" value="" placeholder="日付フォーマットDD-MM-YY" required="" onchange="my_function();">
+                            <input id="delivery_pr_end" type="text" class="" name="delivery_period_end" value="" placeholder="Date format DD-MM-YY" required="" onchange="my_function();">
                             <span class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></span>   
                           </div>
                       </div>                                               
@@ -98,7 +98,7 @@
                       </div>                                               
                   </div> -->
                   <div class="input_box">
-                      <label for="sp_time">時間指定<span class="msg_font">(時刻を選択してください。)</span>
+                      <label for="sp_time">Specified Time<span class="msg_font">(Please Select a Time.)</span>
                       </label>
                       <div class="input_group">
                           <div class="input-group">
@@ -128,14 +128,14 @@
                   </div> -->
               </div>
               <div class="left-border m-b-40">
-                  <h4>1日当たりの想定送信回数 </h4>                          
+                  <h4>Estimated Number of Transmissions Per Day</h4>
                   <div class="input_box sent_count">
-                      <h5 class="sent_times" id="sent_times">0通</h5>
+                      <h5 class="sent_times" id="sent_times">0</h5>
                       <!-- <h5 class="sent_times">288通</h5>  -->                                                
                   </div>
                   <div class="ds_btn_holder">
                     <button class="ds_btn">
-                        設定する
+                        Set
                     </button>
                   </div>
               </div>             

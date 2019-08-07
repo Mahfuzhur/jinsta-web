@@ -7,7 +7,7 @@
                 {{csrf_field()}}
                 <div class="col-sm-12 main_content">
                     <div class="box_title">
-                        <h4>宛先リスト名：テストテストテスト</h4>
+                        <h4>Destination List Name: Test</h4>
                     </div>
                     @if ($errors->any())
                     <div class="alert alert-danger">
@@ -46,20 +46,20 @@
                     </div>
                     @endif
                     <div class="hashtag_title left-border m-b-40">
-                        <h4>#から作成</h4>
+                        <h4>#Create From</h4>
                         <div class="input_box">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id=""><i class="fa fa-plus-circle"></i></span>
                                 </div>
-                                <input type="text" name="hashtag" id="hashtag" placeholder="#から作成"
+                                <input type="text" name="hashtag" id="hashtag" placeholder="#Create From"
                                        class="hashtag_input form-control" required="">
                             </div>
                         </div>
 
                     </div>
                     <div class="hashtag_title left-border m-b-40">
-                        <h4 class="">csvファイルのアップロード</h4>
+                        <h4 class="">CSV File Upload</h4>
                         <div class="input_box">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -77,13 +77,13 @@
                     </div>
 
                     <div class="hashtag_title left-border m-b-40">
-                        <h4>個別入力</h4>
+                        <h4>Individual Input</h4>
                         <div class="input_box">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id=""><i class="fa fa-pencil"></i></span>
                                 </div>
-                                <input type="text" name="id" id="id" placeholder="コンマ（、）で区切られたIDを与える" class="id_input form-control">
+                                <input type="text" name="id" id="id" placeholder="Give IDs separated by comma (,)" class="id_input form-control">
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
 
                     <div class="form_buttons">
                         <!-- <button class="btn_cancel p_btn">削除する</button> -->
-                        <button type="submit" class="btn_done p_btn">登録する</button>
+                        <button type="submit" class="btn_done p_btn">Sign Up</button>
                     </div>
                 </div>
             </form>

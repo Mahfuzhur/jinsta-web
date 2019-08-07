@@ -28,16 +28,16 @@
               @endif
               <!-- <h4>テンプレート名：テストテストテスト</h4> -->
               <label for="temp_regi">
-                 テンプレート名
+                  Template Name
               </label>
-              <input type="text" class="form-control title" id="text" name="title" value="{{$single_template->title}}" maxlength="170" placeholder="テストテストテスト" rows="5">
+              <input type="text" class="form-control title" id="text" name="title" value="{{$single_template->title}}" maxlength="170" placeholder="Test test test" rows="5">
           </div>
             <div class="m-b-35"> 
                 <div class="input_box">
                     <label for="temp_regi">
-                       テキスト登録
+                        Text Registration
                     </label>
-                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="テストですよー" rows="5">{{$single_template->description}}</textarea>
+                    <textarea class="form-control" id="text" name="description" maxlength="170" placeholder="It is a Test" rows="5">{{$single_template->description}}</textarea>
             <span class="pull-right label label-default" id="count_message"></span>                 
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <div class="input_box">
                     <label for="file">                          
                         <span><i class="fa fa-download" aria-hidden="true"></i></span>
-                        <span>画像登録</span>                          
+                        <span>Image Registration</span>
                     </label>
                     <input type="file" name="image" id="file" class="inputfile csv_input" data-multiple-caption="{count} files selected" multiple="" onchange="readimageURL(this);">
                     <input type="hidden" name="exits_image" value="{{$single_template->image}}">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="form_buttons">
                     <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
-                    <input class="btn_done p_btn" type="submit" value="保存する">
+                    <input class="btn_done p_btn" type="submit" value="Save">
                 </div>
             </div>
             
@@ -75,7 +75,7 @@
             </div>
           </div>
           <div class="preview_btn">
-          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">表示サンプルを確認</a></button>
+          <button class="btn btn-default btn-lg"><a href="#" class="preview" onclick="getPreview();">Confirm Display Sample</a></button>
           </div>
         </div>
       </div>

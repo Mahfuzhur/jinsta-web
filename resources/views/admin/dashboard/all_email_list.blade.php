@@ -27,20 +27,20 @@
                       {{csrf_field()}}
                 <div style="margin-bottom: 15px;">
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
-                    <input type='checkbox' name='showhide' onchange="checkAll(this)" style="width: 20px;height: 20px;margin-left: 10px;"><span style="font-weight: bold;font-size: 20px;padding-left: 5px;">すべて選択</span>
+                    <input type='checkbox' name='showhide' onchange="checkAll(this)" style="width: 20px;height: 20px;margin-left: 10px;"><span style="font-weight: bold;font-size: 20px;padding-left: 5px;">Select All</span>
 
 <!--                <div style="margin-bottom: 15px;margin-left: 10px;">-->
 <!--                  <input type="checkbox" name="email"> <span style="font-weight: bold;">Select All</span>-->
-                    <button type="submit" class="btn btn-success btn-md pull-right" style="background: #06af94; float:right">メール作成</button>
+                    <button type="submit" class="btn btn-success btn-md pull-right" style="background: #06af94; float:right">Mail Creation</button>
                 </div>
                   <div class="table-wrapper-scroll-y my-custom-scrollbar">
                   <table class="table table-hover table-bordered">
                     <thead>
                       <tr>
-                        <th scope="col" class="text-center">マーク</th>
-                        <th scope="col" class="text-center">会社名</th>
-                        <th scope="col" class="text-center">担当者名</th>
-                        <th scope="col" class="text-center">メールアドレス</th>
+                        <th scope="col" class="text-center">Mark</th>
+                        <th scope="col" class="text-center">Company Name</th>
+                        <th scope="col" class="text-center">Contact Name</th>
+                        <th scope="col" class="text-center">Mail Address</th>
                       </tr>
                     </thead>
                     <tbody>

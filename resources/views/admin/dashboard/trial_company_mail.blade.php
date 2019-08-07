@@ -49,7 +49,7 @@
                     <div class="m-b-35">
                         <div class="input_box">
                             <label for="temp_regi">
-                                テキスト登録
+                                Text Registration
                             </label>
                             <textarea class="form-control" id="text1" name="body" maxlength="170"
                                       placeholder="mail body" rows="5"></textarea>
@@ -60,7 +60,7 @@
                         <div class="input_box">
                             <label for="file">
                                 <span><i class="fa fa-download" aria-hidden="true"></i></span>
-                                <span style="font-size: 13px;">画像登録(推奨画像サイズ：横1200px×縦600px)</span>
+                                <span style="font-size: 13px;">Image Registration (Recommended Image Size: 1200px Wide x 600px High)</span>
 
                             </label>
                             <input type="file" name="file" id="file" class="inputfile csv_input"
@@ -73,7 +73,7 @@
                         </div>
                         <div class="form_buttons">
                             <!-- <input class="btn_cancel p_btn" type="submit" value="削除する"> -->
-                            <input class="btn_done p_btn" type="submit" value="登録する">
+                            <input class="btn_done p_btn" type="submit" value="Sign Up">
                         </div>
                     </div>
 

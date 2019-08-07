@@ -507,14 +507,14 @@
                     <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                     <ul class="dropdown-item-holder">
                         <li>
-                        <a class="dropdown-item" href="{{URL::to('all-company-list')}}">ダッシュボード</a>
+                        <a class="dropdown-item" href="{{URL::to('all-company-list')}}">Dashboard</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{URL::to('settings')}}">設定</a>
+                            <a class="dropdown-item" href="{{URL::to('settings')}}">Configuration</a>
                         </li>
                         <li>
                           <a class="dropdown-item" href="{{URL::to('admin-logout')}}" onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">ログアウト</a>
+                             document.getElementById('logout-form').submit();">Logout</a>
                              <form id="logout-form" action="{{URL::to('admin-logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>
@@ -543,39 +543,39 @@
                 <a class="template active" href="{{URL::to('all-company-list')}}">
                     <!--<span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>-->
                     <i class="fas fa-address-book"></i>
-                    アカウント管理
+                    Account Management
                 </a>
               @else
                 <a class="template" href="{{URL::to('all-company-list')}}">
                     <!--<span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>-->
                     <i class="fas fa-address-book"></i>
-                    アカウント管理
+                    Account Management
                 </a>
               @endif
                 @if(isset($active_invoice))
                 <a class="Plan active" href="{{URL::to('invoice')}}">
                     <!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
                     <i class="fa fa-file-invoice"></i>
-                    請求管理
+                    Billing Management
                 </a>
                 @else
                 <a class="Plan" href="{{URL::to('invoice')}}">
                     <!--                  <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
                     <i class="fa fa-file-invoice"></i>
-                    請求管理
+                    Billing Management
                 </a>
                 @endif
               @if(isset($active_mail))
                 <a class="Plan active" href="{{URL::to('all-email')}}">
                     <!--<span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
                     <i class="fa fa-envelope"></i>
-                    請求担当者管理
+                    Billing Agent Management
                 </a>
               @else
                 <a class="Plan" href="{{URL::to('all-email')}}">
                     <!--<span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>-->
                     <i class="fa fa-envelope"></i>
-                    請求担当者管理
+                    Billing Agent Management
                 </a>
               @endif
               <!-- @if(isset($active_trial))

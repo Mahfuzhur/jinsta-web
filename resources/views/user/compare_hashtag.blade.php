@@ -22,17 +22,17 @@
             </div>
 
             <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
-            <h4>配信詳細設定</h4>
+            <h4>Delivery Detail Setting</h4>
             <div class="hashtag_title left-border m-b-40">
                 <div class="input_box">
 
                     <div class="input-group">
-                        <input type="text" name="hashtag" id="hashtag"  value="宛先名： {{$compareHashtag->hashtag}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 415px;">
-                        <input type="text" name="hashtag" id="hashtag"  value="送信対象者数: {{$compareHashtag->total_user}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 415px;">
+                        <input type="text" name="hashtag" id="hashtag"  value="Destination Name： {{$compareHashtag->hashtag}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 415px;">
+                        <input type="text" name="hashtag" id="hashtag"  value="Number of People to Send: {{$compareHashtag->total_user}}" class="hashtag_input" required="" style="border-radius: 2px;max-width: 415px;">
                     </div>                   
                 </div>
             </div>
-            <h4>除外ハッシュタグ</h4>
+            <h4>Excluded Hashtag</h4>
             <h5 id="exception_msg" style="color: red;"></h5>
             <div class="hashtag_title left-border m-b-40">
                 <div class="input_box">                    
@@ -79,7 +79,7 @@
                 <input type="hidden" name="newHashtag[]" value="{{$new_hashtag}}">
                 @endforeach
                 <div class="form_buttons">
-                    <button type="sybmit" class="btn_done p_btn">除外リストを保存</button>
+                    <button type="sybmit" class="btn_done p_btn">Save Exclusion List</button>
                 </div>
                 @endif
 
@@ -127,7 +127,7 @@
 
                 <div class="form_buttons">
                     <!-- <button class="btn_cancel p_btn">削除する</button> -->
-                    <button type="sybmit" class="btn_done p_btn">登録</button>
+                    <button type="sybmit" class="btn_done p_btn">Registration</button>
                 </div>
                 @endif
 

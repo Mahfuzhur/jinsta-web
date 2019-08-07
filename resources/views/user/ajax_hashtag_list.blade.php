@@ -22,7 +22,7 @@
 		    </div>
 
 			<meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
-	        <h4>#から作成</h4>
+	        <h4>#Create From</h4>
 	        <h5 id="exception_msg" style="color: red;"></h5>
 	        <div class="alert alert-success" id="hashtag_session_save" style="display: none;"></div>
 	        		
@@ -70,7 +70,7 @@
 	                    @elseif(Session::get('hashtag_found_msg'))
 	                    <input type="text" name="hashtag" id="hashtag"  value="{{old('hashtag')}}" class="hashtag_input" required="">
 	                    @else
-	                    <input type="text" name="hashtag" id="hashtag"  placeholder="#なしでキーワードだけ入力してください" class="hashtag_input" required="">
+	                    <input type="text" name="hashtag" id="hashtag"  placeholder="#Please enter only keywords without" class="hashtag_input" required="">
 	                    @endif
 	                    
 
@@ -115,7 +115,7 @@
 			    
 			    <div class="form_buttons">
 			        <!-- <button class="btn_cancel p_btn">削除する</button> -->
-			        <button type="button" id="ajax_hashtag_save" class="btn_done p_btn">登録</button>
+			        <button type="button" id="ajax_hashtag_save" class="btn_done p_btn">Registration</button>
 			    </div>
 			    @endif
 
