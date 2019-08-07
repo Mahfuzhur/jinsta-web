@@ -19,7 +19,7 @@
                         @endif
                     </div><br>
                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                      <label for="email">Instagramユーザーネーム</label>
+                      <label for="email">Instagram User Name</label>
                       <input type="name" class="form-control" name="email" id="email" placeholder="Username" value=""  required="">
                       @if ($errors->has('email'))
                           <span class="help-block">
@@ -32,7 +32,7 @@
                       <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="">
                       @if ($errors->has('password'))
                           <span class="help-block">
-                              <strong>パスワードは6文字以上で設定をお願いします。</strong>
+                              <strong>Please set the password with at least 6 characters.</strong>
                           </span>
                       @endif
                     </div>

@@ -83,7 +83,7 @@
     
     <div class="form_buttons">
         <!-- <button class="btn_cancel p_btn">削除する</button> -->
-        <button type="sybmit" class="btn_done p_btn">登録</button>
+        <button type="sybmit" class="btn_done p_btn">Registration</button>
     </div>
     @endif
 

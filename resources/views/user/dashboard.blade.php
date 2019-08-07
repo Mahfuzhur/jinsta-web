@@ -26,19 +26,19 @@
                     </div>
                     @endif
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="お名前" required="">
+                    <input type="text" name="name" class="form-control" placeholder="Name" required="">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="company_name" class="form-control" placeholder="ご担当部署" required="">
+                    <input type="text" name="company_name" class="form-control" placeholder="Department in Charge" required="">
                   </div>
                     <div class="form-group">
-                        <input type="text" name="contact_number" class="form-control" placeholder="電話番号" required="">
+                        <input type="text" name="contact_number" class="form-control" placeholder="Phone Number" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="street" class="form-control" placeholder="住所" required="">
+                        <input type="text" name="street" class="form-control" placeholder="Street Address" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="postal_code" class="form-control" placeholder="郵便番号" required="">
+                        <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" required="">
                     </div>
                     <!-- <p>Do you want to save changes you made to document before closing?</p>
                     <p class="text-warning"><small>If you don't save, your changes will be lost.</small></p> -->
@@ -71,11 +71,7 @@
              <center><img class="test_img" src="{{$json_selfinfo['user']['profile_pic_url']}}"></center>
               <div class="test"><center>{{$json_selfinfo['user']['username']}}</center></div>
             @else
-            <div class="test"><center style="color: #c32727;font-size: 20px;text-align: justify !important; padding: 20px;">*このメッセージは、テンプレートを送信できないことを示しています。
-
-              2要素認証をオフにして、[設定]の[プライバシーとセキュリティ]オプションで自分のプロファイルを公開してください。
-
-              ここであなたのInstagramの資格情報を更新する <a href="{{URL::to('update-instagram-info')}}" style="color: #06af94;">Update</a></center></div>
+            <div class="test"><center style="color: #c32727;font-size: 20px;text-align: justify !important; padding: 20px;">*This message indicates that the template can not be sent.Please turn off two-factor authentication and publish your profile in the "Privacy & Security" option in Settings. Update Your Instagram Credentials Here <a href="{{URL::to('update-instagram-info')}}" style="color: #06af94;">Update</a></center></div>
             @endif
 <!--             <div class="row inst_section">-->
 <!--                <div class="inst_title first">-->
@@ -103,18 +99,18 @@
         <div id="exTab1" class="m-t-25">
           <ul class="nav nav-pills">
               <li>
-                  <a href="#1a" data-toggle="tab">日</a>
+                  <a href="#1a" data-toggle="tab">Day</a>
               </li>
               <li class="active">
-                  <a href="#2a" data-toggle="tab">週</a>
+                  <a href="#2a" data-toggle="tab">Week</a>
               </li>
               <li>
-                  <a class="show active" href="#3a" data-toggle="tab">月</a>
+                  <a class="show active" href="#3a" data-toggle="tab">Moon</a>
               </li>                    
           </ul>
           <div class="tab-content">                    
             <div class="tab-pane" id="1a">
-                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
+                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Dashboard</h3><br>
                   <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
@@ -166,13 +162,13 @@
                     </div>
                  </div>  -->
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 : {{$last_day}}</b></span> <br>
+                    <span class="total"><b>Number of Transmissions: {{$last_day}}</b></span> <br>
                     <!-- <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
                     <span class="total"><b> 既読率 </br>1% </b></span> -->
                 </div>
             </div>
             <div class="tab-pane" id="2a">
-                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
+                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Dashboard</h3><br>
                 <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
@@ -224,13 +220,13 @@
                     </div>
                  </div>  -->                  
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 : {{$last_week}}</b></span> <br>
+                    <span class="total"><b>Number of Transmissions: {{$last_week}}</b></span> <br>
                     <!-- <span class="total"><b>既読数 </br> 1,000 </b></span> <br>
                     <span class="total"><b> 既読率 </br> 1% </b></span> -->
                 </div>                      
           </div>
           <div class="tab-pane active" id="3a">
-                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>ダッシュボード</h3><br>
+                <h3 class="pro_info"><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Dashboard</h3><br>
                 <!-- <div class="row progress_vertical_holder">
                     <div class="progress_vertical">                                
                        <div class="progress progress-bar-vertical">
@@ -282,7 +278,7 @@
                     </div>
                  </div> -->                     
                  <div class="dash_footer">
-                    <span class="total"><b>送信数 : {{$last_month}}</b></span> <br>
+                    <span class="total"><b>Number of Transmissions: {{$last_month}}</b></span> <br>
                     <!-- <span class="total"><b>既読数 <br> 1,000</b></span> <br>
                     <span class="total"><b>既読率 <br> 1%</b></span> -->
                 </div>                      
@@ -291,7 +287,7 @@
         </div>
         <div class="progress_view m-t-30">
 
-           <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""></span> 進行ステータス</h4>
+           <h4 class="progress_margin"><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""></span> Progress Status</h4>
            @if(isset($data_info))
            @foreach($data_info['dm_sent'] as $data )
             @foreach($data_info['without_dm_sent'] as $without_data )                     

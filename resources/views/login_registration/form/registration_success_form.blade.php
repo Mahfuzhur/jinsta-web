@@ -3,7 +3,7 @@
 <div class="container u_main_content">
       <div class="row">
           <div class="page_heading">
-              <h2 class="">3STEPで簡単サインイン</h2>
+              <h2 class="">Easy Sign In in 3STEP</h2>
           </div>
           <div class="wizard">
               <div class="wizard-inner">
@@ -37,12 +37,12 @@
 
               <div class="sign_in_form">
                 <div class="form_title">
-                  <h3>登録が完了しました！</h3>
+                  <h3>Registration Has Been Completed ！</h3>
                   <p style="color: green;">A verification link has been sent to your email.</p>
                 </div>
                 <a href="{{URL::to('/')}}">
                   <div class="button_holder">                                     
-                    <button type="button" class="btn registration_btn" style="padding: 6px 15px;">ホーム</button>
+                    <button type="button" class="btn registration_btn" style="padding: 6px 15px;">Home</button>
                   </div>
                 </a>
                 

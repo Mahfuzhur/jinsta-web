@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
+    <link rel="stylesheet" href="file/to/path/css/emojionearea.min.css">
+    <script type="text/javascript" src="file/to/path/js/emojionearea.min.js"></script>
 
     <title>
         @if(isset($title))
@@ -33,7 +34,7 @@
 
 
 .load__none {
-  display: none;  
+  display: none;
   color:#fff;
 }
 
@@ -78,7 +79,7 @@
 @keyframes turn {
   from {transform: rotate(0deg)}
   to {transform: rotate(360deg)}
-} 
+}
 
 .load__title {
   color: #fff;
@@ -96,7 +97,7 @@
   100% {
     opacity: 1;
   }
-  
+
 }
 </style>
 
@@ -161,11 +162,11 @@
                             <span><i class="fa fa-angle-down" aria-hidden="true"></i></span>
                             <ul class="dropdown-item-holder">
                                 <li>
-                                    <a class="dropdown-item" href="{{URL::to('dashboard')}}">ダッシュボード</a>
+                                    <a class="dropdown-item" href="{{URL::to('dashboard')}}">Dashboard</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                             document.getElementById('logout-form').submit();">ログアウト</a>
+                             document.getElementById('logout-form').submit();">Logout</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                           style="display: none;">
                                         {{ csrf_field() }}
@@ -194,67 +195,67 @@
             @if(isset($active_manuscript))
             <a class="template active" href="{{URL::to('manuscript-registration')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>
-                原稿登録
+                Template
             </a>
             @else
             <a class="template" href="{{URL::to('manuscript-registration')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/send.png')}}" alt=""></span>
-                原稿登録
+                Template
             </a>
             @endif
             @if(isset($active_destination))
             <a class="Plan active" href="{{URL::to('destination-registration')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                宛先登録
+                Target
             </a>
             @else
             <a class="Plan" href="{{URL::to('destination-registration')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/person.png')}}" alt=""></span>
-                宛先登録
+                Target
             </a>
             @endif
             @if(isset($delivery_setting))
             <a class="Schedule active" href="{{URL::to('delivery-setting')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/calandersetting.png')}}" alt=""></span>
-                配信設定
+                Schedule
             </a>
             @else
             <a class="Schedule" href="{{URL::to('delivery-setting')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/calandersetting.png')}}" alt=""></span>
-                配信設定
+                Schedule
             </a>
             @endif
             @if(isset($schedule_list))
             <a class="Summary active" href="{{URL::to('schedule-list')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/sc.png')}}" alt=""></span>
-                スケジュールリスト
+                Schedule List
             </a>
             @else
             <a class="Summary" href="{{URL::to('schedule-list')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/sc.png')}}" alt=""></span>
-                スケジュールリスト
+                Schedule List
             </a>
             @endif
             @if(isset($analytics))
             <a class="Progress active" href="{{URL::to('analytics')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/analytics.png')}}" alt=""></span>
-                アナリティクス
+                Analytics
             </a>
             @else
             <a class="Progress" href="{{URL::to('analytics')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/analytics.png')}}" alt=""></span>
-                アナリティクス
+                Analytics
             </a>
             @endif
             @if(isset($request))
             <a class="Summary active" href="{{URL::to('request')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
-                ご請求
+                Billing
             </a>
             @else
             <a class="Summary" href="{{URL::to('request')}}">
                 <span class="sidebar_icon"><img src="{{asset('assets/img/payment.png')}}" alt=""></span>
-                ご請求
+                Billing
             </a>
             @endif
 
@@ -276,7 +277,7 @@
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        
+
           <!-- /#page-content-wrapper -->
       </div>
 
@@ -307,12 +308,12 @@
       @endif
     <script>
 
-        
+
 
         $(document).ready(function(){
 
         /* hashtag list serach start*/
- 
+
          $("#but_search").click(function(){
           var hashtag = $('#hashtag').val();
 
@@ -341,12 +342,12 @@
             $("#Load").hide();
            }
           });
-         
+
          });
 
         /* hashtag list serach end*/
 
-        
+
         /* compare hashtag list serach start*/
 
          $("#but_search_hashtag").click(function(){
@@ -366,7 +367,7 @@
             $("#Load").show();
            },
            success: function(response){
-            
+
             if(response.data == 1){
               $('#exception_msg').html(response.insta_credential_err);
             }else if(response.data == 2){
@@ -381,7 +382,7 @@
             $("#Load").hide();
            }
           });
-         
+
          });
 
          /* compare hashtag list serach end*/
@@ -395,7 +396,7 @@
         $("#except_end").datepicker({ dateFormat: 'dd-mm-yy'});
       });
 
-      function readURL(input) { 
+      function readURL(input) {
 
         $('.preview').show();
         $('#blah').hide();
@@ -496,6 +497,13 @@
     }
 </script>
 
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#demo1").emojioneArea({
+            container: "#container",
+            hideSource: false,
+        });
+    });
+</script>
 </body>
 </html>

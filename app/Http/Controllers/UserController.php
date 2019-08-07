@@ -729,6 +729,18 @@ class UserController extends Controller
             ->join('template', 'template_schedule.template_id', '=', 'template.id')
             ->whereNull('schedule.deleted_at')->where('client.user_id',$user_id)->groupBy('client.hashtag_id')->orderBy('schedule.id','desc')->paginate(3);
 
+            $data_info['template_sent'] = History::selectRaw('template.title,template.image, COUNT(history.template_name) AS total_sent')
+            ->join('hashtag', 'history.hashtag_name', '=', 'hashtag.id')
+            ->join('hashtag_schedule', 'hashtag.id', '=', 'hashtag_schedule.hashtag_id')
+            ->join('schedule', 'hashtag_schedule.schedule_id', '=', 'schedule.id')
+            ->join('template_schedule', 'hashtag_schedule.schedule_id', '=', 'template_schedule.schedule_id')
+            ->join('template', 'template_schedule.template_id', '=', 'template.id')
+            ->whereNull('schedule.deleted_at')->where('history.dm_sent',1)->where('history.user_id',$user_id)->groupBy('history.template_name')->orderBy('schedule.id','desc')->paginate(3);
+
+            // echo "<pre>";
+            // print_r($data_info['template_sent']);
+            // exit();
+
         $user_main_content = view('user.analytics',compact('numberOfLists','numberSent','data_info','numberOfSchedule'));
         return view('master',compact('user_main_content','analytics','title'));
         }else{

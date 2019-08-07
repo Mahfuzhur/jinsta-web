@@ -42,7 +42,7 @@
               </div>
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span> 進行ステータス</h4>      
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span> Progress Status</h4>
                   @if(isset($data_info))
                    @foreach($data_info['dm_sent'] as $data )
                     @foreach($data_info['without_dm_sent'] as $without_data )                     
@@ -90,7 +90,59 @@
                          </div>
                       </div>  
                 </div> -->
-            </div>                    
+            </div>
+            <div class="row temp_holder">
+            <div id="temp_carousel" class="col-md-12">                      
+              <div class="row">
+                <?php $i = 1;?>
+                @foreach($data_info['template_sent'] as $template)
+                <div class="col-sm-4">
+                  <div class="single_template">
+                      <div class="img_holder">
+                        <span class="badge"><span>DM</span><br>{{$template->total_sent}}</span>
+                        @if($template->image != NULL)
+                          <img src="{{asset('uploads/'.$template->image)}}" alt="Image" style="width:250px;height: 150px;">
+                        @else
+                        <img src="{{asset('assets/img/No_Image_Available.jpg')}}" alt="Image" style="width:250px;height: 150px;">
+                        @endif
+                      </div>
+                      <div class="temp_content">
+                          <div class="title">
+                              <h4>{{ str_limit($template->title, $limit = 15, $end = '...') }}</h4>
+                          </div>
+                          <div class="temp_desc">
+                              <p>{{ str_limit($template->description, $limit = 30, $end = '...') }}
+                              <!-- </br> 本日は良い天気ですね。 -->
+                            </p>
+                          </div>                              
+                          <!-- <div class="edit_icon">
+                              <a href="{{URL::to('edit-template/'.Crypt::encrypt($template->id))}}">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                              </a>
+                              <span onclick="return confirm_click();">
+                              <a href="{{URL::to('delete-template/'.$template->id)}}" class="confirmation">
+                                <i class="fa fa-remove" aria-hidden="true"></i>
+                              </a>
+                            </span>
+                          </div> -->
+                      </div>
+                  </div>
+                </div>
+                  <?php $i++;?>
+                @endforeach
+                  </div>                                                         
+              </div>
+              <!--.row-->
+
+              <!-- pagination  -->
+              <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                {{$data_info['template_sent']->links()}}                         
+                  <!-- <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>  -->                        
+                </ul>
+              </nav>                   
+        </div>
             </div>
             <!-- <div class="col-md-5">
               <div id="exTab1">
@@ -133,16 +185,16 @@
         </div>
         <div class="row box_holder">
           <div class="rect_box">
-            <h4>リスト数 <br> {{$numberOfLists}}</h4>
+            <h4>Number of Lists <br> {{$numberOfLists}}</h4>
           </div>
           <div class="rect_box">
-            <h4>送信数 <br> {{$numberSent}}</h4>
+            <h4>Number of Transmissions <br> {{$numberSent}}</h4>
           </div>
           <!-- <div class="rect_box">
             <h4>開封率</h4>
           </div> -->
           <div class="rect_box">
-            <h4>アクション回数 <br>{{$numberOfSchedule}}</h4>
+            <h4>Number of Actions <br>{{$numberOfSchedule}}</h4>
           </div>
         </div>
 <!--        <div class="envelope_area">-->
@@ -153,4 +205,16 @@
 <!--           </div>-->
 <!--        </div>           -->
   </div>
+  
+  <style type="text/css">
+  .badge{
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    padding: 25px 25px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: black;
+    border: 1px solid #06af94;
+</style>
 @endsection

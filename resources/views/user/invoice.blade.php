@@ -28,7 +28,7 @@
 <body>
 
 <div>
-    <h1 style="text-align: center;">御請求書</h1>
+    <h1 style="text-align: center;">Your bill</h1>
 </div>
 
 
@@ -64,7 +64,7 @@
         <!--            <img src="{{asset('assets/img/logo.png')}}">-->
         <p>
             <span><img src="{{asset('assets/img/pdf_logo.PNG')}}" alt="" style="width: 150px;height: 50px;"></span><br>
-            <span>株式会社TagLetter</span><br>
+            <span>Corporation TagLetter</span><br>
             <span>〒171-0021</span><br>
             <span>東京都豊島区西池袋 1-11-1</span><br>
             <span>メトロポリタンプラザビル14階</span><br>

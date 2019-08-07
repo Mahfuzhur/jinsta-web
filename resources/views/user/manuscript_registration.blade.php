@@ -6,7 +6,7 @@
               <a href="{{asset('create-manuscript')}}">
                   <div class="create_new_template">
                     <span><i class="fa fa-plus" aria-hidden="true"></i></span>
-                    <span class="new_template">テンプレート新規作成</span>
+                    <span class="new_template">Create New Template</span>
                   </div>
               </a>
           </div>
@@ -14,11 +14,11 @@
           <div class="tem_sec_holder">
             @if(count($all_template) > 0)
               <div class="tem_sec">
-                   <h4 class="tem_text">登録済みテンプレート</h4>     
+                   <h4 class="tem_text">Registered Template</h4>
               </div>
             @else
             <div class="tem_sec">
-                   <h4 class="tem_text">登録済ずの原稿テンプレートはありません。<br>新規作成をお願いします。</h4>     
+                   <h4 class="tem_text">There is No Manuscript Template Registered.<br>Please Create a New One.</h4>
               </div>
               @endif
           </div>
