@@ -17,25 +17,25 @@
                                         src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Invoice</h4>
                         <div class="col-4" style="margin-top: 20px;">
                             <select name="month" class="form-control" style="box-shadow: 1px 2px 10px #e2dede;">
-                                <option>請求月を選択してください。</option>
-                                <option value="1">{{ date('Y') }}年 1月</option>
-                                <option value="2">{{ date('Y') }}年 2月</option>
-                                <option value="3">{{ date('Y') }}年 3月</option>
-                                <option value="4">{{ date('Y') }}年 4月</option>
-                                <option value="5">{{ date('Y') }}年 5月</option>
-                                <option value="6">{{ date('Y') }}年 6月</option>
-                                <option value="7">{{ date('Y') }}年 7月</option>
-                                <option value="8">{{ date('Y') }}年 8月</option>
-                                <option value="9">{{ date('Y') }}年 9月</option>
-                                <option value="10">{{ date('Y') }}年 10月</option>
-                                <option value="11">{{ date('Y') }}年 11月</option>
-                                <option value="12">{{ date('Y') }}年 12月</option>
+                                <option>Please Select a Billing Month.</option>
+                                <option value="1">{{ date('Y') }} January</option>
+                                <option value="2">{{ date('Y') }} February</option>
+                                <option value="3">{{ date('Y') }} March</option>
+                                <option value="4">{{ date('Y') }} April</option>
+                                <option value="5">{{ date('Y') }} May</option>
+                                <option value="6">{{ date('Y') }} June</option>
+                                <option value="7">{{ date('Y') }} July</option>
+                                <option value="8">{{ date('Y') }} August</option>
+                                <option value="9">{{ date('Y') }} September</option>
+                                <option value="10">{{ date('Y') }} October</option>
+                                <option value="11">{{ date('Y') }} November</option>
+                                <option value="12">{{ date('Y') }} December</option>
                             </select>
                             <input name="year" value="{{ date('Y') }}" type="hidden">
 
                         </div>
                         <div class="col-4" style="margin-top: 20px;">
-                            <button type="submit" class="btn btn-success">詳細</button>
+                            <button type="submit" class="btn btn-success">Details</button>
                         </div>
 
                     </div>
@@ -49,12 +49,12 @@
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">#</th>
-                            <th scope="col" class="text-center">請求番号</th>
-                            <th scope="col" class="text-center">発行日</th>
-                            <th scope="col" class="text-center">入金期限</th>
-                            <th scope="col" class="text-center">送信メッセージ</th>
-                            <th scope="col" class="text-center">ステータス</th>
-                            <th scope="col" class="text-center">管理</th>
+                            <th scope="col" class="text-center">Billing Number</th>
+                            <th scope="col" class="text-center">Issue Date</th>
+                            <th scope="col" class="text-center">Payment Deadline</th>
+                            <th scope="col" class="text-center">Send Message</th>
+                            <th scope="col" class="text-center">Status</th>
+                            <th scope="col" class="text-center">Management</th>
 
 
                         </tr>
@@ -103,13 +103,13 @@
                 <div class="dash_footer">
                     <span class="total">
                         <ul>
-                          <li><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""> </span>送信回数：{{$numberSent}}</li>
-                          <li><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""> </span> 送信単価：¥{{$numberSent*$message_rate->message_rate}}</li>
+                          <li><span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""> </span>The Number of Transmissions：{{$numberSent}}</li>
+                          <li><span><img src="{{asset('assets/img/iconsshade333.png')}}" alt=""> </span> Send Bid：¥{{$numberSent*$message_rate->message_rate}}</li>
                         </ul>
                         <!--<div class="last_request_list">-->
                         <!--  <p>ご請求金額：¥---</p>-->
                         <!--</div>-->
-                    </span>                                                     
+                    </span>
                 </div>
                 <!--<div class="request_upload">-->
                 <!--    <div class="input_box">-->

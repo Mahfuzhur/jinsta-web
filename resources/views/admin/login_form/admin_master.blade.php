@@ -10,7 +10,7 @@
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <title>管理者ログイン</title>
+    <title>Administrator Login</title>
   </head>
   <body class="auth_page @if(isset($sign_in_page)){{$sign_in_page}} @elseif(isset($success_page)) {{$success_page}}@endif" >
     <!-- top header -->

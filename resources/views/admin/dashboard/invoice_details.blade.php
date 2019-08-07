@@ -26,25 +26,25 @@
                                             src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Invoice</h4>
                             <div class="col-4" style="margin-top: 20px;">
                                 <select name="month" class="form-control" style="box-shadow: 1px 2px 10px #e2dede;">
-                                    <option>請求月を選択してください。</option>
-                                    <option value="1">{{ date('Y') }}年 1月</option>
-                                    <option value="2">{{ date('Y') }}年 2月</option>
-                                    <option value="3">{{ date('Y') }}年 3月</option>
-                                    <option value="4">{{ date('Y') }}年 4月</option>
-                                    <option value="5">{{ date('Y') }}年 5月</option>
-                                    <option value="6">{{ date('Y') }}年 6月</option>
-                                    <option value="7">{{ date('Y') }}年 7月</option>
-                                    <option value="8">{{ date('Y') }}年 8月</option>
-                                    <option value="9">{{ date('Y') }}年 9月</option>
-                                    <option value="10">{{ date('Y') }}年 10月</option>
-                                    <option value="11">{{ date('Y') }}年 11月</option>
-                                    <option value="12">{{ date('Y') }}年 12月</option>
+                                    <option>Please Select a Billing Month.</option>
+                                    <option value="1">{{ date('Y') }} January</option>
+                                    <option value="2">{{ date('Y') }} February</option>
+                                    <option value="3">{{ date('Y') }} March </option>
+                                    <option value="4">{{ date('Y') }} April</option>
+                                    <option value="5">{{ date('Y') }} May</option>
+                                    <option value="6">{{ date('Y') }} June</option>
+                                    <option value="7">{{ date('Y') }} July</option>
+                                    <option value="8">{{ date('Y') }} August</option>
+                                    <option value="9">{{ date('Y') }} September</option>
+                                    <option value="10">{{ date('Y') }} October</option>
+                                    <option value="11">{{ date('Y') }} November</option>
+                                    <option value="12">{{ date('Y') }} December</option>
                                 </select>
                                 <input name="user_id" value="{{$user_id}}" type="hidden">
 
                             </div>
                             <div class="col-4" style="margin-top: 20px;">
-                                <button type="submit" class="btn btn-success">詳細</button>
+                                <button type="submit" class="btn btn-success">Details</button>
                             </div>
 
                         </div>
@@ -96,13 +96,13 @@
                             <thead>
                             <tr>
                                 <th scope="col" class="text-center">#</th>
-                                <th scope="col" class="text-center">請求番号</th>
-                                <th scope="col" class="text-center">月</th>
-                                <th scope="col" class="text-center">発行日</th>
-                                <th scope="col" class="text-center">入金期限</th>
-                                <th scope="col" class="text-center">送信メッセージ</th>
-                                <th scope="col" class="text-center">ステータス</th>
-                                <th scope="col" class="text-center">管理</th>
+                                <th scope="col" class="text-center">Billing Number</th>
+                                <th scope="col" class="text-center">Moon</th>
+                                <th scope="col" class="text-center">Date of issue</th>
+                                <th scope="col" class="text-center">Payment Deadline</th>
+                                <th scope="col" class="text-center">Send Message</th>
+                                <th scope="col" class="text-center">Status</th>
+                                <th scope="col" class="text-center">Management</th>
 
 
                             </tr>
@@ -129,9 +129,9 @@
                                 <td class="text-center">{{$invoice->due_date}}</td>
                                 <td class="text-center">{{$invoice->dm_total_number}}</td>
                                 @if($invoice->billing_status == 1)
-                                <td style="color: green;font-weight:bold;" class="text-center">入金済</td>
+                                <td style="color: green;font-weight:bold;" class="text-center">Deposited</td>
                                 @elseif($invoice->billing_status == 0)
-                                <td style="color: red;font-weight:bold;" class="text-center">未入金</td>
+                                <td style="color: red;font-weight:bold;" class="text-center">Not Payment</td>
                                 @endif
                                 <td class="text-center">
                                     <div class="btn-group">
@@ -140,14 +140,14 @@
                                             Payment
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{URL::to('send-invoice-mail/'.$invoice->invoice_id)}}" onclick="return send_invoice_details();">メール送信</a>
+                                            <a class="dropdown-item" href="{{URL::to('send-invoice-mail/'.$invoice->invoice_id)}}" onclick="return send_invoice_details();">Send e-mail</a>
                                             @if($invoice->billing_status == 0)
                                             <a class="dropdown-item"
-                                               href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}" onclick="return payment_received();">入金済</a>
+                                               href="{{URL::to('payment-receive/'.Crypt::encrypt($invoice->invoice_id))}}" onclick="return payment_received();">Deposited</a>
                                             @endif
                                             <a class="dropdown-item"
                                                href="{{URL::to('create-invoice/'.Crypt::encrypt($invoice->user_id).'/'.Crypt::encrypt($invoice->invoice_id))}}"
-                                               target="_blank">請求書を印刷</a>
+                                               target="_blank">Print Invoice</a>
                                             <!-- <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Separated </a>
                                           </div> -->
@@ -170,7 +170,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">請求書情報編集</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Invoice Information</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -186,19 +186,19 @@
                     </div>
                     @endif
                   <div class="form-group">
-                    <input type="text" name="name" class="form-control" placeholder="お名前" required="">
+                    <input type="text" name="name" class="form-control" placeholder="Name" required="">
                   </div>
                   <div class="form-group">
-                    <input type="text" name="company_name" class="form-control" placeholder="ご担当部署" required="">
+                    <input type="text" name="company_name" class="form-control" placeholder="Department in Charge" required="">
                   </div>
                     <div class="form-group">
-                        <input type="text" name="contact_number" class="form-control" placeholder="電話番号" required="">
+                        <input type="text" name="contact_number" class="form-control" placeholder="Phone Number" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="street" class="form-control" placeholder="住所" required="">
+                        <input type="text" name="street" class="form-control" placeholder="Street Address" required="">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="postal_code" class="form-control" placeholder="郵便番号" required="">
+                        <input type="text" name="postal_code" class="form-control" placeholder="Postal Code" required="">
                     </div>
                     <input type="hidden" name="info_id" class="form-control" value="@if(isset($user_info)){{$user_info->id}}@endif">
               </div>

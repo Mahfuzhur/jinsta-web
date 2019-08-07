@@ -14,11 +14,11 @@
                         <thead>
                         <tr>
                             <th scope="col" class="text-center">#</th>
-                            <th scope="col" class="text-center">会社名</th>
-                            <th scope="col" class="text-center">メールアドレス</th>
-                            <th =scope="col" class="text-center">支払済</th>
-                            <th scope="col" class="text-center">未払い</th>
-                            <th scope="col" class="text-center">管理</th>
+                            <th scope="col" class="text-center">Company Name</th>
+                            <th scope="col" class="text-center">Mail Address</th>
+                            <th =scope="col" class="text-center">Paid</th>
+                            <th scope="col" class="text-center">Unpaid</th>
+                            <th scope="col" class="text-center">Management</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -45,7 +45,7 @@
                                 <td class="text-center">{{$unpaid_invoice}}</td>
                                 <td class="text-center">
                                     <!-- <button type="button" name="btn" class="btn btn-success">Details</button> -->
-                                    <a href="{{URL::to('invoice-details/'.Crypt::encrypt($company->id))}}" class="btn btn-success">詳細</a>
+                                    <a href="{{URL::to('invoice-details/'.Crypt::encrypt($company->id))}}" class="btn btn-success">Details</a>
                                 </td>
                             </tr>
                         <?php

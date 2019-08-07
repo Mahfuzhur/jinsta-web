@@ -73,10 +73,10 @@
                       <a href="{{URL::to('instagram-info')}}"><img src="{{asset('assets/img/instagram.png')}}" alt="instagram"></a>
                     @endif -->
                     <a href="{{URL::to('user-registration')}}">
-                        <button class="btn btn-info btn-lg" style="background-color: #06af94">新規登録</button>
+                        <button class="btn btn-info btn-lg" style="background-color: #06af94">Sign Up</button>
                     </a>
                     <a href="{{URL::to('user-login')}}">
-                        <button class="btn btn-info btn-lg" style="background-color: #06af94">ログイン</button>
+                        <button class="btn btn-info btn-lg" style="background-color: #06af94">Login</button>
                     </a>
                     <!-- <a href="{{URL::to('admin')}}">
                         <button class="btn btn-info btn-lg" style="background-color: #06af94">管理者ログイン</button>

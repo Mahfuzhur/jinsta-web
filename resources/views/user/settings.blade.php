@@ -8,7 +8,7 @@
 
                 <div class="progress_view">
                     <h4 class="progress_margin"><span><img src="{{asset('assets/img/settings.jpg')}}" alt=""></span>
-                        設定
+                        Configuration
                     </h4>
                     <div class="form-group row">
                         <label class="col-2 col-form-label">Trial Period</label>

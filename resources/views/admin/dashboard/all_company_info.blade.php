@@ -6,7 +6,7 @@
             <div class="col-md-12">
 
               <div class="progress_view">
-                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>アカウントリスト</h4>
+                <h4 class="progress_margin"> <span><img src="{{asset('assets/img/iconshade222.png')}}" alt=""></span>Account List</h4>
                 @if(session('update_info_msg'))
                 <div class="alert alert-success">
                     <p>{{ session('update_info_msg') }} &#10004; </p>
@@ -27,12 +27,12 @@
                     <thead>
                       <tr>
                         <th scope="col" class="text-center">#</th>
-                        <th scope="col" class="text-center">氏名</th>
-                        <th scope="col" class="text-center">会社名</th>
-                        <th scope="col" class="text-center">メールアドレス</th>
-                        <th scope="col" class="text-center">電話番号</th>
-                        <th scope="col" class="text-center">ステータス</th>
-                        <th scope="col" class="text-center">管理</th>
+                        <th scope="col" class="text-center">Name</th>
+                        <th scope="col" class="text-center">Company Name</th>
+                        <th scope="col" class="text-center">Mail Address</th>
+                        <th scope="col" class="text-center">Phone Number</th>
+                        <th scope="col" class="text-center">Status</th>
+                        <th scope="col" class="text-center">Management</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -53,9 +53,9 @@
                           <td class="text-center">{{$company->email}}</td>
                           <td class="text-center">{{$company->mobile}}</td>
                           @if($company->account_status == 1)
-                          <td style="color: #a29113fa;" class="text-center">お試し</td>
+                          <td style="color: #a29113fa;" class="text-center">Trial</td>
                           @elseif($company->account_status == 2)
-                          <td style="color: red;" class="text-center">停止中</td>
+                          <td style="color: red;" class="text-center">Pause</td>
                           @elseif($company->account_status == 3)
                           <td style="color: green;" class="text-center">Active</td>
                           @endif
@@ -65,16 +65,15 @@
                               <meta type="hidden" name="csrf-token" content="{{csrf_token()}}">
                             <div class="btn-group">
                               <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  管理する
+                                  To Manage
                               </button>
                               <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}">編集</a>
-                                <a class="dropdown-item" href="{{URL::to('delete-company-info/'.$company->id)}}" onclick="return check_delete();">削除</a>
+                                <a class="dropdown-item" href="{{URL::to('edit-company-info/'.Crypt::encrypt($company->id))}}">Edit</a>
+                                <a class="dropdown-item" href="{{URL::to('delete-company-info/'.$company->id)}}" onclick="return check_delete();">Delete</a>
                                 @if($company->account_status == 2)
-                                <a class="dropdown-item" href="javascript:void(0);" title="Make Active" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'active');">活動的</a>
+                                <a class="dropdown-item" href="javascript:void(0);" title="Make Active" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'active');">Active</a>
                                 @elseif($company->account_status == 3)
-                                <a class="dropdown-item" href="javascript:void(0);" title="Make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'suspend');">一時停止
-                                </a>
+                                <a class="dropdown-item" href="javascript:void(0);" title="Make Suspend" value="{{$company->id}}" onclick="suspend_user({{$company->id}},'suspend');">Stop</a>
                                 @endif
                                 <!-- <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated </a>
